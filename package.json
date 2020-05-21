@@ -1,0 +1,34 @@
+{
+  "name": "votacidade-app",
+  "version": "1.0.0",
+  "description": "Calculadora de afinidade para o Vota Cidade 2020",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore --ext .js .",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
+    "format": "npm run prettier -- --write",
+    "check-format": "npm run prettier -- --list-different",
+    "lint-staged": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Minhacps/votacidade-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Minhacps/votacidade/issues"
+  },
+  "homepage": "https://github.com/Minhacps/votacidade-app#readme",
+  "engines": {
+    "yarn": "use npm!"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-prettier": "^6.11.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5"
+  }
+}
