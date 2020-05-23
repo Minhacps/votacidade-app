@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Bug ou Novas funcionalidades
+  - name: Bug ou Nova funcionalidade
     url: https://github.com/Minhacps/votacidade/issues
-    about: Reporte um problema ou sugira novas funcionalidades
+    about: Reporte um problema ou sugira uma nova funcionalidade
