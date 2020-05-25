@@ -10,6 +10,12 @@ Isso é feito através de um questionário o qual ambos respondem e, com base na
 
 Calculadora de afinidade de opinião do Vota Cidade.
 
+## Estrutura da iniciativa
+
+- [Vota Cidade](https://github.com/Minhacps/votacidade)
+  - [Vota Cidade - Site](https://github.com/Minhacps/votacidade-site)
+  - [Vota Cidade - App](https://github.com/Minhacps/votacidade-app)
+
 ## Contribuição
 
 Agradecemos por considerar contribuir com o Vota Cidade! Você encontra como fazê-lo em nosso [Guia de Contribuição](.github/CONTRIBUTING.md).
