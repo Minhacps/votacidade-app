@@ -6,7 +6,7 @@
       "jsx": true
     }
   },
-  "extends": ["eslint:recommended", "eslint-config-prettier"],
+  "extends": ["eslint:recommended", "eslint-config-prettier", "react-app"],
   "rules": {
     "strict": ["error", "never"]
   },
