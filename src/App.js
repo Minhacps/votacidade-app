@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
-import SignUpForm from 'components/Authentication/SignUpForm';
+import SignInForm from 'components/Authentication/SignInForm';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -10,7 +10,7 @@ const App = () => {
   }, []);
 
   if (!user) {
-    return <SignUpForm />;
+    return <SignInForm />;
   }
 
   return <div>Vota Cidade</div>;

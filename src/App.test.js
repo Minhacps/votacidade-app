@@ -17,11 +17,33 @@ describe('App', () => {
     jest.clearAllMocks();
   });
 
+  it('renders sign in form when user is unauthenticated', async () => {
+    mockUnauthenticatedUser();
+
+    const { getByTestId } = render(<App />);
+
+    fireEvent.change(getByTestId('email-input'), {
+      target: { value: 'any@email.com' },
+    });
+    fireEvent.change(getByTestId('password-input'), {
+      target: { value: 'anyPassword' },
+    });
+    fireEvent.click(getByTestId('submit-button'));
+
+    await waitForElementToBeRemoved(() => getByTestId('signup-loader'));
+
+    expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(
+      'any@email.com',
+      'anyPassword',
+    );
+  });
+
   it('renders sign up form when user is unauthenticated', async () => {
     mockUnauthenticatedUser();
 
-    const { getByTestId, getByText } = render(<App />);
+    const { getByTestId } = render(<App />);
 
+    fireEvent.click(getByTestId('signup-button'));
     fireEvent.change(getByTestId('email-input'), {
       target: { value: 'any@email.com' },
     });
