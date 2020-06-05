@@ -30,7 +30,7 @@ describe('App', () => {
     });
     fireEvent.click(getByTestId('submit-button'));
 
-    await waitForElementToBeRemoved(() => getByText('Carregando...'));
+    await waitForElementToBeRemoved(() => getByTestId('signup-loader'));
 
     expect(firebase.auth().createUserWithEmailAndPassword).toBeCalledWith(
       'any@email.com',
