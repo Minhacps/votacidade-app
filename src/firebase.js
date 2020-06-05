@@ -1,0 +1,16 @@
+import * as firebase from 'firebase/app';
+
+import 'firebase/auth';
+import 'firebase/firestore';
+
+var firebaseConfig = {
+  apiKey: 'AIzaSyDIQWupPw0Wtdz8m_bJrjstYuMxSDlGY_g',
+  authDomain: 'vota-cidade-dev.firebaseapp.com',
+  databaseURL: 'https://vota-cidade-dev.firebaseio.com',
+  projectId: 'vota-cidade-dev',
+  storageBucket: 'vota-cidade-dev.appspot.com',
+  messagingSenderId: '825608144160',
+  appId: '1:825608144160:web:46e2d51bec05f2f7254345',
+};
+
+firebase.initializeApp(firebaseConfig);
