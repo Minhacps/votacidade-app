@@ -21,6 +21,14 @@ const SignInForm = () => {
     }
   };
 
+  const signInWithGoogle = () => {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    googleProvider.addScope('profile');
+    googleProvider.addScope('email');
+
+    firebase.auth().signInWithPopup(googleProvider);
+  };
+
   if (loading) {
     return <span data-testid="signup-loader">Carregando...</span>;
   }
@@ -46,12 +54,16 @@ const SignInForm = () => {
 
         <button data-testid="submit-button">Entrar</button>
       </form>
-      <button
-        onClick={() => setShowSignUpForm(true)}
-        data-testid="signup-button"
-      >
-        Cadastrar
-      </button>
+
+      <div>
+        <button onClick={signInWithGoogle}>Entrar com Google</button>
+        <button
+          onClick={() => setShowSignUpForm(true)}
+          data-testid="signup-button"
+        >
+          Cadastrar
+        </button>
+      </div>
     </div>
   );
 };
