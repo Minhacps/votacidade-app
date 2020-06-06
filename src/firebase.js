@@ -4,13 +4,13 @@ import 'firebase/auth';
 import 'firebase/firestore';
 
 var firebaseConfig = {
-  apiKey: 'AIzaSyDIQWupPw0Wtdz8m_bJrjstYuMxSDlGY_g',
-  authDomain: 'vota-cidade-dev.firebaseapp.com',
-  databaseURL: 'https://vota-cidade-dev.firebaseio.com',
-  projectId: 'vota-cidade-dev',
-  storageBucket: 'vota-cidade-dev.appspot.com',
-  messagingSenderId: '825608144160',
-  appId: '1:825608144160:web:46e2d51bec05f2f7254345',
+  apiKey: 'AIzaSyB4nonpNJdxeKzemlkASmjUyRyY-5EpF3U',
+  authDomain: 'vota-campinas-dev.firebaseapp.com',
+  databaseURL: 'https://vota-campinas-dev.firebaseio.com',
+  projectId: 'vota-campinas-dev',
+  storageBucket: 'vota-campinas-dev.appspot.com',
+  messagingSenderId: '1091437694698',
+  appId: '1:1091437694698:web:6173d6460c826d95e01193',
 };
 
 firebase.initializeApp(firebaseConfig);

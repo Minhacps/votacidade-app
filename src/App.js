@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import SignInForm from 'components/Authentication/SignInForm';
 
+import { Container } from 'reactstrap';
+
+import Routes from './Routes';
+
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -14,15 +18,9 @@ const App = () => {
   }
 
   return (
-    <section data-testid="app">
-      <button
-        onClick={() => firebase.auth().signOut()}
-        data-testid="logout-button"
-      >
-        Logout
-      </button>
-      <div>Vota Cidade</div>
-    </section>
+    <Container data-testid="app">
+      <Routes />
+    </Container>
   );
 };
 
