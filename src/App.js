@@ -13,7 +13,17 @@ const App = () => {
     return <SignInForm />;
   }
 
-  return <div>Vota Cidade</div>;
+  return (
+    <section data-testid="app">
+      <button
+        onClick={() => firebase.auth().signOut()}
+        data-testid="logout-button"
+      >
+        Logout
+      </button>
+      <div>Vota Cidade</div>
+    </section>
+  );
 };
 
 export default App;

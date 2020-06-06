@@ -40,7 +40,6 @@ describe('App', () => {
 
   it('renders sign up form when user is unauthenticated', async () => {
     mockUnauthenticatedUser();
-
     const { getByTestId } = render(<App />);
 
     fireEvent.click(getByTestId('signup-button'));
@@ -60,10 +59,20 @@ describe('App', () => {
     );
   });
 
-  it('renders sign app when user is authenticated', () => {
+  it('renders app when user is authenticated', () => {
     mockAuthenticatedUser();
 
-    const { getByText } = render(<App />);
-    expect(getByText('Vota Cidade')).toBeVisible();
+    const { getByTestId } = render(<App />);
+    expect(getByTestId('app')).toBeVisible();
+  });
+
+  it('renders sign in form when users signs out', () => {
+    mockAuthenticatedUser();
+
+    const { getByTestId } = render(<App />);
+
+    fireEvent.click(getByTestId('logout-button'));
+
+    expect(firebase.auth().signOut).toBeCalledWith();
   });
 });
