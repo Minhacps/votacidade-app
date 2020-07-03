@@ -1,22 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import firebase from 'firebase/app';
 import { Container } from 'reactstrap';
 
+import SignInForm from './components/User/SignInForm';
 import Routes from './Routes';
 
 const App = () => {
-  // const [user, setUser] = useState(null);
+  const [lookingForUser, setLookingForUser] = useState(true);
+  const [user, setUser] = useState(null);
 
-  // useEffect(() => {
-  //   firebase.auth().onAuthStateChanged(setUser);
-  // }, []);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setLookingForUser(false);
+      setUser(user);
+    });
+  }, []);
 
-  // if (!user) {
-  //   return <SignInForm />;
-  // }
+  if (lookingForUser) {
+    return <p>Carregando...</p>;
+  }
+
+  if (!user) {
+    return <SignInForm />;
+  }
 
   return (
     <Container data-testid="app">
-      <Routes />
+      <Router>
+        <Routes />
+      </Router>
     </Container>
   );
 };
