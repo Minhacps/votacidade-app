@@ -4,13 +4,13 @@ import 'firebase/firestore';
 import cities from './cities';
 
 const defaultConfig = {
-  apiKey: 'AIzaSyDIQWupPw0Wtdz8m_bJrjstYuMxSDlGY_g',
-  authDomain: 'vota-cidade-dev.firebaseapp.com',
-  databaseURL: 'https://vota-cidade-dev.firebaseio.com',
-  projectId: 'vota-cidade-dev',
-  storageBucket: 'vota-cidade-dev.appspot.com',
-  messagingSenderId: '825608144160',
-  appId: '1:825608144160:web:46e2d51bec05f2f7254345',
+  apiKey: 'AIzaSyCWQJu9s9_O7kMzJmz4H8mUK2d2hm4pFpk',
+  authDomain: 'vota-authentication-dev.firebaseapp.com',
+  databaseURL: 'https://vota-authentication-dev.firebaseio.com',
+  projectId: 'vota-authentication-dev',
+  storageBucket: 'vota-authentication-dev.appspot.com',
+  messagingSenderId: '486228417417',
+  appId: '1:486228417417:web:14a13ad6b4b41a52d4df58',
 };
 
 firebase.initializeApp(defaultConfig);
