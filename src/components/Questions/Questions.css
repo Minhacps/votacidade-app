@@ -1,0 +1,41 @@
+.questions__container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .questions__container--loading {
+    opacity: 0.4;
+  }
+  
+  .questions__actions-container {
+    display: flex;
+    justify-content: space-around;
+    flex-shrink: 0;
+    margin-top: 30px;
+  }
+  
+  .questions__aviso-candidato {
+    color: #727273;
+    font-size: 12px;
+    margin: 0 0 10px 0;
+  }
+  
+  .justification-field {
+    margin-top: 20px;
+  }
+  
+  .justification-field textarea {
+    height: 94px;
+  }
+  
+  .questions_box {
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  @media screen and (min-width: 800px) {
+    .questions_box {
+      width: 80%;
+    }
+  }

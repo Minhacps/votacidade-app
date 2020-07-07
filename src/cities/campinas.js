@@ -3,9 +3,38 @@ export const name = 'Campinas';
 export const path = '/campinas';
 
 export const questionnaire = [
-  'lorem ipsum dolor sit amet',
-  'lorem ipsum dolor sit amet',
-  'lorem ipsum dolor sit amet',
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
+  {
+    id: 1,
+    question: 'lorem ipsum dolor sit amet',
+  },
 ];
 
 export const firebaseConfig = {

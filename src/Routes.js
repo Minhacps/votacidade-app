@@ -7,6 +7,7 @@ import CityProvider, {
 import Navigation from 'components/Navigation';
 
 import BaseApp from './BaseApp';
+// import Questions from  './components/Questions/Questions';
 
 const LandingPage = () => <Navigation />;
 
@@ -14,6 +15,7 @@ const Routes = () => (
   <Switch>
     <Route path="/" exact>
       <LandingPage />
+      {/* <Route exact path="/campinas/questions" component={Questions} /> */}
     </Route>
 
     {cities.map((city) => (
