@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
+import GenderSelectField from './GenderSelectField';
 
 const VOTER = 'voter';
 const CANDIDATE = 'candidate';
@@ -75,14 +76,6 @@ class CompleteSignupForm extends Component {
                 {this.state.role === CANDIDATE && (
                   <React.Fragment>
                     <div className="field-wrapper">
-                      <label htmlFor="level">Deputada(o)</label>
-                      <select id="level" name="level" className="input">
-                        <option value="federal">Federal</option>
-                        <option value="estadual">Estadual</option>
-                      </select>
-                    </div>
-
-                    <div className="field-wrapper">
                       <label htmlFor="cnpj">CNPJ</label>
                       <input
                         type="text"
@@ -103,6 +96,40 @@ class CompleteSignupForm extends Component {
                         required
                       />
                     </div>
+
+                    <div className="field-wrapper">
+                      <label htmlFor="age">Idade</label>
+                      <select name="age" id="age" className="input">
+                        <option value="18-24">18-24</option>
+                        <option value="25-29">25-29</option>
+                        <option value="30-34">30-34</option>
+                        <option value="35-39">35-39</option>
+                        <option value="40-44">40-44</option>
+                        <option value="45-49">45-49</option>
+                        <option value="50-54">50-54</option>
+                        <option value="55-59">55-59</option>
+                        <option value="60-64">60-64</option>
+                        <option value="65-69">65-69</option>
+                        <option value="70-74">70-74</option>
+                        <option value="75-79">75-79</option>
+                        <option value="80-84">80-84</option>
+                        <option value="85-89">85-89</option>
+                        <option value="90+">90+</option>
+                      </select>
+                    </div>
+
+                    <div className="field-wrapper">
+                      <label htmlFor="raca">Identificação étnico-racial</label>
+                      <select name="raca" id="raca" className="input">
+                        <option value="branca">Branca</option>
+                        <option value="preta">Preta</option>
+                        <option value="amarela">Amarela</option>
+                        <option value="parda">Parda</option>
+                        <option value="indigena">Indígena</option>
+                      </select>
+                    </div>
+
+                    <GenderSelectField />
 
                     <div className="field-wrapper">
                       <label htmlFor="politicalParty">Partido</label>

@@ -31,12 +31,15 @@ class CompleteSignup extends PureComponent {
     }
 
     const candidateData = {
-      level: fields.level.value,
       cnpj: fields.cnpj.value.trim(),
       number: fields.number.value.trim(),
       politicalParty: fields.politicalParty.value.trim(),
       description: fields.description.value.trim(),
-      homologated: true,
+      age: fields.age.value,
+      raca: fields.raca.value,
+      gender: fields.gender.value,
+      lgbt: fields.lgbt.checked,
+      homologated: false,
       picture: null,
     };
 
