@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import SignUpForm from './SignUpForm';
-import { GoogleLoginButton } from 'react-social-login-buttons';
+import {
+  GoogleLoginButton,
+  FacebookLoginButton,
+} from 'react-social-login-buttons';
 import { TwitterLoginButton } from 'react-social-login-buttons';
 
 const buttonStyle = {
@@ -13,7 +16,7 @@ const buttonStyle = {
   width: 180,
 };
 
-const SignInForm = () => {
+const SignInForm = (props) => {
   const [loading, setLoading] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
 
@@ -32,30 +35,69 @@ const SignInForm = () => {
     }
   };
 
+  // const signInWithGoogle = () => {
+  //   const googleProvider = new firebase.auth.GoogleAuthProvider();
+  //   googleProvider.addScope('profile');
+  //   googleProvider.addScope('email');
+
+  //   firebase.auth().signInWithPopup(googleProvider);
+  // };
+
+  const signInWithFacebook = () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    provider.addScope('email');
+
+    signInWithPopup(provider);
+  };
+
   const signInWithGoogle = () => {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     googleProvider.addScope('profile');
     googleProvider.addScope('email');
-
-    firebase.auth().signInWithPopup(googleProvider);
+    signInWithPopup(googleProvider);
   };
-  var token = '800755557699174400-QK82XihmtAhpiN9PQCAvOJxy8N0T3uP';
-  var secret = 'LLxvbkswVKWbkWJYwtucOM4u381aVtneBHxDQXrbJWye9';
 
   const signInWithTwitter = () => {
-    var provider = new firebase.auth.TwitterAuthProvider();
+    const provider = new firebase.auth.TwitterAuthProvider();
+
+    signInWithPopup(provider);
+  };
+
+  const signInWithPopup = (provider) => {
     firebase
       .auth()
       .signInWithPopup(provider)
-      .then(function (result) {
-        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
-        // You can use these server side with your app's credentials to access the Twitter API.
-        var token = '800755557699174400-QK82XihmtAhpiN9PQCAvOJxy8N0T3uP';
-        var secret = 'LLxvbkswVKWbkWJYwtucOM4u381aVtneBHxDQXrbJWye9';
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-      });
+      .then(async (userCredential) => {
+        const { uid, displayName, email } = userCredential.user;
+      })
+      .catch(handleSocialLoginError);
+  };
+
+  const handleSocialLoginError = (error) => {
+    switch (error.code) {
+      case 'auth/account-exists-with-different-credential':
+        return props.updateErrorMessage(
+          'Esta conta já foi conectada usando outra rede social. Tente novamente usando outro método de login.',
+        );
+
+      case 'auth/popup-blocked':
+      case 'auth/popup-closed-by-user':
+        return props.updateErrorMessage(
+          'O popup de autorização foi bloqueado ou fechado, tente novamente.',
+        );
+
+      case 'auth/cancelled-popup-request':
+        return;
+
+      case 'auth/unauthorized-domain':
+      case 'auth/operation-not-supported-in-this-environment':
+      case 'auth/operation-not-allowed':
+      case 'auth/auth-domain-config-required':
+      default: {
+        console.error(error);
+        return props.updateErrorMessage('Ocorreu um erro inesperado');
+      }
+    }
   };
 
   if (loading) {
@@ -85,9 +127,14 @@ const SignInForm = () => {
       </form>
 
       <div>
+        <FacebookLoginButton
+          onClick={signInWithFacebook}
+          text="Entrar com Facebook"
+          style={buttonStyle}
+        />
         <GoogleLoginButton
           onClick={signInWithGoogle}
-          text="Entrar com google"
+          text="Entrar com Google"
           style={buttonStyle}
         />
         <TwitterLoginButton
