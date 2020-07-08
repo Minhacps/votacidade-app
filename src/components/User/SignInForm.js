@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import SignUpForm from './SignUpForm';
+import { GoogleLoginButton } from 'react-social-login-buttons';
+import { TwitterLoginButton } from 'react-social-login-buttons';
+
+const buttonStyle = {
+  fontSize: '12px',
+  textTransform: 'uppercase',
+  marginRight: 0,
+  marginLeft: 0,
+  boxShadow: 'none',
+  width: 180,
+};
 
 const SignInForm = () => {
   const [loading, setLoading] = useState(false);
@@ -27,6 +38,24 @@ const SignInForm = () => {
     googleProvider.addScope('email');
 
     firebase.auth().signInWithPopup(googleProvider);
+  };
+  var token = '800755557699174400-QK82XihmtAhpiN9PQCAvOJxy8N0T3uP';
+  var secret = 'LLxvbkswVKWbkWJYwtucOM4u381aVtneBHxDQXrbJWye9';
+
+  const signInWithTwitter = () => {
+    var provider = new firebase.auth.TwitterAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+        // You can use these server side with your app's credentials to access the Twitter API.
+        var token = '800755557699174400-QK82XihmtAhpiN9PQCAvOJxy8N0T3uP';
+        var secret = 'LLxvbkswVKWbkWJYwtucOM4u381aVtneBHxDQXrbJWye9';
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      });
   };
 
   if (loading) {
@@ -56,7 +85,16 @@ const SignInForm = () => {
       </form>
 
       <div>
-        <button onClick={signInWithGoogle}>Entrar com Google</button>
+        <GoogleLoginButton
+          onClick={signInWithGoogle}
+          text="Entrar com google"
+          style={buttonStyle}
+        />
+        <TwitterLoginButton
+          onClick={signInWithTwitter}
+          text="Entrar com Twitter"
+          style={buttonStyle}
+        />
         <button
           onClick={() => setShowSignUpForm(true)}
           data-testid="signup-button"
