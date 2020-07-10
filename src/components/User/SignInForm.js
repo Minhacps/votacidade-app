@@ -35,14 +35,6 @@ const SignInForm = (props) => {
     }
   };
 
-  // const signInWithGoogle = () => {
-  //   const googleProvider = new firebase.auth.GoogleAuthProvider();
-  //   googleProvider.addScope('profile');
-  //   googleProvider.addScope('email');
-
-  //   firebase.auth().signInWithPopup(googleProvider);
-  // };
-
   const signInWithFacebook = () => {
     const provider = new firebase.auth.FacebookAuthProvider();
     provider.addScope('email');
