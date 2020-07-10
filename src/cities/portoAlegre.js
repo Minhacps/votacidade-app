@@ -1,6 +1,6 @@
-export const name = 'Porto Alegre';
+export const cityName = 'Porto Alegre';
 
-export const path = '/porto-alegre';
+export const cityPath = '/porto-alegre';
 
 export const questionnaire = [
   'lorem ipsum dolor sit amet',
@@ -19,8 +19,8 @@ export const firebaseConfig = {
 };
 
 export default {
-  name,
-  path,
+  cityName,
+  cityPath,
   questionnaire,
   firebaseConfig,
 };

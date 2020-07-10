@@ -4,11 +4,9 @@ import cities from './cities';
 import CityProvider, {
   CityContext,
 } from 'components/CityProvider/CityProvider';
-import Navigation from 'components/Navigation';
 
 import BaseApp from './BaseApp';
-
-const LandingPage = () => <Navigation />;
+import LandingPage from 'components/LadingPage';
 
 const Routes = () => (
   <Switch>
@@ -17,7 +15,7 @@ const Routes = () => (
     </Route>
 
     {cities.map((city) => (
-      <Route path={city.path} key={`${city.path}-route`} exact>
+      <Route path={city.cityPath} key={`${city.cityPath}-route`}>
         <CityProvider city={city}>
           <CityContext.Consumer>
             {(props) => <BaseApp {...props} />}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-import CompleteSignup from './components/User/CompleteSignup';
+import BaseAppRoutes from './BaseAppRoutes';
+import CompleteSignup from 'components/User/CompleteSignup';
+import Navigation from 'components/Navigation';
 
-const BaseApp = ({ name, firebase, currentUser }) => {
+const BaseApp = ({ firebase, currentUser, cityPath }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
@@ -26,7 +28,13 @@ const BaseApp = ({ name, firebase, currentUser }) => {
     return <CompleteSignup firebase={firebase} currentUser={currentUser} />;
   }
 
-  return <span>{name}</span>;
+  return (
+    <>
+      <Navigation />
+
+      <BaseAppRoutes cityPath={cityPath} />
+    </>
+  );
 };
 
 export default BaseApp;

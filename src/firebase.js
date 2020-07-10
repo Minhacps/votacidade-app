@@ -16,5 +16,5 @@ const defaultConfig = {
 firebase.initializeApp(defaultConfig);
 
 cities.forEach((city) => {
-  firebase.initializeApp(city.firebaseConfig, city.path);
+  firebase.initializeApp(city.firebaseConfig, city.cityPath);
 });

@@ -1,6 +1,6 @@
-export const name = 'Campinas';
+export const cityName = 'Campinas';
 
-export const path = '/campinas';
+export const cityPath = '/campinas';
 
 export const questionnaire = [
   'lorem ipsum dolor sit amet',
@@ -19,8 +19,8 @@ export const firebaseConfig = {
 };
 
 export default {
-  name,
-  path,
+  cityName,
+  cityPath,
   questionnaire,
   firebaseConfig,
 };

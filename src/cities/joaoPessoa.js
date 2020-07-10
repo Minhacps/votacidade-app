@@ -1,6 +1,6 @@
-export const name = 'João Pessoa';
+export const cityName = 'João Pessoa';
 
-export const path = '/joao-pessoa';
+export const cityPath = '/joao-pessoa';
 
 export const questionnaire = [
   'lorem ipsum dolor sit amet',
@@ -19,8 +19,8 @@ export const firebaseConfig = {
 };
 
 export default {
-  name,
-  path,
+  cityName,
+  cityPath,
   questionnaire,
   firebaseConfig,
 };
