@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import firebase from 'firebase/app';
 
-const Question = () => {
+const Question = (question) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const fields = event.target.elements;
@@ -17,12 +17,7 @@ const Question = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-        consequatur iste soluta ut unde, non expedita, ipsam deserunt voluptatem
-        tempore illo! Ex aperiam quibusdam sequi, ab earum molestiae mollitia
-        nesciunt!
-      </p>
+      <p>{question.question}</p>
 
       <FormGroup tag="fieldset">
         <FormGroup check className="my-2">
