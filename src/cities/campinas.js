@@ -1,12 +1,29 @@
+import { nationalQuestions } from './nationalQuestions';
+
 export const cityName = 'Campinas';
 
 export const cityPath = '/campinas';
 
-export const questionnaire = [
-  'lorem ipsum dolor sit amet',
-  'lorem ipsum dolor sit amet',
-  'lorem ipsum dolor sit amet',
+const cityQuestions = [
+  {
+    id: 11,
+    question: 'Campinas Questão 11',
+  },
+  {
+    id: 12,
+    question: 'Questão 12',
+  },
+  {
+    id: 13,
+    question: 'Questão 13',
+  },
+  {
+    id: 14,
+    question: 'Questão 14',
+  },
 ];
+export const questionnaire = [].concat(nationalQuestions, cityQuestions);
+console.log(questionnaire);
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB4nonpNJdxeKzemlkASmjUyRyY-5EpF3U',
