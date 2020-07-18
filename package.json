@@ -1,5 +1,5 @@
 {
-  "name": "votacidade-appx",
+  "name": "votacidade-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,6 +16,7 @@
     "reactstrap": "^8.4.1"
   },
   "devDependencies": {
+    "docz": "^2.3.1",
     "eslint-config-prettier": "^6.11.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.2",
@@ -30,7 +31,10 @@
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
     "format": "npm run prettier -- --write",
     "check-format": "npm run prettier -- --list-different",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "docz:dev": "docz dev --port=9999",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve"
   },
   "eslintConfig": {
     "extends": "react-app"
