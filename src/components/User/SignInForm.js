@@ -9,6 +9,8 @@ import { TwitterLoginButton } from 'react-social-login-buttons';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
+import Background from 'components/Background/Background';
+import { Tabs, TabButton } from 'components/Tabs/Tabs';
 
 const buttonStyle = {
   fontSize: '12px',
@@ -25,15 +27,6 @@ const Container = styled.div`
   width: 350px;
   margin: auto;
   justify-content: center;
-`;
-
-const Background = styled.img`
-  min-height: 100%;
-  min-width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: -1;
 `;
 
 const Box = styled.div`
@@ -134,13 +127,15 @@ const SignInForm = (props) => {
     <Container>
       <Background src={background} />
       <Box>
-        <h1>Entrar</h1>
-        <button
-          onClick={() => setShowSignUpForm(true)}
-          data-testid="signup-button"
-        >
-          Cadastrar
-        </button>
+        <Tabs>
+          <TabButton active>✓ Entrar</TabButton>
+          <TabButton
+            onClick={() => setShowSignUpForm(true)}
+            data-testid="signup-button"
+          >
+            Cadastrar
+          </TabButton>
+        </Tabs>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
             <Label htmlFor="email">Email</Label>
