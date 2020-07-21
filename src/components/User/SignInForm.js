@@ -6,9 +6,10 @@ import {
   FacebookLoginButton,
 } from 'react-social-login-buttons';
 import { TwitterLoginButton } from 'react-social-login-buttons';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
+import { ReactComponent as Logo } from 'assets/img/vota-cidade.svg';
 import Background from 'components/Background/Background';
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
 
@@ -47,15 +48,26 @@ const StyledSpan = styled.span`
   text-align: center;
   margin: 15px 0px 25px;
 
-  a {
+  button {
     color: #662d91;
     font-weight: 500;
+    border: none;
+    background: transparent;
+    padding: 0;
   }
+`;
+
+const StyledSplashScreen = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const SignInForm = (props) => {
   const [loading, setLoading] = useState(false);
   const [showSignUpForm, setShowSignUpForm] = useState(false);
+  const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -130,11 +142,20 @@ const SignInForm = (props) => {
   };
 
   if (loading) {
-    return <span data-testid="signup-loader">Carregando...</span>;
+    return (
+      <StyledSplashScreen>
+        <Logo />
+        <Background src={background} data-testid="signup-loader" />
+      </StyledSplashScreen>
+    );
   }
 
   if (showSignUpForm) {
     return <SignUpForm />;
+  }
+
+  if (showForgotPasswordForm) {
+    return <h1>Recuperação de Senha</h1>;
   }
 
   return (
@@ -142,7 +163,9 @@ const SignInForm = (props) => {
       <Background src={background} />
       <Box>
         <Tabs>
-          <TabButton active>✓ Entrar</TabButton>
+          <TabButton active disabled>
+            ✓ Entrar
+          </TabButton>
           <TabButton
             onClick={() => setShowSignUpForm(true)}
             data-testid="signup-button"
@@ -175,7 +198,10 @@ const SignInForm = (props) => {
           </Button>
         </Form>
         <StyledSpan>
-          Esqueceu sua senha? <a href="#">CLIQUE AQUI</a>
+          Esqueceu sua senha?{' '}
+          <button onClick={() => setShowForgotPasswordForm(true)}>
+            CLIQUE AQUI
+          </button>
         </StyledSpan>
         <Divider />
         <div>
