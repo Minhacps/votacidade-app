@@ -27,6 +27,7 @@ const Container = styled.div`
   width: 350px;
   margin: auto;
   justify-content: center;
+  font-family: 'Roboto', sans-serif;
 `;
 
 const Box = styled.div`
@@ -37,6 +38,19 @@ const Box = styled.div`
 
 const Divider = styled.hr`
   border-top: 1px solid #6e6e6e;
+`;
+
+const StyledSpan = styled.span`
+  font-size: 10pt;
+  color: #707070;
+  display: block;
+  text-align: center;
+  margin: 15px 0px 25px;
+
+  a {
+    color: #662d91;
+    font-weight: 500;
+  }
 `;
 
 const SignInForm = (props) => {
@@ -138,7 +152,7 @@ const SignInForm = (props) => {
         </Tabs>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">E-mail</Label>
             <Input
               name="email"
               id="email"
@@ -160,7 +174,9 @@ const SignInForm = (props) => {
             ENTRAR
           </Button>
         </Form>
-        Esqueceu sua senha? <a href="#">Clique aqui</a>
+        <StyledSpan>
+          Esqueceu sua senha? <a href="#">CLIQUE AQUI</a>
+        </StyledSpan>
         <Divider />
         <div>
           <FacebookLoginButton
