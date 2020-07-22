@@ -1,15 +1,13 @@
 import React from 'react';
-import { CityContext } from 'components/CityProvider/CityProvider';
 import Question from 'components/Question/Question';
 
-const Navigation = () => (
-  <CityContext>
-    {({ cityPath, questionnaire }) =>
-      questionnaire.map((question) => {
-        return <Question question={question.question} />;
-      })
-    }
-  </CityContext>
+const Questions = () => (
+  <Question
+    id={0}
+    onSave={() => {
+      console.log('salvou');
+    }}
+  />
 );
 
-export default Navigation;
+export default Questions;
