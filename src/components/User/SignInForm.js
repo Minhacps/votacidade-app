@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
-import SignUpForm from './SignUpForm';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
 import { ReactComponent as Logo } from 'assets/img/vota-cidade.svg';
+
 import Background from 'components/Background/Background';
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
+import SignUpForm from './SignUpForm';
 import SocialSignin from './SocialSignin';
 
 const Container = styled.div`
@@ -54,6 +55,7 @@ const StyledSplashScreen = styled.div`
 
 const SignInForm = ({ updateErrorMessage }) => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
   const [showSignUpForm, setShowSignUpForm] = useState(false);
   const [showForgotPasswordForm, setShowForgotPasswordForm] = useState(false);
 
@@ -66,9 +68,10 @@ const SignInForm = ({ updateErrorMessage }) => {
       await firebase
         .auth()
         .signInWithEmailAndPassword(fields.email.value, fields.password.value);
-      setLoading(false);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -105,6 +108,7 @@ const SignInForm = ({ updateErrorMessage }) => {
           </TabButton>
         </Tabs>
         <Form onSubmit={handleSubmit}>
+          {error && <Alert color="danger">{error}</Alert>}
           <FormGroup>
             <Label htmlFor="email">E-mail</Label>
             <Input
