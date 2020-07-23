@@ -4,8 +4,8 @@ import SignUpForm from './SignUpForm';
 import {
   GoogleLoginButton,
   FacebookLoginButton,
+  TwitterLoginButton,
 } from 'react-social-login-buttons';
-import { TwitterLoginButton } from 'react-social-login-buttons';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
@@ -14,10 +14,9 @@ import Background from 'components/Background/Background';
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
 
 const buttonStyle = {
-  fontSize: '12px',
-  marginRight: 0,
-  marginLeft: 0,
+  fontSize: '12pt',
   boxShadow: 'none',
+  paddingRight: 36,
   width: '100%',
 };
 
@@ -209,16 +208,19 @@ const SignInForm = (props) => {
             onClick={signInWithFacebook}
             text="Entrar com Facebook"
             style={buttonStyle}
+            align="center"
           />
           <GoogleLoginButton
             onClick={signInWithGoogle}
             text="Entrar com Google"
             style={buttonStyle}
+            align="center"
           />
           <TwitterLoginButton
             onClick={signInWithTwitter}
             text="Entrar com Twitter"
             style={buttonStyle}
+            align="center"
           />
         </div>
       </Box>
