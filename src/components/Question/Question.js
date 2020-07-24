@@ -4,7 +4,7 @@ import { CityContext } from 'components/CityProvider/CityProvider';
 
 const Question = ({ id, onSave }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
-  const question = questionnaire[0].question;
+  const { question } = questionnaire[id];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,16 +18,19 @@ const Question = ({ id, onSave }) => {
       .firestore()
       .collection('answers')
       .doc(currentUser.uid)
-      .set({
-        [id]: fields.answer.value,
-      })
+      .set(
+        {
+          [id]: fields.answer.value,
+        },
+        { merge: true },
+      )
       .then(onSave);
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} key={id + 1}>
       <p>
-        <span>{id}</span>
+        <span>{id + 1}</span>
         <span>{question}</span>
       </p>
 
