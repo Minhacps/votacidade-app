@@ -7,7 +7,7 @@ import {
 } from './ProgressBar.styled';
 
 const ProgressBar = ({ progress }) => (
-  <ProgressBarContainer>
+  <ProgressBarContainer progress={progress}>
     <ProgressBarTitle>Seu progresso</ProgressBarTitle>
     <ProgressBarLabel>{progress}% completo</ProgressBarLabel>
     <Progress value={progress} />
