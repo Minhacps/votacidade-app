@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-
-import BaseAppRoutes from './BaseAppRoutes';
+import React, { useState, useEffect, useContext } from 'react';
+import { CityContext } from 'components/CityProvider/CityProvider';
 import CompleteSignup from 'components/User/CompleteSignup';
 import Navigation from 'components/Navigation';
+import BaseAppRoutes from './BaseAppRoutes';
 
-const BaseApp = ({ firebase, currentUser, cityPath }) => {
+const BaseApp = () => {
+  const { firebase, currentUser, cityPath } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
