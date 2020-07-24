@@ -27,8 +27,8 @@ const Question = ({ id, onSave }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <p>
-        {id}
-        {question}
+        <span>{id}</span>
+        <span>{question}</span>
       </p>
 
       <FormGroup tag="fieldset">
