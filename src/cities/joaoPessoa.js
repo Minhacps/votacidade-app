@@ -5,22 +5,18 @@ export const cityName = 'João Pessoa';
 export const cityPath = '/joao-pessoa';
 
 const questionnaire = [
-  nationalQuestions,
+  ...nationalQuestions,
   {
-    id: 11,
     question: 'João Pessoa Questão 11',
   },
   {
-    id: 12,
-    question: 'Questão 12',
+    question: 'João Pessoa Questão 12',
   },
   {
-    id: 13,
-    question: 'Questão 13',
+    question: 'João Pessoa Questão 13',
   },
   {
-    id: 14,
-    question: 'Questão 14',
+    question: 'João Pessoa Questão 14',
   },
 ];
 
