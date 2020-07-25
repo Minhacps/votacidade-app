@@ -20,7 +20,10 @@ function ForgotPassword({ hideForgotPassword }) {
 
   return (
     <Container>
-      <Background src={background} />
+      <Background
+        src={background}
+        alt="fundo com a visão de cima de uma cidade com predios altos"
+      />
       <Box>
         <Title>Ajuda para recuperar a senha</Title>
         <Subtitle>
@@ -38,8 +41,7 @@ function ForgotPassword({ hideForgotPassword }) {
         </FormGroup>
         <PrimaryButton block>ENTRAR</PrimaryButton>
         <StyledSpan>
-          Já é cadastrado?{' '}
-          <button onClick={hideForgotPassword}>CLIQUE AQUI</button>
+          <button onClick={hideForgotPassword}>Já é cadastrado? </button>
         </StyledSpan>
       </Box>
     </Container>

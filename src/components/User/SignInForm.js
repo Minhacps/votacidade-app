@@ -48,7 +48,10 @@ const SignInForm = ({ updateErrorMessage }) => {
 
   return (
     <Container>
-      <Background src={background} />
+      <Background
+        src={background}
+        alt="fundo com a visão de cima de uma cidade com predios altos"
+      />
       <Box>
         <Tabs>
           <TabButton active disabled>
@@ -89,9 +92,8 @@ const SignInForm = ({ updateErrorMessage }) => {
           </PrimaryButton>
         </Form>
         <StyledSpan>
-          Esqueceu sua senha?{' '}
           <button onClick={() => setShowForgotPasswordForm(true)}>
-            CLIQUE AQUI
+            Esqueceu sua senha?
           </button>
         </StyledSpan>
         <Divider />

@@ -8,7 +8,7 @@ const Tabs = styled.div`
 
 const TabButton = styled.button`
   background-color: ${(props) => (props.active ? '#662D91' : '#E6E6E6')};
-  color: ${(props) => (props.active ? '#fff' : '#6E6E6E')};
+  color: ${(props) => (props.active ? '#fff' : '#000')};
   border: ${(props) => (props.active ? 'none' : '1px solid #C9C9C9')};
   padding: 0 20px;
   height: 30px;
