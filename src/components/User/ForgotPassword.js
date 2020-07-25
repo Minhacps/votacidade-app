@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button, FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
 
+import { PrimaryButton } from 'components/Button/Button.styled';
 import Background from 'components/Background/Background';
 import { Container, Box, StyledSpan } from './User.styled';
 
@@ -35,9 +36,7 @@ function ForgotPassword({ hideForgotPassword }) {
             placeholder="Digite seu e-mail"
           />
         </FormGroup>
-        <Button color="primary" block>
-          ENTRAR
-        </Button>
+        <PrimaryButton block>ENTRAR</PrimaryButton>
         <StyledSpan>
           Já é cadastrado?{' '}
           <button onClick={hideForgotPassword}>CLIQUE AQUI</button>

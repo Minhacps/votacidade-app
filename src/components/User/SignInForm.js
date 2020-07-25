@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Alert,
-  Spinner,
-} from 'reactstrap';
+import { Form, FormGroup, Label, Input, Alert, Spinner } from 'reactstrap';
 import background from 'assets/img/splashscreen.png';
 
 import Background from 'components/Background/Background';
@@ -17,6 +9,8 @@ import SignUpForm from './SignUpForm';
 import SocialSignin from './SocialSignin';
 import ForgotPassword from './ForgotPassword';
 import { Container, Box, Divider, StyledSpan } from './User.styled';
+
+import { PrimaryButton } from 'components/Button/Button.styled';
 
 const SignInForm = ({ updateErrorMessage }) => {
   const [loading, setLoading] = useState(false);
@@ -90,14 +84,9 @@ const SignInForm = ({ updateErrorMessage }) => {
               disabled={loading}
             />
           </FormGroup>
-          <Button
-            data-testid="submit-button"
-            color="primary"
-            block
-            disabled={loading}
-          >
-            {loading ? <Spinner color="light" size="sm" /> : 'ENTRAR'}
-          </Button>
+          <PrimaryButton data-testid="submit-button" block disabled={loading}>
+            {loading ? <Spinner color="light" size="sm" /> : 'Entrar'}
+          </PrimaryButton>
         </Form>
         <StyledSpan>
           Esqueceu sua senha?{' '}
