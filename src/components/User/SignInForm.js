@@ -89,7 +89,36 @@ const SignInForm = ({ updateErrorMessage }) => {
   }
 
   if (showForgotPasswordForm) {
-    return <h1>Recuperação de Senha</h1>;
+    return (
+      <Container>
+        <Background src={background} />
+        <Box>
+          <h2>Ajuda para recuperar a senha</h2>
+          <h3>
+            Digite seu e-mail para recuperar sua senha. Você receberá um e-mail
+            com instruções.
+          </h3>
+          <FormGroup>
+            <Label htmlFor="email">E-mail</Label>
+            <Input
+              name="email"
+              id="email"
+              data-testid="email-input"
+              placeholder="Digite seu e-mail"
+            />
+          </FormGroup>
+          <Button color="primary" block>
+            ENTRAR
+          </Button>
+          <StyledSpan>
+            Esqueceu sua senha?{' '}
+            <button onClick={() => setShowForgotPasswordForm(true)}>
+              CLIQUE AQUI
+            </button>
+          </StyledSpan>
+        </Box>
+      </Container>
+    );
   }
 
   return (
