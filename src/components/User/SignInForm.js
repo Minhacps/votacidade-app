@@ -5,12 +5,12 @@ import background from 'assets/img/splashscreen.png';
 
 import Background from 'components/Background/Background';
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
+import { PrimaryButton } from 'components/Button/Button.styled';
+import errorMessages from 'constants/errorMessages';
 import SignUpForm from './SignUpForm';
 import SocialSignin from './SocialSignin';
 import ForgotPassword from './ForgotPassword';
 import { Container, Box, Divider, StyledSpan } from './User.styled';
-
-import { PrimaryButton } from 'components/Button/Button.styled';
 
 const SignInForm = ({ updateErrorMessage }) => {
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ const SignInForm = ({ updateErrorMessage }) => {
         .auth()
         .signInWithEmailAndPassword(fields.email.value, fields.password.value);
     } catch (error) {
-      setError(error.message);
+      setError(errorMessages[error.code]);
     } finally {
       setLoading(false);
     }
