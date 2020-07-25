@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
-import { Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Alert,
+  Spinner,
+} from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
-import { ReactComponent as Logo } from 'assets/img/vota-cidade.svg';
 
 import Background from 'components/Background/Background';
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
@@ -47,13 +54,6 @@ const StyledSpan = styled.span`
   }
 `;
 
-const StyledSplashScreen = styled.div`
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const SignInForm = ({ updateErrorMessage }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -75,15 +75,6 @@ const SignInForm = ({ updateErrorMessage }) => {
       setLoading(false);
     }
   };
-
-  if (loading) {
-    return (
-      <StyledSplashScreen>
-        <Logo />
-        <Background src={background} data-testid="signup-loader" />
-      </StyledSplashScreen>
-    );
-  }
 
   if (showSignUpForm) {
     return <SignUpForm />;
@@ -121,6 +112,7 @@ const SignInForm = ({ updateErrorMessage }) => {
               id="email"
               data-testid="email-input"
               placeholder="Digite seu e-mail"
+              disabled={loading}
             />
           </FormGroup>
           <FormGroup>
@@ -131,10 +123,16 @@ const SignInForm = ({ updateErrorMessage }) => {
               type="password"
               data-testid="password-input"
               placeholder="Digite sua senha"
+              disabled={loading}
             />
           </FormGroup>
-          <Button data-testid="submit-button" color="primary" block>
-            ENTRAR
+          <Button
+            data-testid="submit-button"
+            color="primary"
+            block
+            disabled={loading}
+          >
+            {loading ? <Spinner color="light" size="sm" /> : 'ENTRAR'}
           </Button>
         </Form>
         <StyledSpan>
