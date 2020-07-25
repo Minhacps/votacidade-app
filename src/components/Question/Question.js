@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import firebase from 'firebase/app';
+import { CityContext } from 'components/CityProvider/CityProvider';
 
-const Question = (question) => {
+const Question = ({ id, onSave }) => {
+  const { firebase, currentUser, questionnaire } = useContext(CityContext);
+  const question = questionnaire[0].question;
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const fields = event.target.elements;
-    if (fields.answer) {
-      const userId = firebase.auth().currentUser.uid;
 
-      firebase.firestore().collection('answers').doc(userId).set({
-        1: fields.answer.value,
-      });
+    if (!fields.answer.value) {
+      return;
     }
+
+    firebase
+      .firestore()
+      .collection('answers')
+      .doc(currentUser.uid)
+      .set({
+        [id]: fields.answer.value,
+      })
+      .then(onSave);
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <p>{question.question}</p>
+      <p>
+        {id}
+        {question}
+      </p>
 
       <FormGroup tag="fieldset">
         <FormGroup check className="my-2">

@@ -3,7 +3,8 @@ export const cityName = 'Recife';
 
 export const cityPath = '/recife';
 
-const cityQuestions = [
+const questionnaire = [
+  nationalQuestions,
   {
     id: 11,
     question: 'Recife Questão 11',
@@ -21,8 +22,6 @@ const cityQuestions = [
     question: 'Questão 14',
   },
 ];
-export const questionnaire = [].concat(nationalQuestions, cityQuestions);
-console.log(questionnaire);
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDgq0fxCglQNkm_UatOMCqhfNUenW51u8g',

@@ -35,13 +35,7 @@ function SocialSignIn({ updateErrorMessage }) {
   };
 
   const signInWithPopup = (provider) => {
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(async (userCredential) => {
-        const { uid, displayName, email } = userCredential.user;
-      })
-      .catch(handleSocialLoginError);
+    firebase.auth().signInWithPopup(provider).catch(handleSocialLoginError);
   };
 
   const handleSocialLoginError = (error) => {

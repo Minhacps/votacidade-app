@@ -4,7 +4,8 @@ export const cityName = 'Campinas';
 
 export const cityPath = '/campinas';
 
-const cityQuestions = [
+const questionnaire = [
+  ...nationalQuestions,
   {
     id: 11,
     question: 'Campinas Questão 11',
@@ -22,8 +23,6 @@ const cityQuestions = [
     question: 'Questão 14',
   },
 ];
-export const questionnaire = [].concat(nationalQuestions, cityQuestions);
-console.log(questionnaire);
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyB4nonpNJdxeKzemlkASmjUyRyY-5EpF3U',

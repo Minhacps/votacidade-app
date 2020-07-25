@@ -4,7 +4,8 @@ export const cityName = 'Porto Alegre';
 
 export const cityPath = '/porto-alegre';
 
-const cityQuestions = [
+const questionnaire = [
+  nationalQuestions,
   {
     id: 11,
     question: 'Porto AlegreQuestão 11',
@@ -22,8 +23,6 @@ const cityQuestions = [
     question: 'Questão 14',
   },
 ];
-export const questionnaire = [].concat(nationalQuestions, cityQuestions);
-console.log(questionnaire);
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDQChz1sWIRwUQzJA4e2t3wZx3MJFKSTUo',

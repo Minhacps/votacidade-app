@@ -4,7 +4,8 @@ export const cityName = 'Campina Grande';
 
 export const cityPath = '/campina-grande';
 
-const cityQuestions = [
+const questionnaire = [
+  ...nationalQuestions,
   {
     id: 11,
     question: 'Campina Grande Questão 11',
@@ -22,8 +23,6 @@ const cityQuestions = [
     question: 'Questão 14',
   },
 ];
-export const questionnaire = [].concat(nationalQuestions, cityQuestions);
-console.log(questionnaire);
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyC0wJYldkpghKWOmje6OLr4RmpavYO6aAo',
