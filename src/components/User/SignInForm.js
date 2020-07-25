@@ -9,7 +9,6 @@ import {
   Alert,
   Spinner,
 } from 'reactstrap';
-import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
 
 import Background from 'components/Background/Background';
@@ -17,42 +16,7 @@ import { Tabs, TabButton } from 'components/Tabs/Tabs';
 import SignUpForm from './SignUpForm';
 import SocialSignin from './SocialSignin';
 import ForgotPassword from './ForgotPassword';
-
-const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  width: 350px;
-  margin: auto;
-  justify-content: center;
-  font-family: 'Roboto', sans-serif;
-`;
-
-const Box = styled.div`
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-`;
-
-const Divider = styled.hr`
-  border-top: 1px solid #6e6e6e;
-`;
-
-const StyledSpan = styled.span`
-  font-size: 10pt;
-  color: #707070;
-  display: block;
-  text-align: center;
-  margin: 15px 0px 25px;
-
-  button {
-    color: #662d91;
-    font-weight: 500;
-    border: none;
-    background: transparent;
-    padding: 0;
-  }
-`;
+import { Container, Box, Divider, StyledSpan } from './User.styled';
 
 const SignInForm = ({ updateErrorMessage }) => {
   const [loading, setLoading] = useState(false);
