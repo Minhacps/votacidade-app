@@ -24,10 +24,10 @@ function ForgotPassword({ hideForgotPassword }) {
         alt="fundo com a visão de cima de uma cidade com predios altos"
       />
       <Box>
-        <Title>Ajuda para recuperar a senha</Title>
+        <Title>Recuperação de senha</Title>
         <Subtitle>
-          Digite seu e-mail para recuperar sua senha. Você receberá um e-mail
-          com instruções.
+          Informe seu e-mail abaixo e enviaremos as instruções para recuperar
+          sua senha.
         </Subtitle>
         <FormGroup>
           <Label htmlFor="email">E-mail</Label>
