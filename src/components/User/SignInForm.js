@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
-import { Form, FormGroup, Label, Input, Alert, Spinner } from 'reactstrap';
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Alert,
+  Spinner,
+} from 'reactstrap';
 import background from 'assets/img/splashscreen.png';
 
 import Background from 'components/Background/Background';
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
-import { PrimaryButton } from 'components/Button/Button.styled';
 import errorMessages from 'constants/errorMessages';
 import SignUpForm from './SignUpForm';
 import SocialSignin from './SocialSignin';
@@ -87,9 +94,14 @@ const SignInForm = ({ updateErrorMessage }) => {
               disabled={loading}
             />
           </FormGroup>
-          <PrimaryButton data-testid="submit-button" block disabled={loading}>
+          <Button
+            color="primary"
+            block
+            disabled={loading}
+            data-testid="submit-button"
+          >
             {loading ? <Spinner color="light" size="sm" /> : 'Entrar'}
-          </PrimaryButton>
+          </Button>
         </Form>
         <StyledSpan>
           <button onClick={() => setShowForgotPasswordForm(true)}>
