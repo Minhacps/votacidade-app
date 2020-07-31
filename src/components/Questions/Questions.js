@@ -10,6 +10,16 @@ const Questions = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   useEffect(() => {
+    const getFirstUnansweredQuestion = (loadedAnswers) => {
+      const answersKeys = Object.keys(loadedAnswers);
+      const questionsKeys = Object.keys(questionnaire);
+      return Number(
+        questionsKeys.filter(
+          (questionIndex) => !answersKeys.includes(questionIndex),
+        )[0] || questionnaire.length - 1,
+      );
+    };
+
     firebase
       .firestore()
       .collection('answers')
@@ -23,19 +33,7 @@ const Questions = () => {
         }
         setIsLoading(false);
       });
-  }, []);
-
-  const getFirstUnansweredQuestion = (loadedAnswers) => {
-    // TODO: handle last question
-
-    const answersKeys = Object.keys(loadedAnswers);
-    const questionsKeys = Object.keys(questionnaire);
-    return Number(
-      questionsKeys.filter(
-        (questionIndex) => !answersKeys.includes(questionIndex),
-      )[0],
-    );
-  };
+  }, [firebase, currentUser.uid, questionnaire]);
 
   const handleNext = (answer) => {
     const updatedAnswers = {

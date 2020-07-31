@@ -26,7 +26,7 @@ const App = () => {
   }
 
   return (
-    <Container data-testid="app">
+    <Container data-testid="app" fluid={true}>
       <Router>
         <Routes />
       </Router>

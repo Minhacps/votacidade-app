@@ -2,6 +2,7 @@ export const nationalQuestions = [
   {
     question:
       'Toda a população brasileira, incluindo pessoas de classe média e alta, deve ter acesso à saúde pública gratuita.',
+    explanation: 'Lorem ipsum',
   },
   {
     question:

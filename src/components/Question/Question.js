@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { Link } from 'react-router-dom';
+
+import InfoIcon from 'assets/icons/info.svg';
 
 const Question = ({ id, onSave, onSkip, onBack, value }) => {
-  const { firebase, currentUser, questionnaire } = useContext(CityContext);
-  const { question } = questionnaire[id];
+  const { firebase, currentUser, questionnaire, cityPath } = useContext(
+    CityContext,
+  );
+  const { question, explanation } = questionnaire[id];
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -27,6 +32,19 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
         <span>{id + 1}. </span>
         <span>{question}</span>
       </p>
+
+      {explanation && (
+        <p>
+          <img
+            className="mr-1"
+            src={InfoIcon}
+            alt="Ícone com a lera I dentro de um círculo"
+          />
+          <small className="text-muted font-weight-bold">
+            Entender melhor a questão
+          </small>
+        </p>
+      )}
 
       <FormGroup tag="fieldset">
         <FormGroup check className="my-2">
@@ -79,15 +97,41 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
         </FormGroup>
       </FormGroup>
 
-      <div>
+      <div className="d-flex">
         {id > 0 && (
-          <Button color="primary" outline type="button" onClick={onBack}>
+          <Button
+            color="primary"
+            outline
+            type="button"
+            onClick={onBack}
+            className="w-100 mr-4"
+          >
             Voltar
           </Button>
         )}
-        <Button color="primary" outline type="button" onClick={onSkip}>
-          Pular
-        </Button>
+
+        {id < questionnaire.length - 1 && (
+          <Button
+            color="primary"
+            outline
+            type="button"
+            onClick={() => onSkip()}
+            className="w-100"
+          >
+            Pular
+          </Button>
+        )}
+
+        {id === questionnaire.length - 1 && (
+          <Button
+            color="primary"
+            tag={Link}
+            to={`${cityPath}/ranking`}
+            className="w-100 ml-4"
+          >
+            Finalizar
+          </Button>
+        )}
       </div>
     </Form>
   );
