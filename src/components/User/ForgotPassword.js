@@ -1,10 +1,8 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import styled from 'styled-components';
-import background from 'assets/img/splashscreen.png';
 
-import Background from 'components/Background/Background';
-import { Container, Box, StyledSpan } from './User.styled';
+import { Box, StyledSpan } from './User.styled';
 
 function ForgotPassword({ hideForgotPassword }) {
   const Title = styled.h2`
@@ -18,36 +16,30 @@ function ForgotPassword({ hideForgotPassword }) {
   `;
 
   return (
-    <Container>
-      <Background
-        src={background}
-        alt="fundo com a visão de cima de uma cidade com predios altos"
-      />
-      <Box>
-        <Title>Ajuda para recuperar a senha</Title>
-        <Subtitle>
-          Digite seu e-mail para recuperar sua senha. Você receberá um e-mail
-          com instruções.
-        </Subtitle>
-        <FormGroup>
-          <Label htmlFor="email">E-mail</Label>
-          <Input
-            name="email"
-            id="email"
-            data-testid="email-input"
-            placeholder="Digite seu e-mail"
-          />
-        </FormGroup>
+    <Box>
+      <Title>Esqueceu sua senha?</Title>
+      <Subtitle>
+        Não se preocupe. Basta confirmar seu e-mail que enviaremos as instruções
+        para você redefinir sua senha.
+      </Subtitle>
+      <FormGroup>
+        <Label htmlFor="email">E-mail</Label>
+        <Input
+          name="email"
+          id="email"
+          data-testid="email-input"
+          placeholder="Digite seu e-mail"
+        />
+      </FormGroup>
 
-        <Button color="primary" block>
-          Enviar
-        </Button>
+      <Button color="primary" block>
+        Enviar
+      </Button>
 
-        <StyledSpan>
-          <button onClick={hideForgotPassword}>Já é cadastrado?</button>
-        </StyledSpan>
-      </Box>
-    </Container>
+      <StyledSpan>
+        <button onClick={hideForgotPassword}>Já é cadastrado?</button>
+      </StyledSpan>
+    </Box>
   );
 }
 
