@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { Button, FormGroup, Label, Input, Form, Alert } from 'reactstrap';
+import {
+  Button,
+  FormGroup,
+  Label,
+  Input,
+  Form,
+  Alert,
+  Spinner,
+} from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
 import firebase from 'firebase/app';
@@ -22,9 +30,11 @@ const Subtitle = styled.p`
 function ForgotPassword({ hideForgotPassword }) {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
 
     try {
       await firebase.auth().sendPasswordResetEmail(event.target.email.value);
@@ -33,6 +43,8 @@ function ForgotPassword({ hideForgotPassword }) {
     } catch (error) {
       setSuccess(false);
       setError(errorMessages[error.code]);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,11 +74,12 @@ function ForgotPassword({ hideForgotPassword }) {
               id="email"
               data-testid="email-input"
               placeholder="Digite seu e-mail"
+              disabled={loading}
             />
           </FormGroup>
 
-          <Button color="primary" block type="submit">
-            Enviar
+          <Button color="primary" block type="submit" disabled={loading}>
+            {loading ? <Spinner color="light" size="sm" /> : 'Entrar'}
           </Button>
         </Form>
 
