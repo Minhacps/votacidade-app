@@ -79,7 +79,7 @@ function ForgotPassword({ hideForgotPassword }) {
           </FormGroup>
 
           <Button color="primary" block type="submit" disabled={loading}>
-            {loading ? <Spinner color="light" size="sm" /> : 'Entrar'}
+            {loading ? <Spinner color="light" size="sm" /> : 'Enviar'}
           </Button>
         </Form>
 
