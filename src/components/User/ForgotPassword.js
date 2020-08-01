@@ -1,21 +1,40 @@
-import React from 'react';
-import { Button, FormGroup, Label, Input } from 'reactstrap';
+import React, { useState } from 'react';
+import { Button, FormGroup, Label, Input, Form, Alert } from 'reactstrap';
 import styled from 'styled-components';
 import background from 'assets/img/splashscreen.png';
+import firebase from 'firebase/app';
 
+import errorMessages from 'constants/errorMessages';
+import colors from 'styles/colors';
 import Background from 'components/Background/Background';
 import { Container, Box, StyledSpan } from './User.styled';
 
-function ForgotPassword({ hideForgotPassword }) {
-  const Title = styled.h2`
-    font-size: 20px;
-    color: #662d91;
-  `;
+const Title = styled.h2`
+  font-size: 20px;
+  color: ${colors.purple};
+`;
 
-  const Subtitle = styled.p`
-    font-size: 14px;
-    margin-bottom: 15px;
-  `;
+const Subtitle = styled.p`
+  font-size: 14px;
+  margin-bottom: 15px;
+`;
+
+function ForgotPassword({ hideForgotPassword }) {
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      await firebase.auth().sendPasswordResetEmail(event.target.email.value);
+      setError('');
+      setSuccess(true);
+    } catch (error) {
+      setSuccess(false);
+      setError(errorMessages[error.code]);
+    }
+  };
 
   return (
     <Container>
@@ -29,19 +48,27 @@ function ForgotPassword({ hideForgotPassword }) {
           Digite seu e-mail para recuperar sua senha. Você receberá um e-mail
           com instruções.
         </Subtitle>
-        <FormGroup>
-          <Label htmlFor="email">E-mail</Label>
-          <Input
-            name="email"
-            id="email"
-            data-testid="email-input"
-            placeholder="Digite seu e-mail"
-          />
-        </FormGroup>
+        <Form onSubmit={handleSubmit}>
+          {error && <Alert color="danger">{error}</Alert>}
+          {success && (
+            <Alert color="success">
+              Uma solicitação foi enviada ao seu e-mail para alterar sua senha.
+            </Alert>
+          )}
+          <FormGroup>
+            <Label htmlFor="email">E-mail</Label>
+            <Input
+              name="email"
+              id="email"
+              data-testid="email-input"
+              placeholder="Digite seu e-mail"
+            />
+          </FormGroup>
 
-        <Button color="primary" block>
-          Enviar
-        </Button>
+          <Button color="primary" block type="submit">
+            Enviar
+          </Button>
+        </Form>
 
         <StyledSpan>
           <button onClick={hideForgotPassword}>Já é cadastrado?</button>
