@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import firebase from 'firebase/app';
-import { Container } from 'reactstrap';
 
-import SignInForm from './components/User/SignInForm';
 import Routes from './Routes';
+import Login from './pages/Login';
 
 const App = () => {
   const [lookingForUser, setLookingForUser] = useState(true);
@@ -22,15 +21,13 @@ const App = () => {
   }
 
   if (!user) {
-    return <SignInForm />;
+    return <Login />;
   }
 
   return (
-    <Container data-testid="app">
-      <Router>
-        <Routes />
-      </Router>
-    </Container>
+    <Router>
+      <Routes />
+    </Router>
   );
 };
 
