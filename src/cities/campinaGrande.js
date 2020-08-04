@@ -7,19 +7,15 @@ export const cityPath = '/campina-grande';
 const questionnaire = [
   ...nationalQuestions,
   {
-    id: 11,
     question: 'Campina Grande Questão 11',
   },
   {
-    id: 12,
     question: 'Questão 12',
   },
   {
-    id: 13,
     question: 'Questão 13',
   },
   {
-    id: 14,
     question: 'Questão 14',
   },
 ];

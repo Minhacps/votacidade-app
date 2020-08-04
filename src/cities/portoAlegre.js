@@ -5,22 +5,18 @@ export const cityName = 'Porto Alegre';
 export const cityPath = '/porto-alegre';
 
 const questionnaire = [
-  nationalQuestions,
+  ...nationalQuestions,
   {
-    id: 11,
-    question: 'Porto AlegreQuestão 11',
+    question: 'Porto Alegre Questão 11',
   },
   {
-    id: 12,
-    question: 'Questão 12',
+    question: 'Porto Alegre Questão 12',
   },
   {
-    id: 13,
-    question: 'Questão 13',
+    question: 'Porto Alegre Questão 13',
   },
   {
-    id: 14,
-    question: 'Questão 14',
+    question: 'Porto Alegre Questão 14',
   },
 ];
 

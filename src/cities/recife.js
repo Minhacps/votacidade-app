@@ -4,22 +4,18 @@ export const cityName = 'Recife';
 export const cityPath = '/recife';
 
 const questionnaire = [
-  nationalQuestions,
+  ...nationalQuestions,
   {
-    id: 11,
     question: 'Recife Questão 11',
   },
   {
-    id: 12,
-    question: 'Questão 12',
+    question: 'Recife Questão 12',
   },
   {
-    id: 13,
-    question: 'Questão 13',
+    question: 'Recife Questão 13',
   },
   {
-    id: 14,
-    question: 'Questão 14',
+    question: 'Recife Questão 14',
   },
 ];
 
