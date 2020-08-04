@@ -1,0 +1,26 @@
+---
+name: Footer
+route: /footer
+---
+
+import { Playground } from 'docz';
+import { BrowserRouter } from 'react-router-dom';
+import LowerFooter from './LowerFooter.js';
+import UpperFooter from './UpperFooter.js';
+import { makers } from '../../data/makers';
+import { supporters } from '../../data/supporters';
+import { contatos } from '../../data/contatos';
+
+
+# Footer
+
+<Playground>
+    <BrowserRouter>
+    <UpperFooter
+        makers={makers}
+        contatos={contatos}
+        supporters={supporters}
+      />
+    <LowerFooter />
+    </BrowserRouter>
+</Playground>
