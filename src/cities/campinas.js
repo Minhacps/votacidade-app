@@ -7,20 +7,16 @@ export const cityPath = '/campinas';
 const questionnaire = [
   ...nationalQuestions,
   {
-    id: 11,
     question: 'Campinas Questão 11',
   },
   {
-    id: 12,
-    question: 'Questão 12',
+    question: 'Campinas Questão 12',
   },
   {
-    id: 13,
-    question: 'Questão 13',
+    question: 'Campinas Questão 13',
   },
   {
-    id: 14,
-    question: 'Questão 14',
+    question: 'Campinas Questão 14',
   },
 ];
 

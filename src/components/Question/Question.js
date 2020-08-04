@@ -1,67 +1,110 @@
 import React, { useContext } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, Input } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { Link } from 'react-router-dom';
 
-const Question = ({ id, onSave }) => {
-  const { firebase, currentUser, questionnaire } = useContext(CityContext);
-  const question = questionnaire[0].question;
+import InfoIcon from 'assets/icons/info.svg';
+import { QuestionOption, Checkmark } from './Question.styled';
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const fields = event.target.elements;
+const CustomRadio = ({ option, label, value }) => (
+  <QuestionOption>
+    <Input
+      type="radio"
+      id={`answer-${option}`}
+      name="answer"
+      value={option}
+      defaultChecked={value === option}
+    />
+    <Checkmark />
+    <label htmlFor={`answer-${option}`}>{label}</label>
+  </QuestionOption>
+);
 
-    if (!fields.answer.value) {
-      return;
-    }
+const Question = ({ id, onSave, onSkip, onBack, value }) => {
+  const { firebase, currentUser, questionnaire, cityPath } = useContext(
+    CityContext,
+  );
+  const { question, explanation } = questionnaire[id];
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+
+    const answer = {
+      [id]: value,
+    };
 
     firebase
       .firestore()
       .collection('answers')
       .doc(currentUser.uid)
-      .set({
-        [id]: fields.answer.value,
-      })
-      .then(onSave);
+      .set(answer, { merge: true })
+      .then(() => onSave(answer));
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onChange={handleChange} key={id + 1} className="m-4">
       <p>
-        {id}
-        {question}
+        <span>{id + 1}. </span>
+        <span>{question}</span>
       </p>
 
-      <FormGroup tag="fieldset">
-        <FormGroup check className="my-2">
-          <Label check>
-            <Input type="radio" id="answer-d" name="answer" value="D" />
-            Discordo
-          </Label>
-        </FormGroup>
+      {explanation && (
+        <p>
+          <img
+            className="mr-1"
+            src={InfoIcon}
+            alt="Ícone com a lera I dentro de um círculo"
+          />
+          <small className="text-muted font-weight-bold">
+            Entender melhor a questão
+          </small>
+        </p>
+      )}
 
-        <FormGroup check className="my-2">
-          <Label check>
-            <Input type="radio" name="answer" value="DP" />
-            Discordo Plenamente
-          </Label>
-        </FormGroup>
+      <CustomRadio option="D" value={value} label="Discordo" />
 
-        <FormGroup check className="my-2">
-          <Label check>
-            <Input type="radio" name="answer" value="C" />
-            Concordo
-          </Label>
-        </FormGroup>
+      <CustomRadio option="DP" value={value} label="Discordo Plenamente" />
 
-        <FormGroup check className="my-2">
-          <Label check>
-            <Input type="radio" name="answer" value="CP" />
-            Concordo Plenamente
-          </Label>
-        </FormGroup>
-      </FormGroup>
+      <CustomRadio option="C" value={value} label="Concordo" />
 
-      <Button>Salvar</Button>
+      <CustomRadio option="CP" value={value} label="Concordo Plenamente" />
+
+      <div className="d-flex">
+        {id > 0 && (
+          <Button
+            color="primary"
+            outline
+            type="button"
+            onClick={onBack}
+            className="w-100 mr-4"
+          >
+            Voltar
+          </Button>
+        )}
+
+        {id < questionnaire.length - 1 && (
+          <Button
+            color="primary"
+            outline
+            type="button"
+            onClick={() => onSkip()}
+            className="w-100"
+          >
+            Pular
+          </Button>
+        )}
+
+        {id === questionnaire.length - 1 && (
+          <Button
+            color="primary"
+            tag={Link}
+            to={`${cityPath}/ranking`}
+            className="w-100 ml-4"
+          >
+            Finalizar
+          </Button>
+        )}
+      </div>
     </Form>
   );
 };

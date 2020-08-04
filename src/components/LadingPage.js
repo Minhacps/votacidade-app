@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import cities from '../cities';
 
 const LandingPage = () => (
-  <Container>
+  <Container data-testid="app">
     <Row>
       {cities.map((city) => (
         <Col>

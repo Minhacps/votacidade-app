@@ -1,16 +1,6 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 
-export const Container = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  width: 350px;
-  margin: auto;
-  justify-content: center;
-  font-family: 'Roboto', sans-serif;
-`;
-
 export const Box = styled.div`
   background-color: #fff;
   padding: 20px;
