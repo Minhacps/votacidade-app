@@ -8,16 +8,14 @@ import { contatos } from '../../data/contatos';
 
 const Footer = () => {
   return (
-    <Container fluid={true}>
-      <footer>
-        <UpperFooter
-          makers={makers}
-          contatos={contatos}
-          supporters={supporters}
-        />
-        <LowerFooter />
-      </footer>
-    </Container>
+    <footer>
+      <UpperFooter
+        makers={makers}
+        contatos={contatos}
+        supporters={supporters}
+      />
+      <LowerFooter />
+    </footer>
   );
 };
 
