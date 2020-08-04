@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import CompleteSignup from 'components/User/CompleteSignup';
-import Navigation from 'components/Navigation';
 import BaseAppRoutes from './BaseAppRoutes';
+import Authenticated from 'templates/Authenticated';
 
 const BaseApp = () => {
   const { firebase, currentUser, cityPath } = useContext(CityContext);
@@ -30,11 +30,9 @@ const BaseApp = () => {
   }
 
   return (
-    <>
-      <Navigation />
-
+    <Authenticated>
       <BaseAppRoutes cityPath={cityPath} />
-    </>
+    </Authenticated>
   );
 };
 

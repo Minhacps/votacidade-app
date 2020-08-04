@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import firebase from 'firebase/app';
 import { Link } from 'react-router-dom';
-import { Row, Navbar, Nav, NavItem, NavLink } from 'reactstrap';
+import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 
 const Navigation = () => {
