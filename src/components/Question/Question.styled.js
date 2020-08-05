@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 
+export const QuestionTitle = styled.p`
+  font-size: 14px;
+  color: ${colors.grey500};
+
+  strong {
+    color: ${colors.purple};
+    font-weight: bold;
+  }
+`;
+
 export const Checkmark = styled.span`
   width: 15px;
   height: 15px;
@@ -12,6 +22,7 @@ export const Checkmark = styled.span`
   top: 50%;
   transform: translateY(-50%);
   left: 12px;
+  transition: 0.2s all ease;
 `;
 
 export const QuestionOption = styled.div`
@@ -19,6 +30,7 @@ export const QuestionOption = styled.div`
   margin-bottom: 15px;
 
   label {
+    transition: 0.2s all ease;
     border-radius: 3px;
     border: 1px solid #e6e6e6;
     box-shadow: 0 0 3px #00000029;

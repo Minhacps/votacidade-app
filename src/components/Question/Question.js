@@ -4,7 +4,7 @@ import { CityContext } from 'components/CityProvider/CityProvider';
 import { Link } from 'react-router-dom';
 
 import InfoIcon from 'assets/icons/info.svg';
-import { QuestionOption, Checkmark } from './Question.styled';
+import { QuestionOption, Checkmark, QuestionTitle } from './Question.styled';
 
 const CustomRadio = ({ option, label, value }) => (
   <QuestionOption>
@@ -42,11 +42,11 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
   };
 
   return (
-    <Form onChange={handleChange} key={id + 1} className="m-4">
-      <p>
-        <span>{id + 1}. </span>
+    <Form onChange={handleChange} key={id + 1} className="mt-4 mx-3">
+      <QuestionTitle>
+        <strong>{id + 1}. </strong>
         <span>{question}</span>
-      </p>
+      </QuestionTitle>
 
       {explanation && (
         <p>
