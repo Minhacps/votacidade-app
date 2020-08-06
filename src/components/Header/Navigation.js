@@ -47,6 +47,10 @@ const ExternalLink = styled(NavLink)`
 `;
 
 const Navigation = () => {
+  const handleActive = () => {
+    return true;
+  };
+
   const { cityPath } = useContext(CityContext);
 
   return (
@@ -55,15 +59,13 @@ const Navigation = () => {
         <StyledLink
           tag={Link}
           to={`${cityPath}/questionario`}
-          activeClassName="active"
+          onClick={handleActive}
+          active={handleActive ? true : false}
         >
           Questionário
         </StyledLink>
       </NavItem>
-      <NavItem
-        onClick={() => firebase.auth().signOut()}
-        activeClassName="active"
-      >
+      <NavItem onClick={() => firebase.auth().signOut()}>
         <StyledLink>Logout</StyledLink>
       </NavItem>
 
@@ -72,7 +74,7 @@ const Navigation = () => {
           rel="noopener noreferrer"
           target="_blank"
           href="https://drive.google.com/drive/folders/1xQh5dm-XkmQL_deO9sRueERMYpHoCj2a?usp=sharing"
-          activeClassName="active"
+          activeclassname="active"
         >
           Mídia Kit
         </ExternalLink>
@@ -82,7 +84,7 @@ const Navigation = () => {
           target="_blank"
           rel="noopener noreferrer"
           href="https://docs.google.com/forms/d/e/1FAIpQLSfFORbjA5LqCB9xPoj1tXyZmCNv_-Zx_ZwW8KW06BS8cSrpVg/viewform"
-          activeClassName="active"
+          activeclassname="active"
         >
           Seja Voluntário
         </ExternalLink>
