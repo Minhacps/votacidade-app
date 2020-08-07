@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { getColor, getFontWeight, buildFontSize } from '../styles/styles';
+
+import { buildFontSize, getColor, getFontWeight } from '../styles/styles';
+
 
 const StyledTitle = styled.h3`
   color: ${getColor};
