@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-
-import {
-  Container,
-  Row,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-} from 'reactstrap';
+import { Link } from 'react-router-dom';
+import { Container, Row, Collapse, Navbar, NavbarToggler } from 'reactstrap';
 
 import Navigation from './Navigation';
 
-import logo from '../../assets/img/logos/logo-vota-cidades.svg';
+import logo from 'assets/img/logos/logo-vota-cidades.svg';
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,9 +15,9 @@ export const Header = () => {
       <Container>
         <Row>
           <Navbar className="col" light expand="md">
-            <NavbarBrand href="/">
+            <Link to="/">
               <img src={logo} alt="Logo VotaCidades" />
-            </NavbarBrand>
+            </Link>
             <NavbarToggler onClick={toggle} />
             <Collapse isOpen={isOpen} navbar>
               <Navigation />
