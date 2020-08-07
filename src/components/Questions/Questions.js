@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import ProgressBar from 'components/ProgressBar/ProgressBar';
 
 const Questions = () => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
@@ -52,31 +51,18 @@ const Questions = () => {
     setCurrentQuestion(currentQuestion - 1);
   };
 
-  const getProgress = () => {
-    if (!answers) {
-      return 0;
-    }
-
-    const answersKeys = Object.keys(answers);
-    const questionsKeys = Object.keys(questionnaire);
-    return Number((answersKeys.length / questionsKeys.length) * 100).toFixed(0);
-  };
-
   if (isLoading) {
     return null;
   }
 
   return (
-    <>
-      <ProgressBar progress={getProgress()} />
-      <Question
-        id={currentQuestion}
-        onSave={handleNext}
-        onSkip={handleNext}
-        onBack={handleBack}
-        value={answers && answers[currentQuestion]}
-      />
-    </>
+    <Question
+      id={currentQuestion}
+      onSave={handleNext}
+      onSkip={handleNext}
+      onBack={handleBack}
+      value={answers && answers[currentQuestion]}
+    />
   );
 };
 
