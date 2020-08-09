@@ -6,11 +6,18 @@ import LandingPage from 'components/LadingPage';
 import Privacidade from '../src/pages/privacidade';
 import cities from './cities';
 import BaseApp from './BaseApp';
+import HomePage from 'pages/Home';
 
 const Routes = () => (
   <Switch>
     <Route path="/" exact>
       <LandingPage />
+    </Route>
+
+    <Route path="/home" exact>
+      <CityProvider city={cities[0]}>
+        <HomePage />
+      </CityProvider>
     </Route>
 
     <Route path="/privacidade" exact>

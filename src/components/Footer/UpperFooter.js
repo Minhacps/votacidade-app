@@ -11,7 +11,7 @@ import colors from '../../styles/colors';
 import { alfabeticOrder } from '../../styles/helper';
 
 const StyledFooter = styled.div`
-  background-color: #662d91;
+  background-color: ${colors.purple};
 
   .realizacao .realizador {
     flex-basis: 50%;
@@ -73,14 +73,14 @@ const UpperFooter = ({ contatos = [], makers = [], supporters = [] }) => (
     <Container>
       <Row className="mt-3">
         <Col xs="12" lg="6">
-          <Title tag="h4" size="1.1em" color="#FBB040">
+          <Title tag="h4" size="1.1em" color={colors.orangeLight}>
             Contato
           </Title>
           <ListaDeContato>{contatos.map(Contato)}</ListaDeContato>
         </Col>
 
         <Col xs="12" lg="6">
-          <Title tag="h4" size="1.1em" color="#FBB040">
+          <Title tag="h4" size="1.1em" color={colors.orangeLight}>
             Apoie o projeto!
           </Title>
           <p style={{ color: '#fff' }}>
@@ -90,7 +90,7 @@ const UpperFooter = ({ contatos = [], makers = [], supporters = [] }) => (
             públicas.
           </p>
           <Link to="/o-projeto">
-            <StyledButton bold light size="lg" color="#FBB040">
+            <StyledButton bold light size="lg" color={colors.orangeLight}>
               Saiba Mais
             </StyledButton>
           </Link>
@@ -99,15 +99,25 @@ const UpperFooter = ({ contatos = [], makers = [], supporters = [] }) => (
       <hr />
       <Row>
         <Col xs="12">
-          <Title tag="h4" size="1.1em" color="#FBB040" className="mb-3">
+          <Title
+            tag="h4"
+            size="1.1em"
+            color={colors.orangeLight}
+            className="mb-3"
+          >
             Realização
           </Title>
           <Row className="align-items-center realizacao">
             {makers.sort(alfabeticOrder('nome')).map(Partnership)}
           </Row>
         </Col>
-        <Col xs="12" lg="6" className="mt-3 mt-lg-0">
-          <Title tag="h4" size="1.1em" color="#FBB040" className="mb-3">
+        <Col xs="12">
+          <Title
+            tag="h4"
+            size="1.1em"
+            color={colors.orangeLight}
+            className="mb-3"
+          >
             Apoio
           </Title>
           <Row className="align-items-center">

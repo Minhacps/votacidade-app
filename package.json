@@ -36,7 +36,9 @@
     "lint-staged": "lint-staged",
     "docz:dev": "docz dev --port=9999",
     "docz:build": "docz build",
-    "docz:serve": "docz build && docz serve"
+    "docz:serve": "docz build && docz serve",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
