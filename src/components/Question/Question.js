@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Form, Input } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Link } from 'react-router-dom';
 
 import InfoIcon from 'assets/icons/info.svg';
-import { QuestionOption, Checkmark } from './Question.styled';
+import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 
 const CustomRadio = ({ option, label, value }) => (
   <QuestionOption>
@@ -26,6 +26,8 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
   );
   const { question, explanation } = questionnaire[id];
 
+  const [isCandidate, setIsCandidate] = useState(true);
+
   const handleChange = (event) => {
     const { value } = event.target;
 
@@ -39,6 +41,10 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
       .doc(currentUser.uid)
       .set(answer, { merge: true })
       .then(() => onSave(answer));
+  };
+
+  const saveCandidateAnswer = () => {
+    console.log('Salvando respostas dos candidatos');
   };
 
   return (
@@ -68,6 +74,21 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
       <CustomRadio option="C" value={value} label="Concordo" />
 
       <CustomRadio option="CP" value={value} label="Concordo Plenamente" />
+
+      {isCandidate ? (
+        <div style={{ margin: '20px 0 15px' }} className="d-block">
+          <label htmlFor="justification">
+            Justificativa <small>(opcional)</small>
+          </label>
+          <TextArea
+            // value={currentJustification}
+            // onChange={this.updateJustification}
+            name="justification"
+            id="justification"
+            maxLength={500}
+          />
+        </div>
+      ) : null}
 
       <div className="d-flex">
         {id > 0 && (
@@ -103,6 +124,10 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
           >
             Finalizar
           </Button>
+        )}
+
+        {isCandidate && (
+          <Button onClick={() => saveCandidateAnswer()}>Responder</Button>
         )}
       </div>
     </Form>
