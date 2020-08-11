@@ -1,11 +1,8 @@
-import { nationalQuestions } from './nationalQuestions';
-
 export const cityName = 'Campina Grande';
 
 export const cityPath = '/campina-grande';
 
 const questionnaire = [
-  ...nationalQuestions,
   {
     question: 'Campina Grande Questão 11',
   },

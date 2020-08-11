@@ -1,10 +1,8 @@
-import { nationalQuestions } from './nationalQuestions';
 export const cityName = 'Recife';
 
 export const cityPath = '/recife';
 
 const questionnaire = [
-  ...nationalQuestions,
   {
     question: 'Recife Questão 11',
   },
