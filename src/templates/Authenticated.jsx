@@ -22,7 +22,7 @@ const Authenticated = ({ children }) => {
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser.uid, questionnaire]);
+  }, [firebase, currentUser.uid, questionnaire, answers]);
 
   const getProgress = () => {
     if (!answers) {
