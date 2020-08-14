@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Button, Form, Input } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Link } from 'react-router-dom';
