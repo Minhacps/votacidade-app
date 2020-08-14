@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
 
-const Questions = () => {
+const Questions = ({ user }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
   const [answers, setAnswers] = useState(null);
@@ -55,6 +55,8 @@ const Questions = () => {
     return null;
   }
 
+  console.log(user);
+
   return (
     <Question
       id={currentQuestion}
@@ -62,6 +64,7 @@ const Questions = () => {
       onSkip={handleNext}
       onBack={handleBack}
       value={answers && answers[currentQuestion]}
+      user={user}
     />
   );
 };

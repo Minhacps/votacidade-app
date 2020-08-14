@@ -20,13 +20,11 @@ const CustomRadio = ({ option, label, value }) => (
   </QuestionOption>
 );
 
-const Question = ({ id, onSave, onSkip, onBack, value }) => {
+const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
   const { question, explanation } = questionnaire[id];
-
-  const [isCandidate, setIsCandidate] = useState(true);
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -75,7 +73,7 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
 
       <CustomRadio option="CP" value={value} label="Concordo Plenamente" />
 
-      {isCandidate ? (
+      {user.role === 'candidate' ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
           <label htmlFor="justification">
             Justificativa <small>(opcional)</small>
@@ -120,14 +118,21 @@ const Question = ({ id, onSave, onSkip, onBack, value }) => {
             color="primary"
             tag={Link}
             to={`${cityPath}/ranking`}
-            className="w-100 ml-4"
+            className="w-100 ml-3"
           >
             Finalizar
           </Button>
         )}
 
-        {isCandidate && (
-          <Button onClick={() => saveCandidateAnswer()}>Responder</Button>
+        {user.role === 'candidate' && (
+          <Button
+            onClick={() => saveCandidateAnswer()}
+            color="primary"
+            className="w-100 ml-4"
+            outline
+          >
+            Responder
+          </Button>
         )}
       </div>
     </Form>

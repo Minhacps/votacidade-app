@@ -31,7 +31,7 @@ const BaseApp = () => {
 
   return (
     <Authenticated>
-      <BaseAppRoutes cityPath={cityPath} />
+      <BaseAppRoutes cityPath={cityPath} user={user} />
     </Authenticated>
   );
 };
