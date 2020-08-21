@@ -26,11 +26,28 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   );
   const { question, explanation } = questionnaire[id];
 
-  const handleChange = (event) => {
-    const { value } = event.target;
+  const saveVoterAnswer = (event) => {
+    if (user.role === 'candidate') {
+      return;
+    }
 
+    saveAnswer({
+      answer: event.target.value,
+    });
+  };
+
+  const saveCandidateAnswer = (event) => {
+    event.preventDefault();
+
+    saveAnswer({
+      answer: event.target.answer.value,
+      justification: event.target.justification.value,
+    });
+  };
+
+  const saveAnswer = (data) => {
     const answer = {
-      [id]: value,
+      [id]: data,
     };
 
     firebase
@@ -41,12 +58,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       .then(() => onSave(answer));
   };
 
-  const saveCandidateAnswer = () => {
-    console.log('Salvando respostas dos candidatos');
-  };
-
   return (
-    <Form onChange={handleChange} key={id + 1} className="m-4">
+    <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
       <p>
         <span>{id + 1}. </span>
         <span>{question}</span>
@@ -65,13 +78,37 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         </p>
       )}
 
-      <CustomRadio option="D" value={value} label="Discordo" />
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="D"
+        name="answer"
+        value={value && value.answer}
+        label="Discordo"
+      />
 
-      <CustomRadio option="DP" value={value} label="Discordo Plenamente" />
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="DP"
+        name="answer"
+        value={value && value.answer}
+        label="Discordo Plenamente"
+      />
 
-      <CustomRadio option="C" value={value} label="Concordo" />
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="C"
+        name="answer"
+        value={value && value.answer}
+        label="Concordo"
+      />
 
-      <CustomRadio option="CP" value={value} label="Concordo Plenamente" />
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="CP"
+        name="answer"
+        value={value && value.answer}
+        label="Concordo Plenamente"
+      />
 
       {user.role === 'candidate' ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
@@ -79,11 +116,10 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             Justificativa <small>(opcional)</small>
           </label>
           <TextArea
-            // value={currentJustification}
-            // onChange={this.updateJustification}
             name="justification"
             id="justification"
             maxLength={500}
+            defaultValue={value && value.justification}
           />
         </div>
       ) : null}
@@ -125,12 +161,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         )}
 
         {user.role === 'candidate' && (
-          <Button
-            onClick={() => saveCandidateAnswer()}
-            color="primary"
-            className="w-100 ml-4"
-            outline
-          >
+          <Button color="primary" className="w-100 ml-4" outline>
             Responder
           </Button>
         )}

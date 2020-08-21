@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import firebase from 'firebase/app';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import CompleteSignup from 'components/User/CompleteSignup';
 import BaseAppRoutes from './BaseAppRoutes';
 import Authenticated from 'templates/Authenticated';
 
 const BaseApp = () => {
-  const { firebase, currentUser, cityPath } = useContext(CityContext);
+  const { currentUser, cityPath } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
@@ -23,10 +23,6 @@ const BaseApp = () => {
 
   if (isLoading) {
     return <p>Carregando...</p>;
-  }
-
-  if (!user) {
-    return <CompleteSignup firebase={firebase} currentUser={currentUser} />;
   }
 
   return (

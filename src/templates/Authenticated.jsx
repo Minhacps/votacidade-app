@@ -30,7 +30,7 @@ const Authenticated = ({ children }) => {
     } else {
       history.push('/');
     }
-  }, [firebase, questionnaire, answers, currentUser, history]);
+  });
 
   const getProgress = () => {
     if (!answers) {

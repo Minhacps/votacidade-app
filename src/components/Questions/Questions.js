@@ -55,8 +55,6 @@ const Questions = ({ user }) => {
     return null;
   }
 
-  console.log(user);
-
   return (
     <Question
       id={currentQuestion}
