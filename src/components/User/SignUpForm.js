@@ -25,11 +25,12 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 // eslint-disable-next-line no-useless-escape
 const CNPJ_REGEX = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
 
-const SignUpForm = () => {
+const SignUpForm = ({ onBackClick }) => {
   const { register, handleSubmit, control, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [isCandidate, toggleIsCandidate] = useState(false);
-  const [errorMessage, updateErrorMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const history = useHistory();
 
   const onSubmit = async (data) => {
@@ -88,19 +89,19 @@ const SignUpForm = () => {
     console.log(error);
     switch (error.code) {
       case 'auth/email-already-in-use': {
-        return updateErrorMessage('Este e-mail já está em uso.');
+        return setErrorMessage('Este e-mail já está em uso.');
       }
 
       case 'auth/invalid-email': {
-        return updateErrorMessage('O formato do e-mail informado é inválido.');
+        return setErrorMessage('O formato do e-mail informado é inválido.');
       }
 
       case 'auth/weak-password': {
-        return updateErrorMessage('Sua senha deve ter no mínimo 6 caracteres.');
+        return setErrorMessage('Sua senha deve ter no mínimo 6 caracteres.');
       }
 
       default: {
-        return updateErrorMessage('Ocorreu um erro inesperado.');
+        return setErrorMessage('Ocorreu um erro inesperado.');
       }
     }
   };
@@ -119,12 +120,7 @@ const SignUpForm = () => {
 
   return (
     <>
-      <FormHeader
-        title="Cadastro"
-        onArrowClick={() => {
-          history.push('/entrar');
-        }}
-      />
+      <FormHeader title="Cadastro" onArrowClick={onBackClick} />
       <Form onSubmit={handleSubmit(onSubmit)}>
         {loading && <Spinner color="primary" />}
         {errorMessage && <Alert color="danger">{errorMessage}</Alert>}

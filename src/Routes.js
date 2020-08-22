@@ -1,54 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
-import firebase from 'firebase/app';
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 
 import CityProvider from 'components/CityProvider/CityProvider';
+import LandingPage from 'components/LandingPage';
 import Privacidade from 'pages/privacidade';
 import cities from './cities';
 import BaseApp from './BaseApp';
 import HomePage from 'pages/Home';
 import FinalPage from 'pages/FinalPage/FinalPage';
-import Login from 'pages/Login';
-import Signup from 'pages/Signup';
 
 const Routes = () => {
-  const [lookingForUser, setLookingForUser] = useState(true);
-  const [user, setUser] = useState(null);
-  const history = useHistory();
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      setLookingForUser(false);
-      setUser(user);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!lookingForUser && user) {
-      history.push('/home');
-    }
-  }, [lookingForUser, user, history]);
-
-  if (lookingForUser) {
-    return <p>Carregando...</p>;
-  }
-
   return (
     <Switch>
-      <Route
-        path="/"
-        exact
-        render={() => {
-          return !user ? <Redirect to="/entrar" /> : <Redirect to="/home" />;
-        }}
-      />
-
-      <Route path="/entrar" exact>
-        <Login />
-      </Route>
-
-      <Route path="/cadastro" exact>
-        <Signup />
+      <Route path="/" exact>
+        <LandingPage />
       </Route>
 
       <Route path="/home" exact>
