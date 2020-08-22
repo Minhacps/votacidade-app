@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
 import { Container } from 'reactstrap';
@@ -9,10 +9,16 @@ import ForgotPassword from 'components/User/ForgotPassword';
 import Background from 'components/Background/Background';
 import background from 'assets/img/splashscreen.png';
 
-const Login = () => {
+const Login = ({ shouldComplete, user }) => {
   const [showPasswordRecovery, setShowPasswordRecovery] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [errorMessage, updateErrorMessage] = useState(null);
+
+  useEffect(() => {
+    if (shouldComplete) {
+      setIsLogin(false);
+    }
+  }, [shouldComplete]);
 
   // TODO - Adicionar transição (animation) suave entre login e cadastro
   return (
@@ -45,7 +51,9 @@ const Login = () => {
         </Container>
       )}
 
-      {!isLogin && <SignUpForm onBackClick={() => setIsLogin(true)} />}
+      {!isLogin && (
+        <SignUpForm onBackClick={() => setIsLogin(true)} user={user} />
+      )}
     </>
   );
 };

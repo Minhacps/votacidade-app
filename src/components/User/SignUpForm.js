@@ -24,14 +24,13 @@ const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+
 // eslint-disable-next-line no-useless-escape
 const CNPJ_REGEX = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
 
-const SignUpForm = ({ onBackClick }) => {
+const SignUpForm = ({ onBackClick, user }) => {
   const { register, handleSubmit, control, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [isCandidate, toggleIsCandidate] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const {
       city,
       email,
@@ -70,19 +69,31 @@ const SignUpForm = ({ onBackClick }) => {
       ...candidateData,
     };
 
-    await firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(async ({ user }) => {
-        await firebase
-          .firestore()
-          .collection('users')
-          .doc(user.uid)
-          .set({
-            ...userData,
-          });
-      })
-      .catch(handleSignupFailure);
+    if (password) {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(async ({ user }) => {
+          await firebase
+            .firestore()
+            .collection('users')
+            .doc(user.uid)
+            .set({
+              ...userData,
+            });
+        })
+        .catch(handleSignupFailure);
+    } else {
+      await firebase
+        .firestore()
+        .collection('users')
+        .doc(user.uid)
+        .set({
+          ...userData,
+        })
+        .catch(handleSignupFailure);
+    }
+
     setLoading(false);
   };
 
@@ -133,6 +144,7 @@ const SignUpForm = ({ onBackClick }) => {
             placeholder="Digite seu nome completo"
             innerRef={register({ required: true })}
             invalid={errors.name}
+            defaultValue={user.displayName || ''}
           />
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
@@ -147,11 +159,11 @@ const SignUpForm = ({ onBackClick }) => {
             invalid={errors.city}
           >
             <option value="">Selecione</option>
-            <option value="Campina Grande">Campina Grande</option>
-            <option value="Campinas">Campinas</option>
-            <option value="João Pessoa">João Pessoa</option>
-            <option value="Porto Alegre">Porto Alegre</option>
-            <option value="Recife">Recife</option>
+            <option value="campina-grande">Campina Grande</option>
+            <option value="campinas">Campinas</option>
+            <option value="joao-pessoa">João Pessoa</option>
+            <option value="porto-alegre">Porto Alegre</option>
+            <option value="recife">Recife</option>
           </Input>
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
@@ -164,6 +176,7 @@ const SignUpForm = ({ onBackClick }) => {
             id="email"
             innerRef={register({ required: true, pattern: EMAIL_REGEX })}
             invalid={errors.email}
+            defaultValue={user.email || ''}
           />
           {errors.email?.type === 'required' && (
             <FormFeedback>Campo obrigatório</FormFeedback>
@@ -173,11 +186,13 @@ const SignUpForm = ({ onBackClick }) => {
           )}
         </FormGroup>
 
-        <InputPassword
-          innerRef={register({ required: true, minLength: 6 })}
-          invalid={errors.password}
-          errors={errors}
-        />
+        {!user && (
+          <InputPassword
+            innerRef={register({ required: true, minLength: 6 })}
+            invalid={errors.password}
+            errors={errors}
+          />
+        )}
 
         <FormGroupCheck check>
           <Label check>

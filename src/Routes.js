@@ -1,27 +1,33 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import firebase from 'firebase/app';
 
 import CityProvider from 'components/CityProvider/CityProvider';
-import LandingPage from 'components/LandingPage';
 import Privacidade from 'pages/privacidade';
 import cities from './cities';
 import BaseApp from './BaseApp';
-import HomePage from 'pages/Home';
 import FinalPage from 'pages/FinalPage/FinalPage';
 
-const Routes = () => {
+const Routes = ({ user }) => {
+  const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('users')
+      .doc(user.uid)
+      .onSnapshot((snapshot) => {
+        const userData = snapshot.data();
+        console.log(location.pathname);
+        if (userData && userData.city && location.pathname === '/') {
+          history.push(`/${userData.city}`);
+        }
+      });
+  }, [history, location.pathname, user]);
+
   return (
     <Switch>
-      <Route path="/" exact>
-        <LandingPage />
-      </Route>
-
-      <Route path="/home" exact>
-        <CityProvider city={cities[0]}>
-          <HomePage />
-        </CityProvider>
-      </Route>
-
       <Route path="/privacidade" exact>
         <Privacidade />
       </Route>
