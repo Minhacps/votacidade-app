@@ -30,7 +30,12 @@ const InputPassword = (props) => {
         {!props.invalid && (
           <StyledEyeIcon onClick={() => toggleShowPassword(!showPassword)} />
         )}
-        <FormFeedback>Campo obrigatório</FormFeedback>
+        {props.errors.password?.type === 'required' && (
+          <FormFeedback>Campo obrigatório</FormFeedback>
+        )}
+        {props.errors.password?.type === 'minLength' && (
+          <FormFeedback>Senha deve ter no mínimo 6 caracteres</FormFeedback>
+        )}
       </InputContainer>
     </FormGroup>
   );

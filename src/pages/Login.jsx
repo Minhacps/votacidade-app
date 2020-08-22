@@ -11,7 +11,7 @@ import background from 'assets/img/splashscreen.png';
 
 const Login = () => {
   const [showPasswordRecovery, setShowPasswordRecovery] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [errorMessage, updateErrorMessage] = useState(null);
 
   // TODO - Adicionar transição (animation) suave entre login e cadastro

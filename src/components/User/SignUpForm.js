@@ -12,7 +12,6 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
-import { useHistory } from 'react-router-dom';
 
 import FormHeader from 'components/Form/FormHeader';
 import InputPassword from './InputPassword';
@@ -31,9 +30,8 @@ const SignUpForm = ({ onBackClick }) => {
   const [isCandidate, toggleIsCandidate] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const history = useHistory();
-
   const onSubmit = async (data) => {
+    console.log(data);
     const {
       city,
       email,
@@ -41,27 +39,33 @@ const SignUpForm = ({ onBackClick }) => {
       name,
       password,
       socialGroup,
+      ethnicGroup,
+      age,
       cnpj,
       candidateNumber,
       politicalParty,
+      description,
     } = data;
     setLoading(true);
 
-    const role = cnpj ? userRoles.CANDIDATE : userRoles.VOTER;
-    const candidateData = cnpj
+    const role = isCandidate ? userRoles.CANDIDATE : userRoles.VOTER;
+    const candidateData = isCandidate
       ? {
+          gender,
+          socialGroup,
+          ethnicGroup,
+          age,
           cnpj,
           candidateNumber,
           politicalParty,
+          description,
         }
       : {};
 
     const userData = {
       city,
       email,
-      gender,
       name,
-      socialGroup,
       role,
       ...candidateData,
     };
@@ -77,9 +81,6 @@ const SignUpForm = ({ onBackClick }) => {
           .set({
             ...userData,
           });
-      })
-      .then(() => {
-        history.push('/home');
       })
       .catch(handleSignupFailure);
     setLoading(false);
@@ -137,25 +138,6 @@ const SignUpForm = ({ onBackClick }) => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="gender">Gênero</Label>
-          <Input
-            type="select"
-            name="gender"
-            id="gender"
-            aria-label="Selecione seu gênero"
-            innerRef={register({ required: true })}
-            invalid={errors.gender}
-          >
-            <option value="">Selecione</option>
-            <option value="Não binário">Não binário</option>
-            <option value="Feminino">Feminino</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Prefiro não declarar">Prefiro não declarar</option>
-          </Input>
-          <FormFeedback>Campo obrigatório</FormFeedback>
-        </FormGroup>
-
-        <FormGroup>
           <Label for="city">Cidade</Label>
           <Input
             type="select"
@@ -172,21 +154,6 @@ const SignUpForm = ({ onBackClick }) => {
             <option value="Recife">Recife</option>
           </Input>
           <FormFeedback>Campo obrigatório</FormFeedback>
-        </FormGroup>
-
-        <FormGroup>
-          <Label for="socialGroup">LGBTQIAP+ (Opcional)</Label>
-          <Controller
-            name="socialGroup"
-            as={Select}
-            isMulti
-            className="basic-multi-select"
-            classNamePrefix="select"
-            placeholder="Selecione"
-            control={control}
-            options={socialGroupOptions}
-            defaultValue={[]}
-          />
         </FormGroup>
 
         <FormGroup>
@@ -209,6 +176,7 @@ const SignUpForm = ({ onBackClick }) => {
         <InputPassword
           innerRef={register({ required: true, minLength: 6 })}
           invalid={errors.password}
+          errors={errors}
         />
 
         <FormGroupCheck check>
@@ -224,17 +192,105 @@ const SignUpForm = ({ onBackClick }) => {
         {isCandidate && (
           <>
             <FormGroup>
+              <Label for="gender">Gênero</Label>
+              <Input
+                type="select"
+                name="gender"
+                id="gender"
+                aria-label="Selecione seu gênero"
+                innerRef={register({ required: true })}
+                invalid={errors.gender}
+              >
+                <option value="">Selecione</option>
+                <option value="Não binário">Não binário</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Prefiro não declarar">
+                  Prefiro não declarar
+                </option>
+              </Input>
+              {errors.gender?.type === 'required' && (
+                <FormFeedback>Campo obrigatório</FormFeedback>
+              )}
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="socialGroup">LGBTQIAP+ (Opcional)</Label>
+              <Controller
+                name="socialGroup"
+                as={Select}
+                isMulti
+                className="basic-multi-select"
+                classNamePrefix="select"
+                placeholder="Selecione"
+                control={control}
+                options={socialGroupOptions}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="ethnicGroup">Identificação étnico-racial</Label>
+              <Input
+                type="select"
+                name="ethnicGroup"
+                id="ethnicGroup"
+                aria-label="Identificação étnico-racial"
+                innerRef={register({ required: true })}
+                invalid={errors.ethnicGroup}
+              >
+                <option value="">Selecione</option>
+                <option value="Branca">Branca</option>
+                <option value="Preta">Preta</option>
+                <option value="Amarela">Amarela</option>
+                <option value="Parda">Parda</option>
+                <option value="Indígena">Indígena</option>
+              </Input>
+              {errors.ethnicGroup?.type === 'required' && (
+                <FormFeedback>Campo obrigatório</FormFeedback>
+              )}
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="age">Idade</Label>
+              <Input
+                type="select"
+                name="age"
+                id="age"
+                aria-label="Idade"
+                innerRef={register({ required: true })}
+                invalid={errors.age}
+              >
+                <option value="">Selecione</option>
+                <option value="18-24">18-24</option>
+                <option value="25-29">25-29</option>
+                <option value="30-34">30-34</option>
+                <option value="35-39">35-39</option>
+                <option value="40-44">40-44</option>
+                <option value="45-49">45-49</option>
+                <option value="50-54">50-54</option>
+                <option value="55-59">55-59</option>
+                <option value="60-64">60-64</option>
+                <option value="65-69">65-69</option>
+                <option value="70-74">70-74</option>
+                <option value="75-79">75-79</option>
+                <option value="80-84">80-84</option>
+                <option value="85-89">85-89</option>
+                <option value="90+ca">90+</option>
+              </Input>
+              {errors.age?.type === 'required' && (
+                <FormFeedback>Campo obrigatório</FormFeedback>
+              )}
+            </FormGroup>
+
+            <FormGroup>
               <Label htmlFor="cnpj">CNPJ cadastrado</Label>
               <Input
                 name="cnpj"
                 id="cnpj"
                 placeholder="Digite aqui seu CNPJ"
-                innerRef={register({ required: true, pattern: CNPJ_REGEX })}
+                innerRef={register({ pattern: CNPJ_REGEX })}
                 invalid={errors.cnpj}
               />
-              {errors.cnpj?.type === 'required' && (
-                <FormFeedback>Campo obrigatório</FormFeedback>
-              )}
               {errors.cnpj?.type === 'pattern' && (
                 <FormFeedback>CNPJ inválido</FormFeedback>
               )}
@@ -265,7 +321,12 @@ const SignUpForm = ({ onBackClick }) => {
                     invalid={errors.politicalParty}
                   >
                     <option value="">Selecione</option>
+                    {/* {partidos.sort(alfabeticOrder('nome')).map((partido) => {
+                      return (
+                        <option value={partido.nome}> {partido.nome} - {partido.sigla} - {partido.numero} </option>
+                      )})} */}
                     <option value="AVANTE"> AVANTE - Avante - 70 </option>
+                    <option value="DEM"> Cidadania - Democratas - 25 </option>
                     <option value="DC"> DC - Democracia Cristã - 27 </option>
                     <option value="DEM"> DEM - Democratas - 25 </option>
                     <option value="MDB">
@@ -361,6 +422,16 @@ const SignUpForm = ({ onBackClick }) => {
                 </FormGroup>
               </Col>
             </Row>
+            <FormGroup>
+              <Label htmlFor="description">Descrição</Label>
+              <Input
+                type="textarea"
+                name="description"
+                id="description"
+                placeholder="Descrição"
+                innerRef={register()}
+              />
+            </FormGroup>
           </>
         )}
 
