@@ -9,17 +9,19 @@ import {
   Alert,
   Spinner,
 } from 'reactstrap';
-import { useHistory } from 'react-router-dom';
 
 import { Tabs, TabButton } from 'components/Tabs/Tabs';
 import errorMessages from 'constants/errorMessages';
 import SocialSignin from './SocialSignin';
 import { Box, Divider, StyledSpan } from './User.styled';
 
-const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
+const SignInForm = ({
+  updateErrorMessage,
+  setShowForgotPasswordForm,
+  onSignupClick,
+}) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,10 +45,7 @@ const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
         <TabButton active disabled>
           ✓ Entrar
         </TabButton>
-        <TabButton
-          onClick={() => history.push('/cadastro')}
-          data-testid="signup-button"
-        >
+        <TabButton onClick={onSignupClick} data-testid="signup-button">
           Cadastrar
         </TabButton>
       </Tabs>

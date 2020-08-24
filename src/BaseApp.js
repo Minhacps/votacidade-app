@@ -19,7 +19,7 @@ const BaseApp = () => {
         const userData = snapshot.data();
         setUser(userData);
       });
-  }, [firebase, currentUser]);
+  }, [currentUser]);
 
   if (isLoading) {
     return <p>Carregando...</p>;
