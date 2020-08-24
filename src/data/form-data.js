@@ -1,6 +1,21 @@
-export const partidos = [
-  { nome: 'Avante', sigla: 'AVANTE', numero: 70 },
-  { nome: 'Cidadania', sigla: 'CIDADANIA', numero: 23 },
+export const genders = [
+  { category: 'Não binário' },
+  { category: 'Feminino' },
+  { category: 'Masculino' },
+  { category: 'Prefiro não declarar' },
+];
+
+export const politicalParties = [
+  {
+    nome: 'Avante',
+    sigla: 'AVANTE',
+    numero: 70,
+  },
+  {
+    nome: 'Cidadania',
+    sigla: 'CIDADANIA',
+    numero: 23,
+  },
   { nome: 'Democracia Cristã', sigla: 'DC', numero: 27 },
   { nome: 'Democratas', sigla: 'DEM', numero: 25 },
   { nome: 'Movimento Democrático Brasileiro', sigla: 'MDB', numero: 15 },
@@ -40,4 +55,30 @@ export const partidos = [
   { nome: 'Republicanos', sigla: 'REPUBLICANOS', numero: 10 },
   { nome: 'Solidariedade ', sigla: 'SD', numero: 77 },
   { nome: 'Unidade Popular', sigla: 'UP', numero: 80 },
+];
+
+export const ages = [
+  { category: '18-24' },
+  { category: '25-29' },
+  { category: '30-34' },
+  { category: '35-39' },
+  { category: '40-44' },
+  { category: '45-49' },
+  { category: '50-54' },
+  { category: '55-59' },
+  { category: '60-64' },
+  { category: '65-69' },
+  { category: '70-74' },
+  { category: '75-79' },
+  { category: '80-84' },
+  { category: '85-89' },
+  { category: '90+' },
+];
+
+export const ethnicGroup = [
+  { category: 'Branca' },
+  { category: 'Preta' },
+  { category: 'Amarela' },
+  { category: 'Parda' },
+  { category: 'Indígena' },
 ];
