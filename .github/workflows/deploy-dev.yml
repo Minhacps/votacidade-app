@@ -14,7 +14,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build
-        run: npm run build
+        run: REACT_APP_FIREBASE_ENV=dev npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
