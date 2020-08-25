@@ -19,7 +19,6 @@ const Routes = ({ user }) => {
       .doc(user.uid)
       .onSnapshot((snapshot) => {
         const userData = snapshot.data();
-        console.log(location.pathname);
         if (userData && userData.city && location.pathname === '/') {
           history.push(`/${userData.city}`);
         }
