@@ -73,16 +73,6 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       </p>
 
       {explanation && (
-        // <p>
-        //   <img
-        //     className="mr-1"
-        //     src={InfoIcon}
-        //     alt="Ícone com a lera I dentro de um círculo"
-        //   />
-        //   <small className="text-muted font-weight-bold">
-        //     Entender melhor a questão
-        //   </small>
-        // </p>
         <div className="mb-3">
           <div id="toggler">
             <img
