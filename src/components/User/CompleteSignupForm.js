@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
 import GenderSelectField from './GenderSelectField';
+import { alfabeticOrder } from '../../styles/helper';
+import { genders, ethnicGroup, ages, politicalParties } from 'data/form-data';
+import { cidades } from 'data/cidades';
 
 const VOTER = 'voter';
 const CANDIDATE = 'candidate';
@@ -96,36 +99,29 @@ class CompleteSignupForm extends Component {
                         required
                       />
                     </div>
-
                     <div className="field-wrapper">
                       <label htmlFor="age">Idade</label>
                       <select name="age" id="age" className="input">
-                        <option value="18-24">18-24</option>
-                        <option value="25-29">25-29</option>
-                        <option value="30-34">30-34</option>
-                        <option value="35-39">35-39</option>
-                        <option value="40-44">40-44</option>
-                        <option value="45-49">45-49</option>
-                        <option value="50-54">50-54</option>
-                        <option value="55-59">55-59</option>
-                        <option value="60-64">60-64</option>
-                        <option value="65-69">65-69</option>
-                        <option value="70-74">70-74</option>
-                        <option value="75-79">75-79</option>
-                        <option value="80-84">80-84</option>
-                        <option value="85-89">85-89</option>
-                        <option value="90+">90+</option>
+                        {ages.sort(alfabeticOrder('category')).map((age) => {
+                          return (
+                            <option value={age.category}>{age.category}</option>
+                          );
+                        })}
                       </select>
                     </div>
 
                     <div className="field-wrapper">
                       <label htmlFor="raca">Identificação étnico-racial</label>
                       <select name="raca" id="raca" className="input">
-                        <option value="branca">Branca</option>
-                        <option value="preta">Preta</option>
-                        <option value="amarela">Amarela</option>
-                        <option value="parda">Parda</option>
-                        <option value="indigena">Indígena</option>
+                        {ethnicGroup
+                          .sort(alfabeticOrder('category'))
+                          .map((ethnic) => {
+                            return (
+                              <option value={ethnic.category}>
+                                {ethnic.category}
+                              </option>
+                            );
+                          })}
                       </select>
                     </div>
 
@@ -138,107 +134,17 @@ class CompleteSignupForm extends Component {
                         id="politicalParty"
                         className="input"
                       >
-                        <option value="AVANTE"> AVANTE - Avante - 70 </option>
-                        <option value="DC">
-                          {' '}
-                          DC - Democracia Cristã - 27{' '}
-                        </option>
-                        <option value="DEM"> DEM - Democratas - 25 </option>
-                        <option value="MDB">
-                          {' '}
-                          MDB - Movimento Democrático Brasileiro - 15{' '}
-                        </option>
-                        <option value="PCB">
-                          {' '}
-                          PCB - Partido Comunista Brasileiro - 21{' '}
-                        </option>
-                        <option value="PCdoB">
-                          {' '}
-                          PCdoB - Partido Comunista do Brasil - 65{' '}
-                        </option>
-                        <option value="PCO">
-                          {' '}
-                          PCO - Partido da Causa Operária - 29{' '}
-                        </option>
-                        <option value="PMN">
-                          {' '}
-                          PMN - Partido da Mobilização Nacional - 33{' '}
-                        </option>
-                        <option value="PMB">
-                          {' '}
-                          PMB - Partido da Mulher Brasileira[59] - 35{' '}
-                        </option>
-                        <option value="PR">
-                          PR - Partido da República - 22{' '}
-                        </option>
-                        <option value="PSDB">
-                          PSDB - Partido da Social Democracia Brasileira - 45{' '}
-                        </option>
-                        <option value="PDT">
-                          PDT - Partido Democrático Trabalhista - 12{' '}
-                        </option>
-                        <option value="PT">
-                          PT - Partido dos Trabalhadores - 13{' '}
-                        </option>
-                        <option value="PHS">
-                          PHS - Partido Humanista da Solidariedade - 31{' '}
-                        </option>
-                        <option value="NOVO">
-                          NOVO - Partido Novo[65] - 30{' '}
-                        </option>
-                        <option value="PPL">
-                          PPL - Partido Pátria Livre - 54{' '}
-                        </option>
-                        <option value="PPS">
-                          PPS - Partido Popular Socialista - 23{' '}
-                        </option>
-                        <option value="PP">
-                          PP - Partido Progressista - 11{' '}
-                        </option>
-                        <option value="PRTB">
-                          PRTB - Partido Renovador Trabalhista Brasileiro - 28{' '}
-                        </option>
-                        <option value="PRB">
-                          PRB - Partido Republicano Brasileiro - 10{' '}
-                        </option>
-                        <option value="PROS">
-                          PROS - Partido Republicano da Ordem Social - 90{' '}
-                        </option>
-                        <option value="PRP">
-                          PRP - Partido Republicano Progressista - 44{' '}
-                        </option>
-                        <option value="PSC">
-                          PSC - Partido Social Cristão - 20{' '}
-                        </option>
-                        <option value="PSD">
-                          PSD - Partido Social Democrático - 55{' '}
-                        </option>
-                        <option value="PSL">
-                          PSL - Partido Social Liberal - 17{' '}
-                        </option>
-                        <option value="PSOL">
-                          PSOL - Partido Socialismo e Liberdade - 50{' '}
-                        </option>
-                        <option value="PSB">
-                          PSB - Partido Socialista Brasileiro - 40{' '}
-                        </option>
-                        <option value="PSTU">
-                          PSTU - Partido Socialista dos Trabalhadores Unificado
-                          - 16{' '}
-                        </option>
-                        <option value="PTB">
-                          PTB - Partido Trabalhista Brasileiro - 14{' '}
-                        </option>
-                        <option value="PTC">
-                          PTC - Partido Trabalhista Cristão - 36{' '}
-                        </option>
-                        <option value="PV">PV - Partido Verde - 43 </option>
-                        <option value="PATRI">PATRI - Patriota - 51 </option>
-                        <option value="PODE">PODE - Podemos - 19 </option>
-                        <option value="REDE">
-                          REDE - Rede Sustentabilidade - 18{' '}
-                        </option>
-                        <option value="SD">SD - Solidariedade - 77 </option>
+                        {politicalParties
+                          .sort(alfabeticOrder('nome'))
+                          .map((partido) => {
+                            return (
+                              <option value={partido.sigla}>
+                                {' '}
+                                {partido.numero} - {partido.sigla} -{' '}
+                                {partido.nome}
+                              </option>
+                            );
+                          })}
                       </select>
                     </div>
 
