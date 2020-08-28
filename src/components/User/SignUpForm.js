@@ -13,7 +13,6 @@ import {
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
 
-import FormHeader from 'components/Form/FormHeader';
 import InputPassword from './InputPassword';
 import { Form, Button, FormGroupCheck } from './SignUpForm.styled';
 import userRoles from 'constants/userRoles';
@@ -135,8 +134,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
   return (
     <>
-      <FormHeader title="Cadastro" onArrowClick={onBackClick} />
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {loading && <Spinner color="primary" />}
         {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
         <FormGroup>
@@ -147,8 +145,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             placeholder="Digite seu nome completo"
             innerRef={register({ required: true })}
             invalid={errors.name}
-            // defaultValue={user.displayName || ''}
-            defaultValue=""
+            defaultValue={(user && user.displayName) || ''}
           />
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
@@ -182,8 +179,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             id="email"
             innerRef={register({ required: true, pattern: EMAIL_REGEX })}
             invalid={errors.email}
-            // defaultValue={user.email || ''}
-            defaultValue=""
+            defaultValue={(user && user.email) || ''}
           />
           {errors.email?.type === 'required' && (
             <FormFeedback>Campo obrigatório</FormFeedback>
@@ -363,7 +359,7 @@ const SignUpForm = ({ onBackClick, user }) => {
         )}
 
         <Button data-testid="submit-button">Entrar</Button>
-      </Form>
+      </form>
     </>
   );
 };
