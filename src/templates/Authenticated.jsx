@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
@@ -10,27 +9,20 @@ const Authenticated = ({ children }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [answers, setAnswers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const history = useHistory();
 
   useEffect(() => {
-    const { uid } = currentUser ?? {};
-    if (uid) {
-      firebase
-        .firestore()
-        .collection('answers')
-        .doc(uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            const loadedAnswers = doc.data();
-            setAnswers(loadedAnswers);
-          }
-          setIsLoading(false);
-        });
-    } else {
-      history.push('/');
-    }
-  });
+    firebase
+      .firestore()
+      .collection('answers')
+      .doc(currentUser.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          const loadedAnswers = doc.data();
+          setAnswers(loadedAnswers);
+        }
+        setIsLoading(false);
+      });
+  }, [firebase, currentUser]);
 
   const getProgress = () => {
     if (!answers) {

@@ -13,9 +13,10 @@ import { Link } from 'react-router-dom';
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 
-const CustomRadio = ({ option, label, value }) => (
+const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
     <Input
+      onChange={onChange}
       type="radio"
       id={`answer-${option}`}
       name="answer"
