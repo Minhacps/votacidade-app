@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
