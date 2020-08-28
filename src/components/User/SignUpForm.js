@@ -54,13 +54,13 @@ const SignUpForm = ({ onBackClick, user }) => {
     const candidateData = isCandidate
       ? {
           gender,
-          socialGroup,
+          socialGroup: socialGroup || '',
           ethnicGroup,
           age,
-          cnpj,
+          cnpj: cnpj || '',
           candidateNumber,
           politicalParty,
-          description,
+          description: description || '',
         }
       : {};
 
@@ -164,7 +164,11 @@ const SignUpForm = ({ onBackClick, user }) => {
           >
             <option value="">Selecione</option>
             {cidades.sort(alfabeticOrder('title')).map((city) => {
-              return <option value={city.value}>{city.title}</option>;
+              return (
+                <option key={city.value} value={city.value}>
+                  {city.title}
+                </option>
+              );
             })}
           </Input>
           <FormFeedback>Campo obrigatório</FormFeedback>
@@ -222,7 +226,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 <option value="">Selecione</option>
                 {genders.sort(alfabeticOrder('category')).map((gender) => {
                   return (
-                    <option value={gender.category}>{gender.category}</option>
+                    <option key={gender.category} value={gender.category}>
+                      {gender.category}
+                    </option>
                   );
                 })}
               </Input>
@@ -258,7 +264,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 <option value="">Selecione</option>
                 {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
                   return (
-                    <option value={ethnic.category}>{ethnic.category}</option>
+                    <option key={ethnic.category} value={ethnic.category}>
+                      {ethnic.category}
+                    </option>
                   );
                 })}
               </Input>
@@ -330,7 +338,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                       .sort(alfabeticOrder('nome'))
                       .map((partido) => {
                         return (
-                          <option value={partido.sigla}>
+                          <option key={partido.sigla} value={partido.sigla}>
                             {' '}
                             {partido.numero} - {partido.sigla} - {partido.nome}
                           </option>
