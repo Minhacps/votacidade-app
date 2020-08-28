@@ -172,7 +172,7 @@ const SignUpForm = ({ onBackClick, user }) => {
         </FormGroup>
 
         <FormGroup>
-          <Label for="email">Email</Label>
+          <Label for="email">E-mail</Label>
           <Input
             type="text"
             name="email"
