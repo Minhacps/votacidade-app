@@ -13,9 +13,8 @@ import {
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
 
-import FormHeader from 'components/Form/FormHeader';
 import InputPassword from './InputPassword';
-import { Form, Button, FormGroupCheck } from './SignUpForm.styled';
+import { Button, FormGroupCheck } from './SignUpForm.styled';
 import userRoles from 'constants/userRoles';
 import { alfabeticOrder } from '../../styles/helper';
 import { genders, ethnicGroup, ages, politicalParties } from 'data/form-data';
@@ -54,13 +53,13 @@ const SignUpForm = ({ onBackClick, user }) => {
     const candidateData = isCandidate
       ? {
           gender,
-          socialGroup,
+          socialGroup: socialGroup || '',
           ethnicGroup,
           age,
-          cnpj,
+          cnpj: cnpj || '',
           candidateNumber,
           politicalParty,
-          description,
+          description: description || '',
         }
       : {};
 
@@ -135,8 +134,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
   return (
     <>
-      <FormHeader title="Cadastro" onArrowClick={onBackClick} />
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {loading && <Spinner color="primary" />}
         {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
         <FormGroup>
@@ -147,8 +145,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             placeholder="Digite seu nome completo"
             innerRef={register({ required: true })}
             invalid={errors.name}
-            // defaultValue={user.displayName || ''}
-            defaultValue=""
+            defaultValue={(user && user.displayName) || ''}
           />
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
@@ -164,22 +161,25 @@ const SignUpForm = ({ onBackClick, user }) => {
           >
             <option value="">Selecione</option>
             {cidades.sort(alfabeticOrder('title')).map((city) => {
-              return <option value={city.value}>{city.title}</option>;
+              return (
+                <option key={city.value} value={city.value}>
+                  {city.title}
+                </option>
+              );
             })}
           </Input>
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
 
         <FormGroup>
-          <Label for="email">Email</Label>
+          <Label for="email">E-mail</Label>
           <Input
             type="text"
             name="email"
             id="email"
             innerRef={register({ required: true, pattern: EMAIL_REGEX })}
             invalid={errors.email}
-            // defaultValue={user.email || ''}
-            defaultValue=""
+            defaultValue={(user && user.email) || ''}
           />
           {errors.email?.type === 'required' && (
             <FormFeedback>Campo obrigatório</FormFeedback>
@@ -222,7 +222,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 <option value="">Selecione</option>
                 {genders.sort(alfabeticOrder('category')).map((gender) => {
                   return (
-                    <option value={gender.category}>{gender.category}</option>
+                    <option key={gender.category} value={gender.category}>
+                      {gender.category}
+                    </option>
                   );
                 })}
               </Input>
@@ -258,7 +260,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 <option value="">Selecione</option>
                 {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
                   return (
-                    <option value={ethnic.category}>{ethnic.category}</option>
+                    <option key={ethnic.category} value={ethnic.category}>
+                      {ethnic.category}
+                    </option>
                   );
                 })}
               </Input>
@@ -330,7 +334,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                       .sort(alfabeticOrder('nome'))
                       .map((partido) => {
                         return (
-                          <option value={partido.sigla}>
+                          <option key={partido.sigla} value={partido.sigla}>
                             {' '}
                             {partido.numero} - {partido.sigla} - {partido.nome}
                           </option>
@@ -355,7 +359,7 @@ const SignUpForm = ({ onBackClick, user }) => {
         )}
 
         <Button data-testid="submit-button">Entrar</Button>
-      </Form>
+      </form>
     </>
   );
 };
