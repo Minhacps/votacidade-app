@@ -1,5 +1,12 @@
 import React, { useContext } from 'react';
-import { Button, Form, Input } from 'reactstrap';
+import {
+  Form,
+  Input,
+  UncontrolledCollapse,
+  Button,
+  CardBody,
+  Card,
+} from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { useHistory } from 'react-router-dom';
 
@@ -72,16 +79,24 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       </p>
 
       {explanation && (
-        <p>
-          <img
-            className="mr-1"
-            src={InfoIcon}
-            alt="Ícone com a lera I dentro de um círculo"
-          />
-          <small className="text-muted font-weight-bold">
-            Entender melhor a questão
-          </small>
-        </p>
+        <div className="mb-3">
+          <div id="toggler">
+            <img
+              className="mr-1"
+              src={InfoIcon}
+              alt="Ícone com a lera I dentro de um círculo"
+            />
+            <small className="text-muted font-weight-bold">
+              Entender melhor a questão
+            </small>
+          </div>
+
+          <UncontrolledCollapse toggler="#toggler">
+            <Card>
+              <CardBody style={{ fontSize: '12px' }}>{explanation}</CardBody>
+            </Card>
+          </UncontrolledCollapse>
+        </div>
       )}
 
       <CustomRadio
