@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, Form, Input } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
@@ -22,6 +22,7 @@ const CustomRadio = ({ option, label, value, onChange }) => (
 );
 
 const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+  const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
@@ -44,6 +45,10 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveAnswer = (data) => {
@@ -150,20 +155,9 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
 
-        {id === questionnaire.length - 1 && (
-          <Button
-            color="primary"
-            tag={Link}
-            to={`${cityPath}/ranking`}
-            className="w-100 ml-3"
-          >
-            Finalizar
-          </Button>
-        )}
-
         {user.role === 'candidate' && (
           <Button color="primary" className="w-100 ml-4" outline>
-            Responder
+            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
       </div>
