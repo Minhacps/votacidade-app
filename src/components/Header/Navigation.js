@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import firebase from 'firebase/app';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import QuestionsBoard from 'components/QuestionsBoard/QuestionsBoard';
+
 import colors from '../../styles/colors';
 import { Nav, NavItem } from 'reactstrap';
 import { CityContext } from '../CityProvider/CityProvider';
@@ -47,6 +49,9 @@ const Navigation = () => {
       </NavItem>
       <NavItem onClick={() => firebase.auth().signOut()}>
         <StyledLogout>Logout</StyledLogout>
+      </NavItem>
+      <NavItem>
+        <QuestionsBoard />
       </NavItem>
     </Nav>
   );
