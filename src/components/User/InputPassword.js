@@ -22,6 +22,7 @@ const InputPassword = (props) => {
           type={showPassword ? 'text' : 'password'}
           name="password"
           id="password"
+          placeholder={props.placeholder}
           className={!props.invalid ? 'border-right-0' : 'rounded-right'}
           {...props}
         />
