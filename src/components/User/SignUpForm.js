@@ -121,14 +121,14 @@ const SignUpForm = ({ onBackClick, user }) => {
   };
 
   const socialGroupOptions = [
-    { value: 'L', label: 'L' },
-    { value: 'G', label: 'G' },
-    { value: 'B', label: 'B' },
-    { value: 'T', label: 'T' },
-    { value: 'Q', label: 'Q' },
-    { value: 'I', label: 'I' },
-    { value: 'A', label: 'A' },
-    { value: 'P', label: 'P' },
+    { value: 'L', label: 'Lésbica' },
+    { value: 'G', label: 'Gay' },
+    { value: 'B', label: 'Bissexual' },
+    { value: 'T', label: 'Transgêneros, Transsexuais ou Travestis' },
+    { value: 'Q', label: 'Queer' },
+    { value: 'I', label: 'Intersexo' },
+    { value: 'A', label: 'Assexual' },
+    { value: 'P', label: 'Panssexual' },
     { value: '+', label: '+' },
   ];
 
