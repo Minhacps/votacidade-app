@@ -194,6 +194,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             innerRef={register({ required: true, minLength: 6 })}
             invalid={errors.password}
             errors={errors}
+            placeholder="Digite uma senha"
           />
         )}
 

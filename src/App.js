@@ -5,6 +5,8 @@ import firebase from 'firebase/app';
 import Routes from './Routes';
 import Login from './pages/Login';
 
+import './fontawesome';
+
 const App = () => {
   const [lookingForUser, setLookingForUser] = useState(true);
   const [user, setUser] = useState(null);
