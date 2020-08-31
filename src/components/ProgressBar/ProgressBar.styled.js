@@ -36,7 +36,7 @@ export const ProgressBarContainer = styled.div`
 
 export const ProgressBarTitle = styled.span`
   color: ${colors.grey500};
-  font-size: 10px;
+  font-size: 8pt;
   display: block;
 `;
 

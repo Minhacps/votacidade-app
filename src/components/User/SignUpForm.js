@@ -121,14 +121,14 @@ const SignUpForm = ({ onBackClick, user }) => {
   };
 
   const socialGroupOptions = [
-    { value: 'L', label: 'L' },
-    { value: 'G', label: 'G' },
-    { value: 'B', label: 'B' },
-    { value: 'T', label: 'T' },
-    { value: 'Q', label: 'Q' },
-    { value: 'I', label: 'I' },
-    { value: 'A', label: 'A' },
-    { value: 'P', label: 'P' },
+    { value: 'L', label: 'Lésbica' },
+    { value: 'G', label: 'Gay' },
+    { value: 'B', label: 'Bissexual' },
+    { value: 'T', label: 'Transgêneros, Transsexuais ou Travestis' },
+    { value: 'Q', label: 'Queer' },
+    { value: 'I', label: 'Intersexo' },
+    { value: 'A', label: 'Assexual' },
+    { value: 'P', label: 'Panssexual' },
     { value: '+', label: '+' },
   ];
 
@@ -194,6 +194,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             innerRef={register({ required: true, minLength: 6 })}
             invalid={errors.password}
             errors={errors}
+            placeholder="Digite uma senha"
           />
         )}
 
@@ -351,7 +352,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 type="textarea"
                 name="description"
                 id="description"
-                placeholder="Descrição"
+                placeholder="Inclua aqui informações gerais sobre sua candidatura: redes socias, sites, Instagram, etc."
                 innerRef={register()}
               />
             </FormGroup>

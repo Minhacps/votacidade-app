@@ -21,9 +21,9 @@ const FinalPage = () => {
       <Container className="py-4" style={{ lineHeight: '20px' }}>
         <StyledUserName>Olá, {UserName}!</StyledUserName>
         <p className="mt-3" style={{ fontSize: '12pt' }}>
-          Obrigado por responder. Em breve a página do índice de afinidade
+          Obrigado(a) por responder. Em breve a página do índice de afinidade
           estará no ar. Caso queira mudar alguma resposta do questionário clique
-          no botão abaixo
+          no botão abaixo.
         </p>
         <Button
           color="primary"
