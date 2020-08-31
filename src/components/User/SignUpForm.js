@@ -352,7 +352,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 type="textarea"
                 name="description"
                 id="description"
-                placeholder="Descrição"
+                placeholder="Inclua aqui informações gerais sobre sua candidatura: redes socias, sites, Instagram, etc."
                 innerRef={register()}
               />
             </FormGroup>
