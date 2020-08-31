@@ -101,18 +101,18 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       <CustomRadio
         onChange={saveVoterAnswer}
-        option="D"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo"
-      />
-
-      <CustomRadio
-        onChange={saveVoterAnswer}
         option="DP"
         name="answer"
         value={value && value.answer}
         label="Discordo Plenamente"
+      />
+
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="D"
+        name="answer"
+        value={value && value.answer}
+        label="Discordo"
       />
 
       <CustomRadio
