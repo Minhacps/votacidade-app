@@ -47,6 +47,10 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
     saveAnswer({
       answer: event.target.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveCandidateAnswer = (event) => {
