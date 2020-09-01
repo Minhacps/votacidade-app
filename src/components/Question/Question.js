@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Form,
   Input,
@@ -6,6 +6,7 @@ import {
   Button,
   CardBody,
   Card,
+  Alert,
 } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { useHistory } from 'react-router-dom';
@@ -29,6 +30,7 @@ const CustomRadio = ({ option, label, value, onChange }) => (
 );
 
 const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+  const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
@@ -36,6 +38,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   const { question, explanation } = questionnaire[id];
 
   const saveVoterAnswer = (event) => {
+    setErrorMessage(null);
+
     if (user.role === 'candidate') {
       return;
     }
@@ -47,6 +51,11 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
   const saveCandidateAnswer = (event) => {
     event.preventDefault();
+
+    if (!event.target.answer.value) {
+      setErrorMessage('Escolha uma opção');
+      return;
+    }
 
     saveAnswer({
       answer: event.target.answer.value,
@@ -130,6 +139,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         value={value && value.answer}
         label="Concordo Plenamente"
       />
+
+      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
       {user.role === 'candidate' ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
