@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 import InputPassword from './InputPassword';
 import { Button, FormGroupCheck } from './SignUpForm.styled';
@@ -294,13 +295,19 @@ const SignUpForm = ({ onBackClick, user }) => {
 
             <FormGroup>
               <Label htmlFor="cnpj">CNPJ cadastrado</Label>
-              <Input
+
+              <Controller
+                as={InputMask}
+                control={control}
                 name="cnpj"
                 id="cnpj"
-                placeholder="Digite aqui seu CNPJ"
-                innerRef={register({ pattern: CNPJ_REGEX })}
-                invalid={errors.cnpj}
+                className={`form-control ${
+                  errors.cnpj?.type === 'pattern' && 'is-invalid'
+                }`}
+                mask="99.999.999/9999-99"
+                rules={{ pattern: CNPJ_REGEX }}
               />
+
               {errors.cnpj?.type === 'pattern' && (
                 <FormFeedback>CNPJ inválido</FormFeedback>
               )}
