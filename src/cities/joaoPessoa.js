@@ -164,6 +164,16 @@ export const firebaseConfig = {
   appId: '1:16173311392:web:e698ffbe4c661b66cdb0c5',
 };
 
+export const firebaseConfigProd = {
+  apiKey: 'AIzaSyCPhDA2PTMtWgZ5PY8XzVIb83xJZW3jhWU',
+  authDomain: 'vota-jampa-prod.firebaseapp.com',
+  databaseURL: 'https://vota-jampa-prod.firebaseio.com',
+  projectId: 'vota-jampa-prod',
+  storageBucket: 'vota-jampa-prod.appspot.com',
+  messagingSenderId: '1078941666488',
+  appId: '1:1078941666488:web:6fd02c3c5b5833848c784d',
+};
+
 export default {
   cityName,
   cityPath,
