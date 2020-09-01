@@ -77,6 +77,10 @@ const SignUpForm = ({ onBackClick, user }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(async ({ user }) => {
+          await user.updateProfile({
+            displayName: name,
+          });
+
           await firebase
             .firestore()
             .collection('users')
@@ -87,6 +91,10 @@ const SignUpForm = ({ onBackClick, user }) => {
         })
         .catch(handleSignupFailure);
     } else {
+      await user.updateProfile({
+        displayName: name,
+      });
+
       await firebase
         .firestore()
         .collection('users')
