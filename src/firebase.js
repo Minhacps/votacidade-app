@@ -13,15 +13,15 @@ const defaultConfig = {
   appId: '1:486228417417:web:14a13ad6b4b41a52d4df58',
 };
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyB5FyquTVU5DeEDRB9EJEhkQiDje8JqNY0',
-  authDomain: 'vota-authentication-prod.firebaseapp.com',
-  databaseURL: 'https://vota-authentication-prod.firebaseio.com',
-  projectId: 'vota-authentication-prod',
-  storageBucket: 'vota-authentication-prod.appspot.com',
-  messagingSenderId: '499239810325',
-  appId: '1:499239810325:web:ff6ecdc92c5e7e725fe51c',
-};
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyB5FyquTVU5DeEDRB9EJEhkQiDje8JqNY0',
+//   authDomain: 'vota-authentication-prod.firebaseapp.com',
+//   databaseURL: 'https://vota-authentication-prod.firebaseio.com',
+//   projectId: 'vota-authentication-prod',
+//   storageBucket: 'vota-authentication-prod.appspot.com',
+//   messagingSenderId: '499239810325',
+//   appId: '1:499239810325:web:ff6ecdc92c5e7e725fe51c',
+// };
 
 firebase.initializeApp(defaultConfig);
 
