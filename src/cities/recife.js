@@ -168,6 +168,16 @@ export const firebaseConfig = {
   appId: '1:2058177508:web:6d43b3617e7b28a0dc15f1',
 };
 
+export const firebaseConfigProd = {
+  apiKey: 'AIzaSyDOhr1c_TyIWWLrBoe490X0bKnvK8E5bSI',
+  authDomain: 'vota-recife-prod.firebaseapp.com',
+  databaseURL: 'https://vota-recife-prod.firebaseio.com',
+  projectId: 'vota-recife-prod',
+  storageBucket: 'vota-recife-prod.appspot.com',
+  messagingSenderId: '1025336522618',
+  appId: '1:1025336522618:web:f916bf25fe70198fca48c3',
+};
+
 export default {
   cityName,
   cityPath,
