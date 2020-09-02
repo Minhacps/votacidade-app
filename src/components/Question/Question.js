@@ -1,14 +1,23 @@
-import React, { useContext } from 'react';
-import { Button, Form, Input } from 'reactstrap';
+import React, { useState, useContext } from 'react';
+import {
+  Form,
+  Input,
+  UncontrolledCollapse,
+  Button,
+  CardBody,
+  Card,
+  Alert,
+} from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 
-const CustomRadio = ({ option, label, value }) => (
+const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
     <Input
+      onChange={onChange}
       type="radio"
       id={`answer-${option}`}
       name="answer"
@@ -21,12 +30,16 @@ const CustomRadio = ({ option, label, value }) => (
 );
 
 const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
   const { question, explanation } = questionnaire[id];
 
   const saveVoterAnswer = (event) => {
+    setErrorMessage(null);
+
     if (user.role === 'candidate') {
       return;
     }
@@ -34,15 +47,28 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
     saveAnswer({
       answer: event.target.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveCandidateAnswer = (event) => {
     event.preventDefault();
 
+    if (!event.target.answer.value) {
+      setErrorMessage('Escolha uma opção');
+      return;
+    }
+
     saveAnswer({
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveAnswer = (data) => {
@@ -66,25 +92,25 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       </p>
 
       {explanation && (
-        <p>
-          <img
-            className="mr-1"
-            src={InfoIcon}
-            alt="Ícone com a lera I dentro de um círculo"
-          />
-          <small className="text-muted font-weight-bold">
-            Entender melhor a questão
-          </small>
-        </p>
-      )}
+        <div className="mb-3">
+          <div id="toggler">
+            <img
+              className="mr-1"
+              src={InfoIcon}
+              alt="Ícone com a lera I dentro de um círculo"
+            />
+            <small className="text-muted font-weight-bold">
+              Entender melhor a questão
+            </small>
+          </div>
 
-      <CustomRadio
-        onChange={saveVoterAnswer}
-        option="D"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo"
-      />
+          <UncontrolledCollapse toggler="#toggler">
+            <Card>
+              <CardBody style={{ fontSize: '12px' }}>{explanation}</CardBody>
+            </Card>
+          </UncontrolledCollapse>
+        </div>
+      )}
 
       <CustomRadio
         onChange={saveVoterAnswer}
@@ -92,6 +118,14 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         name="answer"
         value={value && value.answer}
         label="Discordo Plenamente"
+      />
+
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="D"
+        name="answer"
+        value={value && value.answer}
+        label="Discordo"
       />
 
       <CustomRadio
@@ -109,6 +143,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         value={value && value.answer}
         label="Concordo Plenamente"
       />
+
+      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
       {user.role === 'candidate' ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
@@ -149,20 +185,9 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
 
-        {id === questionnaire.length - 1 && (
-          <Button
-            color="primary"
-            tag={Link}
-            to={`${cityPath}/ranking`}
-            className="w-100 ml-3"
-          >
-            Finalizar
-          </Button>
-        )}
-
         {user.role === 'candidate' && (
           <Button color="primary" className="w-100 ml-4" outline>
-            Responder
+            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
       </div>

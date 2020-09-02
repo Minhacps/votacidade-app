@@ -12,10 +12,10 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
-import FormHeader from 'components/Form/FormHeader';
 import InputPassword from './InputPassword';
-import { Form, Button, FormGroupCheck } from './SignUpForm.styled';
+import { Button, FormGroupCheck } from './SignUpForm.styled';
 import userRoles from 'constants/userRoles';
 import { alfabeticOrder } from '../../styles/helper';
 import { genders, ethnicGroup, ages, politicalParties } from 'data/form-data';
@@ -54,13 +54,13 @@ const SignUpForm = ({ onBackClick, user }) => {
     const candidateData = isCandidate
       ? {
           gender,
-          socialGroup,
+          socialGroup: socialGroup || '',
           ethnicGroup,
           age,
-          cnpj,
+          cnpj: cnpj || '',
           candidateNumber,
           politicalParty,
-          description,
+          description: description || '',
         }
       : {};
 
@@ -77,6 +77,10 @@ const SignUpForm = ({ onBackClick, user }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(async ({ user }) => {
+          await user.updateProfile({
+            displayName: name,
+          });
+
           await firebase
             .firestore()
             .collection('users')
@@ -87,6 +91,10 @@ const SignUpForm = ({ onBackClick, user }) => {
         })
         .catch(handleSignupFailure);
     } else {
+      await user.updateProfile({
+        displayName: name,
+      });
+
       await firebase
         .firestore()
         .collection('users')
@@ -122,21 +130,20 @@ const SignUpForm = ({ onBackClick, user }) => {
   };
 
   const socialGroupOptions = [
-    { value: 'L', label: 'L' },
-    { value: 'G', label: 'G' },
-    { value: 'B', label: 'B' },
-    { value: 'T', label: 'T' },
-    { value: 'Q', label: 'Q' },
-    { value: 'I', label: 'I' },
-    { value: 'A', label: 'A' },
-    { value: 'P', label: 'P' },
+    { value: 'L', label: 'Lésbica' },
+    { value: 'G', label: 'Gay' },
+    { value: 'B', label: 'Bissexual' },
+    { value: 'T', label: 'Transgêneros, Transsexuais ou Travestis' },
+    { value: 'Q', label: 'Queer' },
+    { value: 'I', label: 'Intersexo' },
+    { value: 'A', label: 'Assexual' },
+    { value: 'P', label: 'Panssexual' },
     { value: '+', label: '+' },
   ];
 
   return (
     <>
-      <FormHeader title="Cadastro" onArrowClick={onBackClick} />
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {loading && <Spinner color="primary" />}
         {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
         <FormGroup>
@@ -147,8 +154,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             placeholder="Digite seu nome completo"
             innerRef={register({ required: true })}
             invalid={errors.name}
-            // defaultValue={user.displayName || ''}
-            defaultValue=""
+            defaultValue={(user && user.displayName) || ''}
           />
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
@@ -164,22 +170,25 @@ const SignUpForm = ({ onBackClick, user }) => {
           >
             <option value="">Selecione</option>
             {cidades.sort(alfabeticOrder('title')).map((city) => {
-              return <option value={city.value}>{city.title}</option>;
+              return (
+                <option key={city.value} value={city.value}>
+                  {city.title}
+                </option>
+              );
             })}
           </Input>
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
 
         <FormGroup>
-          <Label for="email">Email</Label>
+          <Label for="email">E-mail</Label>
           <Input
             type="text"
             name="email"
             id="email"
             innerRef={register({ required: true, pattern: EMAIL_REGEX })}
             invalid={errors.email}
-            // defaultValue={user.email || ''}
-            defaultValue=""
+            defaultValue={(user && user.email) || ''}
           />
           {errors.email?.type === 'required' && (
             <FormFeedback>Campo obrigatório</FormFeedback>
@@ -194,6 +203,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             innerRef={register({ required: true, minLength: 6 })}
             invalid={errors.password}
             errors={errors}
+            placeholder="Digite uma senha"
           />
         )}
 
@@ -222,7 +232,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 <option value="">Selecione</option>
                 {genders.sort(alfabeticOrder('category')).map((gender) => {
                   return (
-                    <option value={gender.category}>{gender.category}</option>
+                    <option key={gender.category} value={gender.category}>
+                      {gender.category}
+                    </option>
                   );
                 })}
               </Input>
@@ -258,7 +270,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 <option value="">Selecione</option>
                 {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
                   return (
-                    <option value={ethnic.category}>{ethnic.category}</option>
+                    <option key={ethnic.category} value={ethnic.category}>
+                      {ethnic.category}
+                    </option>
                   );
                 })}
               </Input>
@@ -289,18 +303,50 @@ const SignUpForm = ({ onBackClick, user }) => {
 
             <FormGroup>
               <Label htmlFor="cnpj">CNPJ cadastrado</Label>
-              <Input
+
+              <Controller
+                as={InputMask}
+                control={control}
                 name="cnpj"
                 id="cnpj"
-                placeholder="Digite aqui seu CNPJ"
-                innerRef={register({ pattern: CNPJ_REGEX })}
-                invalid={errors.cnpj}
+                className={`form-control ${
+                  errors.cnpj?.type === 'pattern' && 'is-invalid'
+                }`}
+                mask="99.999.999/9999-99"
+                rules={{ pattern: CNPJ_REGEX }}
               />
+
               {errors.cnpj?.type === 'pattern' && (
                 <FormFeedback>CNPJ inválido</FormFeedback>
               )}
             </FormGroup>
             <Row form>
+              <Col xs={6}>
+                <FormGroup>
+                  <Label for="politicalParty">Partido</Label>
+                  <Input
+                    type="select"
+                    name="politicalParty"
+                    id="politicalParty"
+                    innerRef={register({ required: true })}
+                    invalid={errors.politicalParty}
+                  >
+                    <option value="">Selecione</option>
+                    {politicalParties
+                      .sort(alfabeticOrder('numero'))
+                      .map((partido) => {
+                        return (
+                          <option key={partido.sigla} value={partido.sigla}>
+                            {' '}
+                            {partido.numero} - {partido.sigla} - {partido.nome}
+                          </option>
+                        );
+                      })}
+                  </Input>
+                  <FormFeedback>Campo obrigatório</FormFeedback>
+                </FormGroup>
+              </Col>
+
               <Col xs={6}>
                 <FormGroup>
                   <Label htmlFor="candidateNumber">Número</Label>
@@ -314,40 +360,15 @@ const SignUpForm = ({ onBackClick, user }) => {
                   <FormFeedback>Campo obrigatório</FormFeedback>
                 </FormGroup>
               </Col>
-
-              <Col xs={6}>
-                <FormGroup>
-                  <Label for="politicalParty">Partido</Label>
-                  <Input
-                    type="select"
-                    name="politicalParty"
-                    id="politicalParty"
-                    innerRef={register({ required: true })}
-                    invalid={errors.politicalParty}
-                  >
-                    <option value="">Selecione</option>
-                    {politicalParties
-                      .sort(alfabeticOrder('nome'))
-                      .map((partido) => {
-                        return (
-                          <option value={partido.sigla}>
-                            {' '}
-                            {partido.numero} - {partido.sigla} - {partido.nome}
-                          </option>
-                        );
-                      })}
-                  </Input>
-                  <FormFeedback>Campo obrigatório</FormFeedback>
-                </FormGroup>
-              </Col>
             </Row>
+
             <FormGroup>
               <Label htmlFor="description">Descrição</Label>
               <Input
                 type="textarea"
                 name="description"
                 id="description"
-                placeholder="Descrição"
+                placeholder="Inclua aqui informações gerais sobre sua candidatura: redes socias, sites, Instagram, etc."
                 innerRef={register()}
               />
             </FormGroup>
@@ -355,7 +376,7 @@ const SignUpForm = ({ onBackClick, user }) => {
         )}
 
         <Button data-testid="submit-button">Entrar</Button>
-      </Form>
+      </form>
     </>
   );
 };
