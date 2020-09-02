@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
@@ -14,15 +15,14 @@ const Authenticated = ({ children }) => {
       .firestore()
       .collection('answers')
       .doc(currentUser.uid)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         if (doc.exists) {
           const loadedAnswers = doc.data();
           setAnswers(loadedAnswers);
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser.uid, questionnaire]);
+  }, [firebase, currentUser]);
 
   const getProgress = () => {
     if (!answers) {

@@ -1,37 +1,53 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import firebase from 'firebase/app';
 
 import CityProvider from 'components/CityProvider/CityProvider';
-import LandingPage from 'components/LadingPage';
-import Privacidade from '../src/pages/privacidade';
+import Privacidade from 'pages/privacidade';
 import cities from './cities';
 import BaseApp from './BaseApp';
-import HomePage from 'pages/Home';
+import FinalPage from 'pages/FinalPage/FinalPage';
 
-const Routes = () => (
-  <Switch>
-    <Route path="/" exact>
-      <LandingPage />
-    </Route>
+const Routes = ({ user }) => {
+  const history = useHistory();
+  const location = useLocation();
 
-    <Route path="/home" exact>
-      <CityProvider city={cities[0]}>
-        <HomePage />
-      </CityProvider>
-    </Route>
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('users')
+      .doc(user.uid)
+      .onSnapshot((snapshot) => {
+        const userData = snapshot.data();
+        if (userData && userData.city && location.pathname === '/') {
+          history.push(`/${userData.city}`);
+        }
+      });
+  }, [history, location.pathname, user]);
 
-    <Route path="/privacidade" exact>
-      <Privacidade />
-    </Route>
-
-    {cities.map((city) => (
-      <Route path={city.cityPath} key={`${city.cityPath}-route`}>
-        <CityProvider city={city}>
-          <BaseApp />
-        </CityProvider>
+  return (
+    <Switch>
+      <Route path="/privacidade" exact>
+        <Privacidade />
       </Route>
-    ))}
-  </Switch>
-);
+
+      {cities.map((city) => (
+        <Route path={`${city.cityPath}/ranking`} key={`${city.cityPath}-route`}>
+          <CityProvider city={city}>
+            <FinalPage />
+          </CityProvider>
+        </Route>
+      ))}
+
+      {cities.map((city) => (
+        <Route path={city.cityPath} key={`${city.cityPath}-route`}>
+          <CityProvider city={city}>
+            <BaseApp />
+          </CityProvider>
+        </Route>
+      ))}
+    </Switch>
+  );
+};
 
 export default Routes;

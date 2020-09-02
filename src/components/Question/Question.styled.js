@@ -45,3 +45,14 @@ export const QuestionOption = styled.div`
     border-color: ${colors.purple};
   }
 `;
+
+export const TextArea = styled.textarea`
+  background-color: #fff;
+  border: 2px solid #e6e6e6;
+  box-shadow: 0 0 3px #00000029;
+  border-radius: 3px;
+  height: 94px;
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 100%;
+`;

@@ -10,16 +10,13 @@ import {
   Spinner,
 } from 'reactstrap';
 
-import { Tabs, TabButton } from 'components/Tabs/Tabs';
 import errorMessages from 'constants/errorMessages';
-import SignUpForm from './SignUpForm';
 import SocialSignin from './SocialSignin';
-import { Box, Divider, StyledSpan } from './User.styled';
+import { Divider, StyledSpan } from './User.styled';
 
 const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [showSignUpForm, setShowSignUpForm] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -37,23 +34,8 @@ const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
     }
   };
 
-  if (showSignUpForm) {
-    return <SignUpForm />;
-  }
-
   return (
-    <Box>
-      <Tabs>
-        <TabButton active disabled>
-          ✓ Entrar
-        </TabButton>
-        <TabButton
-          onClick={() => setShowSignUpForm(true)}
-          data-testid="signup-button"
-        >
-          Cadastrar
-        </TabButton>
-      </Tabs>
+    <>
       <Form onSubmit={handleSubmit}>
         {error && <Alert color="danger">{error}</Alert>}
         <FormGroup>
@@ -93,7 +75,7 @@ const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
       </StyledSpan>
       <Divider />
       <SocialSignin updateErrorMessage={updateErrorMessage} />
-    </Box>
+    </>
   );
 };
 
