@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import Authenticated from 'templates/Authenticated';
 import styled from 'styled-components';
-import { Container, Button } from 'reactstrap';
+import { Container } from 'reactstrap';
+import { Button } from 'UI/Button';
 import { Link } from 'react-router-dom';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import colors from 'styles/colors';
@@ -11,6 +12,11 @@ const StyledUserName = styled.span`
   font-weight: 800;
   font-size: 16pt;
   margin-bottom: 25px;
+`;
+
+const StyledButton = styled(Button)`
+  min-width: 324px;
+  text-transform: uppercase;
 `;
 
 const FinalPage = () => {
@@ -65,15 +71,11 @@ const FinalPage = () => {
             lançaremos o ranking.
           </p>
         ) : null}
-        <Button
-          color="primary"
-          className="w-100"
-          style={{ fontWeight: '700' }}
-          to={`${cityPath}/questionario`}
-          tag={Link}
-        >
-          VOLTAR
-        </Button>
+        <Link to={`${cityPath}/questionario`}>
+          <StyledButton color="primary" className="mb-3" bold size="lg">
+            voltar
+          </StyledButton>
+        </Link>
       </Container>
     </Authenticated>
   );
