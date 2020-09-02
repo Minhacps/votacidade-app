@@ -10,12 +10,12 @@ import {
   CardText,
   Card,
   Container,
-  Button,
 } from 'reactstrap';
 
 import { Title } from 'UI/Title';
 import colors from 'styles/colors';
 import { Link } from 'react-router-dom';
+import { Button } from 'UI/Button';
 
 const StyledCard = styled(Card)`
   border-radius: 10px;
@@ -27,6 +27,11 @@ const StyledUserName = styled.span`
   font-weight: 800;
   font-size: 16pt;
   margin-bottom: 25px;
+`;
+
+const StyledButton = styled(Button)`
+  min-width: 324px;
+  text-transform: uppercase;
 `;
 
 const HomePage = () => {
@@ -41,6 +46,12 @@ const HomePage = () => {
         a vereador(a) que pensam parecido com você nas eleições de 2020. Assim,
         você escolhe alguém que pensa parecido e pode cobrar melhor depois!
       </p>
+
+      <Link to={`${cityPath}/questionario`}>
+        <StyledButton color="primary" className="mb-4" bold size="lg">
+          COMEÇAR
+        </StyledButton>
+      </Link>
 
       <Row noGutters>
         <Col
@@ -146,18 +157,6 @@ const HomePage = () => {
           </StyledCard>
         </Col>
       </Row>
-
-      <Link to={`${cityPath}/questionario`}>
-        <Button
-          color="primary"
-          type="button"
-          className="w-100"
-          style={{ fontWeight: '700' }}
-          onClick="/questionario"
-        >
-          COMEÇAR
-        </Button>
-      </Link>
     </Container>
   );
 };

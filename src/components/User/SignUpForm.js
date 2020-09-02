@@ -323,20 +323,6 @@ const SignUpForm = ({ onBackClick, user }) => {
             <Row form>
               <Col xs={6}>
                 <FormGroup>
-                  <Label htmlFor="candidateNumber">Número</Label>
-                  <Input
-                    name="candidateNumber"
-                    id="candidateNumber"
-                    placeholder="Digite aqui seu número"
-                    innerRef={register({ required: true })}
-                    invalid={errors.candidateNumber}
-                  />
-                  <FormFeedback>Campo obrigatório</FormFeedback>
-                </FormGroup>
-              </Col>
-
-              <Col xs={6}>
-                <FormGroup>
                   <Label for="politicalParty">Partido</Label>
                   <Input
                     type="select"
@@ -347,7 +333,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                   >
                     <option value="">Selecione</option>
                     {politicalParties
-                      .sort(alfabeticOrder('nome'))
+                      .sort(alfabeticOrder('numero'))
                       .map((partido) => {
                         return (
                           <option key={partido.sigla} value={partido.sigla}>
@@ -360,7 +346,22 @@ const SignUpForm = ({ onBackClick, user }) => {
                   <FormFeedback>Campo obrigatório</FormFeedback>
                 </FormGroup>
               </Col>
+
+              <Col xs={6}>
+                <FormGroup>
+                  <Label htmlFor="candidateNumber">Número</Label>
+                  <Input
+                    name="candidateNumber"
+                    id="candidateNumber"
+                    placeholder="Digite aqui seu número"
+                    innerRef={register({ required: true })}
+                    invalid={errors.candidateNumber}
+                  />
+                  <FormFeedback>Campo obrigatório</FormFeedback>
+                </FormGroup>
+              </Col>
             </Row>
+
             <FormGroup>
               <Label htmlFor="description">Descrição</Label>
               <Input
