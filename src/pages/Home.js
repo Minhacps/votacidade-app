@@ -30,7 +30,7 @@ const StyledUserName = styled.span`
 `;
 
 const StyledButton = styled(Button)`
-  min-width: 324px;
+  min-width: 330px;
   text-transform: uppercase;
 `;
 
@@ -47,11 +47,13 @@ const HomePage = () => {
         você escolhe alguém que pensa parecido e pode cobrar melhor depois!
       </p>
 
-      <Link to={`${cityPath}/questionario`}>
-        <StyledButton color="primary" className="mb-4" bold size="lg">
-          COMEÇAR
-        </StyledButton>
-      </Link>
+      <div className="d-flex justify-content-center">
+        <Link to={`${cityPath}/questionario`}>
+          <StyledButton color="primary" className="mb-4 " bold size="lg">
+            começar
+          </StyledButton>
+        </Link>
+      </div>
 
       <Row noGutters>
         <Col
