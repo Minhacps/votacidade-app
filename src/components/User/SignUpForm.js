@@ -302,7 +302,9 @@ const SignUpForm = ({ onBackClick, user }) => {
             </FormGroup>
 
             <FormGroup>
-              <Label htmlFor="cnpj">CNPJ cadastrado</Label>
+              <Label htmlFor="cnpj">
+                CNPJ (Opcional enquanto não homologado)
+              </Label>
 
               <Controller
                 as={InputMask}
@@ -314,6 +316,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 }`}
                 mask="99.999.999/9999-99"
                 rules={{ pattern: CNPJ_REGEX }}
+                defaultValue=""
               />
 
               {errors.cnpj?.type === 'pattern' && (
@@ -321,6 +324,20 @@ const SignUpForm = ({ onBackClick, user }) => {
               )}
             </FormGroup>
             <Row form>
+              <Col xs={6}>
+                <FormGroup>
+                  <Label htmlFor="candidateNumber">Número</Label>
+                  <Input
+                    name="candidateNumber"
+                    id="candidateNumber"
+                    placeholder="Digite aqui seu número"
+                    innerRef={register({ required: true })}
+                    invalid={errors.candidateNumber}
+                  />
+                  <FormFeedback>Campo obrigatório</FormFeedback>
+                </FormGroup>
+              </Col>
+
               <Col xs={6}>
                 <FormGroup>
                   <Label for="politicalParty">Partido</Label>
@@ -343,20 +360,6 @@ const SignUpForm = ({ onBackClick, user }) => {
                         );
                       })}
                   </Input>
-                  <FormFeedback>Campo obrigatório</FormFeedback>
-                </FormGroup>
-              </Col>
-
-              <Col xs={6}>
-                <FormGroup>
-                  <Label htmlFor="candidateNumber">Número</Label>
-                  <Input
-                    name="candidateNumber"
-                    id="candidateNumber"
-                    placeholder="Digite aqui seu número"
-                    innerRef={register({ required: true })}
-                    invalid={errors.candidateNumber}
-                  />
                   <FormFeedback>Campo obrigatório</FormFeedback>
                 </FormGroup>
               </Col>
