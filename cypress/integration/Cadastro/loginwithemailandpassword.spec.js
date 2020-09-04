@@ -5,6 +5,7 @@ describe('Login with email and password', () => {
       .type('albordignon23@gmail.com')
       .should('have.value', 'albordignon23@gmail.com');
     cy.get('#password').type('ifsp@1234').should('have.value', 'ifsp@1234');
-    cy.contains('Entrar').click({ force: true });
+
+    cy.get('[data-testid=submit-button]').click();
   });
 });

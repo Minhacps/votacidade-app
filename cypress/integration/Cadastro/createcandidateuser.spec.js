@@ -38,9 +38,18 @@ describe('Test', () => {
 
     for (let i = 0; i < 30; i++) {
       cy.get('input[value=D]').check();
-      cy.pause();
-      cy.contains('Responder').click();
+      // cy.get('button').contains('Responder', { timeout: 10000 }).click();
+      cy.contains('Responder').should('be.visible');
     }
+
+    // cy.get('input[value=D]').check();
+    // cy.get('button').contains('Responder', { timeout: 10000 }).click();
+
+    // cy.get('input[value=D]').check();
+    // cy.contains('Responder', { timeout: 10000 }).click();
+
+    // cy.get('input[value=D]').check();
+    // cy.contains('Responder', { timeout: 10000 }).click();
   });
 
   //   cy.contains('Entrar').click();

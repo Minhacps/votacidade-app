@@ -1,42 +1,152 @@
 describe('Create candidate user', () => {
-  it('Create candidate user!', () => {
+  it('Login with email and password', () => {
     cy.visit('http://app.vota.org.br');
-    cy.contains('Questionário').click();
-    cy.get('span');
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
-    cy.get('#answer-D').check();
-    cy.contains('Responder').click();
+    cy.get('#email')
+      .type('albordignon23@gmail.com')
+      .should('have.value', 'albordignon23@gmail.com');
+    cy.get('#password').type('ifsp@1234').should('have.value', 'ifsp@1234');
 
-    // cy.get('#name').type("André Luís Bordignon").should('have.value', 'André Luís Bordignon')
-    // cy.get('#city').select('Campinas')
-    // cy.get('#email').type("albordignon23@gmail.com").should('have.value', 'albordignon23@gmail.com')
-    // cy.get('#password').type("ifsp@1234").should('have.value', 'ifsp@1234')
-    // // cy.contains('Sou candidata(o)').check()
-    // cy.get('[type="checkbox"]').check()
-    // cy.get('#gender').select('Feminino')
-    // cy.get('#ethnicGroup').select('Amarela')
-    // cy.get('#age').select('55-59')
-    // cy.get('#cnpj').type('49.015.186/0001-41')
-    // cy.get('#candidateNumber').type(13)
-    // cy.get('#politicalParty').select('PT')
-    // cy.get('#description').type('bla bla bla')
-    // cy.contains('Entrar').click()
+    cy.get('[data-testid=submit-button]').click();
+  });
+
+  it('Answer Questions!', () => {
+    cy.contains('Questionário').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-DP').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla');
+    cy.get('button').contains('Responder').click();
+
+    cy.get('#answer-D').check();
+    cy.get('#justification').type('blabla bla', { timeout: 5000 });
+    cy.get('button').contains('Responder').click();
+
+    // cy.contains('Logout').click();
+
+    //   // for (let i = 0; i < 30; i++) {
+    //   //   cy.get('input[value=D]').check();
+    //   //   cy.contains('Responder').should('be.visible').as('botaodisponivel');
+    //   //   cy.wait('@botaodisponivel').then(() => {
+    //   //     cy.get('button').contains('Responder', { timeout: 10000 }).click();
+    //   //   });
+
+    //   // }
+
+    //   cy.get('#answer-DP').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('#answer-D').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=D]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=DP]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=D]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=DP]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=D]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=DP]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=D]').check();
+    //   cy.get('button').contains('Responder').click();
+
+    //   cy.get('input[value=DP]').check();
+    //   cy.get('button').contains('Responder').click();
   });
 });
