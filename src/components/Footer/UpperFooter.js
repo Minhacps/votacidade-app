@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Link as LinkLogo } from '../../Link/Link';
 import { Container, Row, Col } from 'reactstrap';
 
 import { Title } from '../../UI/Title';
-import { Button } from '../../UI/Button';
 
 import colors from '../../styles/colors';
 import { alfabeticOrder } from '../../styles/helper';
@@ -30,11 +28,6 @@ const StyledFooter = styled.div`
       flex-grow: 1;
     }
   }
-`;
-
-const StyledButton = styled(Button)`
-  min-width: 185px;
-  text-transform: uppercase;
 `;
 
 const ListaDeContato = styled.ul`
@@ -89,11 +82,6 @@ const UpperFooter = ({ contatos = [], makers = [], supporters = [] }) => (
             fortalecer e incentivar a cultura da participação em questões
             públicas.
           </p>
-          <Link to="/o-projeto">
-            <StyledButton bold light size="lg" color={colors.orangeLight}>
-              Saiba Mais
-            </StyledButton>
-          </Link>
         </Col>
       </Row>
       <hr />

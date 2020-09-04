@@ -302,7 +302,9 @@ const SignUpForm = ({ onBackClick, user }) => {
             </FormGroup>
 
             <FormGroup>
-              <Label htmlFor="cnpj">CNPJ cadastrado</Label>
+              <Label htmlFor="cnpj">
+                CNPJ (Opcional enquanto não homologado)
+              </Label>
 
               <Controller
                 as={InputMask}
@@ -314,6 +316,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 }`}
                 mask="99.999.999/9999-99"
                 rules={{ pattern: CNPJ_REGEX }}
+                defaultValue=""
               />
 
               {errors.cnpj?.type === 'pattern' && (
@@ -347,7 +350,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                   >
                     <option value="">Selecione</option>
                     {politicalParties
-                      .sort(alfabeticOrder('nome'))
+                      .sort(alfabeticOrder('numero'))
                       .map((partido) => {
                         return (
                           <option key={partido.sigla} value={partido.sigla}>
@@ -361,6 +364,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 </FormGroup>
               </Col>
             </Row>
+
             <FormGroup>
               <Label htmlFor="description">Descrição</Label>
               <Input
