@@ -10,9 +10,16 @@ import {
 } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
+
+const StyledForm = styled(Form)`
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+`;
 
 const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
@@ -85,7 +92,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   };
 
   return (
-    <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
+    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
       <p>
         <span>{id + 1}. </span>
         <span>{question}</span>
@@ -191,7 +198,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
       </div>
-    </Form>
+    </StyledForm>
   );
 };
 
