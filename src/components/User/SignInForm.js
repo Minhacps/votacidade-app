@@ -12,6 +12,7 @@ import {
 
 import errorMessages from 'constants/errorMessages';
 import SocialSignin from './SocialSignin';
+import InputPassword from './InputPassword';
 import { Divider, StyledSpan } from './User.styled';
 
 const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
@@ -49,11 +50,9 @@ const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
           />
         </FormGroup>
         <FormGroup>
-          <Label htmlFor="password">Senha</Label>
-          <Input
+          <InputPassword
             name="password"
             id="password"
-            type="password"
             data-testid="password-input"
             placeholder="Digite sua senha"
             disabled={loading}

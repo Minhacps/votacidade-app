@@ -23,23 +23,23 @@ const InputPassword = (props) => {
           name="password"
           id="password"
           placeholder={props.placeholder}
-          className={!props.invalid ? 'border-right-0' : 'rounded-right'}
+          className={!props?.invalid ? 'border-right-0' : 'rounded-right'}
           {...props}
         />
-        {props.errors.password?.type === 'required' && (
+        {props.errors?.password?.type === 'required' && (
           <FormFeedback>Campo obrigatório</FormFeedback>
         )}
-        {props.errors.password?.type === 'minLength' && (
+        {props.errors?.password?.type === 'minLength' && (
           <FormFeedback>A senha deve ter no mínimo 6 caracteres</FormFeedback>
         )}
 
-        {!props.invalid && (
+        {!props?.invalid && (
           <InputGroupAddon addonType="append">
             <InputGroupText
               className="bg-transparent"
               role="button"
               title={
-                !props.invalid &&
+                !props?.invalid &&
                 (showPassword ? 'Ocultar senha' : 'Mostrar senha')
               }
               onClick={() => toggleShowPassword(!showPassword)}
