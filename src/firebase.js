@@ -24,12 +24,12 @@ const prodConfig = {
 };
 
 firebase.initializeApp(
-  process.env.FIREBASE_ENV === 'prod' ? prodConfig : devConfig,
+  process.env.REACT_APP_FIREBASE_ENV === 'prod' ? prodConfig : devConfig,
 );
 
 cities.forEach((city) => {
   const cityConfig =
-    process.env.FIREBASE_ENV === 'prod'
+    process.env.REACT_APP_FIREBASE_ENV === 'prod'
       ? city.firebaseConfigProd
       : city.firebaseConfig;
   firebase.initializeApp(cityConfig, city.cityPath);
