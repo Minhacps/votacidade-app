@@ -3,7 +3,7 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import cities from './cities';
 
-const defaultConfig = {
+const devConfig = {
   apiKey: 'AIzaSyCWQJu9s9_O7kMzJmz4H8mUK2d2hm4pFpk',
   authDomain: 'vota-authentication-dev.firebaseapp.com',
   databaseURL: 'https://vota-authentication-dev.firebaseio.com',
@@ -13,18 +13,24 @@ const defaultConfig = {
   appId: '1:486228417417:web:14a13ad6b4b41a52d4df58',
 };
 
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyB5FyquTVU5DeEDRB9EJEhkQiDje8JqNY0',
-//   authDomain: 'vota-authentication-prod.firebaseapp.com',
-//   databaseURL: 'https://vota-authentication-prod.firebaseio.com',
-//   projectId: 'vota-authentication-prod',
-//   storageBucket: 'vota-authentication-prod.appspot.com',
-//   messagingSenderId: '499239810325',
-//   appId: '1:499239810325:web:ff6ecdc92c5e7e725fe51c',
-// };
+const prodConfig = {
+  apiKey: 'AIzaSyB5FyquTVU5DeEDRB9EJEhkQiDje8JqNY0',
+  authDomain: 'vota-authentication-prod.firebaseapp.com',
+  databaseURL: 'https://vota-authentication-prod.firebaseio.com',
+  projectId: 'vota-authentication-prod',
+  storageBucket: 'vota-authentication-prod.appspot.com',
+  messagingSenderId: '499239810325',
+  appId: '1:499239810325:web:ff6ecdc92c5e7e725fe51c',
+};
 
-firebase.initializeApp(defaultConfig);
+firebase.initializeApp(
+  process.env.FIREBASE_ENV === 'prod' ? prodConfig : devConfig,
+);
 
 cities.forEach((city) => {
-  firebase.initializeApp(city.firebaseConfig, city.cityPath);
+  const cityConfig =
+    process.env.FIREBASE_ENV === 'prod'
+      ? city.firebaseConfigProd
+      : city.firebaseConfig;
+  firebase.initializeApp(cityConfig, city.cityPath);
 });
