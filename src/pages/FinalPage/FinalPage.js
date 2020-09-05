@@ -32,7 +32,8 @@ const FinalPage = () => {
         </p>
         <p className="mt-3" style={{ fontSize: '12pt' }}>
           <strong>Candidato(a)</strong> lembre-se que para participar do ranking
-          vocẽ precisa responder todas as questões.
+          você precisa responder todas as questões. Todos os dados que você
+          respondeu no site ficarão disponíveis publicamente.
         </p>
         {cityName === 'Campinas' ? (
           <p className="mt-3" style={{ fontSize: '12pt' }}>
