@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 import InputPassword from './InputPassword';
 import { Button, FormGroupCheck } from './SignUpForm.styled';
@@ -76,6 +77,10 @@ const SignUpForm = ({ onBackClick, user }) => {
         .auth()
         .createUserWithEmailAndPassword(email, password)
         .then(async ({ user }) => {
+          await user.updateProfile({
+            displayName: name,
+          });
+
           await firebase
             .firestore()
             .collection('users')
@@ -86,6 +91,10 @@ const SignUpForm = ({ onBackClick, user }) => {
         })
         .catch(handleSignupFailure);
     } else {
+      await user.updateProfile({
+        displayName: name,
+      });
+
       await firebase
         .firestore()
         .collection('users')
@@ -121,14 +130,14 @@ const SignUpForm = ({ onBackClick, user }) => {
   };
 
   const socialGroupOptions = [
-    { value: 'L', label: 'L' },
-    { value: 'G', label: 'G' },
-    { value: 'B', label: 'B' },
-    { value: 'T', label: 'T' },
-    { value: 'Q', label: 'Q' },
-    { value: 'I', label: 'I' },
-    { value: 'A', label: 'A' },
-    { value: 'P', label: 'P' },
+    { value: 'L', label: 'Lésbica' },
+    { value: 'G', label: 'Gay' },
+    { value: 'B', label: 'Bissexual' },
+    { value: 'T', label: 'Transgêneros, Transsexuais ou Travestis' },
+    { value: 'Q', label: 'Queer' },
+    { value: 'I', label: 'Intersexo' },
+    { value: 'A', label: 'Assexual' },
+    { value: 'P', label: 'Panssexual' },
     { value: '+', label: '+' },
   ];
 
@@ -194,6 +203,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             innerRef={register({ required: true, minLength: 6 })}
             invalid={errors.password}
             errors={errors}
+            placeholder="Digite uma senha"
           />
         )}
 
@@ -292,14 +302,23 @@ const SignUpForm = ({ onBackClick, user }) => {
             </FormGroup>
 
             <FormGroup>
-              <Label htmlFor="cnpj">CNPJ cadastrado</Label>
-              <Input
+              <Label htmlFor="cnpj">
+                CNPJ (Opcional enquanto não homologado)
+              </Label>
+
+              <Controller
+                as={InputMask}
+                control={control}
                 name="cnpj"
                 id="cnpj"
-                placeholder="Digite aqui seu CNPJ"
-                innerRef={register({ pattern: CNPJ_REGEX })}
-                invalid={errors.cnpj}
+                className={`form-control ${
+                  errors.cnpj?.type === 'pattern' && 'is-invalid'
+                }`}
+                mask="99.999.999/9999-99"
+                rules={{ pattern: CNPJ_REGEX }}
+                defaultValue=""
               />
+
               {errors.cnpj?.type === 'pattern' && (
                 <FormFeedback>CNPJ inválido</FormFeedback>
               )}
@@ -331,7 +350,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                   >
                     <option value="">Selecione</option>
                     {politicalParties
-                      .sort(alfabeticOrder('nome'))
+                      .sort(alfabeticOrder('numero'))
                       .map((partido) => {
                         return (
                           <option key={partido.sigla} value={partido.sigla}>
@@ -345,13 +364,14 @@ const SignUpForm = ({ onBackClick, user }) => {
                 </FormGroup>
               </Col>
             </Row>
+
             <FormGroup>
               <Label htmlFor="description">Descrição</Label>
               <Input
                 type="textarea"
                 name="description"
                 id="description"
-                placeholder="Descrição"
+                placeholder="Inclua aqui informações gerais sobre sua candidatura: redes socias, sites, Instagram, etc."
                 innerRef={register()}
               />
             </FormGroup>

@@ -172,6 +172,16 @@ export const firebaseConfig = {
   appId: '1:199357298152:web:8afd86d7ddfaf01fb1a05d',
 };
 
+export const firebaseConfigProd = {
+  apiKey: 'AIzaSyDYVT_mJi6qfxn5dz3kLJJYsZL677fL5J0',
+  authDomain: 'vota-porto-alegre-prod.firebaseapp.com',
+  databaseURL: 'https://vota-porto-alegre-prod.firebaseio.com',
+  projectId: 'vota-porto-alegre-prod',
+  storageBucket: 'vota-porto-alegre-prod.appspot.com',
+  messagingSenderId: '173153332369',
+  appId: '1:173153332369:web:1c62df16ae50379e60a330',
+};
+
 export default {
   cityName,
   cityPath,

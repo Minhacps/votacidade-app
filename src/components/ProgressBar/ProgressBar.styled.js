@@ -4,6 +4,8 @@ import colors from '../../styles/colors';
 export const ProgressBarContainer = styled.div`
   background: ${colors.grey100};
   padding: 13px;
+  max-width: 1105px;
+  margin: 0 auto;
 
   .progress {
     background-color: #fff;
@@ -36,7 +38,7 @@ export const ProgressBarContainer = styled.div`
 
 export const ProgressBarTitle = styled.span`
   color: ${colors.grey500};
-  font-size: 10px;
+  font-size: 8pt;
   display: block;
 `;
 

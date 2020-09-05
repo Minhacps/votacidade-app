@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Form,
   Input,
@@ -6,12 +6,20 @@ import {
   Button,
   CardBody,
   Card,
+  Alert,
 } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
+
+const StyledForm = styled(Form)`
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+`;
 
 const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
@@ -29,6 +37,7 @@ const CustomRadio = ({ option, label, value, onChange }) => (
 );
 
 const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+  const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
@@ -36,6 +45,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   const { question, explanation } = questionnaire[id];
 
   const saveVoterAnswer = (event) => {
+    setErrorMessage(null);
+
     if (user.role === 'candidate') {
       return;
     }
@@ -43,10 +54,19 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
     saveAnswer({
       answer: event.target.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveCandidateAnswer = (event) => {
     event.preventDefault();
+
+    if (!event.target.answer.value) {
+      setErrorMessage('Escolha uma opção');
+      return;
+    }
 
     saveAnswer({
       answer: event.target.answer.value,
@@ -72,7 +92,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   };
 
   return (
-    <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
+    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
       <p>
         <span>{id + 1}. </span>
         <span>{question}</span>
@@ -101,18 +121,18 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       <CustomRadio
         onChange={saveVoterAnswer}
-        option="D"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo"
-      />
-
-      <CustomRadio
-        onChange={saveVoterAnswer}
         option="DP"
         name="answer"
         value={value && value.answer}
         label="Discordo Plenamente"
+      />
+
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="D"
+        name="answer"
+        value={value && value.answer}
+        label="Discordo"
       />
 
       <CustomRadio
@@ -130,6 +150,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         value={value && value.answer}
         label="Concordo Plenamente"
       />
+
+      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
       {user.role === 'candidate' ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
@@ -176,7 +198,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
       </div>
-    </Form>
+    </StyledForm>
   );
 };
 
