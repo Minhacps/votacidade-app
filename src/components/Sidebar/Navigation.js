@@ -2,16 +2,27 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import QuestionsBoard from 'components/QuestionsBoard/QuestionsBoard';
 import firebase from 'firebase/app';
+import { Link } from 'react-router-dom';
 
 import colors from '../../styles/colors';
 import { CityContext } from '../CityProvider/CityProvider';
 
-const StyledLogout = styled.span`
+const StyledLogout = styled.button`
   color: ${colors.purple};
   font-size: 12pt;
   display: block;
   margin-top: 45px;
-  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+`;
+
+const StyledLink = styled(Link)`
+  color: ${colors.grey500};
+
+  &:hover {
+    color: black;
+  }
 `;
 
 const StyledName = styled.p`
@@ -37,6 +48,8 @@ const Navigation = () => {
   return (
     <div>
       <StyledName>{abbreviate(currentUser.displayName)}</StyledName>
+      <Divider />
+      <StyledLink to="/">Como funciona</StyledLink>
       <Divider />
       <QuestionsBoard />
       <StyledLogout onClick={() => firebase.auth().signOut()}>
