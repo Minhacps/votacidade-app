@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import styled from 'styled-components';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const BoardGrid = styled.div`
   display: grid;
