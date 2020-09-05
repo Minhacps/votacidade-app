@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import styled from 'styled-components';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const BoardGrid = styled.div`
   display: grid;
@@ -17,9 +18,11 @@ const QuestionButton = styled(Button)`
 `;
 
 export default function QuestionBoard() {
-  const { firebase, currentUser, questionnaire } = useContext(CityContext);
+  const history = useHistory();
+  const { firebase, currentUser, questionnaire, cityPath } = useContext(
+    CityContext,
+  );
   const [answers, setAnswers] = useState([]);
-  console.log(answers);
 
   useEffect(() => {
     const getQuestions = () => {
@@ -42,7 +45,16 @@ export default function QuestionBoard() {
       <p>Questões</p>
       <BoardGrid>
         {questionnaire.map((_, index) => (
-          <QuestionButton key={index} color={answers[index] ? 'primary' : ''}>
+          <QuestionButton
+            key={index}
+            color={answers[index] ? 'primary' : ''}
+            onClick={() =>
+              history.push({
+                pathname: `${cityPath}/questionario`,
+                search: `${index + 1}`,
+              })
+            }
+          >
             {index + 1}
           </QuestionButton>
         ))}
