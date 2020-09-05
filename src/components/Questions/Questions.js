@@ -9,7 +9,6 @@ const Questions = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [answers, setAnswers] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  console.log(currentQuestion);
 
   useEffect(() => {
     const getFirstUnansweredQuestion = (loadedAnswers) => {
