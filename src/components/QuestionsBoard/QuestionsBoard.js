@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
-import { CityContext } from 'components/CityProvider/CityProvider';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
+
+import { CityContext } from 'components/CityProvider/CityProvider';
+import { SidebarContext } from 'components/Sidebar/SidebarProvider';
 
 const BoardGrid = styled.div`
   display: grid;
@@ -22,6 +24,7 @@ export default function QuestionBoard() {
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
+  const { toggleSidebar } = useContext(SidebarContext);
   const [answers, setAnswers] = useState([]);
 
   useEffect(() => {
@@ -48,12 +51,14 @@ export default function QuestionBoard() {
           <QuestionButton
             key={index}
             color={answers[index] ? 'primary' : ''}
-            onClick={() =>
+            onClick={() => {
               history.push({
                 pathname: `${cityPath}/questionario`,
                 search: `${index + 1}`,
-              })
-            }
+              });
+
+              toggleSidebar();
+            }}
           >
             {index + 1}
           </QuestionButton>
