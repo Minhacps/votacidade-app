@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { useLocation } from 'react-router-dom';
 
 const Questions = ({ user }) => {
+  const location = useLocation();
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
   const [answers, setAnswers] = useState(null);
@@ -28,11 +30,17 @@ const Questions = ({ user }) => {
         if (doc.exists) {
           const loadedAnswers = doc.data();
           setAnswers(loadedAnswers);
+
           setCurrentQuestion(getFirstUnansweredQuestion(loadedAnswers));
+
+          if (location.search) {
+            const questionQuery = location.search.substring(1);
+            setCurrentQuestion(Number(questionQuery - 1));
+          }
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser.uid, questionnaire]);
+  }, [firebase, currentUser.uid, questionnaire, location.search]);
 
   const handleNext = (answer) => {
     const updatedAnswers = {
