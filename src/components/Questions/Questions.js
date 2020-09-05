@@ -7,6 +7,7 @@ const Questions = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [answers, setAnswers] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
     const getFirstUnansweredQuestion = (loadedAnswers) => {
@@ -56,14 +57,34 @@ const Questions = ({ user }) => {
   }
 
   return (
-    <Question
-      id={currentQuestion}
-      onSave={handleNext}
-      onSkip={handleNext}
-      onBack={handleBack}
-      value={answers && answers[currentQuestion]}
-      user={user}
-    />
+    <>
+      {showAlert ? (
+        <div
+          className="alert alert-primary alert-dismissible fade show m-1"
+          role="alert"
+        >
+          <strong>Candidato(a),</strong> Você precisa responder 100% das
+          questões para aparecer no ranking.
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+            onClick={() => setShowAlert(false)}
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      ) : null}
+      <Question
+        id={currentQuestion}
+        onSave={handleNext}
+        onSkip={handleNext}
+        onBack={handleBack}
+        value={answers && answers[currentQuestion]}
+        user={user}
+      />
+    </>
   );
 };
 
