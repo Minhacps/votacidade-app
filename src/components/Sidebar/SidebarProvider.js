@@ -1,13 +1,13 @@
 import React from 'react';
 
-export const SiderbarContext = React.createContext();
+export const SidebarContext = React.createContext();
 
-const SiderbarProvider = ({ children, toggleSidebar, isOpen }) => {
+const SidebarProvider = ({ children, toggleSidebar, isOpen }) => {
   return (
-    <SiderbarContext.Provider value={{ toggleSidebar, isOpen }}>
+    <SidebarContext.Provider value={{ toggleSidebar, isOpen }}>
       {children}
-    </SiderbarContext.Provider>
+    </SidebarContext.Provider>
   );
 };
 
-export default SiderbarProvider;
+export default SidebarProvider;

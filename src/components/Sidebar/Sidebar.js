@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navigation from './Navigation';
 import { StyledBurger, StyledMenu } from './Sidebar.styled';
 
-import SiderbarProvider from './SidebarProvider';
+import SidebarProvider from './SidebarProvider';
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ export default function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <SiderbarProvider isOpen={isOpen} toggleSidebar={toggleSidebar}>
+    <SidebarProvider isOpen={isOpen} toggleSidebar={toggleSidebar}>
       <StyledBurger
         aria-label="Toggle menu"
         open={isOpen}
@@ -23,6 +23,6 @@ export default function Sidebar() {
       <StyledMenu open={isOpen} navbar>
         <Navigation />
       </StyledMenu>
-    </SiderbarProvider>
+    </SidebarProvider>
   );
 }
