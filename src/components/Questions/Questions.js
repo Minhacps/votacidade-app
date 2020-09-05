@@ -37,8 +37,9 @@ const Questions = ({ user }) => {
           } else {
             setCurrentQuestion(getFirstUnansweredQuestion(loadedAnswers));
           }
+
+          setIsLoading(false);
         }
-        setIsLoading(false);
       });
   }, [firebase, currentUser.uid, questionnaire, location.search]);
 
