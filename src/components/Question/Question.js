@@ -10,9 +10,14 @@ import {
 } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
+
+const TitleQuestion = styled.span`
+  font-size: 18px;
+`;
 
 const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
@@ -87,8 +92,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   return (
     <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
       <p>
-        <span>{id + 1}. </span>
-        <span>{question}</span>
+        <TitleQuestion>{id + 1}. </TitleQuestion>
+        <TitleQuestion>{question}</TitleQuestion>
       </p>
 
       {explanation && (
@@ -117,7 +122,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         option="DP"
         name="answer"
         value={value && value.answer}
-        label="Discordo Plenamente"
+        label="Discordo Totalmente"
       />
 
       <CustomRadio
@@ -141,7 +146,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         option="CP"
         name="answer"
         value={value && value.answer}
-        label="Concordo Plenamente"
+        label="Concordo Totalmente"
       />
 
       {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
