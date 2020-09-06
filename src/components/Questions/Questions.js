@@ -19,9 +19,12 @@ const Questions = ({ user }) => {
       );
     };
 
+    const collection =
+      user.role === 'candidate' ? 'candidateAnswers' : 'voterAnswers';
+
     firebase
       .firestore()
-      .collection('answers')
+      .collection(collection)
       .doc(currentUser.uid)
       .get()
       .then((doc) => {
@@ -32,7 +35,7 @@ const Questions = ({ user }) => {
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser.uid, questionnaire]);
+  }, [user, firebase, currentUser.uid, questionnaire]);
 
   const handleNext = (answer) => {
     const updatedAnswers = {

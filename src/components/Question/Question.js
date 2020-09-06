@@ -76,9 +76,12 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       [id]: data,
     };
 
+    const collection =
+      user.role === 'candidate' ? 'candidateAnswers' : 'voterAnswers';
+
     firebase
       .firestore()
-      .collection('answers')
+      .collection(collection)
       .doc(currentUser.uid)
       .set(answer, { merge: true })
       .then(() => onSave(answer));

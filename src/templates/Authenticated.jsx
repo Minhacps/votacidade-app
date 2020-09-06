@@ -5,15 +5,19 @@ import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import ProgressBar from 'components/ProgressBar/ProgressBar';
 
-const Authenticated = ({ children }) => {
+const Authenticated = ({ user, children }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [answers, setAnswers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    console.log(user);
+    const collection =
+      user.role === 'candidate' ? 'candidateAnswers' : 'voterAnswers';
+
     firebase
       .firestore()
-      .collection('answers')
+      .collection(collection)
       .doc(currentUser.uid)
       .onSnapshot((doc) => {
         if (doc.exists) {
@@ -22,7 +26,7 @@ const Authenticated = ({ children }) => {
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser]);
+  }, [user, firebase, currentUser]);
 
   const getProgress = () => {
     if (!answers) {
