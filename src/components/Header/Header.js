@@ -1,30 +1,58 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Container, Row, Collapse, Navbar, NavbarToggler } from 'reactstrap';
+import {
+  Collapse,
+  Container,
+  Navbar,
+  NavbarBrand,
+  NavbarToggler,
+} from 'reactstrap';
 
+import { CityContext } from 'components/CityProvider/CityProvider';
 import Navigation from './Navigation';
 
-import logo from 'assets/img/logos/logo-vota-cidades.svg';
+import logoVota from 'assets/img/logos/vota.svg';
+import logoVotaCidade from 'assets/img/logos/logo-vota-cidades.svg';
 
 export const Header = () => {
+  const { cityName } = useContext(CityContext);
   const [isOpen, setIsOpen] = useState(false);
+
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <header>
-      <Container>
-        <Row>
-          <Navbar className="col" light expand="md">
-            <Link to="/">
-              <img src={logo} alt="Logo VotaCidades" />
-            </Link>
-            <NavbarToggler onClick={toggle} />
-            <Collapse isOpen={isOpen} navbar>
-              <Navigation />
-            </Collapse>
-          </Navbar>
-        </Row>
-      </Container>
+      <Navbar light expand="md">
+        <Container>
+          <NavbarBrand tag={Link} to="/" title="Vota Cidade">
+            <img
+              src={logoVota}
+              alt="Logo Vota Cidade"
+              style={{ height: '49px' }}
+              className="d-block d-sm-none"
+            />
+            <img
+              src={logoVotaCidade}
+              alt="Logo Vota Cidade"
+              className="d-none d-sm-block"
+            />
+          </NavbarBrand>
+
+          <NavbarBrand
+            tag={Link}
+            to="/"
+            title={cityName}
+            className="text-muted font-weight-bold"
+          >
+            {cityName}
+          </NavbarBrand>
+
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Navigation />
+          </Collapse>
+        </Container>
+      </Navbar>
     </header>
   );
 };
