@@ -109,7 +109,6 @@ const SignUpForm = ({ onBackClick, user }) => {
   };
 
   const handleSignupFailure = (error) => {
-    console.log(error);
     switch (error.code) {
       case 'auth/email-already-in-use': {
         return setErrorMessage('Este e-mail já está em uso.');

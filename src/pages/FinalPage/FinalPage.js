@@ -22,7 +22,7 @@ const StyledButton = styled(Button)`
 const FinalPage = () => {
   const { currentUser, cityPath, cityName } = useContext(CityContext);
   const UserName = currentUser.displayName;
-  console.log(cityName);
+
   return (
     <Authenticated>
       <Container className="py-4" style={{ lineHeight: '20px' }}>
