@@ -16,7 +16,7 @@ import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 
 import InputPassword from './InputPassword';
-import { Button, FormGroupCheck } from './SignUpForm.styled';
+import { Button } from './SignUpForm.styled';
 import userRoles from 'constants/userRoles';
 import { alfabeticOrder } from '../../styles/helper';
 import { genders, ethnicGroup, ages, politicalParties } from 'data/form-data';
