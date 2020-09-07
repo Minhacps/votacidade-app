@@ -43,7 +43,7 @@ export default function QuestionBoard({ user }) {
         });
     };
     getQuestions();
-  }, [currentUser.uid, firebase]);
+  }, [currentUser.uid, firebase, user]);
 
   return (
     <div>
