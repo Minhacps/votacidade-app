@@ -38,16 +38,9 @@ const Divider = styled.hr`
 const Navigation = ({ user }) => {
   const { currentUser } = useContext(CityContext);
 
-  const abbreviate = (name) => {
-    const splitedName = name.split(' ');
-    const firstName = splitedName[0];
-    const lastName = splitedName[splitedName.length - 1] || '';
-    return `${firstName} ${lastName}`;
-  };
-
   return (
     <div>
-      <StyledName>{abbreviate(currentUser.displayName)}</StyledName>
+      <StyledName>{currentUser.displayName}</StyledName>
       <Divider />
       <StyledLink to="/">Como funciona</StyledLink>
       <Divider />
