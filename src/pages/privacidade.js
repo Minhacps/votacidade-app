@@ -62,7 +62,8 @@ const PrivacyPolicy = () => {
               Para os usuários que são candidatos ou candidatas coletamos os
               seguintes dados: nome, gênero, identificação étnico racial, faixa
               de idade, cidade, partido, número do candidato, o cnpj da campanha
-              e uma descrição aberta.
+              e uma descrição aberta. Todos os dados de candidatos e candidatas
+              serão públicos.
             </LongParagraph>
             <LongParagraph>
               A informações que coletamos são expressamente fornecidas por você.

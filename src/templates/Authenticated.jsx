@@ -5,6 +5,7 @@ import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import ProgressBar from 'components/ProgressBar/ProgressBar';
+import Sidebar from 'components/Sidebar/Sidebar';
 
 const Authenticated = ({ user, children }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
@@ -45,7 +46,7 @@ const Authenticated = ({ user, children }) => {
       <ProgressBar progress={getProgress()} />
 
       {children}
-
+      <Sidebar />
       <Footer />
     </>
   );
