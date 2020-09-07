@@ -46,7 +46,7 @@ const Authenticated = ({ user, children }) => {
       <ProgressBar progress={getProgress()} />
 
       {children}
-      <Sidebar />
+      <Sidebar user={user}/>
       <Footer />
     </>
   );

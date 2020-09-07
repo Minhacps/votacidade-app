@@ -71,7 +71,8 @@ const Questions = ({ user }) => {
     <>
       {showAlert ? (
         <div
-          className="alert alert-primary alert-dismissible fade show m-1"
+          style={{ maxWidth: '1105px', margin: 'auto' }}
+          className="alert alert-primary alert-dismissible fade show mt-1"
           role="alert"
         >
           <strong>Candidato(a),</strong> Você precisa responder 100% das

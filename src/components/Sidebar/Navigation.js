@@ -35,7 +35,7 @@ const Divider = styled.hr`
   border-top: 1px solid ${colors.grey300};
 `;
 
-const Navigation = () => {
+const Navigation = ({ user }) => {
   const { currentUser } = useContext(CityContext);
 
   const abbreviate = (name) => {
@@ -51,7 +51,7 @@ const Navigation = () => {
       <Divider />
       <StyledLink to="/">Como funciona</StyledLink>
       <Divider />
-      <QuestionsBoard />
+      <QuestionsBoard user={user} />
       <StyledLogout onClick={() => firebase.auth().signOut()}>
         Sair
       </StyledLogout>

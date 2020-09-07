@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { SidebarContext } from 'components/Sidebar/SidebarProvider';
 
+import { answersCollection } from 'constants/firestoreCollections';
+
 const BoardGrid = styled.div`
   display: grid;
   grid-template-columns: 40px 40px 40px 40px 40px;
@@ -19,7 +21,7 @@ const QuestionButton = styled(Button)`
   border: ${(props) => (props.color === '' ? '1pt solid #E6E6E6' : '')};
 `;
 
-export default function QuestionBoard() {
+export default function QuestionBoard({ user }) {
   const history = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
@@ -31,7 +33,7 @@ export default function QuestionBoard() {
     const getQuestions = () => {
       firebase
         .firestore()
-        .collection('answers')
+        .collection(answersCollection(user.role))
         .doc(currentUser.uid)
         .onSnapshot((doc) => {
           if (doc.exists) {
