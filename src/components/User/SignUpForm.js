@@ -221,7 +221,7 @@ const SignUpForm = ({ onBackClick, user }) => {
           <>
             <FormGroup>
               <Label for="gender">Gênero</Label>
-              <Input
+              <CustomInput
                 type="select"
                 name="gender"
                 id="gender"
@@ -237,7 +237,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                     </option>
                   );
                 })}
-              </Input>
+              </CustomInput>
               {errors.gender?.type === 'required' && (
                 <FormFeedback>Campo obrigatório</FormFeedback>
               )}
