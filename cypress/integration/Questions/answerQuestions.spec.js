@@ -1,6 +1,6 @@
 describe('Create candidate user', () => {
   it('Login with email and password', () => {
-    cy.visit('http://app.vota.org.br');
+    cy.visit('http://dev.vota.org.br');
     cy.get('#email')
       .type('albordignon23@gmail.com')
       .should('have.value', 'albordignon23@gmail.com');
@@ -10,7 +10,8 @@ describe('Create candidate user', () => {
   });
 
   it('Answer Questions!', () => {
-    cy.contains('Questionário').click();
+    cy.contains('Fechar').click({ timeout: 10000 });
+    cy.contains('começar').click();
 
     cy.get('#answer-DP').check();
     cy.get('#justification').type('blabla bla');

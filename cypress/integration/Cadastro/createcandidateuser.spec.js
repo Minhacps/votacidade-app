@@ -11,7 +11,7 @@ describe('Test', () => {
   const description = chance.sentence();
 
   beforeEach(() => {
-    cy.visit('http://app.vota.org.br');
+    cy.visit('http://dev.vota.org.br');
   });
 
   it('has a title', () => {
@@ -25,7 +25,9 @@ describe('Test', () => {
     cy.get('#email').type(email).should('have.value', email);
     cy.get('#password').type(password).should('have.value', password);
     // cy.contains('Sou candidata(o)').check()
-    cy.get('[type="checkbox"]').check();
+    // cy.get('[type="checkbox"]').check();
+    cy.get('#isCandidate').check({ force: true });
+
     cy.get('#gender').select('Feminino');
     cy.get('#ethnicGroup').select('Amarela');
     cy.get('#age').select('55-59');
@@ -34,6 +36,11 @@ describe('Test', () => {
     cy.get('#politicalParty').select('PT');
     cy.get('#description').type(description);
     cy.get('button[data-testid=submit-button]').click();
+
+    cy.contains('Fechar').click();
+
+    cy.get('[aria-label=Toggle menu]');
+
     cy.contains('Questionário').click();
 
     for (let i = 0; i < 30; i++) {
