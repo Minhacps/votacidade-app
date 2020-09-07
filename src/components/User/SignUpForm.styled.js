@@ -1,16 +1,9 @@
 import styled from 'styled-components';
-import {
-  Form as ReactStrapForm,
-  FormGroup as ReactStrapFormGroup,
-} from 'reactstrap';
+import { Form as ReactStrapForm } from 'reactstrap';
 
 export const Form = styled(ReactStrapForm)`
   min-height: calc(100vh - 58px);
   padding: 30px 14px;
-`;
-
-export const FormGroupCheck = styled(ReactStrapFormGroup)`
-  margin-bottom: 1rem;
 `;
 
 export const Button = styled.button`

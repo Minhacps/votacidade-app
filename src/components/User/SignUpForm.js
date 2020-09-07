@@ -9,13 +9,14 @@ import {
   FormFeedback,
   Alert,
   Spinner,
+  CustomInput,
 } from 'reactstrap';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 
 import InputPassword from './InputPassword';
-import { Button, FormGroupCheck } from './SignUpForm.styled';
+import { Button } from './SignUpForm.styled';
 import userRoles from 'constants/userRoles';
 import { alfabeticOrder } from '../../styles/helper';
 import { genders, ethnicGroup, ages, politicalParties } from 'data/form-data';
@@ -160,7 +161,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
         <FormGroup>
           <Label for="city">Cidade</Label>
-          <Input
+          <CustomInput
             type="select"
             name="city"
             id="city"
@@ -175,7 +176,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 </option>
               );
             })}
-          </Input>
+          </CustomInput>
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
 
@@ -188,6 +189,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             innerRef={register({ required: true, pattern: EMAIL_REGEX })}
             invalid={errors.email}
             defaultValue={(user && user.email) || ''}
+            placeholder="Digite seu e-mail"
           />
           {errors.email?.type === 'required' && (
             <FormFeedback>Campo obrigatório</FormFeedback>
@@ -206,21 +208,20 @@ const SignUpForm = ({ onBackClick, user }) => {
           />
         )}
 
-        <FormGroupCheck check>
-          <Label check>
-            <Input
-              type="checkbox"
-              onClick={() => toggleIsCandidate(!isCandidate)}
-            />{' '}
-            Sou candidata(o)
-          </Label>
-        </FormGroupCheck>
+        <FormGroup>
+          <CustomInput
+            type="checkbox"
+            id="isCandidate"
+            label="Sou candidata(o)"
+            onClick={() => toggleIsCandidate(!isCandidate)}
+          />
+        </FormGroup>
 
         {isCandidate && (
           <>
             <FormGroup>
               <Label for="gender">Gênero</Label>
-              <Input
+              <CustomInput
                 type="select"
                 name="gender"
                 id="gender"
@@ -236,7 +237,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                     </option>
                   );
                 })}
-              </Input>
+              </CustomInput>
               {errors.gender?.type === 'required' && (
                 <FormFeedback>Campo obrigatório</FormFeedback>
               )}
@@ -258,7 +259,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
             <FormGroup>
               <Label for="ethnicGroup">Identificação étnico-racial</Label>
-              <Input
+              <CustomInput
                 type="select"
                 name="ethnicGroup"
                 id="ethnicGroup"
@@ -274,7 +275,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                     </option>
                   );
                 })}
-              </Input>
+              </CustomInput>
               {errors.ethnicGroup?.type === 'required' && (
                 <FormFeedback>Campo obrigatório</FormFeedback>
               )}
@@ -282,7 +283,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
             <FormGroup>
               <Label for="age">Idade</Label>
-              <Input
+              <CustomInput
                 type="select"
                 name="age"
                 id="age"
@@ -294,7 +295,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 {ages.sort(alfabeticOrder('category')).map((age) => {
                   return <option value={age.category}>{age.category}</option>;
                 })}
-              </Input>
+              </CustomInput>
               {errors.age?.type === 'required' && (
                 <FormFeedback>Campo obrigatório</FormFeedback>
               )}
@@ -340,7 +341,7 @@ const SignUpForm = ({ onBackClick, user }) => {
               <Col xs={6}>
                 <FormGroup>
                   <Label for="politicalParty">Partido</Label>
-                  <Input
+                  <CustomInput
                     type="select"
                     name="politicalParty"
                     id="politicalParty"
@@ -358,7 +359,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                           </option>
                         );
                       })}
-                  </Input>
+                  </CustomInput>
                   <FormFeedback>Campo obrigatório</FormFeedback>
                 </FormGroup>
               </Col>
@@ -377,7 +378,7 @@ const SignUpForm = ({ onBackClick, user }) => {
           </>
         )}
 
-        <Button data-testid="submit-button">Entrar</Button>
+        <Button data-testid="submit-button">Cadastrar</Button>
       </form>
     </>
   );
