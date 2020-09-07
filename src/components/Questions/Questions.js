@@ -12,8 +12,6 @@ const Questions = ({ user }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showAlert, setShowAlert] = useState(true);
 
-  console.log(isLoading);
-
   useEffect(() => {
     const getFirstUnansweredQuestion = (loadedAnswers) => {
       const answersKeys = Object.keys(loadedAnswers);
