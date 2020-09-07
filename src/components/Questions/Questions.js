@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { answersCollection } from 'constants/firestoreCollections';
 
 const Questions = ({ user }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
@@ -19,12 +20,9 @@ const Questions = ({ user }) => {
       );
     };
 
-    const collection =
-      user.role === 'candidate' ? 'candidateAnswers' : 'voterAnswers';
-
     firebase
       .firestore()
-      .collection(collection)
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .get()
       .then((doc) => {

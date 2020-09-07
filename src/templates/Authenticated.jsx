@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 
+import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
@@ -11,13 +12,9 @@ const Authenticated = ({ user, children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log(user);
-    const collection =
-      user.role === 'candidate' ? 'candidateAnswers' : 'voterAnswers';
-
     firebase
       .firestore()
-      .collection(collection)
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .onSnapshot((doc) => {
         if (doc.exists) {

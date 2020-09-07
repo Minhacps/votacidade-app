@@ -8,9 +8,10 @@ import {
   Card,
   Alert,
 } from 'reactstrap';
-import { CityContext } from 'components/CityProvider/CityProvider';
 import { useHistory } from 'react-router-dom';
 
+import { answersCollection } from 'constants/firestoreCollections';
+import { CityContext } from 'components/CityProvider/CityProvider';
 import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 
@@ -76,12 +77,9 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       [id]: data,
     };
 
-    const collection =
-      user.role === 'candidate' ? 'candidateAnswers' : 'voterAnswers';
-
     firebase
       .firestore()
-      .collection(collection)
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .set(answer, { merge: true })
       .then(() => onSave(answer));
