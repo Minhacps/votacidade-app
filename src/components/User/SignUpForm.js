@@ -208,15 +208,14 @@ const SignUpForm = ({ onBackClick, user }) => {
           />
         )}
 
-        <FormGroupCheck check>
-          <Label check>
-            <Input
-              type="checkbox"
-              onClick={() => toggleIsCandidate(!isCandidate)}
-            />{' '}
-            Sou candidata(o)
-          </Label>
-        </FormGroupCheck>
+        <FormGroup>
+          <CustomInput
+            type="checkbox"
+            id="isCandidate"
+            label="Sou candidata(o)"
+            onClick={() => toggleIsCandidate(!isCandidate)}
+          />
+        </FormGroup>
 
         {isCandidate && (
           <>
