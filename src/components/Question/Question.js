@@ -1,18 +1,24 @@
 import React, { useState, useContext } from 'react';
-import {
-  Form,
-  Input,
-  UncontrolledCollapse,
-  Button,
-  CardBody,
-  Card,
-  Alert,
-} from 'reactstrap';
-import { CityContext } from 'components/CityProvider/CityProvider';
-import { useHistory } from 'react-router-dom';
+import { Form, Input, Button, Alert } from 'reactstrap';
 
-import InfoIcon from 'assets/icons/info.svg';
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { answersCollection } from 'constants/firestoreCollections';
+import { CityContext } from 'components/CityProvider/CityProvider';
+
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
+import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
+
+const TitleQuestion = styled.span`
+  font-size: 18px;
+`;
+
+const StyledForm = styled(Form)`
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+`;
 
 const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
@@ -78,37 +84,22 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
     firebase
       .firestore()
-      .collection('answers')
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .set(answer, { merge: true })
       .then(() => onSave(answer));
   };
 
   return (
-    <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
+    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
       <p>
-        <span>{id + 1}. </span>
-        <span>{question}</span>
+        <TitleQuestion>{id + 1}. </TitleQuestion>
+        <TitleQuestion>{question}</TitleQuestion>
       </p>
 
       {explanation && (
         <div className="mb-3">
-          <div id="toggler">
-            <img
-              className="mr-1"
-              src={InfoIcon}
-              alt="Ícone com a lera I dentro de um círculo"
-            />
-            <small className="text-muted font-weight-bold">
-              Entender melhor a questão
-            </small>
-          </div>
-
-          <UncontrolledCollapse toggler="#toggler">
-            <Card>
-              <CardBody style={{ fontSize: '12px' }}>{explanation}</CardBody>
-            </Card>
-          </UncontrolledCollapse>
+          <StatementExplanation explanation={explanation} />
         </div>
       )}
 
@@ -117,7 +108,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         option="DP"
         name="answer"
         value={value && value.answer}
-        label="Discordo Plenamente"
+        label="Discordo Totalmente"
       />
 
       <CustomRadio
@@ -141,7 +132,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         option="CP"
         name="answer"
         value={value && value.answer}
-        label="Concordo Plenamente"
+        label="Concordo Totalmente"
       />
 
       {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
@@ -191,7 +182,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
       </div>
-    </Form>
+    </StyledForm>
   );
 };
 

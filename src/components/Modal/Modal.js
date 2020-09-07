@@ -15,14 +15,14 @@ const ModalExample = ({ name }) => {
           <br />
           A atual versão do sistema está aberta, principalmente, para pré
           candidatos a vereador, vereadora. <br />
-          Eleitores e eleitoras também podem responder mas a funcionalidade da
+          Eleitores e eleitoras também podem responder, mas a funcionalidade da
           geração do índice de afinidade ainda não está disponível. <br />
-          Pré candidatos e pré candidatas lembre-se que para concluir a sua
-          participação no Vota Cidade vocês precisam responder todas as
+          Pré candidatos e pré candidatas lembrem-se, que para concluir a sua
+          participação no Vota Cidade, vocês precisam responder todas as
           questões. As justificativas são opcionais. <br />
           <br />
-          Espero que gostem do Vota Cidade. Com certeza ele pode ser uma maneira
-          de vocẽ chegar no seu eleitor ou na sua eleitora.
+          Espero que gostem do Vota Cidade. Com certeza ele pode ser uma forma
+          de você chegar no seu eleitor e na sua eleitora.
           <br />
           Seja bem vindo, seja bem vinda.
         </ModalBody>

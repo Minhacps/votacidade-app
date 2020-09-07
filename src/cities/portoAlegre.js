@@ -187,4 +187,5 @@ export default {
   cityPath,
   questionnaire,
   firebaseConfig,
+  firebaseConfigProd,
 };

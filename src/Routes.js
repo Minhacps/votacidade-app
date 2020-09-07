@@ -34,7 +34,7 @@ const Routes = ({ user }) => {
       {cities.map((city) => (
         <Route path={`${city.cityPath}/ranking`} key={`${city.cityPath}-route`}>
           <CityProvider city={city}>
-            <FinalPage />
+            <FinalPage user={user} />
           </CityProvider>
         </Route>
       ))}

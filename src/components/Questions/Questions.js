@@ -1,14 +1,19 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { answersCollection } from 'constants/firestoreCollections';
+import { useLocation } from 'react-router-dom';
 
 const Questions = ({ user }) => {
+  const location = useLocation();
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
   const [answers, setAnswers] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
+    const questionQuery = location.search?.substring(1);
     const getFirstUnansweredQuestion = (loadedAnswers) => {
       const answersKeys = Object.keys(loadedAnswers);
       const questionsKeys = Object.keys(questionnaire);
@@ -21,18 +26,26 @@ const Questions = ({ user }) => {
 
     firebase
       .firestore()
-      .collection('answers')
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .get()
       .then((doc) => {
         if (doc.exists) {
           const loadedAnswers = doc.data();
           setAnswers(loadedAnswers);
-          setCurrentQuestion(getFirstUnansweredQuestion(loadedAnswers));
+
+          if (location.search) {
+            setCurrentQuestion(Number(questionQuery - 1));
+          } else {
+            setCurrentQuestion(getFirstUnansweredQuestion(loadedAnswers));
+          }
+        }
+        if (location.search) {
+          setCurrentQuestion(Number(questionQuery - 1));
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser.uid, questionnaire]);
+  }, [user, firebase, currentUser.uid, questionnaire, location]);
 
   const handleNext = (answer) => {
     const updatedAnswers = {
@@ -56,14 +69,35 @@ const Questions = ({ user }) => {
   }
 
   return (
-    <Question
-      id={currentQuestion}
-      onSave={handleNext}
-      onSkip={handleNext}
-      onBack={handleBack}
-      value={answers && answers[currentQuestion]}
-      user={user}
-    />
+    <>
+      {showAlert ? (
+        <div
+          style={{ maxWidth: '1105px', margin: 'auto' }}
+          className="alert alert-primary alert-dismissible fade show mt-1"
+          role="alert"
+        >
+          <strong>Candidato(a),</strong> Você precisa responder 100% das
+          questões para aparecer no ranking.
+          <button
+            type="button"
+            className="close"
+            data-dismiss="alert"
+            aria-label="Close"
+            onClick={() => setShowAlert(false)}
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      ) : null}
+      <Question
+        id={currentQuestion}
+        onSave={handleNext}
+        onSkip={handleNext}
+        onBack={handleBack}
+        value={answers && answers[currentQuestion]}
+        user={user}
+      />
+    </>
   );
 };
 
