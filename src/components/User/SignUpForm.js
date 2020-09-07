@@ -283,7 +283,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
             <FormGroup>
               <Label for="age">Idade</Label>
-              <Input
+              <CustomInput
                 type="select"
                 name="age"
                 id="age"
@@ -295,7 +295,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 {ages.sort(alfabeticOrder('category')).map((age) => {
                   return <option value={age.category}>{age.category}</option>;
                 })}
-              </Input>
+              </CustomInput>
               {errors.age?.type === 'required' && (
                 <FormFeedback>Campo obrigatório</FormFeedback>
               )}
