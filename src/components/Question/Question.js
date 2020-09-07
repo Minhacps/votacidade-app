@@ -1,8 +1,20 @@
 import React, { useState, useContext } from 'react';
-import { Form, Input, Button, Alert } from 'reactstrap';
-import { CityContext } from 'components/CityProvider/CityProvider';
+import {
+  Form,
+  Input,
+  UncontrolledCollapse,
+  Button,
+  CardBody,
+  Card,
+  Alert,
+} from 'reactstrap';
+
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { answersCollection } from 'constants/firestoreCollections';
+import { CityContext } from 'components/CityProvider/CityProvider';
+import InfoIcon from 'assets/icons/info.svg';
 
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
@@ -81,7 +93,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
     firebase
       .firestore()
-      .collection('answers')
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .set(answer, { merge: true })
       .then(() => onSave(answer));

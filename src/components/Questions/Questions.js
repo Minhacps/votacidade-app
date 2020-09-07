@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { answersCollection } from 'constants/firestoreCollections';
 import { useLocation } from 'react-router-dom';
 
 const Questions = ({ user }) => {
@@ -24,7 +25,7 @@ const Questions = ({ user }) => {
 
     firebase
       .firestore()
-      .collection('answers')
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .get()
       .then((doc) => {
@@ -42,7 +43,8 @@ const Questions = ({ user }) => {
           setIsLoading(false);
         }
       });
-  }, [firebase, currentUser.uid, questionnaire, location.search]);
+  }, [user, firebase, currentUser.uid, questionnaire]);
+
 
   const handleNext = (answer) => {
     const updatedAnswers = {

@@ -15,9 +15,9 @@ const BaseApp = () => {
       .collection('users')
       .doc(currentUser.uid)
       .onSnapshot((snapshot) => {
-        setIsLoading(false);
         const userData = snapshot.data();
         setUser(userData);
+        setIsLoading(false);
       });
   }, [currentUser]);
 
@@ -26,7 +26,7 @@ const BaseApp = () => {
   }
 
   return (
-    <Authenticated>
+    <Authenticated user={user}>
       <BaseAppRoutes cityPath={cityPath} user={user} />
     </Authenticated>
   );
