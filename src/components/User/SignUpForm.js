@@ -377,7 +377,7 @@ const SignUpForm = ({ onBackClick, user }) => {
           </>
         )}
 
-        <Button data-testid="submit-button">Entrar</Button>
+        <Button data-testid="submit-button">Cadastrar</Button>
       </form>
     </>
   );
