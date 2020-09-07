@@ -11,6 +11,12 @@ const TitleQuestion = styled.span`
   font-size: 18px;
 `;
 
+const StyledForm = styled(Form)`
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+`;
+
 const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
     <Input
@@ -82,7 +88,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   };
 
   return (
-    <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
+    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
       <p>
         <TitleQuestion>{id + 1}. </TitleQuestion>
         <TitleQuestion>{question}</TitleQuestion>
@@ -173,7 +179,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
       </div>
-    </Form>
+    </StyledForm>
   );
 };
 

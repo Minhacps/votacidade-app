@@ -4,6 +4,8 @@ import colors from '../../styles/colors';
 export const ProgressBarContainer = styled.div`
   background: ${colors.grey100};
   padding: 13px;
+  max-width: 1105px;
+  margin: 0 auto;
 
   .progress {
     background-color: #fff;
