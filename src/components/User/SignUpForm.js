@@ -341,7 +341,7 @@ const SignUpForm = ({ onBackClick, user }) => {
               <Col xs={6}>
                 <FormGroup>
                   <Label for="politicalParty">Partido</Label>
-                  <Input
+                  <CustomInput
                     type="select"
                     name="politicalParty"
                     id="politicalParty"
@@ -359,7 +359,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                           </option>
                         );
                       })}
-                  </Input>
+                  </CustomInput>
                   <FormFeedback>Campo obrigatório</FormFeedback>
                 </FormGroup>
               </Col>
