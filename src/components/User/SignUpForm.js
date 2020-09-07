@@ -259,7 +259,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
             <FormGroup>
               <Label for="ethnicGroup">Identificação étnico-racial</Label>
-              <Input
+              <CustomInput
                 type="select"
                 name="ethnicGroup"
                 id="ethnicGroup"
@@ -275,7 +275,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                     </option>
                   );
                 })}
-              </Input>
+              </CustomInput>
               {errors.ethnicGroup?.type === 'required' && (
                 <FormFeedback>Campo obrigatório</FormFeedback>
               )}
