@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+// import Authenticated from 'templates/Authenticated';
 import styled from 'styled-components';
 import { Container } from 'reactstrap';
 import { Button } from 'UI/Button';
@@ -23,6 +24,7 @@ const FinalPage = (user) => {
   const UserName = currentUser.displayName;
 
   return (
+    // <Authenticated user={user}>
     <Container className="py-4" style={{ lineHeight: '20px' }}>
       <StyledUserName>Olá, {UserName}!</StyledUserName>
       <p className="mt-3" style={{ fontSize: '12pt' }}>
@@ -76,6 +78,7 @@ const FinalPage = (user) => {
         </StyledButton>
       </Link>
     </Container>
+    // </Authenticated>
   );
 };
 
