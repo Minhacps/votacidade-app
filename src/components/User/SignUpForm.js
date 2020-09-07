@@ -189,6 +189,7 @@ const SignUpForm = ({ onBackClick, user }) => {
             innerRef={register({ required: true, pattern: EMAIL_REGEX })}
             invalid={errors.email}
             defaultValue={(user && user.email) || ''}
+            placeholder="Digite seu e-mail"
           />
           {errors.email?.type === 'required' && (
             <FormFeedback>Campo obrigatório</FormFeedback>
