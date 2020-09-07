@@ -4,7 +4,7 @@ import { StyledBurger, StyledMenu } from './Sidebar.styled';
 
 import SidebarProvider from './SidebarProvider';
 
-export default function Sidebar() {
+export default function Sidebar({ user }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -21,7 +21,7 @@ export default function Sidebar() {
         <span />
       </StyledBurger>
       <StyledMenu open={isOpen} navbar>
-        <Navigation />
+        <Navigation user={user} />
       </StyledMenu>
     </SidebarProvider>
   );

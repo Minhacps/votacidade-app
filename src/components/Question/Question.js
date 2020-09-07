@@ -1,20 +1,11 @@
 import React, { useState, useContext } from 'react';
-import {
-  Form,
-  Input,
-  UncontrolledCollapse,
-  Button,
-  CardBody,
-  Card,
-  Alert,
-} from 'reactstrap';
+import { Form, Input, Button, Alert } from 'reactstrap';
 
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import InfoIcon from 'assets/icons/info.svg';
 
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
