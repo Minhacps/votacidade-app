@@ -8,13 +8,13 @@ import logoVota from 'assets/img/logos/vota.svg';
 import logoVotaCidade from 'assets/img/logos/logo-vota-cidades.svg';
 
 export const Header = () => {
-  const { cityName } = useContext(CityContext);
+  const { cityName, cityPath } = useContext(CityContext);
 
   return (
     <header>
       <Navbar light expand="md">
         <Container>
-          <NavbarBrand tag={Link} to="/" title="Vota Cidade">
+          <NavbarBrand tag={Link} to={cityPath} title="Vota Cidade">
             <img
               src={logoVota}
               alt="Logo Vota Cidade"

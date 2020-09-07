@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import QuestionsBoard from 'components/QuestionsBoard/QuestionsBoard';
 import firebase from 'firebase/app';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import colors from '../../styles/colors';
 import { CityContext } from '../CityProvider/CityProvider';
@@ -37,6 +37,12 @@ const Divider = styled.hr`
 
 const Navigation = ({ user }) => {
   const { currentUser } = useContext(CityContext);
+  const history = useHistory();
+
+  const handleLogout = () => {
+    firebase.auth().signOut();
+    history.push('/');
+  };
 
   return (
     <div>
@@ -45,9 +51,7 @@ const Navigation = ({ user }) => {
       <StyledLink to="/">Como funciona</StyledLink>
       <Divider />
       <QuestionsBoard user={user} />
-      <StyledLogout onClick={() => firebase.auth().signOut()}>
-        Sair
-      </StyledLogout>
+      <StyledLogout onClick={handleLogout}>Sair</StyledLogout>
     </div>
   );
 };
