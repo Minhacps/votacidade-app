@@ -19,12 +19,12 @@ const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-const FinalPage = () => {
+const FinalPage = (user) => {
   const { currentUser, cityPath, cityName } = useContext(CityContext);
   const UserName = currentUser.displayName;
 
   return (
-    <Authenticated>
+    <Authenticated user={user}>
       <Container className="py-4" style={{ lineHeight: '20px' }}>
         <StyledUserName>Olá, {UserName}!</StyledUserName>
         <p className="mt-3" style={{ fontSize: '12pt' }}>
