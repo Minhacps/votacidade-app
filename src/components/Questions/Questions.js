@@ -13,6 +13,7 @@ const Questions = ({ user }) => {
   const [showAlert, setShowAlert] = useState(true);
 
   useEffect(() => {
+    const questionQuery = location.search?.substring(1);
     const getFirstUnansweredQuestion = (loadedAnswers) => {
       const answersKeys = Object.keys(loadedAnswers);
       const questionsKeys = Object.keys(questionnaire);
@@ -34,11 +35,13 @@ const Questions = ({ user }) => {
           setAnswers(loadedAnswers);
 
           if (location.search) {
-            const questionQuery = location.search.substring(1);
             setCurrentQuestion(Number(questionQuery - 1));
           } else {
             setCurrentQuestion(getFirstUnansweredQuestion(loadedAnswers));
           }
+        }
+        if (location.search) {
+          setCurrentQuestion(Number(questionQuery - 1));
         }
         setIsLoading(false);
       });
