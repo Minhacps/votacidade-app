@@ -9,6 +9,7 @@ import {
   FormFeedback,
   Alert,
   Spinner,
+  CustomInput,
 } from 'reactstrap';
 import Select from 'react-select';
 import { useForm, Controller } from 'react-hook-form';
@@ -160,7 +161,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
         <FormGroup>
           <Label for="city">Cidade</Label>
-          <Input
+          <CustomInput
             type="select"
             name="city"
             id="city"
@@ -175,7 +176,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                 </option>
               );
             })}
-          </Input>
+          </CustomInput>
           <FormFeedback>Campo obrigatório</FormFeedback>
         </FormGroup>
 
