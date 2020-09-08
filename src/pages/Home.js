@@ -16,6 +16,7 @@ import { Title } from 'UI/Title';
 import colors from 'styles/colors';
 import { Link } from 'react-router-dom';
 import { Button } from 'UI/Button';
+import Modal from '../components/Modal/Modal';
 
 const StyledCard = styled(Card)`
   border-radius: 10px;
@@ -36,11 +37,12 @@ const StyledButton = styled(Button)`
 
 const HomePage = () => {
   const { currentUser, cityPath } = useContext(CityContext);
-  const UserName = currentUser.displayName;
+  const name = currentUser.displayName;
 
   return (
     <Container className="py-4" style={{ lineHeight: '20px' }}>
-      <StyledUserName>Olá, {UserName}!</StyledUserName>
+      <Modal name={name} />
+      <StyledUserName>Olá, {name}!</StyledUserName>
       <p className="mt-3" style={{ fontSize: '12pt' }}>
         O Vota Cidade é uma ferramenta para a população encontrar candidatos(as)
         a vereador(a) que pensam parecido com você nas eleições de 2020. Assim,
@@ -77,7 +79,8 @@ const HomePage = () => {
               <CardText>
                 Você responderá um questionário de 30 perguntas, com questões
                 variadas sobre políticas públicas como transporte, saneamento
-                básico, drogas, etc.
+                básico, drogas, etc. O eleitor(a) pode responder no mínimo 21
+                questões já o candidato(a) precisa responder todas.
               </CardText>
             </CardBody>
           </StyledCard>

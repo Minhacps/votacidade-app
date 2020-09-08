@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react';
 
+import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import ProgressBar from 'components/ProgressBar/ProgressBar';
 
-const Authenticated = ({ children }) => {
+const Authenticated = ({ user, children }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [answers, setAnswers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -13,7 +14,7 @@ const Authenticated = ({ children }) => {
   useEffect(() => {
     firebase
       .firestore()
-      .collection('answers')
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .onSnapshot((doc) => {
         if (doc.exists) {
@@ -22,7 +23,7 @@ const Authenticated = ({ children }) => {
         }
         setIsLoading(false);
       });
-  }, [firebase, currentUser]);
+  }, [user, firebase, currentUser]);
 
   const getProgress = () => {
     if (!answers) {
@@ -40,11 +41,10 @@ const Authenticated = ({ children }) => {
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <ProgressBar progress={getProgress()} />
 
       {children}
-
       <Footer />
     </>
   );
