@@ -46,7 +46,10 @@ const App = () => {
     };
 
     checkUserCollection();
-  }, [history, location]);
+
+    // this useEffect should be executed only once.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (lookingForUser) {
     return <p>Carregando...</p>;

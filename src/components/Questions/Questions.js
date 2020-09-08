@@ -1,8 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+import { CANDIDATE } from 'constants/userRoles';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { answersCollection } from 'constants/firestoreCollections';
-import { useLocation } from 'react-router-dom';
 
 const Questions = ({ user }) => {
   const location = useLocation();
@@ -70,10 +72,10 @@ const Questions = ({ user }) => {
 
   return (
     <>
-      {showAlert ? (
+      {user.role === CANDIDATE && showAlert ? (
         <div
-          style={{ maxWidth: '1105px', margin: 'auto' }}
-          className="alert alert-primary alert-dismissible fade show mt-1"
+          style={{ maxWidth: '818px', margin: '20px auto 0' }}
+          className="alert alert-primary alert-dismissible fade show"
           role="alert"
         >
           <strong>Candidato(a),</strong> Você precisa responder 100% das
