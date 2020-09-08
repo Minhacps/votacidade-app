@@ -30,7 +30,7 @@ export const Header = ({ user }) => {
           </NavbarBrand>
           <NavbarBrand
             tag={Link}
-            to="/"
+            to={cityPath}
             title={cityName}
             className="text-muted font-weight-bold"
             style={{ margin: 'auto' }}
