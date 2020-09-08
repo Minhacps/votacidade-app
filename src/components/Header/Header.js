@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { Container, Navbar, NavbarBrand } from 'reactstrap';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
+import Sidebar from 'components/Sidebar/Sidebar';
 
 import logoVota from 'assets/img/logos/vota.svg';
 import logoVotaCidade from 'assets/img/logos/logo-vota-cidades.svg';
 
-export const Header = () => {
+export const Header = ({ user }) => {
   const { cityName, cityPath } = useContext(CityContext);
 
   return (
@@ -36,6 +37,7 @@ export const Header = () => {
           >
             {cityName}
           </NavbarBrand>
+          <Sidebar user={user} />
         </Container>
       </Navbar>
     </header>

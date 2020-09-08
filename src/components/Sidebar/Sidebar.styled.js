@@ -34,9 +34,6 @@ export const StyledMenu = styled.nav`
 `;
 
 export const StyledBurger = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
