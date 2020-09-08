@@ -34,9 +34,14 @@ export const ProgressBarContainer = styled.div`
   }
 `;
 
+export const ProgressBarContent = styled.div`
+  max-width: 1105px;
+  margin: 0 auto;
+`;
+
 export const ProgressBarTitle = styled.span`
   color: ${colors.grey500};
-  font-size: 10px;
+  font-size: 12px;
   display: block;
 `;
 

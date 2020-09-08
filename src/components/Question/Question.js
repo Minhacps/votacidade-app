@@ -1,21 +1,29 @@
-import React, { useContext } from 'react';
-import {
-  Form,
-  Input,
-  UncontrolledCollapse,
-  Button,
-  CardBody,
-  Card,
-} from 'reactstrap';
+import React, { useState, useContext } from 'react';
+import { Form, Input, Button, Alert } from 'reactstrap';
+
+import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+
+import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import { Link } from 'react-router-dom';
 
-import InfoIcon from 'assets/icons/info.svg';
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
+import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
 
-const CustomRadio = ({ option, label, value }) => (
+const TitleQuestion = styled.span`
+  font-size: 18px;
+`;
+
+const StyledForm = styled(Form)`
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.5rem;
+`;
+
+const CustomRadio = ({ option, label, value, onChange }) => (
   <QuestionOption>
     <Input
+      onChange={onChange}
       type="radio"
       id={`answer-${option}`}
       name="answer"
@@ -28,12 +36,16 @@ const CustomRadio = ({ option, label, value }) => (
 );
 
 const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
   const { question, explanation } = questionnaire[id];
 
   const saveVoterAnswer = (event) => {
+    setErrorMessage(null);
+
     if (user.role === 'candidate') {
       return;
     }
@@ -41,15 +53,28 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
     saveAnswer({
       answer: event.target.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveCandidateAnswer = (event) => {
     event.preventDefault();
 
+    if (!event.target.answer.value) {
+      setErrorMessage('Escolha uma opção');
+      return;
+    }
+
     saveAnswer({
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
+
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const saveAnswer = (data) => {
@@ -59,39 +84,32 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
     firebase
       .firestore()
-      .collection('answers')
+      .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .set(answer, { merge: true })
       .then(() => onSave(answer));
   };
 
   return (
-    <Form onSubmit={saveCandidateAnswer} key={id + 1} className="m-4">
+    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
       <p>
-        <span>{id + 1}. </span>
-        <span>{question}</span>
+        <TitleQuestion>{id + 1}. </TitleQuestion>
+        <TitleQuestion>{question}</TitleQuestion>
       </p>
 
       {explanation && (
         <div className="mb-3">
-          <div id="toggler">
-            <img
-              className="mr-1"
-              src={InfoIcon}
-              alt="Ícone com a lera I dentro de um círculo"
-            />
-            <small className="text-muted font-weight-bold">
-              Entender melhor a questão
-            </small>
-          </div>
-
-          <UncontrolledCollapse toggler="#toggler">
-            <Card>
-              <CardBody style={{ fontSize: '12px' }}>{explanation}</CardBody>
-            </Card>
-          </UncontrolledCollapse>
+          <StatementExplanation explanation={explanation} />
         </div>
       )}
+
+      <CustomRadio
+        onChange={saveVoterAnswer}
+        option="DP"
+        name="answer"
+        value={value && value.answer}
+        label="Discordo Totalmente"
+      />
 
       <CustomRadio
         onChange={saveVoterAnswer}
@@ -99,14 +117,6 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         name="answer"
         value={value && value.answer}
         label="Discordo"
-      />
-
-      <CustomRadio
-        onChange={saveVoterAnswer}
-        option="DP"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo Plenamente"
       />
 
       <CustomRadio
@@ -122,8 +132,10 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         option="CP"
         name="answer"
         value={value && value.answer}
-        label="Concordo Plenamente"
+        label="Concordo Totalmente"
       />
+
+      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
       {user.role === 'candidate' ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
@@ -164,24 +176,13 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
 
-        {id === questionnaire.length - 1 && (
-          <Button
-            color="primary"
-            tag={Link}
-            to={`${cityPath}/ranking`}
-            className="w-100 ml-3"
-          >
-            Finalizar
-          </Button>
-        )}
-
         {user.role === 'candidate' && (
           <Button color="primary" className="w-100 ml-4" outline>
-            Responder
+            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
       </div>
-    </Form>
+    </StyledForm>
   );
 };
 

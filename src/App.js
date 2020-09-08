@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import firebase from 'firebase/app';
 
 import Routes from './Routes';
 import Login from './pages/Login';
 
+import './fontawesome';
+
 const App = () => {
+  const history = useHistory();
+  const location = useLocation();
   const [lookingForUser, setLookingForUser] = useState(true);
   const [user, setUser] = useState(null);
   const [userIncompleted, setUserIncompleted] = useState(true);
@@ -21,6 +25,7 @@ const App = () => {
             .onSnapshot((snapshot) => {
               const userData = snapshot.data();
               setUserIncompleted(userData);
+              redirectUserByCity(userData);
             });
         }
         setLookingForUser(false);
@@ -28,8 +33,20 @@ const App = () => {
       });
     }
 
+    const redirectUserByCity = (userData) => {
+      if (!userData.city) {
+        return;
+      }
+
+      const userFromDifferentCity = !location.pathname.includes(userData.city);
+
+      if (userFromDifferentCity) {
+        history.push(`/${userData.city}`);
+      }
+    };
+
     checkUserCollection();
-  }, []);
+  }, [history, location]);
 
   if (lookingForUser) {
     return <p>Carregando...</p>;
@@ -43,11 +60,7 @@ const App = () => {
     return <Login shouldComplete user={user} />;
   }
 
-  return (
-    <Router>
-      <Routes user={user} />
-    </Router>
-  );
+  return <Routes user={user} />;
 };
 
 export default App;

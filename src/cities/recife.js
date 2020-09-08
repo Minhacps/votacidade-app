@@ -5,155 +5,148 @@ export const cityPath = '/recife';
 const questionnaire = [
   {
     question:
-      'Toda a população brasileira, incluindo pessoas de classe média e alta, deve ter acesso à saúde pública gratuita.	',
+      'Toda a população brasileira, incluindo pessoas de classe média e alta, deve ter acesso à saúde pública gratuita.',
     explanation: '',
   },
   {
     question:
-      'Municípios mais pobres devem receber mais recursos para a Educação.	',
+      'A privatização da gestão de água e esgoto vai facilitar o acesso à água em bairros mais pobres.',
     explanation: '',
   },
   {
     question:
-      'Taxar o uso do carro é uma boa solução para incentivar o uso do transporte coletivo.	',
+      'Municípios mais pobres devem receber mais recursos para a Educação.',
     explanation: '',
   },
   {
     question:
-      'A privatização da gestão de água e esgoto vai facilitar o acesso à água em bairros mais pobres.	',
+      'Taxar o uso do carro é uma boa solução para incentivar o uso do transporte coletivo.',
     explanation: '',
   },
   {
     question:
-      'Os(as) candidatos(as) eleitos(as) podem tomar decisões de interesse público, como projetos de lei, sem ouvir a população, uma vez que são representantes do povo.	',
+      'Os(as) candidatos(as) eleitos(as) podem tomar decisões de interesse público, como projetos de lei, sem ouvir a população, uma vez que são representantes do povo.',
     explanation: '',
   },
   {
     question:
-      'O mais importante é que as pessoas façam o isolamento social para evitar a disseminação do coronavírus enquanto não temos vacina.	',
+      'O mais importante é que as pessoas façam o isolamento social para evitar a disseminação do coronavírus enquanto não temos vacina.',
     explanation: '',
   },
   {
-    question: 'As instituições religiosas devem continuar sem pagar impostos.	',
-    explanation: '',
-  },
-  {
-    question:
-      'O Brasil deve cobrar menos impostos de grandes fortunas e heranças.	',
+    question: 'As instituições religiosas devem continuar sem pagar impostos.',
     explanation: '',
   },
   {
     question:
-      'A ação da polícia deve ser protegida, livre de acusações de abuso de autoridade.	',
+      'O Brasil deve cobrar menos impostos de grandes fortunas e heranças.',
     explanation: '',
   },
   {
     question:
-      'O governo deve fornecer auxílio econômico e psicológico a mulheres que saem de casa por causa da violência doméstica.	',
+      'A ação da polícia deve ser protegida, livre de acusações de abuso de autoridade.',
     explanation: '',
   },
   {
     question:
-      'O auxílio emergencial federal deve ser constante para toda a população, como uma renda básica para todos.	',
-    explanation:
-      'Existe uma proposta chamada Renda Básica de Cidadania que propõe uma renda para todo(a) cidadã(o) no Brasil, independente de qualquer coisa.	',
-  },
-  {
-    question:
-      'A Prefeitura tem garantido equipamentos de proteção individual suficientes durante a pandemia a todos os profissionais de saúde.	',
-    explanation:
-      'Exemplos de Equipamentos de Proteção Individual (EPIs) são: máscaras, álcool em gel, aventais, luvas e face shields.	',
-  },
-  {
-    question:
-      'A Prefeitura investe o suficiente nos Centros de Saúde para prevenção à saúde da população.	',
+      'O governo deve fornecer auxílio econômico e psicológico a mulheres que saem de casa por causa da violência doméstica.',
     explanation: '',
   },
   {
     question:
-      'Os vereadores acertaram ao não abrir a CPI da Saúde para investigar a corrupção no Hospital Ouro Verde.	',
-    explanation:
-      'Foi descoberto um esquema de desvio de dinheiro público do Hospital Ouro Verde envolvendo funcionários da Prefeitura de Campinas e a antiga empresa gestora do hospital. A Câmara de Vereadores decidiu não abrir uma Comissão Parlamentar de Inquérito (CPI), que serve para investigar problemas como esse.	',
-  },
-  {
-    question:
-      'Pessoas que fazem uso abusivo de drogas deveriam ser internadas para tratamento, mesmo contra a própria vontade.	',
-    explanation: '',
-  },
-  {
-    question: 'Proibição definitiva do consumo da maconha.	',
-    explanation:
-      'Hoje, a regulamentação não é bem definida e acaba deixando margem grande para interpretações.	',
-  },
-  {
-    question: 'É importante que a Guarda Municipal tenha porte de armas.	',
-    explanation:
-      'Antigamente, a Guarda Municipal era apenas patrimonial e não portava armas de fogo.	',
-  },
-  {
-    question: 'A cor da pele influencia a abordagem policial.	',
+      'A privatização do SUS é uma solução viável para melhorar o serviço no atendimento da população.',
     explanation: '',
   },
   {
     question:
-      'Garantir, na prática, dos mesmos direitos dos brasileiros e brasileiras a imigrantes.	',
-    explanation:
-      'Por exemplo, a Prefeitura de Campinas teve dificuldades de garantir direitos de venezuelanos durante a pandemia, por falta de estrutura e dificuldades de comunicação.	',
+      'Responsabilização e punição mais severas  de autoridades policiais por abuso do poder e crimes cometidos em serviço.',
+    explanation: '',
   },
   {
-    question:
-      "A Prefeitura deve 'alugar' vagas em creches privadas para resolver a falta de vagas nas públicas.	",
-    explanation:
-      'Ao invés de construir creches públicas, a Prefeitura de Campinas já propôs pagar escolas privadas para usar as vagas disponíveis.	',
-  },
-  {
-    question:
-      'Professores e professoras devem evitar questões políticas em sala de aula.	',
+    question: 'Uso, posse e o porte de armas de fogo por cidadãos.',
     explanation: '',
   },
   {
     question:
-      'As escolas municipais devem ensinar o combate à opressão de gênero, como a violência contra as mulheres.	',
+      'A valorização do professor impacta diretamente na qualidade do ensino.',
     explanation: '',
   },
   {
     question:
-      'Pessoas trans deveriam ter o direito de usar o banheiro de acordo com o gênero que se identificam.	',
+      'É necessário investir em ações para fortalecer o combate ao feminicídio e à violência contra as mulheres.',
     explanation: '',
   },
   {
-    question: 'A LGBTfobia deve ser criminalizada.	',
-    explanation: '',
-  },
-  {
-    question: 'A cidade de Campinas valoriza seus artistas locais.	',
+    question: 'Votar em um candidato(a) negro(a) é uma prioridade.',
     explanation: '',
   },
   {
     question:
-      'A Prefeitura deve investir mais na promoção de espaços culturais nas periferias.	',
+      'Leis mais rígidas para  punição de crimes cometidos por LGBTfobia.',
     explanation: '',
   },
   {
     question:
-      'IPTU ainda mais caro para áreas consideradas mais nobres da cidade.	',
-    explanation:
-      'IPTU é a sigla para Imposto Predial e Territorial Urbano, pago por proprietários de imóveis ao município todo ano. Ele já é progressivo, de acordo com o valor do terreno.	',
-  },
-  {
-    question:
-      'Utilizar como moradia popular os prédios que estão sem uso no Centro de Campinas.',
+      'Debates sobre gênero e sexualidade nas escolas são importantes no combate a violência e ao preconceito.',
     explanation: '',
   },
   {
     question:
-      'A queima do lixo é uma ótima alternativa para a gestão de resíduos da cidade.	',
-    explanation:
-      'Uma proposta da Prefeitura prevê a criação de um composto a partir do lixo, que será usado por combustível, para queima (incineração) em grandes fornos industriais, gerando poluição e danos a saúde.	',
+      'Investir nas Políticas de Acolhimento aos imigrantes é necessário para se atender as necessidades dos povos que buscam nossa cidade para asilo.',
+    explanation: '',
   },
   {
     question:
-      'Todos os lugares devem ser obrigados a ter acesso para cadeirantes, sob pena de multa.	',
+      'As pessoas com deficiências devem ser priorizadas para garantir sua mobilidade e acessibilidade',
+    explanation: '',
+  },
+  {
+    question: 'Sou a favor da descriminalização do uso da maconha.',
+    explanation: '',
+  },
+  {
+    question:
+      'É necessário ampliar o investimento no orçamento municipal em Cultura.',
+    explanation: '',
+  },
+  {
+    question:
+      'É preciso investir em leis de incentivo, proteção valorizar os povos tradicionais e suas culturas.',
+    explanation: '',
+  },
+  {
+    question:
+      'A gestão de resíduos é importante para a garantia da Sustentabilidade do Meio Ambiente.',
+    explanation: '',
+  },
+  {
+    question:
+      'A especulação imobiliária é um risco para zonas costeiras, manguezais e alagados na cidade.',
+    explanation: '',
+  },
+  {
+    question:
+      'A Renda Básica é uma solução viável no combate à Desigualdade Social e Econômica.',
+    explanation: '',
+  },
+  {
+    question:
+      'O transporte coletivo e por bicicletas são opções necessárias para a melhoria da Mobilidade Urbana.',
+    explanation: '',
+  },
+  {
+    question:
+      'A Ficha Limpa é uma estratégia que fortalece o processo democrático.',
+    explanation: '',
+  },
+  {
+    question:
+      'A Comunicação com a população é fundamental para a defesa dos seus interesses e deve ser promovido por todos os agentes políticos.',
+    explanation: '',
+  },
+  {
+    question:
+      'A criação de programas renda mínima são importantes no combate  à pobreza  e a desigualdade durante e depois da pandemia.',
     explanation: '',
   },
 ];
@@ -168,9 +161,20 @@ export const firebaseConfig = {
   appId: '1:2058177508:web:6d43b3617e7b28a0dc15f1',
 };
 
+export const firebaseConfigProd = {
+  apiKey: 'AIzaSyDOhr1c_TyIWWLrBoe490X0bKnvK8E5bSI',
+  authDomain: 'vota-recife-prod.firebaseapp.com',
+  databaseURL: 'https://vota-recife-prod.firebaseio.com',
+  projectId: 'vota-recife-prod',
+  storageBucket: 'vota-recife-prod.appspot.com',
+  messagingSenderId: '1025336522618',
+  appId: '1:1025336522618:web:f916bf25fe70198fca48c3',
+};
+
 export default {
   cityName,
   cityPath,
   questionnaire,
   firebaseConfig,
+  firebaseConfigProd,
 };

@@ -168,9 +168,20 @@ export const firebaseConfig = {
   appId: '1:1091437694698:web:6173d6460c826d95e01193',
 };
 
+export const firebaseConfigProd = {
+  apiKey: 'AIzaSyDqLaQ1ioz6c7jAB6jN2WLY74x6gMGSMcE',
+  authDomain: 'vota-campinas-prod.firebaseapp.com',
+  databaseURL: 'https://vota-campinas-prod.firebaseio.com',
+  projectId: 'vota-campinas-prod',
+  storageBucket: 'vota-campinas-prod.appspot.com',
+  messagingSenderId: '481441850311',
+  appId: '1:481441850311:web:81d5ff7ae5bcf6a8986fe2',
+};
+
 export default {
   cityName,
   cityPath,
   questionnaire,
   firebaseConfig,
+  firebaseConfigProd,
 };

@@ -1,0 +1,11 @@
+{
+  "name": "votacidade-api",
+  "description": "APIs utilizadas no projeto votacidade-app",
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "crypto-js": "^4.0.0",
+    "firebase-admin": "^8.10.0"
+  }
+}

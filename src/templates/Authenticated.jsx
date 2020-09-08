@@ -1,36 +1,29 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
+import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import ProgressBar from 'components/ProgressBar/ProgressBar';
 
-const Authenticated = ({ children }) => {
+const Authenticated = ({ user, children }) => {
   const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [answers, setAnswers] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const history = useHistory();
 
   useEffect(() => {
-    const { uid } = currentUser ?? {};
-    if (uid) {
-      firebase
-        .firestore()
-        .collection('answers')
-        .doc(uid)
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            const loadedAnswers = doc.data();
-            setAnswers(loadedAnswers);
-          }
-          setIsLoading(false);
-        });
-    } else {
-      history.push('/');
-    }
-  });
+    firebase
+      .firestore()
+      .collection(answersCollection(user.role))
+      .doc(currentUser.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          const loadedAnswers = doc.data();
+          setAnswers(loadedAnswers);
+        }
+        setIsLoading(false);
+      });
+  }, [user, firebase, currentUser]);
 
   const getProgress = () => {
     if (!answers) {
@@ -48,11 +41,10 @@ const Authenticated = ({ children }) => {
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <ProgressBar progress={getProgress()} />
 
       {children}
-
       <Footer />
     </>
   );
