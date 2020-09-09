@@ -1,8 +1,8 @@
 export const contatos = [
-  {
-    cidade: 'Campina Grande',
-    contato: 'contato@minhacampina.org.br',
-  },
+  // {
+  //   cidade: 'Campina Grande',
+  //   contato: 'contato@minhacampina.org.br',
+  // },
   {
     cidade: 'Campinas',
     contato: 'contato@minhacampinas.org.br',

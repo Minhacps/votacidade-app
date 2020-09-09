@@ -23,10 +23,10 @@ export const cidades = [
     linkTo: 'https://www.meurecife.org.br/#block-4456',
     value: 'recife',
   },
-  {
-    title: 'Campina Grande',
-    image: require('../../src/assets/img/photos_city/campina-grande-fundo.jpg'),
-    linkTo: 'https://www.facebook.com/MinhaCampinaRNC/',
-    value: 'campina-grande',
-  },
+  // {
+  //   title: 'Campina Grande',
+  //   image: require('../../src/assets/img/photos_city/campina-grande-fundo.jpg'),
+  //   linkTo: 'https://www.facebook.com/MinhaCampinaRNC/',
+  //   value: 'campina-grande',
+  // },
 ];
