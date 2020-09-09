@@ -18,7 +18,7 @@ const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-const FinalPage = (user) => {
+const FinalPage = ({ user }) => {
   const { currentUser, cityPath, cityName } = useContext(CityContext);
   const UserName = currentUser.displayName;
 
@@ -28,11 +28,18 @@ const FinalPage = (user) => {
       <p className="mt-3" style={{ fontSize: '12pt' }}>
         Obrigado(a) por responder.
       </p>
-      <p className="mt-3" style={{ fontSize: '12pt' }}>
-        <strong>Candidato(a)</strong> lembre-se que para participar do ranking
-        você precisa responder todas as questões. Todos os dados que você
-        respondeu no site ficarão disponíveis publicamente.
-      </p>
+      {user.role === 'candidate' ? (
+        <p className="mt-3" style={{ fontSize: '12pt' }}>
+          <strong>Candidato(a)</strong> lembre-se que para participar do ranking
+          você precisa responder todas as questões. Todos os dados que você
+          respondeu no site ficarão disponíveis publicamente.
+        </p>
+      ) : (
+        <p className="mt-3" style={{ fontSize: '12pt' }}>
+          <strong>Eleitor(a)</strong> lembre-se que para o índice de afinidade
+          seja exibido você precisa responder no mínimo 21 questões.
+        </p>
+      )}
       {cityName === 'Campinas' ? (
         <p className="mt-3" style={{ fontSize: '12pt' }}>
           Para que exista uma boa representatividade de cadastro de candidatos e

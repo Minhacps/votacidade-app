@@ -14,7 +14,7 @@ const BaseAppRoutes = ({ cityPath, user }) => {
         <Questions user={user} />
       </Route>
       <Route path={`${cityPath}/ranking`} exact>
-        <FinalPage />
+        <FinalPage user={user} />
       </Route>
     </Switch>
   );
