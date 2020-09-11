@@ -9,7 +9,7 @@ import Chance from 'chance';
 const chance = new Chance();
 
 const url = 'http://dev.vota.org.br';
-const indice = 1;
+const indice = 0;
 
 describe('Test', () => {
   const name = chance.name();

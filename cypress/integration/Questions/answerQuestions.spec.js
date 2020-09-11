@@ -1,5 +1,5 @@
 const { wait } = require('@testing-library/react');
-const users = require('./users.js');
+const users = require('../users.js');
 import Chance from 'chance';
 const chance = new Chance();
 
@@ -26,13 +26,15 @@ describe('Login candidate user and answers the questions', () => {
       let answer = answers[Math.floor(Math.random() * answers.length)];
       let str = 'input[value=' + answer + ']';
       cy.get(str).check({ timeout: 5000 });
-      let justification = chance.sentence();
+      if (users[indice].perfil === 'candidate') {
+        let justification = chance.sentence();
 
-      cy.get('#justification').type(justification);
-      if (i === 29) {
-        cy.get('button').contains('Finalizar').click({ timeout: 5000 });
-      } else {
-        cy.get('button').contains('Responder').click({ timeout: 5000 });
+        cy.get('#justification').type(justification);
+        if (i === 29) {
+          cy.get('button').contains('Finalizar').click({ timeout: 5000 });
+        } else {
+          cy.get('button').contains('Responder').click({ timeout: 5000 });
+        }
       }
       cy.wait(3000);
     }
