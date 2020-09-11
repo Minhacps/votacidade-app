@@ -164,21 +164,21 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
           </Button>
         )}
 
-        {user.role === 'candidate' && (
-          <Button color="primary" className="w-100 mr-4" outline>
-            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
-          </Button>
-        )}
-
         {id < questionnaire.length - 1 && (
           <Button
             color="primary"
             outline
             type="button"
             onClick={() => onSkip()}
-            className="w-100"
+            className="w-100  mr-4"
           >
             {user.role === 'candidate' ? 'Pular' : 'Próxima'}
+          </Button>
+        )}
+
+        {user.role === 'candidate' && (
+          <Button color="primary" className="w-100" outline>
+            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
       </div>
