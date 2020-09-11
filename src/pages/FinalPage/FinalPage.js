@@ -17,9 +17,6 @@ const FinalPage = ({ user }) => {
   return (
     <Container className="py-4" style={{ lineHeight: '20px' }}>
       <StyledUserName>Obrigado(a) pela sua participação!</StyledUserName>
-      <p className="mt-3" style={{ fontSize: '12pt' }}>
-        Obrigado(a) por responder.
-      </p>
       {user.role === 'candidate' ? (
         <p className="mt-3" style={{ fontSize: '12pt' }}>
           <strong>Candidato(a)</strong> Lembre-se que você precisa responder a
