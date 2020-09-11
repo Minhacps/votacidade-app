@@ -91,7 +91,9 @@ const questionnaire = [
   },
   {
     question:
-      'A tipificação de homícidios como "feminicídios" é fundamental para um melhor enfrentamento deste crime.", explanation: "Feminicídio é como se tipifica o assassinatos de mulheres cometidos em razão do gênero, isto é, quando a vítima é morta por ser mulher. Esse tipo de crime tem uma pena maior que os demais assassinatos.	',
+      'A tipificação de homícidios como "feminicídios" é fundamental para um melhor enfrentamento deste crime.',
+    explanation:
+      'Feminicídio é como se tipifica o assassinatos de mulheres cometidos em razão do gênero, isto é, quando a vítima é morta por ser mulher. Esse tipo de crime tem uma pena maior que os demais assassinatos.',
   },
   {
     question:
