@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import colors from '../../styles/colors';
 import { CityContext } from '../CityProvider/CityProvider';
+import { SidebarContext } from 'components/Sidebar/SidebarProvider';
 
 const StyledLogout = styled.button`
   color: ${colors.purple};
@@ -36,7 +37,9 @@ const Divider = styled.hr`
 `;
 
 const Navigation = ({ user }) => {
-  const { currentUser } = useContext(CityContext);
+  const { currentUser, cityPath } = useContext(CityContext);
+  const { toggleSidebar } = useContext(SidebarContext);
+
   const history = useHistory();
 
   const handleLogout = () => {
@@ -48,7 +51,9 @@ const Navigation = ({ user }) => {
     <div>
       <StyledName>{currentUser.displayName}</StyledName>
       <Divider />
-      <StyledLink to="/">Como funciona</StyledLink>
+      <StyledLink to={cityPath} onClick={toggleSidebar}>
+        Como funciona
+      </StyledLink>
       <Divider />
       <QuestionsBoard user={user} />
       <StyledLogout onClick={handleLogout}>Sair</StyledLogout>
