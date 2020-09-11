@@ -1,14 +1,19 @@
 const { wait } = require('@testing-library/react');
+const users = require('./users.js');
 import Chance from 'chance';
 const chance = new Chance();
 
-describe('Login candidate user', () => {
+const url = 'http://dev.vota.org.br';
+
+const indice = 0;
+
+describe('Login candidate user and answers the questions', () => {
   it('Login with email and password', () => {
-    cy.visit('http://dev.vota.org.br');
-    cy.get('#email')
-      .type('albordignon23@gmail.com')
-      .should('have.value', 'albordignon23@gmail.com');
-    cy.get('#password').type('ifsp@1234').should('have.value', 'ifsp@1234');
+    cy.visit(url);
+    cy.get('#email').type(users[indice].email);
+    cy.get('#password')
+      .type(users[indice].password)
+      .should('have.value', users[indice].password);
     cy.get('[data-testid=submit-button]').click();
   });
 
@@ -16,7 +21,7 @@ describe('Login candidate user', () => {
     cy.contains('Fechar').click({ timeout: 10000 });
     cy.contains('começar').click();
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 30; i++) {
       let answers = ['DT', 'D', 'C', 'CT'];
       let answer = answers[Math.floor(Math.random() * answers.length)];
       let str = 'input[value=' + answer + ']';
@@ -24,10 +29,13 @@ describe('Login candidate user', () => {
       let justification = chance.sentence();
 
       cy.get('#justification').type(justification);
-      cy.get('button').contains('Responder').click({ timeout: 5000 });
+      if (i === 29) {
+        cy.get('button').contains('Finalizar').click({ timeout: 5000 });
+      } else {
+        cy.get('button').contains('Responder').click({ timeout: 5000 });
+      }
       cy.wait(3000);
     }
-
     cy.get('button:first').click({ timeout: 5000 });
     cy.contains('Sair').click();
   });
