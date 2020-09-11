@@ -5,7 +5,7 @@ const chance = new Chance();
 
 const url = 'http://dev.vota.org.br';
 
-const indice = 0;
+const indice = 8;
 
 describe('Login candidate user and answers the questions', () => {
   it('Login with email and password', () => {

@@ -9,7 +9,7 @@ import Chance from 'chance';
 const chance = new Chance();
 
 const url = 'http://dev.vota.org.br';
-const indice = 0;
+const indice = 7;
 
 describe('Test', () => {
   const name = chance.name();
@@ -53,7 +53,7 @@ describe('Test', () => {
       cy.get('#description').type(description);
     }
     cy.get('button[data-testid=submit-button]').click();
-    cy.wait(3000);
+    cy.wait(5000);
     cy.contains('Fechar').click();
     cy.get('button:first').click({ timeout: 5000 });
     cy.contains('Sair').click();
