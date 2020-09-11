@@ -178,7 +178,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             onClick={() => onSkip()}
             className="w-100"
           >
-            Próxima
+            {user.role === 'candidate' ? 'Pular' : 'Próxima'}
           </Button>
         )}
       </div>
