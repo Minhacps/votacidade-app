@@ -43,8 +43,10 @@ const Navigation = ({ user }) => {
   const history = useHistory();
 
   const handleLogout = () => {
-    firebase.auth().signOut();
-    history.push('/');
+    firebase
+      .auth()
+      .signOut()
+      .then(() => history.push('/'));
   };
 
   return (

@@ -105,7 +105,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       <CustomRadio
         onChange={saveVoterAnswer}
-        option="DP"
+        option="DT"
         name="answer"
         value={value && value.answer}
         label="Discordo Totalmente"
@@ -129,7 +129,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       <CustomRadio
         onChange={saveVoterAnswer}
-        option="CP"
+        option="CT"
         name="answer"
         value={value && value.answer}
         label="Concordo Totalmente"
@@ -160,7 +160,13 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             onClick={onBack}
             className="w-100 mr-4"
           >
-            Voltar
+            Anterior
+          </Button>
+        )}
+
+        {user.role === 'candidate' && (
+          <Button color="primary" className="w-100 mr-4" outline>
+            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
 
@@ -172,13 +178,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             onClick={() => onSkip()}
             className="w-100"
           >
-            Pular
-          </Button>
-        )}
-
-        {user.role === 'candidate' && (
-          <Button color="primary" className="w-100 ml-4" outline>
-            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
+            Próxima
           </Button>
         )}
       </div>

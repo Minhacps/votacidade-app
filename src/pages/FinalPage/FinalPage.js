@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Container } from 'reactstrap';
-import { Button } from 'UI/Button';
-import { Link } from 'react-router-dom';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import colors from 'styles/colors';
 
@@ -13,30 +11,32 @@ const StyledUserName = styled.span`
   margin-bottom: 25px;
 `;
 
-const StyledButton = styled(Button)`
-  min-width: 324px;
-  text-transform: uppercase;
-`;
-
-const FinalPage = (user) => {
-  const { currentUser, cityPath, cityName } = useContext(CityContext);
-  const UserName = currentUser.displayName;
+const FinalPage = ({ user }) => {
+  const { cityName } = useContext(CityContext);
 
   return (
     <Container className="py-4" style={{ lineHeight: '20px' }}>
-      <StyledUserName>Olá, {UserName}!</StyledUserName>
+      <StyledUserName>Obrigado(a) pela sua participação!</StyledUserName>
       <p className="mt-3" style={{ fontSize: '12pt' }}>
         Obrigado(a) por responder.
       </p>
-      <p className="mt-3" style={{ fontSize: '12pt' }}>
-        <strong>Candidato(a)</strong> lembre-se que para participar do ranking
-        você precisa responder todas as questões. Todos os dados que você
-        respondeu no site ficarão disponíveis publicamente.
-      </p>
+      {user.role === 'candidate' ? (
+        <p className="mt-3" style={{ fontSize: '12pt' }}>
+          <strong>Candidato(a)</strong> Lembre-se que você precisa responder a
+          todas as questões para participar do Vota Cidade. Todas suas respostas
+          serão exibidas publicamente no site porque assim quem concorda com
+          você vai saber disso e te escolher como representante.
+        </p>
+      ) : (
+        <p className="mt-3" style={{ fontSize: '12pt' }}>
+          <strong>Eleitor(a)</strong> lembre-se, que para o índice de afinidade
+          seja exibido, você precisa responder no mínimo 21 questões.
+        </p>
+      )}
       {cityName === 'Campinas' ? (
         <p className="mt-3" style={{ fontSize: '12pt' }}>
           Para que exista uma boa representatividade de cadastro de candidatos e
-          candidatas no site de <strong>{cityName} </strong> o critério mínimo
+          candidatas no site de <strong>{cityName} </strong>, o critério mínimo
           para lançarmos a ferramenta será termos pelo menos 15 partidos
           cadastrados no sistema. A partir desse índice alcançado lançaremos o
           ranking.
@@ -50,6 +50,8 @@ const FinalPage = (user) => {
           Vota Cidade, o que equivale a 50% do total, e pelo menos 300
           candidaturas a vereador(a). Isso tudo pra você ter um match de
           qualidade e que realmente te represente.
+          <br />
+          Acompanhe as nossas redes sociais para atualizações e novidades!
         </p>
       ) : null}
       {cityName === 'Recife' ? (
@@ -70,11 +72,6 @@ const FinalPage = (user) => {
           ranking.
         </p>
       ) : null}
-      <Link to={`${cityPath}/questionario`}>
-        <StyledButton color="primary" className="mb-3" bold size="lg">
-          voltar
-        </StyledButton>
-      </Link>
     </Container>
   );
 };

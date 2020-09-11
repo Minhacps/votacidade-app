@@ -30,7 +30,7 @@ const questionnaire = [
   },
   {
     question:
-      'O mais importante é que as pessoas façam o isolamento social para evitar a disseminação do coronavírus enquanto não temos vacina.',
+      'O mais importante é que as pessoas façam o isolamento social para evitar a propagação do coronavírus enquanto não temos vacina.',
     explanation: '',
   },
   {
@@ -38,23 +38,22 @@ const questionnaire = [
     explanation: '',
   },
   {
-    question:
-      'O Brasil deve cobrar menos impostos de grandes fortunas e heranças.',
+    question: 'O Brasil deve taxar grandes fortunas e heranças.',
     explanation: '',
   },
   {
     question:
-      'A ação da polícia deve ser protegida, livre de acusações de abuso de autoridade.',
+      'A ação da polícia deve ser fiscalizada, para evitar abuso de autoridade. ',
     explanation: '',
   },
   {
     question:
-      'O governo deve fornecer auxílio econômico e psicológico a mulheres que saem de casa por causa da violência doméstica.',
+      'O governo deve fornecer suporte financeiro e psicológico a mulheres que saem de casa por causa da violência doméstica.',
     explanation: '',
   },
   {
     question:
-      'Remuneração docente acima de 4 salários mínimos e a contratação via concurso público possibilitam uma maior qualidade da educação pública',
+      'Remuneração docente acima de 4 salários mínimos e a contratação via concurso público possibilitam uma maior qualidade da educação pública.',
     explanation: '',
   },
   {
@@ -64,7 +63,7 @@ const questionnaire = [
   },
   {
     question:
-      'A criminalização da maconha não tem eficiência na redução do consumo, só tem gerado mais violência, criminalizado a pobreza, sobrecarregado o sistema penitenciário, militarizado a vida e gerado lucros astronômico para a indústria de armas e bebidas.',
+      'A criminalização da maconha não tem eficiência na redução do consumo. Pelo contrário: gera mais violência, criminaliza pobreza, sobrecarrega o sistema penitenciário e gera lucros exorbitantes para a indústria de armas e bebidas.',
     explanation: '',
   },
   {
@@ -79,17 +78,17 @@ const questionnaire = [
   },
   {
     question:
-      'É necessário considerar que as mulheres em situação de  violência doméstica às vezes não conseguem denunciar devido o medo, vergonha e culpa.',
+      'Por vezes, mulheres em situação de violência doméstica não conseguem denunciar por medo, vergonha e culpa.',
     explanation: '',
   },
   {
     question:
-      'A proibição do uso de materiais plásticos descartáveis, como canudos, copos e talheres, em bares e restaurantes é desnecessária e fere a liberdade dos empresários.',
+      'A proibição do uso de canudos, copos e talheres descartáveis é desnecessária e fere a liberdade dos empresários.',
     explanation: '',
   },
   {
     question:
-      'A Câmara de Vereadores errou ao não instaurar a CPI da Lagoa, para investigar um suposto desvio de dinheiro nas obras do Parque Solon Lucena.',
+      'A Câmara de Vereadores deveria ter instaurado a CPI da Lagoa para investigar um suposto desvio de dinheiro nas obras do Parque Solon Lucena.',
     explanation: '',
   },
   {
@@ -99,22 +98,22 @@ const questionnaire = [
   },
   {
     question:
-      'Fakes news devem ser combatidas e severamento punidas e o poder público não pode contribuir nem veicular conteúdo através de canais de mídias que são propagadores de fake news.',
+      'Fake news devem ser combatidas, os responsáveis pela sua propagação devem ser punidos e o poder público não deve veicular conteúdo através de canais midiáticos que impulsionam a sua disseminação.',
     explanation: '',
   },
   {
     question:
-      'Deve ser proibidio o porte de armas de fogo por Guardas Municipais.',
+      'O porte de armas de fogo por Guardas Municipais deve ser proibido.',
     explanation: '',
   },
   {
     question:
-      'É necessário criar políticas públicas contra o desarmamento e a favor da valorização da paz e comunicação não-violenta.',
+      'É necessário criar políticas públicas contra o desarmamento e a favor da cultura da paz e comunicação não-violenta.',
     explanation: '',
   },
   {
     question:
-      'É necessário valorizar grupos e entidades locais das periferias, com suporte e infra estrutura para realização de eventos em praças e centros comunitários',
+      'É necessário valorizar grupos e entidades periféricas, dando suporte e infraestrutura para realização de eventos em praças e centros comunitários.',
     explanation: '',
   },
   {
@@ -124,12 +123,12 @@ const questionnaire = [
   },
   {
     question:
-      'O Poder Público deve oferecer todos os recursos necessários para o funcionamento das atividades de saúde bem como oferecer o benefício para profissionais vítimas da COVID-19.',
+      'O poder público deve oferecer todos os recursos necessários para o funcionamento das atividades de saúde bem como oferecer benefício para profissionais vítimas da COVID-19.',
     explanation: '',
   },
   {
     question:
-      'Abrigos de imigrantes devem receber benefícios, tais como isenção de IPTU',
+      'Abrigos de imigrantes devem receber benefícios, tais como isenção de IPTU.',
     explanation: '',
   },
   {
@@ -139,17 +138,17 @@ const questionnaire = [
   },
   {
     question:
-      'A acessibilidade dos bairros de João Pessoa é excelente e facilita a mobilidade das pessoas com dificuldade de locomoção',
+      'A acessibilidade dos bairros em João Pessoa é excelente e facilita a mobilidade das pessoas com dificuldade de locomoção.',
     explanation: '',
   },
   {
     question:
-      'A cor da pele influencia no tipo de abordagem realizada pela polícia ',
+      'Geralmente, a abordagem policial é mais truculenta ou violenta quando as pessoas abordadas são negras.',
     explanation: '',
   },
   {
     question:
-      'As escolas têm papel central na discussão de gênero e sexualidade, promovendo equidade, desde a Educação Infantil.',
+      'As escolas têm papel central na construção e promoção da equidade de gênero desde a Educação Infantil. ',
     explanation: '',
   },
 ];
