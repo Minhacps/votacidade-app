@@ -36,7 +36,7 @@ const Divider = styled.hr`
 `;
 
 const Navigation = ({ user }) => {
-  const { currentUser } = useContext(CityContext);
+  const { currentUser, cityPath } = useContext(CityContext);
   const history = useHistory();
 
   const handleLogout = () => {
@@ -48,7 +48,14 @@ const Navigation = ({ user }) => {
     <div>
       <StyledName>{currentUser.displayName}</StyledName>
       <Divider />
-      <StyledLink to="/">Como funciona</StyledLink>
+      <ul>
+        <li>
+          <StyledLink to="/">Como funciona</StyledLink>
+        </li>
+        <li>
+          <StyledLink to={`${cityPath}/ranking`}>Ranking</StyledLink>
+        </li>
+      </ul>
       <Divider />
       <QuestionsBoard user={user} />
       <StyledLogout onClick={handleLogout}>Sair</StyledLogout>

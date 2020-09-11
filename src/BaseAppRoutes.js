@@ -2,7 +2,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Questions from 'components/Questions/Questions';
 import HomePage from 'pages/Home';
-import FinalPage from 'pages/FinalPage/FinalPage';
+// import FinalPage from 'pages/FinalPage/FinalPage';
+import Ranking from 'pages/Ranking';
 
 const BaseAppRoutes = ({ cityPath, user }) => {
   return (
@@ -14,7 +15,8 @@ const BaseAppRoutes = ({ cityPath, user }) => {
         <Questions user={user} />
       </Route>
       <Route path={`${cityPath}/ranking`} exact>
-        <FinalPage />
+        <Ranking user={user} />
+        {/* <FinalPage /> */}
       </Route>
     </Switch>
   );
