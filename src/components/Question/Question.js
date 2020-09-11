@@ -160,7 +160,13 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             onClick={onBack}
             className="w-100 mr-4"
           >
-            Voltar
+            Anterior
+          </Button>
+        )}
+
+        {user.role === 'candidate' && (
+          <Button color="primary" className="w-100 mr-4" outline>
+            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
 
@@ -172,13 +178,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             onClick={() => onSkip()}
             className="w-100"
           >
-            Pular
-          </Button>
-        )}
-
-        {user.role === 'candidate' && (
-          <Button color="primary" className="w-100 ml-4" outline>
-            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
+            Próxima
           </Button>
         )}
       </div>
