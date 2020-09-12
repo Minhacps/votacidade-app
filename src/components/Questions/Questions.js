@@ -78,7 +78,7 @@ const Questions = ({ user }) => {
           className="alert alert-primary alert-dismissible fade show"
           role="alert"
         >
-          <strong>Candidato(a),</strong> Você precisa responder 100% das
+          <strong>Candidato(a),</strong> você precisa responder 100% das
           questões para aparecer no ranking.
           <button
             type="button"
