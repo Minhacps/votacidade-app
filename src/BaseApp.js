@@ -5,6 +5,8 @@ import BaseAppRoutes from './BaseAppRoutes';
 import Authenticated from 'templates/Authenticated';
 import { getCustomToken } from './customTokenService';
 
+import PageLoading from 'components/molecules/PageLoading';
+
 const BaseApp = () => {
   const { firebase, currentUser, cityPath } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +50,7 @@ const BaseApp = () => {
   }, [cityPath, currentUser.uid, firebase]);
 
   if (isLoading) {
-    return <p>Carregando...</p>;
+    return <PageLoading />;
   }
 
   return (
