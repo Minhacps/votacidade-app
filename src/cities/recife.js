@@ -57,13 +57,10 @@ const questionnaire = [
       'A privatização do SUS é uma solução viável para melhorar o serviço no atendimento da população.',
     explanation: '',
   },
+  { question: 'Sou a favor da redução da maioridade penal.', explanation: '' },
   {
     question:
-      'Responsabilização e punição mais severas  de autoridades policiais por abuso do poder e crimes cometidos em serviço.',
-    explanation: '',
-  },
-  {
-    question: 'Uso, posse e o porte de armas de fogo por cidadãos.',
+      'Sou a favor do uso, do posse e do porte de armas de fogo por cidadãos em geral.',
     explanation: '',
   },
   {
@@ -82,7 +79,7 @@ const questionnaire = [
   },
   {
     question:
-      'Leis mais rígidas para  punição de crimes cometidos por LGBTfobia.',
+      'Sou contra leis mais rígidas para punição de crimes cometidos por LGBTfobia.',
     explanation: '',
   },
   {
@@ -141,7 +138,7 @@ const questionnaire = [
   },
   {
     question:
-      'A Comunicação com a população é fundamental para a defesa dos seus interesses e deve ser promovido por todos os agentes políticos.',
+      'A Comunicação com a população é fundamental para a defesa dos seus interesses e deve ser promovido por todos os seus representantes políticos.',
     explanation: '',
   },
   {

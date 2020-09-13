@@ -11,20 +11,21 @@ const ModalExample = ({ name }) => {
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Atenção</ModalHeader>
         <ModalBody>
-          Olá {name}. <br />
-          <br />
-          A atual versão do sistema está aberta, principalmente, para pré
-          candidatos a vereador, vereadora. <br />
-          Eleitores e eleitoras também podem responder, mas a funcionalidade da
-          geração do índice de afinidade ainda não está disponível. <br />
-          Pré candidatos e pré candidatas lembrem-se, que para concluir a sua
-          participação no Vota Cidade, vocês precisam responder todas as
-          questões. As justificativas são opcionais. <br />
-          <br />
-          Espero que gostem do Vota Cidade. Com certeza ele pode ser uma forma
-          de você chegar no seu eleitor e na sua eleitora.
-          <br />
-          Seja bem vindo, seja bem vinda.
+          <p>Olá {name}.</p>
+          <p>
+            A atual versão do sistema está aberta para os(as) pré-candidatos(as)
+            a vereador(a). Se você é eleitor(a), pode responder agora e suas
+            respostas ficarão salvas mas o match ainda não estará disponível.
+          </p>
+          <p>
+            <strong>Pré-candidatos(as): </strong> lembrem-se que, para efetivar
+            a sua participação no Vota Cidade, você precisa responder a todas as
+            questões. As justificativas são opcionais.
+          </p>
+          <p>
+            Seja bem-vindo(a) e aproveite o Vota Cidade para se aproximar dos
+            seus eleitores(as)!
+          </p>
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={toggle}>

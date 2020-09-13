@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 
 import colors from '../../styles/colors';
 import { CityContext } from '../CityProvider/CityProvider';
+import { SidebarContext } from 'components/Sidebar/SidebarProvider';
 
 const StyledLogout = styled.button`
   color: ${colors.purple};
@@ -37,11 +38,15 @@ const Divider = styled.hr`
 
 const Navigation = ({ user }) => {
   const { currentUser, cityPath } = useContext(CityContext);
+  const { toggleSidebar } = useContext(SidebarContext);
+
   const history = useHistory();
 
   const handleLogout = () => {
-    firebase.auth().signOut();
-    history.push('/');
+    firebase
+      .auth()
+      .signOut()
+      .then(() => history.push('/'));
   };
 
   return (
@@ -50,7 +55,9 @@ const Navigation = ({ user }) => {
       <Divider />
       <ul>
         <li>
-          <StyledLink to="/">Como funciona</StyledLink>
+          <StyledLink to={cityPath} onClick={toggleSidebar}>
+            Como funciona
+          </StyledLink>
         </li>
         <li>
           <StyledLink to={`${cityPath}/ranking`}>Ranking</StyledLink>

@@ -80,7 +80,10 @@ const Chevron = styled.div`
   border-bottom: 3px solid ${colors.grey400};
   width: 10px;
   height: 10px;
-  transform: ${({ isOpen }) => (isOpen ? 'rotate(-135deg)' : 'rotate(45deg)')};
+  transform: ${({ isOpen }) =>
+    isOpen
+      ? 'rotate(-135deg) translateX(-6px)'
+      : 'rotate(45deg) translateX(3px)'};
 `;
 
 const RatingDescription = styled.p`
