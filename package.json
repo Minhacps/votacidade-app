@@ -20,6 +20,7 @@
     "react-scripts": "^3.4.3",
     "react-select": "^3.1.0",
     "react-social-login-buttons": "^3.1.0",
+    "react-star-ratings": "^2.3.0",
     "reactstrap": "^8.4.1",
     "styled-components": "^5.1.1"
   },
