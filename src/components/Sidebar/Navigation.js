@@ -60,7 +60,9 @@ const Navigation = ({ user }) => {
           </StyledLink>
         </li>
         <li>
-          <StyledLink to={`${cityPath}/ranking`}>Ranking</StyledLink>
+          <StyledLink to={`${cityPath}/ranking`} onClick={toggleSidebar}>
+            Ranking
+          </StyledLink>
         </li>
       </ul>
       <Divider />

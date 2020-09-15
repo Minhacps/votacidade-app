@@ -86,7 +86,7 @@ const Chevron = styled.div`
       : 'rotate(45deg) translateX(3px)'};
 `;
 
-const RatingDescription = styled.p`
+const Description = styled.p`
   font-size: 10pt;
 `;
 
@@ -95,6 +95,10 @@ const RatingWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: 25px;
+`;
+
+const Divider = styled.hr`
+  border-top: 1px solid ${colors.grey300};
 `;
 
 export default function Ranking() {
@@ -133,9 +137,7 @@ export default function Ranking() {
         </RatingHeader>
         {isOpen && (
           <RatingWrapper>
-            <RatingDescription>
-              Como você avalia sua experiência?
-            </RatingDescription>
+            <Description>Como você avalia sua experiência?</Description>
             <StarRatings
               rating={rating}
               starRatedColor={colors.orangeLight}
@@ -148,6 +150,15 @@ export default function Ranking() {
           </RatingWrapper>
         )}
       </RatingBox>
+      <Divider />
+      <Description>
+        <strong>Candidatos(as):</strong> mostrando 9999 cadastrados no Vota de
+        um total de 9999
+      </Description>
+      <Description>
+        <strong>Partidos:</strong> mostrando 99 cadastrados no Vota de um total
+        de 99
+      </Description>
     </Container>
   );
 }
