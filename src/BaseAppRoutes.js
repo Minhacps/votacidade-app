@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Questions from 'components/Questions/Questions';
 import HomePage from 'pages/Home';
 // import FinalPage from 'pages/FinalPage/FinalPage';
-import Ranking from 'pages/Ranking';
+import Ranking from 'pages/Ranking/Ranking';
 
 const BaseAppRoutes = ({ cityPath, user }) => {
   return (
