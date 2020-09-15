@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "vota-authentication-dev"
+    "default": "vota-campinas-dev",
+    "vota-campinas-dev": "vota-campinas-dev",
+    "vota-campinas-prod": "vota-campinas-prod"
   }
 }
