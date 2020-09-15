@@ -93,3 +93,55 @@ export const RatingWrapper = styled.div`
 export const Divider = styled.hr`
   border-top: 1px solid ${colors.grey300};
 `;
+
+export const CandidateCard = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const ImgPlaceholder = styled.div`
+  margin-right: 15px;
+  width: 73px;
+  height: 73px;
+  background-color: ${colors.grey300};
+  border-radius: 50%;
+`;
+
+export const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+`;
+
+export const CardName = styled.p`
+  font-size: 13pt;
+  font-weight: 500;
+  margin-bottom: 0;
+`;
+
+export const CardInfo = styled.span`
+  font-size: 12pt;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0px;
+  }
+`;
+
+export const AffinityTag = styled.div`
+  color: #fff;
+  background-color: ${colors.purple};
+  border-radius: 11px;
+  width: 53px;
+  justify-content: center;
+  display: flex;
+`;
+
+export const ProfileLink = styled.a`
+  height: 40px;
+  width: 40px;
+  padding: 5px 8px;
+  border: 1px solid ${colors.grey100};
+  border-radius: 3px;
+  box-shadow: 0 0 3px ${colors.grey200};
+`;
