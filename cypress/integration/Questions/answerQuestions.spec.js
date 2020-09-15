@@ -3,9 +3,9 @@ const users = require('../users.js');
 import Chance from 'chance';
 const chance = new Chance();
 
-const url = 'http://dev.vota.org.br';
+const url = 'http://app.vota.org.br';
 
-const indice = 8;
+const indice = 7;
 
 describe('Login candidate user and answers the questions', () => {
   it('Login with email and password', () => {

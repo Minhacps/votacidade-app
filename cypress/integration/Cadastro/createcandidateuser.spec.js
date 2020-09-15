@@ -8,7 +8,7 @@ const { ethnicGroup } = require('../../../src/data/form-data');
 import Chance from 'chance';
 const chance = new Chance();
 
-const url = 'http://dev.vota.org.br';
+const url = 'http://app.vota.org.br';
 const indice = 7;
 
 describe('Test', () => {
