@@ -105,12 +105,19 @@ export const ImgPlaceholder = styled.div`
   height: 73px;
   background-color: ${colors.grey300};
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 10pt;
 `;
 
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  flex-grow: 1;
 `;
 
 export const CardName = styled.p`
@@ -128,13 +135,13 @@ export const CardInfo = styled.span`
   }
 `;
 
-export const AffinityTag = styled.div`
+export const AffinityTag = styled.span`
   color: #fff;
   background-color: ${colors.purple};
   border-radius: 11px;
   width: 53px;
+  display: inline-flex;
   justify-content: center;
-  display: flex;
 `;
 
 export const ProfileLink = styled.a`
@@ -144,4 +151,9 @@ export const ProfileLink = styled.a`
   border: 1px solid ${colors.grey100};
   border-radius: 3px;
   box-shadow: 0 0 3px ${colors.grey200};
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container } from 'reactstrap';
+import { Container, Button } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import colors from 'styles/colors';
 import { ReactComponent as CandidateSvg } from 'assets/icons/candidate.svg';
@@ -28,6 +28,7 @@ import {
   ProfileLink,
   InfoWrapper,
   ImgPlaceholder,
+  ButtonWrapper,
 } from './Ranking.styled';
 
 const candidatesMock = [
@@ -103,10 +104,10 @@ export default function Ranking() {
         <strong>Partidos:</strong> mostrando 99 cadastrados no Vota de um total
         de 99
       </Description>
-      {candidatesMock.map((candidate) => (
-        <>
+      {candidatesMock.map((candidate, index) => (
+        <div key={index}>
           <CandidateCard>
-            <ImgPlaceholder />
+            <ImgPlaceholder>Foto</ImgPlaceholder>
             <InfoWrapper>
               <CardName>{candidate.name}</CardName>
               <CardInfo>
@@ -121,8 +122,11 @@ export default function Ranking() {
             </ProfileLink>
           </CandidateCard>
           <Divider />
-        </>
+        </div>
       ))}
+      <ButtonWrapper>
+        <Button color="primary">CARREGAR MAIS</Button>
+      </ButtonWrapper>
     </Container>
   );
 }
