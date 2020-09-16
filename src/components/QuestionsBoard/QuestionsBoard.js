@@ -1,12 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Button } from 'reactstrap';
 import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { SidebarContext } from 'components/Sidebar/SidebarProvider';
-
-import { answersCollection } from 'constants/firestoreCollections';
+import { QuestionsContext } from '../QuestionsProvider/QuestionsProvider';
 
 const BoardGrid = styled.div`
   display: grid;
@@ -21,29 +20,11 @@ const QuestionButton = styled(Button)`
   border: ${(props) => (props.color === '' ? '1pt solid #E6E6E6' : '')};
 `;
 
-export default function QuestionBoard({ user }) {
+export default function QuestionBoard() {
   const history = useHistory();
-  const { firebase, currentUser, questionnaire, cityPath } = useContext(
-    CityContext,
-  );
+  const { questionnaire, cityPath } = useContext(CityContext);
+  const { answers } = useContext(QuestionsContext);
   const { toggleSidebar } = useContext(SidebarContext);
-  const [answers, setAnswers] = useState([]);
-
-  useEffect(() => {
-    const getQuestions = () => {
-      firebase
-        .firestore()
-        .collection(answersCollection(user.role))
-        .doc(currentUser.uid)
-        .onSnapshot((doc) => {
-          if (doc.exists) {
-            const loadedAnswers = doc.data();
-            setAnswers(loadedAnswers);
-          }
-        });
-    };
-    getQuestions();
-  }, [currentUser.uid, firebase, user]);
 
   return (
     <div>

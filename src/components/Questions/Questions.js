@@ -1,16 +1,16 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { CANDIDATE } from 'constants/userRoles';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import { answersCollection } from 'constants/firestoreCollections';
+import { QuestionsContext } from '../QuestionsProvider/QuestionsProvider';
 
 const Questions = ({ user }) => {
   const location = useLocation();
-  const { firebase, currentUser, questionnaire } = useContext(CityContext);
-  const [isLoading, setIsLoading] = useState(true);
-  const [answers, setAnswers] = useState(null);
+  const { answers } = useContext(QuestionsContext);
+  const { questionnaire } = useContext(CityContext);
+
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showAlert, setShowAlert] = useState(true);
 
@@ -26,49 +26,20 @@ const Questions = ({ user }) => {
       );
     };
 
-    firebase
-      .firestore()
-      .collection(answersCollection(user.role))
-      .doc(currentUser.uid)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const loadedAnswers = doc.data();
-          setAnswers(loadedAnswers);
-
-          if (location.search) {
-            setCurrentQuestion(Number(questionQuery - 1));
-          } else {
-            setCurrentQuestion(getFirstUnansweredQuestion(loadedAnswers));
-          }
-        }
-        if (location.search) {
-          setCurrentQuestion(Number(questionQuery - 1));
-        }
-        setIsLoading(false);
-      });
-  }, [user, firebase, currentUser.uid, questionnaire, location]);
-
-  const handleNext = (answer) => {
-    const updatedAnswers = {
-      ...answers,
-      ...answer,
-    };
-
-    setAnswers(updatedAnswers);
-
-    if (currentQuestion !== questionnaire.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
+    if (location.search) {
+      setCurrentQuestion(Number(questionQuery - 1));
+    } else {
+      setCurrentQuestion(getFirstUnansweredQuestion(answers));
     }
+  }, [answers, questionnaire, location]);
+
+  const handleSkip = (answer) => {
+    setCurrentQuestion(currentQuestion + 1);
   };
 
   const handleBack = () => {
     setCurrentQuestion(currentQuestion - 1);
   };
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <>
@@ -93,8 +64,7 @@ const Questions = ({ user }) => {
       ) : null}
       <Question
         id={currentQuestion}
-        onSave={handleNext}
-        onSkip={handleNext}
+        onSkip={handleSkip}
         onBack={handleBack}
         value={answers && answers[currentQuestion]}
         user={user}
