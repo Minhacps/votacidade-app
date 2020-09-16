@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { SidebarContext } from 'components/Sidebar/SidebarProvider';
-import { QuestionsContext } from '../QuestionsProvider/QuestionsProvider';
+import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
 const BoardGrid = styled.div`
   display: grid;
@@ -23,7 +23,7 @@ const QuestionButton = styled(Button)`
 export default function QuestionBoard() {
   const history = useHistory();
   const { questionnaire, cityPath } = useContext(CityContext);
-  const { answers } = useContext(QuestionsContext);
+  const { answers } = useContext(AnswersContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
   return (

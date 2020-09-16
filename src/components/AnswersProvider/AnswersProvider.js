@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import questionsService from './questionsService';
+import questionsService from './answersService';
 
-export const QuestionsContext = React.createContext();
+export const AnswersContext = React.createContext();
 
-const QuestionsProvider = ({ firebase, currentUser, user, children }) => {
-  const [answers, setAnswers] = useState(null);
+const AnswersProvider = ({ firebase, currentUser, user, children }) => {
+  const [answers, setAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     questionsService
       .getAnsweredQuestions({ firebase, currentUser, user })
       .then((answers) => {
-        setAnswers(answers);
+        setAnswers(answers || {});
         setIsLoading(false);
       });
 
@@ -31,15 +31,15 @@ const QuestionsProvider = ({ firebase, currentUser, user, children }) => {
   }
 
   return (
-    <QuestionsContext.Provider
+    <AnswersContext.Provider
       value={{
         answers,
         updateAnswers,
       }}
     >
       {children}
-    </QuestionsContext.Provider>
+    </AnswersContext.Provider>
   );
 };
 
-export default QuestionsProvider;
+export default AnswersProvider;

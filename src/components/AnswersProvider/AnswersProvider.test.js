@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, screen, wait } from '@testing-library/react';
-import QuestionsProvider, { QuestionsContext } from './QuestionsProvider';
-import questionsService from './questionsService';
+import AnswersProvider, { AnswersContext } from './AnswersProvider';
+import questionsService from './answersService';
 
 const DataBroadcast = ({ onClick, newAnswer }) => (
-  <QuestionsProvider>
-    <QuestionsContext.Consumer>
+  <AnswersProvider>
+    <AnswersContext.Consumer>
       {({ answers, updateAnswers }) => (
         <>
           <button onClick={() => onClick(answers)}>Get answers</button>
@@ -14,8 +14,8 @@ const DataBroadcast = ({ onClick, newAnswer }) => (
           </button>
         </>
       )}
-    </QuestionsContext.Consumer>
-  </QuestionsProvider>
+    </AnswersContext.Consumer>
+  </AnswersProvider>
 );
 
 describe('QuestionsProvider', () => {

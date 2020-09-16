@@ -7,11 +7,11 @@ import {
   ProgressBarContent,
 } from './ProgressBar.styled';
 import { CityContext } from '../CityProvider/CityProvider';
-import { QuestionsContext } from '../QuestionsProvider/QuestionsProvider';
+import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
 const ProgressBar = () => {
   const { questionnaire } = useContext(CityContext);
-  const { answers } = useContext(QuestionsContext);
+  const { answers } = useContext(AnswersContext);
   const [progress, setProgress] = useState(null);
 
   useEffect(() => {
