@@ -6,6 +6,7 @@ import Authenticated from 'templates/Authenticated';
 import { getCustomToken } from './customTokenService';
 
 import PageLoading from 'components/molecules/PageLoading';
+import AnswersProvider from './components/AnswersProvider/AnswersProvider';
 
 const BaseApp = () => {
   const { firebase, currentUser, cityPath } = useContext(CityContext);
@@ -54,9 +55,11 @@ const BaseApp = () => {
   }
 
   return (
-    <Authenticated user={user}>
-      <BaseAppRoutes cityPath={cityPath} user={user} />
-    </Authenticated>
+    <AnswersProvider user={user} currentUser={currentUser} firebase={firebase}>
+      <Authenticated user={user}>
+        <BaseAppRoutes cityPath={cityPath} user={user} />
+      </Authenticated>
+    </AnswersProvider>
   );
 };
 
