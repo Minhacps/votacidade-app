@@ -12,7 +12,15 @@ const StyledUserName = styled.span`
 `;
 
 const FinalPage = ({ user }) => {
-  const { cityName } = useContext(CityContext);
+  const { cityName, firebase } = useContext(CityContext);
+
+  const getTopMatches = firebase.functions().httpsCallable('getTopMatches');
+
+  getTopMatches({
+    1: { answer: 'CT' },
+    2: { answer: 'CT' },
+    3: { answer: 'CT' },
+  });
 
   return (
     <Container className="py-4" style={{ lineHeight: '20px' }}>
