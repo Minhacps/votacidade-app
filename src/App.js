@@ -7,6 +7,8 @@ import Login from './pages/Login';
 
 import './fontawesome';
 
+import PageLoading from 'components/molecules/PageLoading';
+
 const App = () => {
   const history = useHistory();
   const location = useLocation();
@@ -52,7 +54,7 @@ const App = () => {
   }, []);
 
   if (lookingForUser) {
-    return <p>Carregando...</p>;
+    return <PageLoading />;
   }
 
   if (!user) {
