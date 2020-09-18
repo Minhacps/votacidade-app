@@ -15,7 +15,10 @@ const BaseApp = () => {
 
   useEffect(() => {
     if (process.env.REACT_APP_FIREBASE_ENV === 'prod') {
-      getCustomToken({ uid: currentUser.uid, cityPath })
+      getCustomToken({
+        uid: currentUser.uid,
+        projectId: firebase.options.projectId,
+      })
         .then((token) => {
           firebase
             .auth()
