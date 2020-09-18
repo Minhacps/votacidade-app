@@ -33,8 +33,9 @@ const App = () => {
       });
     }
 
+    // Removido userData.city no teste para eliminar erro.
     const redirectUserByCity = (userData) => {
-      if (!userData.city) {
+      if (!userData) {
         return;
       }
 
