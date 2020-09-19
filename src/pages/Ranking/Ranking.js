@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Button } from 'reactstrap';
+import { Container, Button, Spinner } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import colors from 'styles/colors';
 import { ReactComponent as CandidateSvg } from 'assets/icons/candidate.svg';
@@ -37,12 +37,21 @@ export default function Ranking() {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(3);
   const [listLimiter, setListlimiter] = useState(10);
+  const [isLoading, setIsLoading] = useState(false);
   const hasMoreCandidates = candidates.length > listLimiter;
   const candidatesCount =
     listLimiter < candidates.length ? listLimiter : candidates.length;
   const limitList = (_, index) => index < listLimiter;
 
   const toggle = () => setIsOpen(!isOpen);
+
+  const loadMoreCandidates = async () => {
+    setIsLoading(true);
+    return setTimeout(() => {
+      setListlimiter(listLimiter + 10);
+      setIsLoading(false);
+    }, 300);
+  };
 
   return (
     <Container className="py-4">
@@ -123,9 +132,11 @@ export default function Ranking() {
         <ButtonWrapper>
           <Button
             color="primary"
-            onClick={() => setListlimiter(listLimiter + 10)}
+            onClick={loadMoreCandidates}
+            style={{ width: '130px' }}
+            disabled={isLoading}
           >
-            Carregar mais
+            {isLoading ? <Spinner color="light" size="sm" /> : 'Carregar mais'}
           </Button>
         </ButtonWrapper>
       )}
