@@ -5,6 +5,18 @@ export const genders = [
   { category: 'Prefiro não declarar' },
 ];
 
+export const socialGroups = [
+  { letter: 'L', name: 'Lésbica' },
+  { letter: 'G', name: 'Gay' },
+  { letter: 'B', name: 'Bissexual' },
+  { letter: 'T', name: 'Transgêneros, Transsexuais ou Travestis' },
+  { letter: 'Q', name: 'Queer' },
+  { letter: 'I', name: 'Intersexo' },
+  { letter: 'A', name: 'Assexual' },
+  { letter: 'P', name: 'Panssexual' },
+  { letter: '+', name: '+' },
+];
+
 export const politicalParties = [
   {
     nome: 'Avante',
@@ -58,21 +70,21 @@ export const politicalParties = [
 ];
 
 export const ages = [
-  { category: '18-24' },
-  { category: '25-29' },
-  { category: '30-34' },
-  { category: '35-39' },
-  { category: '40-44' },
-  { category: '45-49' },
-  { category: '50-54' },
-  { category: '55-59' },
-  { category: '60-64' },
-  { category: '65-69' },
-  { category: '70-74' },
-  { category: '75-79' },
-  { category: '80-84' },
-  { category: '85-89' },
-  { category: '90+' },
+  { category: '18-24', description: '18 a 24 anos' },
+  { category: '25-29', description: '25 a 29 anos' },
+  { category: '30-34', description: '30 a 34 anos' },
+  { category: '35-39', description: '35 a 39 anos' },
+  { category: '40-44', description: '40 a 44 anos' },
+  { category: '45-49', description: '45 a 49 anos' },
+  { category: '50-54', description: '50 a 54 anos' },
+  { category: '55-59', description: '55 a 59 anos' },
+  { category: '60-64', description: '60 a 64 anos' },
+  { category: '65-69', description: '65 a 69 anos' },
+  { category: '70-74', description: '70 a 74 anos' },
+  { category: '75-79', description: '75 a 79 anos' },
+  { category: '80-84', description: '80 a 84 anos' },
+  { category: '85-89', description: '85 a 89 anos' },
+  { category: '90+', description: 'Acima de 90 anos' },
 ];
 
 export const ethnicGroup = [

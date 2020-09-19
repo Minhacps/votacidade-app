@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/app';
 import {
-  FormGroup,
-  Label,
-  Input,
-  Col,
-  Row,
-  FormFeedback,
   Alert,
   Spinner,
+  Row,
+  Col,
+  Label,
+  Button,
+  Input,
+  FormGroup,
+  FormText,
+  FormFeedback,
   CustomInput,
 } from 'reactstrap';
 import Select from 'react-select';
@@ -16,10 +18,15 @@ import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 
 import InputPassword from './InputPassword';
-import { Button } from './SignUpForm.styled';
 import userRoles from 'constants/userRoles';
 import { alfabeticOrder } from '../../styles/helper';
-import { genders, ethnicGroup, ages, politicalParties } from 'data/form-data';
+import {
+  genders,
+  socialGroups,
+  ethnicGroup,
+  ages,
+  politicalParties,
+} from 'data/form-data';
 import { cidades } from 'data/cidades';
 
 // eslint-disable-next-line no-useless-escape
@@ -129,205 +136,233 @@ const SignUpForm = ({ onBackClick, user }) => {
     }
   };
 
-  const socialGroupOptions = [
-    { value: 'L', label: 'Lésbica' },
-    { value: 'G', label: 'Gay' },
-    { value: 'B', label: 'Bissexual' },
-    { value: 'T', label: 'Transgêneros, Transsexuais ou Travestis' },
-    { value: 'Q', label: 'Queer' },
-    { value: 'I', label: 'Intersexo' },
-    { value: 'A', label: 'Assexual' },
-    { value: 'P', label: 'Panssexual' },
-    { value: '+', label: '+' },
-  ];
-
   return (
-    <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {loading && <Spinner color="primary" />}
-        {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
-        <FormGroup>
-          <Label htmlFor="name">Nome completo</Label>
-          <Input
-            name="name"
-            id="name"
-            placeholder="Digite seu nome completo"
-            innerRef={register({ required: true })}
-            invalid={errors.name}
-            defaultValue={(user && user.displayName) || ''}
-          />
-          <FormFeedback>Campo obrigatório</FormFeedback>
-        </FormGroup>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Row>
+        <Col>
+          {loading && <Spinner color="primary" />}
+          {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
-        <FormGroup>
-          <Label for="city">Cidade</Label>
-          <CustomInput
-            type="select"
-            name="city"
-            id="city"
-            innerRef={register({ required: true })}
-            invalid={errors.city}
-          >
-            <option value="">Selecione</option>
-            {cidades.sort(alfabeticOrder('title')).map((city) => {
-              return (
-                <option key={city.value} value={city.value}>
-                  {city.title}
-                </option>
-              );
-            })}
-          </CustomInput>
-          <FormFeedback>Campo obrigatório</FormFeedback>
-        </FormGroup>
-
-        <FormGroup>
-          <Label for="email">E-mail</Label>
-          <Input
-            type="text"
-            name="email"
-            id="email"
-            innerRef={register({ required: true, pattern: EMAIL_REGEX })}
-            invalid={errors.email}
-            defaultValue={(user && user.email) || ''}
-            placeholder="Digite seu e-mail"
-          />
-          {errors.email?.type === 'required' && (
+          <FormGroup>
+            <Label htmlFor="name">Nome completo</Label>
+            <Input
+              name="name"
+              id="name"
+              placeholder="Digite seu nome completo"
+              innerRef={register({ required: true })}
+              invalid={errors.name}
+              defaultValue={(user && user.displayName) || ''}
+            />
             <FormFeedback>Campo obrigatório</FormFeedback>
+          </FormGroup>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs="12" sm="6">
+          <FormGroup>
+            <Label for="email">E-mail</Label>
+            <Input
+              type="text"
+              name="email"
+              id="email"
+              innerRef={register({ required: true, pattern: EMAIL_REGEX })}
+              invalid={errors.email}
+              defaultValue={(user && user.email) || ''}
+              placeholder="Digite seu e-mail"
+            />
+            {errors.email?.type === 'required' && (
+              <FormFeedback>Campo obrigatório</FormFeedback>
+            )}
+            {errors.email?.type === 'pattern' && (
+              <FormFeedback>E-mail inválido</FormFeedback>
+            )}
+          </FormGroup>
+        </Col>
+        <Col xs="12" sm="6">
+          {!user && (
+            <InputPassword
+              innerRef={register({ required: true, minLength: 6 })}
+              invalid={errors.password}
+              errors={errors}
+              placeholder="Digite uma senha"
+            />
           )}
-          {errors.email?.type === 'pattern' && (
-            <FormFeedback>E-mail inválido</FormFeedback>
-          )}
-        </FormGroup>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <FormGroup>
+            <Label for="city">Cidade</Label>
+            <CustomInput
+              type="select"
+              name="city"
+              id="city"
+              innerRef={register({ required: true })}
+              invalid={errors.city}
+            >
+              <option value="">Selecione...</option>
+              {cidades.sort(alfabeticOrder('title')).map((city) => {
+                return (
+                  <option key={city.value} value={city.value}>
+                    {city.title} ({city.state})
+                  </option>
+                );
+              })}
+            </CustomInput>
+            <FormFeedback>Campo obrigatório</FormFeedback>
+          </FormGroup>
 
-        {!user && (
-          <InputPassword
-            innerRef={register({ required: true, minLength: 6 })}
-            invalid={errors.password}
-            errors={errors}
-            placeholder="Digite uma senha"
-          />
-        )}
+          <FormGroup>
+            <CustomInput
+              type="checkbox"
+              id="isCandidate"
+              label="Sou candidata(o)"
+              onClick={() => toggleIsCandidate(!isCandidate)}
+            />
+          </FormGroup>
+        </Col>
+      </Row>
+      {isCandidate && (
+        <>
+          <FormGroup tag="fieldset" className="mt-3">
+            <legend>Identificação</legend>
+            <Row>
+              <Col xs="12" sm="6">
+                <FormGroup>
+                  <Label for="age">Idade</Label>
+                  <CustomInput
+                    type="select"
+                    name="age"
+                    id="age"
+                    aria-label="Idade"
+                    innerRef={register({ required: true })}
+                    invalid={errors.age}
+                  >
+                    <option value="">Selecione...</option>
+                    {ages.sort(alfabeticOrder('category')).map((age) => {
+                      return (
+                        <option value={age.category}>{age.description}</option>
+                      );
+                    })}
+                  </CustomInput>
+                  {errors.age?.type === 'required' && (
+                    <FormFeedback>Campo obrigatório</FormFeedback>
+                  )}
+                </FormGroup>
+              </Col>
+              <Col xs="12" sm="6">
+                <FormGroup>
+                  <Label for="ethnicGroup">Identificação étnico-racial</Label>
+                  <CustomInput
+                    type="select"
+                    name="ethnicGroup"
+                    id="ethnicGroup"
+                    aria-label="Identificação étnico-racial"
+                    innerRef={register({ required: true })}
+                    invalid={errors.ethnicGroup}
+                  >
+                    <option value="">Selecione...</option>
+                    {ethnicGroup
+                      .sort(alfabeticOrder('category'))
+                      .map((ethnic) => {
+                        return (
+                          <option key={ethnic.category} value={ethnic.category}>
+                            {ethnic.category}
+                          </option>
+                        );
+                      })}
+                  </CustomInput>
+                  {errors.ethnicGroup?.type === 'required' && (
+                    <FormFeedback>Campo obrigatório</FormFeedback>
+                  )}
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="12" sm="6">
+                <FormGroup>
+                  <Label for="gender">Gênero</Label>
+                  <CustomInput
+                    type="select"
+                    name="gender"
+                    id="gender"
+                    aria-label="Selecione seu gênero"
+                    innerRef={register({ required: true })}
+                    invalid={errors.gender}
+                  >
+                    <option value="">Selecione...</option>
+                    {genders.sort(alfabeticOrder('category')).map((gender) => {
+                      return (
+                        <option key={gender.category} value={gender.category}>
+                          {gender.category}
+                        </option>
+                      );
+                    })}
+                  </CustomInput>
+                  {errors.gender?.type === 'required' && (
+                    <FormFeedback>Campo obrigatório</FormFeedback>
+                  )}
+                </FormGroup>
+              </Col>
+              <Col xs="12" sm="6">
+                <FormGroup>
+                  <Label for="socialGroup">LGBTQIAP+</Label>
+                  <Controller
+                    name="socialGroup"
+                    as={Select}
+                    isMulti
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                    placeholder="Selecione..."
+                    control={control}
+                    options={socialGroups.map(({ letter, name }) => ({
+                      value: letter,
+                      label: name,
+                    }))}
+                  />
+                  <FormText color="muted">
+                    Opcional, caso se identifique.
+                  </FormText>
+                </FormGroup>
+              </Col>
+            </Row>
+          </FormGroup>
+          <FormGroup tag="fieldset">
+            <legend>Candidatura</legend>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label htmlFor="cnpj">CNPJ</Label>
 
-        <FormGroup>
-          <CustomInput
-            type="checkbox"
-            id="isCandidate"
-            label="Sou candidata(o)"
-            onClick={() => toggleIsCandidate(!isCandidate)}
-          />
-        </FormGroup>
+                  <Controller
+                    as={InputMask}
+                    control={control}
+                    name="cnpj"
+                    id="cnpj"
+                    className={`form-control ${
+                      errors.cnpj?.type === 'pattern' && 'is-invalid'
+                    }`}
+                    mask="99.999.999/9999-99"
+                    rules={{ pattern: CNPJ_REGEX }}
+                    defaultValue=""
+                  />
 
-        {isCandidate && (
-          <>
-            <FormGroup>
-              <Label for="gender">Gênero</Label>
-              <CustomInput
-                type="select"
-                name="gender"
-                id="gender"
-                aria-label="Selecione seu gênero"
-                innerRef={register({ required: true })}
-                invalid={errors.gender}
-              >
-                <option value="">Selecione</option>
-                {genders.sort(alfabeticOrder('category')).map((gender) => {
-                  return (
-                    <option key={gender.category} value={gender.category}>
-                      {gender.category}
-                    </option>
-                  );
-                })}
-              </CustomInput>
-              {errors.gender?.type === 'required' && (
-                <FormFeedback>Campo obrigatório</FormFeedback>
-              )}
-            </FormGroup>
+                  {errors.cnpj?.type === 'pattern' && (
+                    <FormFeedback>CNPJ inválido</FormFeedback>
+                  )}
 
-            <FormGroup>
-              <Label for="socialGroup">LGBTQIAP+ (Opcional)</Label>
-              <Controller
-                name="socialGroup"
-                as={Select}
-                isMulti
-                className="basic-multi-select"
-                classNamePrefix="select"
-                placeholder="Selecione"
-                control={control}
-                options={socialGroupOptions}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="ethnicGroup">Identificação étnico-racial</Label>
-              <CustomInput
-                type="select"
-                name="ethnicGroup"
-                id="ethnicGroup"
-                aria-label="Identificação étnico-racial"
-                innerRef={register({ required: true })}
-                invalid={errors.ethnicGroup}
-              >
-                <option value="">Selecione</option>
-                {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
-                  return (
-                    <option key={ethnic.category} value={ethnic.category}>
-                      {ethnic.category}
-                    </option>
-                  );
-                })}
-              </CustomInput>
-              {errors.ethnicGroup?.type === 'required' && (
-                <FormFeedback>Campo obrigatório</FormFeedback>
-              )}
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="age">Idade</Label>
-              <CustomInput
-                type="select"
-                name="age"
-                id="age"
-                aria-label="Idade"
-                innerRef={register({ required: true })}
-                invalid={errors.age}
-              >
-                <option value="">Selecione</option>
-                {ages.sort(alfabeticOrder('category')).map((age) => {
-                  return <option value={age.category}>{age.category}</option>;
-                })}
-              </CustomInput>
-              {errors.age?.type === 'required' && (
-                <FormFeedback>Campo obrigatório</FormFeedback>
-              )}
-            </FormGroup>
-
-            <FormGroup>
-              <Label htmlFor="cnpj">
-                CNPJ (Opcional enquanto não homologado)
-              </Label>
-
-              <Controller
-                as={InputMask}
-                control={control}
-                name="cnpj"
-                id="cnpj"
-                className={`form-control ${
-                  errors.cnpj?.type === 'pattern' && 'is-invalid'
-                }`}
-                mask="99.999.999/9999-99"
-                rules={{ pattern: CNPJ_REGEX }}
-                defaultValue=""
-              />
-
-              {errors.cnpj?.type === 'pattern' && (
-                <FormFeedback>CNPJ inválido</FormFeedback>
-              )}
-            </FormGroup>
-            <Row form>
-              <Col xs={6}>
+                  <FormText color="muted">
+                    Opcional enquanto não homologado.
+                  </FormText>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="12" sm="6">
                 <FormGroup>
                   <Label htmlFor="candidateNumber">Número</Label>
                   <Input
+                    type="number"
                     name="candidateNumber"
                     id="candidateNumber"
                     placeholder="Digite aqui seu número"
@@ -337,8 +372,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                   <FormFeedback>Campo obrigatório</FormFeedback>
                 </FormGroup>
               </Col>
-
-              <Col xs={6}>
+              <Col xs="12" sm="6">
                 <FormGroup>
                   <Label for="politicalParty">Partido</Label>
                   <CustomInput
@@ -348,7 +382,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                     innerRef={register({ required: true })}
                     invalid={errors.politicalParty}
                   >
-                    <option value="">Selecione</option>
+                    <option value="">Selecione...</option>
                     {politicalParties
                       .sort(alfabeticOrder('numero'))
                       .map((partido) => {
@@ -364,23 +398,32 @@ const SignUpForm = ({ onBackClick, user }) => {
                 </FormGroup>
               </Col>
             </Row>
-
-            <FormGroup>
-              <Label htmlFor="description">Descrição</Label>
-              <Input
-                type="textarea"
-                name="description"
-                id="description"
-                placeholder="Inclua aqui informações gerais sobre sua candidatura: redes socias, sites, Instagram, etc."
-                innerRef={register()}
-              />
-            </FormGroup>
-          </>
-        )}
-
-        <Button data-testid="submit-button">Cadastrar</Button>
-      </form>
-    </>
+            <Row>
+              <Col>
+                <FormGroup>
+                  <Label htmlFor="description">Descrição</Label>
+                  <Input
+                    type="textarea"
+                    name="description"
+                    id="description"
+                    placeholder="Inclua aqui informações em geral sobre sua candidatura, como redes sociais, site etc."
+                    innerRef={register()}
+                    rows="5"
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+          </FormGroup>
+        </>
+      )}
+      <Row>
+        <Col className="text-center">
+          <Button color="primary" block data-testid="submit-button">
+            Cadastrar
+          </Button>
+        </Col>
+      </Row>
+    </form>
   );
 };
 
