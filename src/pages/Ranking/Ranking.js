@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Button } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import colors from 'styles/colors';
@@ -8,6 +8,7 @@ import { ReactComponent as ShareSvg } from 'assets/icons/share.svg';
 import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 
 import {
+  Img,
   PageTitle,
   PageDescription,
   HelpDescription,
@@ -30,16 +31,12 @@ import {
   ImgPlaceholder,
   ButtonWrapper,
 } from './Ranking.styled';
-import { CityContext } from 'components/CityProvider/CityProvider';
-import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 import candidates from './rankingMock';
 
 export default function Ranking() {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(3);
   const [listLimiter, setListlimiter] = useState(10);
-  const { firebase } = useContext(CityContext);
-  const { answers } = useContext(AnswersContext);
   const hasMoreCandidates = candidates.length > listLimiter;
   const candidatesCount =
     listLimiter < candidates.length ? listLimiter : candidates.length;
@@ -96,9 +93,16 @@ export default function Ranking() {
         no Vota de um total de {candidates.length}
       </Description>
       {candidates.filter(limitList).map((candidate, index) => (
-        <div key={index}>
+        <div key={index} data-testid="candidate-item">
           <CandidateCard>
-            <ImgPlaceholder>Foto</ImgPlaceholder>
+            {candidate.picture ? (
+              <Img
+                src={candidate.picture}
+                alt={`Foto do candidato ${candidate.name}`}
+              />
+            ) : (
+              <ImgPlaceholder />
+            )}
             <InfoWrapper>
               <CardName>{candidate.name}</CardName>
               <CardInfo>
@@ -121,7 +125,7 @@ export default function Ranking() {
             color="primary"
             onClick={() => setListlimiter(listLimiter + 10)}
           >
-            CARREGAR MAIS
+            Carregar mais
           </Button>
         </ButtonWrapper>
       )}
