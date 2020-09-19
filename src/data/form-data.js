@@ -5,6 +5,18 @@ export const genders = [
   { category: 'Prefiro não declarar' },
 ];
 
+export const socialGroups = [
+  { letter: 'L', name: 'Lésbica' },
+  { letter: 'G', name: 'Gay' },
+  { letter: 'B', name: 'Bissexual' },
+  { letter: 'T', name: 'Transgêneros, Transsexuais ou Travestis' },
+  { letter: 'Q', name: 'Queer' },
+  { letter: 'I', name: 'Intersexo' },
+  { letter: 'A', name: 'Assexual' },
+  { letter: 'P', name: 'Panssexual' },
+  { letter: '+', name: '+' },
+];
+
 export const politicalParties = [
   {
     nome: 'Avante',
