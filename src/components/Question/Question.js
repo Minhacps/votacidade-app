@@ -9,6 +9,7 @@ import { CityContext } from 'components/CityProvider/CityProvider';
 
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
+import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
 const TitleQuestion = styled.span`
   font-size: 18px;
@@ -36,6 +37,7 @@ const CustomRadio = ({ option, label, value, onChange }) => (
 );
 
 const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+  const { updateAnswers } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -82,12 +84,13 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       [id]: data,
     };
 
-    firebase
+    updateAnswers(answer);
+
+    return firebase
       .firestore()
       .collection(answersCollection(user.role))
       .doc(currentUser.uid)
-      .set(answer, { merge: true })
-      .then(() => onSave(answer));
+      .set(answer, { merge: true });
   };
 
   return (

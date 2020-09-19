@@ -11,7 +11,7 @@ const Routes = ({ user }) => (
     <Route path="/privacidade" exact>
       <Privacidade />
     </Route>
-  
+
     {cities.map((city) => (
       <Route path={city.cityPath} key={`${city.cityPath}-route`}>
         <CityProvider city={city}>
@@ -19,7 +19,6 @@ const Routes = ({ user }) => (
         </CityProvider>
       </Route>
     ))}
-
   </Switch>
 );
 

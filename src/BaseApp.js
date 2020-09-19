@@ -5,6 +5,9 @@ import BaseAppRoutes from './BaseAppRoutes';
 import Authenticated from 'templates/Authenticated';
 import { getCustomToken } from './customTokenService';
 
+import PageLoading from 'components/molecules/PageLoading';
+import AnswersProvider from './components/AnswersProvider/AnswersProvider';
+
 const BaseApp = () => {
   const { firebase, currentUser, cityPath } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +15,10 @@ const BaseApp = () => {
 
   useEffect(() => {
     if (process.env.REACT_APP_FIREBASE_ENV === 'prod') {
-      getCustomToken({ uid: currentUser.uid, cityPath })
+      getCustomToken({
+        uid: currentUser.uid,
+        projectId: firebase.options.projectId,
+      })
         .then((token) => {
           firebase
             .auth()
@@ -48,13 +54,15 @@ const BaseApp = () => {
   }, [cityPath, currentUser.uid, firebase]);
 
   if (isLoading) {
-    return <p>Carregando...</p>;
+    return <PageLoading />;
   }
 
   return (
-    <Authenticated user={user}>
-      <BaseAppRoutes cityPath={cityPath} user={user} />
-    </Authenticated>
+    <AnswersProvider user={user} currentUser={currentUser} firebase={firebase}>
+      <Authenticated user={user}>
+        <BaseAppRoutes cityPath={cityPath} user={user} />
+      </Authenticated>
+    </AnswersProvider>
   );
 };
 

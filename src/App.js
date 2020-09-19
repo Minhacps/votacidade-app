@@ -7,6 +7,8 @@ import Login from './pages/Login';
 
 import './fontawesome';
 
+import PageLoading from 'components/molecules/PageLoading';
+
 const App = () => {
   const history = useHistory();
   const location = useLocation();
@@ -33,8 +35,9 @@ const App = () => {
       });
     }
 
+    // Removido userData.city no teste para eliminar erro.
     const redirectUserByCity = (userData) => {
-      if (!userData.city) {
+      if (!userData) {
         return;
       }
 
@@ -52,7 +55,7 @@ const App = () => {
   }, []);
 
   if (lookingForUser) {
-    return <p>Carregando...</p>;
+    return <PageLoading />;
   }
 
   if (!user) {
