@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Button } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import colors from 'styles/colors';
@@ -30,25 +30,20 @@ import {
   ImgPlaceholder,
   ButtonWrapper,
 } from './Ranking.styled';
-
-const candidatesMock = [
-  {
-    name: 'John Doe',
-    party: 'PARTIDO',
-    number: '99',
-    affinity: '95',
-  },
-  {
-    name: 'Jane Doe',
-    party: 'PARTIDO',
-    number: '99',
-    affinity: '92',
-  },
-];
+import { CityContext } from 'components/CityProvider/CityProvider';
+import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
+import candidates from './rankingMock';
 
 export default function Ranking() {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(3);
+  const [listLimiter, setListlimiter] = useState(10);
+  const { firebase } = useContext(CityContext);
+  const { answers } = useContext(AnswersContext);
+  const hasMoreCandidates = candidates.length > listLimiter;
+  const candidatesCount =
+    listLimiter < candidates.length ? listLimiter : candidates.length;
+  const limitList = (_, index) => index < listLimiter;
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -97,24 +92,20 @@ export default function Ranking() {
       </RatingBox>
       <Divider />
       <Description>
-        <strong>Candidatos(as):</strong> mostrando 9999 cadastrados no Vota de
-        um total de 9999
+        <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
+        no Vota de um total de {candidates.length}
       </Description>
-      <Description>
-        <strong>Partidos:</strong> mostrando 99 cadastrados no Vota de um total
-        de 99
-      </Description>
-      {candidatesMock.map((candidate, index) => (
+      {candidates.filter(limitList).map((candidate, index) => (
         <div key={index}>
           <CandidateCard>
             <ImgPlaceholder>Foto</ImgPlaceholder>
             <InfoWrapper>
               <CardName>{candidate.name}</CardName>
               <CardInfo>
-                {candidate.number} | {candidate.party}
+                {candidate.candidateNumber} | {candidate.politicalParty}
               </CardInfo>
               <CardInfo>
-                Afinidade: <AffinityTag>{candidate.affinity}%</AffinityTag>
+                Afinidade: <AffinityTag>{candidate.match}%</AffinityTag>
               </CardInfo>
             </InfoWrapper>
             <ProfileLink>
@@ -124,9 +115,16 @@ export default function Ranking() {
           <Divider />
         </div>
       ))}
-      <ButtonWrapper>
-        <Button color="primary">CARREGAR MAIS</Button>
-      </ButtonWrapper>
+      {hasMoreCandidates && (
+        <ButtonWrapper>
+          <Button
+            color="primary"
+            onClick={() => setListlimiter(listLimiter + 10)}
+          >
+            CARREGAR MAIS
+          </Button>
+        </ButtonWrapper>
+      )}
     </Container>
   );
 }
