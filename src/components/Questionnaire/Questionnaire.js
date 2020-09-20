@@ -43,7 +43,7 @@ const Questionnaire = ({ user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 
-  const handleSkip = (answer) => {
+  const handleSkip = () => {
     setCurrentQuestion(currentQuestion + 1);
   };
 
