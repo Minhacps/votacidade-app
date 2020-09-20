@@ -52,7 +52,6 @@ export const TextArea = styled.textarea`
   box-shadow: 0 0 3px #00000029;
   border-radius: 3px;
   height: 94px;
-  margin-bottom: 10px;
   padding: 10px;
   width: 100%;
 `;
