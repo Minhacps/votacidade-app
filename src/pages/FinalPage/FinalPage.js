@@ -24,8 +24,8 @@ const FinalPage = ({ user }) => {
             </p>
           ) : (
             <p>
-              <strong>Eleitor(a)</strong>, lembre-se, para que o índice de
-              afinidade seja exibido, você precisa responder no mínimo 21
+              <strong>Eleitor(a)</strong>, para que o índice de afinidade seja
+              exibido, lembre-se que você precisa responder no mínimo 21
               questões.
             </p>
           )}
