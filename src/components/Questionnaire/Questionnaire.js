@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
+
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
@@ -48,7 +50,7 @@ const Questionnaire = ({ user }) => {
   };
 
   return (
-    <>
+    <Container className="py-5">
       {user.role === ROLE_CANDIDATE && showAlert && (
         <div
           style={{ maxWidth: '818px', margin: '20px auto 0' }}
@@ -76,7 +78,7 @@ const Questionnaire = ({ user }) => {
         value={answers && answers[currentQuestion]}
         user={user}
       />
-    </>
+    </Container>
   );
 };
 
