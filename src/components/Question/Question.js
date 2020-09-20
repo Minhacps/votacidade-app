@@ -91,8 +91,9 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
       <Decision
-        handleDecisionChoice={handleDecisionChoice}
+        questionNumber={id + 1}
         answer={value && value.answer}
+        handleDecisionChoice={handleDecisionChoice}
       />
 
       {user.role === ROLE_CANDIDATE && (
