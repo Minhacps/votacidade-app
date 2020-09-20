@@ -12,7 +12,7 @@ import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 import { TextArea } from './Question.styled';
 import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
 import Statement from 'components/Statement/Statement';
-import Decision from 'components/Decision/Decision';
+import Decision from 'components/organisms/Decision';
 
 const StyledForm = styled(Form)`
   max-width: 860px;
