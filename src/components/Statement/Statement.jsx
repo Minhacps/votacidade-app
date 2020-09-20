@@ -1,16 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 
-const TitleQuestion = styled.span`
-  font-size: 18px;
-`;
+import LongParagraph from 'components/atoms/LongParagraph'
 
 const Statement = ({ order, text }) =>
   (
-    <p>
-      <TitleQuestion>{order}. </TitleQuestion>
-      <TitleQuestion>{text}</TitleQuestion>
-    </p>
+    <LongParagraph className="h5 mb-4">
+      <small className="text-muted">{order}.</small>
+      &nbsp;
+      <span>{text}</span>
+    </LongParagraph>
   );
 
 export default Statement;
