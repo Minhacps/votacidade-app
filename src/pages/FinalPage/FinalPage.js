@@ -12,23 +12,24 @@ const FinalPage = ({ user }) => {
     <Container className="py-4">
       <Row>
         <Col>
-          <p class="h4 text-primary">Agradecemos a sua participação!</p>
+          <p class="h4 text-primary mb-4">Agradecemos a sua participação!</p>
 
           {user.role === ROLE_CANDIDATE ? (
-            <p className="mt-3" style={{ fontSize: '12pt' }}>
-              <strong>Candidato(a)</strong> Lembre-se que você precisa responder
-              a todas as questões para participar do Vota Cidade. Todas suas
-              respostas serão exibidas publicamente no site porque assim quem
-              concorda com você vai saber disso e te escolher como
-              representante.
+            <p>
+              <strong>Candidato(a)</strong>, lembre-se que você precisa
+              responder todas as questões para participar do Vota Cidade. Após
+              feito isso, suas respostas serão exibidas publicamente no site,
+              pois assim quem concorda com você vai saber do seu posicionamento
+              e, possivelmente, te escolher como representante.
             </p>
           ) : (
-            <p className="mt-3" style={{ fontSize: '12pt' }}>
-              <strong>Eleitor(a)</strong> lembre-se, que para o índice de
+            <p>
+              <strong>Eleitor(a)</strong>, lembre-se, para que o índice de
               afinidade seja exibido, você precisa responder no mínimo 21
               questões.
             </p>
           )}
+
           {cityName === 'Campinas' ? (
             <p className="mt-3" style={{ fontSize: '12pt' }}>
               Para que exista uma boa representatividade de cadastro de
