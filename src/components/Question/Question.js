@@ -15,7 +15,7 @@ import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
 const Question = ({ id, onSkip, onBack, value, user }) => {
-  const { updateAnswers } = useContext(AnswersContext);
+  const { answers, updateAnswers } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -108,6 +108,7 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
         <QuestionnaireAction
           userRole={user.role}
           questionnaireLength={questionnaire.length}
+          answersLength={answers.length}
           questionIndex={id}
           onSkip={onSkip}
           onBack={onBack}
