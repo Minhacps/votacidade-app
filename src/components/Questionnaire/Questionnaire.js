@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Container } from 'reactstrap';
+import { Alert, Container } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
@@ -14,7 +14,9 @@ const Questionnaire = ({ user }) => {
   const { answers } = useContext(AnswersContext);
   const { questionnaire } = useContext(CityContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [showAlert, setShowAlert] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(true);
+
+  const onDismiss = () => setAlertVisible(false);
 
   useEffect(() => {
     const getFirstUnansweredQuestion = (loadedAnswers) => {
@@ -51,24 +53,11 @@ const Questionnaire = ({ user }) => {
 
   return (
     <Container className="py-5">
-      {user.role === ROLE_CANDIDATE && showAlert && (
-        <div
-          style={{ maxWidth: '818px', margin: '20px auto 0' }}
-          className="alert alert-primary alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Candidato(a),</strong> você precisa responder 100% das
+      {user.role === ROLE_CANDIDATE && (
+        <Alert color="primary" isOpen={alertVisible} toggle={onDismiss}>
+          <strong>Candidato(a)</strong>, você precisa responder 100% das
           questões para aparecer no ranking.
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-            onClick={() => setShowAlert(false)}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+        </Alert>
       )}
 
       <Question
