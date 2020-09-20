@@ -129,7 +129,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             outline
             type="button"
             onClick={() => onSkip()}
-            className="w-100  mr-4"
+            className="w-100 mr-4"
           >
             {user.role === ROLE_CANDIDATE ? 'Pular' : 'Próxima'}
           </Button>
