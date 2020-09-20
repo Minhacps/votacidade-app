@@ -4,6 +4,8 @@ import { Form, Input, Button, Alert } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { ROLE_CANDIDATE } from 'constants/userRoles';
+
 import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
 
@@ -48,7 +50,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   const saveVoterAnswer = (event) => {
     setErrorMessage(null);
 
-    if (user.role === 'candidate') {
+    if (user.role === ROLE_CANDIDATE) {
       return;
     }
 
@@ -140,7 +142,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
-      {user.role === 'candidate' ? (
+      {user.role === ROLE_CANDIDATE ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
           <label htmlFor="justification">
             Justificativa <small>(opcional)</small>
@@ -175,11 +177,11 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             onClick={() => onSkip()}
             className="w-100  mr-4"
           >
-            {user.role === 'candidate' ? 'Pular' : 'Próxima'}
+            {user.role === ROLE_CANDIDATE ? 'Pular' : 'Próxima'}
           </Button>
         )}
 
-        {user.role === 'candidate' && (
+        {user.role === ROLE_CANDIDATE && (
           <Button color="primary" className="w-100" outline>
             {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
