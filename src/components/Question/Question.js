@@ -59,7 +59,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
     }
   };
 
-  const saveCandidateAnswer = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!event.target.answer.value) {
@@ -92,7 +92,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   };
 
   return (
-    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
+    <StyledForm onSubmit={handleSubmit} key={id + 1}>
       <Statement number={id + 1} text={question} />
 
       {explanation && (
