@@ -175,7 +175,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         )}
 
         {user.role === ROLE_CANDIDATE && (
-          <Button color="primary" className="w-100" outline>
+          <Button type="submit" color="primary" className="w-100" outline>
             {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
           </Button>
         )}
