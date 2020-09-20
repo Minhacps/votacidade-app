@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Button, Alert, Label, FormText, FormGroup } from 'reactstrap';
+import { Form, Alert, Label, FormText, FormGroup } from 'reactstrap';
 import styled from 'styled-components';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
@@ -13,6 +13,7 @@ import { TextArea } from './Question.styled';
 import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
 import Statement from 'components/Statement/Statement';
 import Decision from 'components/organisms/Decision';
+import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
 const StyledForm = styled(Form)`
   max-width: 860px;
@@ -110,37 +111,13 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
         </FormGroup>
       )}
 
-      <div className="d-flex">
-        {id > 0 && (
-          <Button
-            color="primary"
-            outline
-            type="button"
-            onClick={onBack}
-            className="w-100 mr-4"
-          >
-            Anterior
-          </Button>
-        )}
-
-        {id < questionnaire.length - 1 && (
-          <Button
-            color="primary"
-            outline
-            type="button"
-            onClick={() => onSkip()}
-            className="w-100 mr-4"
-          >
-            {user.role === ROLE_CANDIDATE ? 'Pular' : 'Próxima'}
-          </Button>
-        )}
-
-        {user.role === ROLE_CANDIDATE && (
-          <Button type="submit" color="primary" className="w-100" outline>
-            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
-          </Button>
-        )}
-      </div>
+      <QuestionnaireAction
+        userRole={user.role}
+        questionnaireLength={questionnaire.length}
+        questionIndex={id}
+        onSkip={onSkip}
+        onBack={onBack}
+      />
     </StyledForm>
   );
 };
