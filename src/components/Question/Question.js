@@ -93,7 +93,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
   return (
     <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
-      <Statement order={id + 1} text={question} />
+      <Statement number={id + 1} text={question} />
 
       {explanation && (
         <div className="mb-3">
