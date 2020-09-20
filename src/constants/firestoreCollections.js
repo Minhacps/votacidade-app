@@ -1,4 +1,4 @@
-import userRoles from 'constants/userRoles';
+import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 const collections = {
   candidateAnswers: 'candidateAnswers',
@@ -6,7 +6,7 @@ const collections = {
 };
 
 export const answersCollection = (role) =>
-  role === userRoles.CANDIDATE
+  role === ROLE_CANDIDATE
     ? collections.candidateAnswers
     : collections.voterAnswers;
 
