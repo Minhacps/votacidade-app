@@ -6,7 +6,7 @@ import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
-const Questions = ({ user }) => {
+const Questionnaire = ({ user }) => {
   const location = useLocation();
   const history = useHistory();
   const { answers } = useContext(AnswersContext);
@@ -79,4 +79,4 @@ const Questions = ({ user }) => {
   );
 };
 
-export default Questions;
+export default Questionnaire;
