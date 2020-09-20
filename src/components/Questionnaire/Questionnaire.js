@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { Alert, Container } from 'reactstrap';
+import { Alert, Col, Container, Row } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
@@ -52,21 +52,25 @@ const Questionnaire = ({ user }) => {
   };
 
   return (
-    <Container className="py-5">
-      {user.role === ROLE_CANDIDATE && (
-        <Alert color="primary" isOpen={alertVisible} toggle={onDismiss}>
-          <strong>Candidato(a)</strong>, você precisa responder 100% das
-          questões para aparecer no ranking.
-        </Alert>
-      )}
+    <Container className="py-4">
+      <Row className="justify-content-center">
+        <Col xs="12" md="9">
+          {user.role === ROLE_CANDIDATE && (
+            <Alert color="primary" isOpen={alertVisible} toggle={onDismiss}>
+              <strong>Candidato(a)</strong>, você precisa responder 100% das
+              questões para aparecer no ranking.
+            </Alert>
+          )}
 
-      <Question
-        id={currentQuestion}
-        onSkip={handleSkip}
-        onBack={handleBack}
-        value={answers && answers[currentQuestion]}
-        user={user}
-      />
+          <Question
+            id={currentQuestion}
+            onSkip={handleSkip}
+            onBack={handleBack}
+            value={answers && answers[currentQuestion]}
+            user={user}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 };
