@@ -63,7 +63,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
     event.preventDefault();
 
     if (!event.target.answer.value) {
-      setErrorMessage('Escolha uma opção');
+      setErrorMessage('Escolha uma opção.');
       return;
     }
 
@@ -101,6 +101,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         </div>
       )}
 
+      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
+
       <CustomRadio
         onChange={handleDecisionChoice}
         option="DT"
@@ -132,8 +134,6 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         value={value && value.answer}
         label="Concordo Totalmente"
       />
-
-      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
       {user.role === ROLE_CANDIDATE ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
