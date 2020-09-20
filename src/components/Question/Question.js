@@ -23,6 +23,39 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
   );
   const { question, explanation } = questionnaire[id];
 
+  const saveAnswer = (answer) => {
+    storeAnswer(answer);
+
+    const questionnaireLength = questionnaire.length;
+
+    let minAnswered = questionnaireLength * 0.7;
+
+    if (user.role === ROLE_CANDIDATE) {
+      minAnswered = questionnaireLength;
+    }
+
+    if (
+      id === questionnaireLength - 1 &&
+      Object.values(answers).length === minAnswered
+    ) {
+      push(`${cityPath}/ranking`);
+    }
+  };
+
+  const storeAnswer = (data) => {
+    const answer = {
+      [id]: data,
+    };
+
+    updateAnswers(answer);
+
+    return firebase
+      .firestore()
+      .collection(answersCollection(user.role))
+      .doc(currentUser.uid)
+      .set(answer, { merge: true });
+  };
+
   const handleDecisionChoice = (event) => {
     setErrorMessage(null);
 
@@ -33,10 +66,6 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
     saveAnswer({
       answer: event.target.value,
     });
-
-    if (id === questionnaire.length - 1) {
-      push(`${cityPath}/ranking`);
-    }
   };
 
   const handlePrevious = () => {
@@ -63,24 +92,6 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
-
-    if (id === questionnaire.length - 1) {
-      push(`${cityPath}/ranking`);
-    }
-  };
-
-  const saveAnswer = (data) => {
-    const answer = {
-      [id]: data,
-    };
-
-    updateAnswers(answer);
-
-    return firebase
-      .firestore()
-      .collection(answersCollection(user.role))
-      .doc(currentUser.uid)
-      .set(answer, { merge: true });
   };
 
   return (
@@ -118,7 +129,7 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
         <QuestionnaireAction
           userRole={user.role}
           questionnaireLength={questionnaire.length}
-          answersLength={answers.length}
+          answersLength={Object.values(answers).length}
           questionIndex={id}
           onBack={handlePrevious}
           onSkip={handleSkip}
