@@ -20,7 +20,7 @@ const StyledForm = styled(Form)`
   padding: 1.5rem;
 `;
 
-const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
+const Question = ({ id, onSkip, onBack, value, user }) => {
   const { updateAnswers } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
