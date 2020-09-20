@@ -55,21 +55,21 @@ const FinalPage = ({ user }) => {
 
           {cityName === 'Recife' && (
             <p>
-              Para que existe uma boa representatividade de cadastro de
-              candidatos e candidatas no site de <strong>{cityName}</strong> o
-              critério mínimo para lançarmos a ferramenta será termos pelo menos
-              15 partidos cadastrados no sistema. A partir desse índice
-              alcançado lançaremos o ranking.
+              Para que exista uma boa representatividade de cadastro de
+              candidatos e candidatas no site de <strong>{cityName}</strong>, o
+              critério mínimo para lançarmos a ferramenta será de termos pelo
+              menos 15 partidos cadastrados no sistema. Após alcançado este
+              índice, lançaremos o ranking para a cidade.
             </p>
           )}
 
           {cityName === 'João Pessoa' && (
             <p>
-              Para que existe uma boa representatividade de cadastro de
-              candidatos e candidatas no site de <strong>{cityName}</strong> o
-              critério mínimo para lançarmos a ferramenta será termos pelo menos
-              15 partidos cadastrados no sistema. A partir desse índice
-              alcançado lançaremos o ranking.
+              Para que exista uma boa representatividade de cadastro de
+              candidatos e candidatas no site de <strong>{cityName}</strong>, o
+              critério mínimo para lançarmos a ferramenta será de termos pelo
+              menos 15 partidos cadastrados no sistema. Após alcançado este
+              índice, lançaremos o ranking para a cidade.
             </p>
           )}
         </Col>
