@@ -37,16 +37,17 @@ const options = [
   },
 ];
 
-const Decision = ({ handleDecisionChoice, answer }) => {
+const Decision = ({ questionNumber, answer, handleDecisionChoice }) => {
   return (
     <FormGroup>
       {options.map(option => (
         <CustomRadio
-          onChange={handleDecisionChoice}
-          option={option.id}
+          key={`${questionNumber}-${option.id}`}
           name="answer"
+          option={option.id}
           value={answer}
           label={option.name}
+          onChange={handleDecisionChoice}
         />
       ))}
     </FormGroup>
