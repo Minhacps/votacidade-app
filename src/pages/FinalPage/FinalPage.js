@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Container } from 'reactstrap';
+
+import { ROLE_CANDIDATE } from 'constants/userRoles';
+
 import { CityContext } from 'components/CityProvider/CityProvider';
 import colors from 'styles/colors';
 
@@ -17,7 +20,7 @@ const FinalPage = ({ user }) => {
   return (
     <Container className="py-4" style={{ lineHeight: '20px' }}>
       <StyledUserName>Obrigado(a) pela sua participação!</StyledUserName>
-      {user.role === 'candidate' ? (
+      {user.role === ROLE_CANDIDATE ? (
         <p className="mt-3" style={{ fontSize: '12pt' }}>
           <strong>Candidato(a)</strong> Lembre-se que você precisa responder a
           todas as questões para participar do Vota Cidade. Todas suas respostas
