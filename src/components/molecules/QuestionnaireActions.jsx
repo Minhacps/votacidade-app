@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from 'reactstrap';
+import { Button, FormGroup } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 const QuestionnaireAction = ({ userRole, questionnaireLength, questionIndex, onSave, onSkip, onBack }) => (
-  <div className="d-flex">
+  <FormGroup>
     {questionIndex > 0 && (
       <Button
         color="primary"
@@ -34,7 +34,7 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, questionIndex, onS
         {questionIndex === questionnaireLength - 1 ? 'Finalizar' : 'Responder'}
       </Button>
     )}
-  </div>
+  </FormGroup>
 );
 
 export default QuestionnaireAction;
