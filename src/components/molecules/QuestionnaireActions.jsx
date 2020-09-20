@@ -3,7 +3,7 @@ import { Button, FormGroup } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
-const QuestionnaireAction = ({ userRole, questionnaireLength, questionIndex, onSave, onSkip, onBack }) => (
+const QuestionnaireAction = ({ userRole, questionnaireLength, questionIndex, onSkip, onBack }) => (
   <FormGroup>
     {questionIndex > 0 && (
       <Button
