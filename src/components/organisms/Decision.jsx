@@ -33,7 +33,7 @@ const options = [
   },
   {
     id: "CT",
-    name: "Discordo Totalmente"
+    name: "Concordo Totalmente"
   },
 ];
 
