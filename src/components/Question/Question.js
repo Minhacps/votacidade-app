@@ -1,6 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, Alert, Label, FormText } from 'reactstrap';
+import {
+  Form,
+  Input,
+  Button,
+  Alert,
+  Label,
+  FormText,
+  FormGroup,
+} from 'reactstrap';
 import styled from 'styled-components';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
@@ -135,8 +143,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
         label="Concordo Totalmente"
       />
 
-      {user.role === ROLE_CANDIDATE ? (
-        <div style={{ margin: '20px 0 15px' }} className="d-block">
+      {user.role === ROLE_CANDIDATE && (
+        <FormGroup className="my-4">
           <Label for="justification">Justificativa</Label>
           <TextArea
             name="justification"
@@ -146,8 +154,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
             placeholder="Explique o motivo de sua escolha."
           />
           <FormText>A justificativa é opcional.</FormText>
-        </div>
-      ) : null}
+        </FormGroup>
+      )}
 
       <div className="d-flex">
         {id > 0 && (
