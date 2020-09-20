@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Alert, Label, FormText, FormGroup } from 'reactstrap';
-import styled from 'styled-components';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
@@ -14,12 +13,6 @@ import StatementExplanation from 'components/StatementExplanation/StatementExpla
 import Statement from 'components/Statement/Statement';
 import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
-
-const StyledForm = styled(Form)`
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 1.5rem;
-`;
 
 const Question = ({ id, onSkip, onBack, value, user }) => {
   const { updateAnswers } = useContext(AnswersContext);
@@ -81,7 +74,7 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit} key={id + 1}>
+    <>
       <Statement number={id + 1} text={question} />
 
       {explanation && (
@@ -90,35 +83,37 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
         </div>
       )}
 
-      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
-      <Decision
-        questionNumber={id + 1}
-        answer={value && value.answer}
-        handleDecisionChoice={handleDecisionChoice}
-      />
+      <Form onSubmit={handleSubmit} key={id + 1}>
+        {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
+        <Decision
+          questionNumber={id + 1}
+          answer={value && value.answer}
+          handleDecisionChoice={handleDecisionChoice}
+        />
 
-      {user.role === ROLE_CANDIDATE && (
-        <FormGroup className="my-4">
-          <Label for="justification">Justificativa</Label>
-          <TextArea
-            name="justification"
-            id="justification"
-            maxLength={500}
-            defaultValue={value && value.justification}
-            placeholder="Explique o motivo de sua escolha."
-          />
-          <FormText>A justificativa é opcional.</FormText>
-        </FormGroup>
-      )}
+        {user.role === ROLE_CANDIDATE && (
+          <FormGroup className="my-4">
+            <Label for="justification">Justificativa</Label>
+            <TextArea
+              name="justification"
+              id="justification"
+              maxLength={500}
+              defaultValue={value && value.justification}
+              placeholder="Explique o motivo de sua escolha."
+            />
+            <FormText>A justificativa é opcional.</FormText>
+          </FormGroup>
+        )}
 
-      <QuestionnaireAction
-        userRole={user.role}
-        questionnaireLength={questionnaire.length}
-        questionIndex={id}
-        onSkip={onSkip}
-        onBack={onBack}
-      />
-    </StyledForm>
+        <QuestionnaireAction
+          userRole={user.role}
+          questionnaireLength={questionnaire.length}
+          questionIndex={id}
+          onSkip={onSkip}
+          onBack={onBack}
+        />
+      </Form>
+    </>
   );
 };
 
