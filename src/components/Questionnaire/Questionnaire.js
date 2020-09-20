@@ -49,7 +49,7 @@ const Questionnaire = ({ user }) => {
 
   return (
     <>
-      {user.role === ROLE_CANDIDATE && showAlert ? (
+      {user.role === ROLE_CANDIDATE && showAlert && (
         <div
           style={{ maxWidth: '818px', margin: '20px auto 0' }}
           className="alert alert-primary alert-dismissible fade show"
@@ -67,7 +67,8 @@ const Questionnaire = ({ user }) => {
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-      ) : null}
+      )}
+
       <Question
         id={currentQuestion}
         onSkip={handleSkip}
