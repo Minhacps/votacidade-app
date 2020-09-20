@@ -34,7 +34,7 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, que
     {userRole === ROLE_CANDIDATE && (
       <Col>
         <Button type="submit" color="primary" block>
-          {questionIndex === questionnaireLength - 1 ? 'Finalizar' : 'Responder'}
+          {questionIndex === questionnaireLength - 1 && answersLength === questionnaireLength ? 'Finalizar' : 'Responder'}
         </Button>
       </Col>
     )}
