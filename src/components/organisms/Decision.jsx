@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup } from 'reactstrap';
 
-import Option from 'components/molecules/Option';
+import Option from 'components/molecules/Option/Option';
 
 const options = [
   {
