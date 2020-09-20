@@ -12,7 +12,9 @@ const FinalPage = ({ user }) => {
     <Container className="py-4">
       <Row>
         <Col>
-          <p class="h4 text-primary mb-4">Agradecemos a sua participação!</p>
+          <p className="h4 text-primary mb-4">
+            Agradecemos a sua participação!
+          </p>
 
           {user.role === ROLE_CANDIDATE ? (
             <p>
