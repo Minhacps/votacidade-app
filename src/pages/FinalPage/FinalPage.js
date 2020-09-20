@@ -1,18 +1,9 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
 import { Col, Container, Row } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
-import colors from 'styles/colors';
-
-const StyledUserName = styled.span`
-  color: ${colors.purple};
-  font-weight: 800;
-  font-size: 16pt;
-  margin-bottom: 25px;
-`;
 
 const FinalPage = ({ user }) => {
   const { cityName } = useContext(CityContext);
@@ -21,7 +12,7 @@ const FinalPage = ({ user }) => {
     <Container className="py-4">
       <Row>
         <Col>
-          <StyledUserName>Obrigado(a) pela sua participação!</StyledUserName>
+          <p class="h4 text-primary">Agradecemos a sua participação!</p>
 
           {user.role === ROLE_CANDIDATE ? (
             <p className="mt-3" style={{ fontSize: '12pt' }}>
