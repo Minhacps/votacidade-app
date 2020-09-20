@@ -1,21 +1,17 @@
 import React, { useState, useContext } from 'react';
-import { Form, Input, Button, Alert } from 'reactstrap';
-
 import { useHistory } from 'react-router-dom';
+import { Form, Input, Button, Alert } from 'reactstrap';
 import styled from 'styled-components';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
 import { QuestionOption, Checkmark, TextArea } from './Question.styled';
 import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
-import { AnswersContext } from '../AnswersProvider/AnswersProvider';
-
-const TitleQuestion = styled.span`
-  font-size: 18px;
-`;
+import Statement from 'components/Statement/Statement';
 
 const StyledForm = styled(Form)`
   max-width: 860px;
@@ -97,10 +93,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
   return (
     <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
-      <p>
-        <TitleQuestion>{id + 1}. </TitleQuestion>
-        <TitleQuestion>{question}</TitleQuestion>
-      </p>
+      <Statement order={id + 1} text={question} />
 
       {explanation && (
         <div className="mb-3">
