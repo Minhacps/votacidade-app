@@ -72,6 +72,8 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
     if (!event.target.answer.value) {
       setErrorMessage('Escolha uma opção.');
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
       return;
     }
 
