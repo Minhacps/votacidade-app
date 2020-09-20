@@ -1,22 +1,7 @@
 import React from 'react';
-import { FormGroup, Input } from 'reactstrap';
+import { FormGroup } from 'reactstrap';
 
-import { QuestionOption, Checkmark } from 'components/Question/Question.styled';
-
-const CustomRadio = ({ option, label, value, onChange }) => (
-  <QuestionOption>
-    <Input
-      onChange={onChange}
-      type="radio"
-      id={`answer-${option}`}
-      name="answer"
-      value={option}
-      defaultChecked={value === option}
-    />
-    <Checkmark />
-    <label htmlFor={`answer-${option}`}>{label}</label>
-  </QuestionOption>
-);
+import Option from 'components/molecules/Option';
 
 const options = [
   {
@@ -41,12 +26,11 @@ const Decision = ({ questionNumber, answer, handleDecisionChoice }) => {
   return (
     <FormGroup>
       {options.map(option => (
-        <CustomRadio
+        <Option
           key={`${questionNumber}-${option.id}`}
-          name="answer"
           option={option.id}
-          value={answer}
           label={option.name}
+          value={answer}
           onChange={handleDecisionChoice}
         />
       ))}
