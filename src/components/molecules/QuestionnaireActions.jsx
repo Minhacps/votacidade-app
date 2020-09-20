@@ -18,19 +18,18 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, que
       </Button>
     </Col>
 
-    {questionIndex < questionnaireLength - 1 && (
-      <Col>
-        <Button
-          color="primary"
-          outline
-          block
-          type="button"
-          onClick={() => onSkip()}
-        >
-          {userRole === ROLE_CANDIDATE ? 'Pular' : 'Próxima'}
-        </Button>
-      </Col>
-    )}
+    <Col>
+      <Button
+        color="primary"
+        outline
+        block
+        type="button"
+        onClick={() => onSkip()}
+        disabled={questionIndex === questionnaireLength - 1}
+      >
+        {userRole === ROLE_CANDIDATE ? 'Pular' : 'Próxima'}
+      </Button>
+    </Col>
 
     {userRole === ROLE_CANDIDATE && (
       <Col>
