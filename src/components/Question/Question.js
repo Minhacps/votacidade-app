@@ -39,6 +39,16 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
     }
   };
 
+  const handlePrevious = () => {
+    setErrorMessage(null);
+    onBack();
+  };
+
+  const handleSkip = () => {
+    setErrorMessage(null);
+    onSkip();
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -110,8 +120,8 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
           questionnaireLength={questionnaire.length}
           answersLength={answers.length}
           questionIndex={id}
-          onSkip={onSkip}
-          onBack={onBack}
+          onBack={handlePrevious}
+          onSkip={handleSkip}
         />
       </Form>
     </>
