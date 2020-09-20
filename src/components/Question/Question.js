@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, Alert } from 'reactstrap';
+import { Form, Input, Button, Alert, Label, FormText } from 'reactstrap';
 import styled from 'styled-components';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
@@ -137,15 +137,15 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       {user.role === ROLE_CANDIDATE ? (
         <div style={{ margin: '20px 0 15px' }} className="d-block">
-          <label htmlFor="justification">
-            Justificativa <small>(opcional)</small>
-          </label>
+          <Label for="justification">Justificativa</Label>
           <TextArea
             name="justification"
             id="justification"
             maxLength={500}
             defaultValue={value && value.justification}
+            placeholder="Explique o motivo de sua escolha."
           />
+          <FormText>A justificativa é opcional.</FormText>
         </div>
       ) : null}
 
