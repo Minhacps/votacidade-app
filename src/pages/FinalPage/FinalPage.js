@@ -40,8 +40,8 @@ const FinalPage = ({ user }) => {
             </p>
           )}
 
-          {cityName === 'Porto Alegre' ? (
-            <p className="mt-3" style={{ fontSize: '12pt' }}>
+          {cityName === 'Porto Alegre' && (
+            <p>
               Nós, da <strong>Minha Porto Alegre,</strong> valorizamos a
               representatividade. Por isso, estabelecemos um critério mínimo
               para lançarmos a ferramenta: termos pelo menos 15 partidos
@@ -51,25 +51,27 @@ const FinalPage = ({ user }) => {
               <br />
               Acompanhe as nossas redes sociais para atualizações e novidades!
             </p>
-          ) : null}
-          {cityName === 'Recife' ? (
-            <p className="mt-3" style={{ fontSize: '12pt' }}>
+          )}
+
+          {cityName === 'Recife' && (
+            <p>
               Para que existe uma boa representatividade de cadastro de
               candidatos e candidatas no site de <strong>{cityName}</strong> o
               critério mínimo para lançarmos a ferramenta será termos pelo menos
               15 partidos cadastrados no sistema. A partir desse índice
               alcançado lançaremos o ranking.
             </p>
-          ) : null}
-          {cityName === 'João Pessoa' ? (
-            <p className="mt-3" style={{ fontSize: '12pt' }}>
+          )}
+
+          {cityName === 'João Pessoa' && (
+            <p>
               Para que existe uma boa representatividade de cadastro de
               candidatos e candidatas no site de <strong>{cityName}</strong> o
               critério mínimo para lançarmos a ferramenta será termos pelo menos
               15 partidos cadastrados no sistema. A partir desse índice
               alcançado lançaremos o ranking.
             </p>
-          ) : null}
+          )}
         </Col>
       </Row>
     </Container>
