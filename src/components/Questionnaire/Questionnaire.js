@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
 
-import { CANDIDATE } from 'constants/userRoles';
+import { ROLE_CANDIDATE } from 'constants/userRoles';
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
@@ -49,7 +49,7 @@ const Questionnaire = ({ user }) => {
 
   return (
     <>
-      {user.role === CANDIDATE && showAlert ? (
+      {user.role === ROLE_CANDIDATE && showAlert ? (
         <div
           style={{ maxWidth: '818px', margin: '20px auto 0' }}
           className="alert alert-primary alert-dismissible fade show"
