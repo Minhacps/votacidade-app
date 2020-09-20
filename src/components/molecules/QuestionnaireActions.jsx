@@ -5,19 +5,18 @@ import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, questionIndex, onBack, onSkip }) => (
   <FormGroup row>
-    {questionIndex > 0 && (
-      <Col>
-        <Button
-          color="primary"
-          outline
-          block
-          type="button"
-          onClick={onBack}
-        >
-          Anterior
-        </Button>
-      </Col>
-    )}
+    <Col>
+      <Button
+        color="primary"
+        outline
+        block
+        type="button"
+        onClick={onBack}
+        disabled={questionIndex === 0}
+      >
+        Anterior
+      </Button>
+    </Col>
 
     {questionIndex < questionnaireLength - 1 && (
       <Col>
