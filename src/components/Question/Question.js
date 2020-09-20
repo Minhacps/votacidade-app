@@ -113,37 +113,39 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
 
       {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
-      <CustomRadio
-        onChange={handleDecisionChoice}
-        option="DT"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo Totalmente"
-      />
+      <FormGroup>
+        <CustomRadio
+          onChange={handleDecisionChoice}
+          option="DT"
+          name="answer"
+          value={value && value.answer}
+          label="Discordo Totalmente"
+        />
 
-      <CustomRadio
-        onChange={handleDecisionChoice}
-        option="D"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo"
-      />
+        <CustomRadio
+          onChange={handleDecisionChoice}
+          option="D"
+          name="answer"
+          value={value && value.answer}
+          label="Discordo"
+        />
 
-      <CustomRadio
-        onChange={handleDecisionChoice}
-        option="C"
-        name="answer"
-        value={value && value.answer}
-        label="Concordo"
-      />
+        <CustomRadio
+          onChange={handleDecisionChoice}
+          option="C"
+          name="answer"
+          value={value && value.answer}
+          label="Concordo"
+        />
 
-      <CustomRadio
-        onChange={handleDecisionChoice}
-        option="CT"
-        name="answer"
-        value={value && value.answer}
-        label="Concordo Totalmente"
-      />
+        <CustomRadio
+          onChange={handleDecisionChoice}
+          option="CT"
+          name="answer"
+          value={value && value.answer}
+          label="Concordo Totalmente"
+        />
+      </FormGroup>
 
       {user.role === ROLE_CANDIDATE && (
         <FormGroup className="my-4">
