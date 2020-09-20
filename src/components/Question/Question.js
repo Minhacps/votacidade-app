@@ -43,7 +43,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
   );
   const { question, explanation } = questionnaire[id];
 
-  const saveVoterAnswer = (event) => {
+  const handleDecisionChoice = (event) => {
     setErrorMessage(null);
 
     if (user.role === ROLE_CANDIDATE) {
@@ -102,7 +102,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       )}
 
       <CustomRadio
-        onChange={saveVoterAnswer}
+        onChange={handleDecisionChoice}
         option="DT"
         name="answer"
         value={value && value.answer}
@@ -110,7 +110,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       />
 
       <CustomRadio
-        onChange={saveVoterAnswer}
+        onChange={handleDecisionChoice}
         option="D"
         name="answer"
         value={value && value.answer}
@@ -118,7 +118,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       />
 
       <CustomRadio
-        onChange={saveVoterAnswer}
+        onChange={handleDecisionChoice}
         option="C"
         name="answer"
         value={value && value.answer}
@@ -126,7 +126,7 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       />
 
       <CustomRadio
-        onChange={saveVoterAnswer}
+        onChange={handleDecisionChoice}
         option="CT"
         name="answer"
         value={value && value.answer}
