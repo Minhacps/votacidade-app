@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input, Label } from 'reactstrap';
 
-import { QuestionOption, Checkmark } from 'components/Question/Question.styled';
+import { QuestionOption, Checkmark } from './Option.styled';
 
 const Option = ({ option, label, value, onChange }) => (
   <QuestionOption>
