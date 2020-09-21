@@ -130,6 +130,8 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
           userRole={user.role}
           questionnaireLength={questionnaire.length}
           answersLength={Object.values(answers).length}
+          minAnswers={minAnswers}
+          alreadyAnswered={value && value.answer ? true : false}
           questionIndex={id}
           onBack={handlePrevious}
           onSkip={handleSkip}
