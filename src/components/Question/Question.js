@@ -14,7 +14,7 @@ import Statement from 'components/Statement/Statement';
 import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
-const Question = ({ id, onSkip, onBack, value, user }) => {
+const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   const { answers, updateAnswers } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
