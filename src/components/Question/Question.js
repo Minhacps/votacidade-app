@@ -16,6 +16,7 @@ import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
 const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   const { answers, updateAnswers } = useContext(AnswersContext);
+  const answersLength = Object.values(answers).length;
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -23,26 +24,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   );
   const { question, explanation } = questionnaire[id];
 
-  const saveAnswer = (answer) => {
-    storeAnswer(answer);
-
-    const questionnaireLength = questionnaire.length;
-
-    let minAnswered = questionnaireLength * 0.7;
-
-    if (user.role === ROLE_CANDIDATE) {
-      minAnswered = questionnaireLength;
-    }
-
-    if (
-      id === questionnaireLength - 1 &&
-      Object.values(answers).length === minAnswered
-    ) {
-      push(`${cityPath}/ranking`);
-    }
-  };
-
-  const storeAnswer = (data) => {
+  const saveAnswer = (data) => {
     const answer = {
       [id]: data,
     };
@@ -66,16 +48,11 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     saveAnswer({
       answer: event.target.value,
     });
-  };
 
-  const handlePrevious = () => {
-    setErrorMessage(null);
-    onBack();
-  };
-
-  const handleSkip = () => {
-    setErrorMessage(null);
-    onSkip();
+    // Last question.
+    if (id === questionnaire.length - 1) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -92,6 +69,21 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
+
+    // Minimum of answers were answered.
+    if (answersLength >= minAnswers) {
+      push(`${cityPath}/ranking`);
+    }
+  };
+
+  const handlePrevious = () => {
+    setErrorMessage(null);
+    onBack();
+  };
+
+  const handleSkip = () => {
+    setErrorMessage(null);
+    onSkip();
   };
 
   return (
@@ -129,7 +121,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
         <QuestionnaireAction
           userRole={user.role}
           questionnaireLength={questionnaire.length}
-          answersLength={Object.values(answers).length}
+          answersLength={answersLength}
           minAnswers={minAnswers}
           alreadyAnswered={value && value.answer ? true : false}
           questionIndex={id}
