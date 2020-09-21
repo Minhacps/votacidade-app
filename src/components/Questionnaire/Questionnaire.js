@@ -16,6 +16,11 @@ const Questionnaire = ({ user }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [alertVisible, setAlertVisible] = useState(true);
 
+  const minAnswers =
+    user.role === ROLE_CANDIDATE
+      ? questionnaire.length
+      : questionnaire.length * 0.7;
+
   const onDismiss = () => setAlertVisible(false);
 
   useEffect(() => {
@@ -68,6 +73,7 @@ const Questionnaire = ({ user }) => {
             onBack={handleBack}
             value={answers && answers[currentQuestion]}
             user={user}
+            minAnswers={minAnswers}
           />
         </Col>
       </Row>
