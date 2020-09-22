@@ -1,3 +1,4 @@
+const fs = require('fs');
 const CryptoJS = require('crypto-js');
 
 const encrypt = (file) =>
@@ -5,6 +6,9 @@ const encrypt = (file) =>
     JSON.stringify(file),
     process.env.VOTACIDADE_ENCRYPTION_KEY,
   ).toString();
+
+const encryptJsonFile = (filePath) =>
+  encrypt(JSON.parse(fs.readFileSync(filePath)));
 
 const decrypt = (file) => {
   var decrypted = CryptoJS.AES.decrypt(
@@ -16,5 +20,6 @@ const decrypt = (file) => {
 
 module.exports = {
   encrypt,
+  encryptJsonFile,
   decrypt,
 };

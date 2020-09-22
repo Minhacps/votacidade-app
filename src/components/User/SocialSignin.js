@@ -82,7 +82,7 @@ function SocialSignIn({ updateErrorMessage }) {
       <TwitterLoginButton
         onClick={signInWithTwitter}
         text="Entrar com Twitter"
-        style={{ ...buttonStyle, color: '#FFF' }}
+        style={{ ...buttonStyle }}
         align="center"
       />
     </div>

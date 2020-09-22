@@ -31,7 +31,7 @@ const Login = ({ shouldComplete, user }) => {
           alt="Imagem de fundo com a visão aérea de uma cidade com prédios altos em degradê das cores violeta e laranja claro"
         />
         <Row className="pt-5 mb-5 align-items-center justify-content-center">
-          <Col xs="12" sm="8" md="6" lg="4">
+          <Col xs="auto">
             <Box>
               <Tabs>
                 <TabButton active={isLogin} onClick={() => setIsLogin(true)}>
@@ -47,28 +47,30 @@ const Login = ({ shouldComplete, user }) => {
                   <span>Cadastrar</span>
                 </TabButton>
               </Tabs>
-              {isLogin && (
-                <>
-                  {showPasswordRecovery ? (
-                    <ForgotPassword
-                      hideForgotPassword={() => setShowPasswordRecovery(false)}
-                    />
-                  ) : (
-                    <>
-                      {/* TODO: ESTILIZAR ESTA MENSAGEM DE ERRO */}
-                      {errorMessage}
-                      <SignInForm
-                        setShowForgotPasswordForm={setShowPasswordRecovery}
-                        updateErrorMessage={updateErrorMessage}
+              <Row>
+                {isLogin ? (
+                  <Col xs="12">
+                    {showPasswordRecovery ? (
+                      <ForgotPassword
+                        hideForgotPassword={() => setShowPasswordRecovery(false)}
                       />
-                    </>
-                  )}
-                </>
-              )}
-
-              {!isLogin && (
-                <SignUpForm onBackClick={() => setIsLogin(true)} user={user} />
-              )}
+                    ) : (
+                      <>
+                        {/* TODO: ESTILIZAR ESTA MENSAGEM DE ERRO */}
+                        {errorMessage}
+                        <SignInForm
+                          setShowForgotPasswordForm={setShowPasswordRecovery}
+                          updateErrorMessage={updateErrorMessage}
+                        />
+                      </>
+                    )}
+                  </Col>
+                ) : (
+                  <Col>
+                    <SignUpForm onBackClick={() => setIsLogin(true)} user={user} />
+                  </Col>
+                )}
+              </Row>
             </Box>
           </Col>
         </Row>
