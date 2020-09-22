@@ -9,52 +9,47 @@ const validAnswers = ['CT', 'C', 'D', 'DT'];
 let lastFetch = -1;
 
 let candidateData = {
-  answers: [],
+  candidate: {},
   isUpToDate: () => {
     return lastFetch === -1 ? false : new Date() - lastFetch < cacheTimeoutMs;
   },
 };
 
-const getCandidateAnswers = () => {
+const getCandidateAnswers = async () => {
   if (candidateData.isUpToDate()) {
-    return new Promise((resolve, reject) => resolve(candidateData.answers));
+    return new Promise((resolve, reject) => resolve(candidateData.candidate));
   }
-  candidateData.answers = fetchCandidateAnswers();
+
+  const result = await fetchCandidateAnswers();
+
+  candidateData.candidate = result.val();
   lastFetch = new Date();
-  return candidateData.answers;
+  return candidateData.candidate;
 };
 
-const fetchCandidateAnswers = () => {
-  const candidateAnswersCollection = admin
-    .firestore()
-    .collection('candidateAnswers');
-  // const numQuestions = 40;
-
-  return (
-    candidateAnswersCollection
-      // .where('40', '>', '')
-      .get()
-      .then((querySnapshot) => querySnapshot.docs)
-  );
-};
+const fetchCandidateAnswers = () => admin.database().ref().once('value');
 
 const getMatchScores = (voterAnswers, allCandidatesData) => {
   return (
-    allCandidatesData
+    Object.keys(allCandidatesData)
       // .filter((candidateData) => {
       //   amountOfAnswers = Object.keys(candidateData.data()).length;
       //   return amountOfAnswers === 40;
       // })
-      .map((candidateData) => {
-        const score = matcher.getMatchScore(voterAnswers, candidateData.data())
-          .normalized;
+      .map((candidateId) => {
+        const { answers, ...candidateProfile } = allCandidatesData[candidateId];
+
+        const score = matcher.getMatchScore(
+          voterAnswers,
+          allCandidatesData[candidateId].answers,
+        ).normalized;
 
         return {
-          candidateId: candidateData.id,
-          matchScore: score,
+          ...candidateProfile,
+          match: score,
         };
       })
-      .sort((a, b) => b.matchScore - a.matchScore)
+      .sort((a, b) => b.match - a.match)
   );
 };
 

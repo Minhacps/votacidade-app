@@ -9,7 +9,7 @@ exports.getMatchScore = (voterAnswers, candidateAnswers) => {
   const voterAnsweredQuestionsIds = Object.keys(voterAnswers);
   const score = voterAnsweredQuestionsIds.reduce((score, questionId) => {
     const voterAnswer = voterAnswers[questionId].answer;
-    const candidateAnswer = candidateAnswers[questionId].answer;
+    const candidateAnswer = candidateAnswers[questionId - 1];
 
     return score + voterToCandidateScoringTable[voterAnswer][candidateAnswer];
   }, 0);
