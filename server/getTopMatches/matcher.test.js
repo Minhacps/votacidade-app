@@ -3,16 +3,16 @@ const matcher = require('./matcher.js');
 describe('matcher', () => {
   it('should give 100% match when all the answers match', () => {
     const voterAnswers = {
-      1: { answer: 'CT' },
-      2: { answer: 'C' },
-      3: { answer: 'D' },
-      4: { answer: 'DT' },
+      1: 'CT',
+      2: 'C',
+      3: 'D',
+      4: 'DT',
     };
     const candidateAnswers = {
-      1: { answer: 'CT' },
-      2: { answer: 'C' },
-      3: { answer: 'D' },
-      4: { answer: 'DT' },
+      1: 'CT',
+      2: 'C',
+      3: 'D',
+      4: 'DT',
     };
 
     const matchScore = matcher.getMatchScore(voterAnswers, candidateAnswers);
@@ -21,12 +21,12 @@ describe('matcher', () => {
   });
 
   it('should give 100% match when all the answers match and the voter did not answer all questions', () => {
-    const voterAnswers = { 1: { answer: 'CT' }, 2: { answer: 'C' } };
+    const voterAnswers = { 1: 'CT', 2: 'C' };
     const candidateAnswers = {
-      1: { answer: 'CT' },
-      2: { answer: 'C' },
-      3: { answer: 'D' },
-      4: { answer: 'DT' },
+      1: 'CT',
+      2: 'C',
+      3: 'D',
+      4: 'DT',
     };
 
     const matchScore = matcher.getMatchScore(voterAnswers, candidateAnswers);
@@ -36,16 +36,16 @@ describe('matcher', () => {
 
   it('should give 0% match if all the answers are extreme oposites', () => {
     const voterAnswers = {
-      1: { answer: 'CT' },
-      2: { answer: 'DT' },
-      3: { answer: 'CT' },
-      4: { answer: 'DT' },
+      1: 'CT',
+      2: 'DT',
+      3: 'CT',
+      4: 'DT',
     };
     const candidateAnswers = {
-      1: { answer: 'DT' },
-      2: { answer: 'CT' },
-      3: { answer: 'DT' },
-      4: { answer: 'CT' },
+      1: 'DT',
+      2: 'CT',
+      3: 'DT',
+      4: 'CT',
     };
 
     const matchScore = matcher.getMatchScore(voterAnswers, candidateAnswers);
@@ -66,13 +66,11 @@ describe('matcher', () => {
     ${'C'}  | ${'CT'} | ${2}
     ${'CT'} | ${'CT'} | ${4}
   `('$a and $b give a score of $expectedScore', ({ a, b, expectedScore }) => {
-    expect(
-      matcher.getMatchScore({ 1: { answer: a } }, { 1: { answer: b } })
-        .absolute,
-    ).toBe(expectedScore);
-    expect(
-      matcher.getMatchScore({ 1: { answer: b } }, { 1: { answer: a } })
-        .absolute,
-    ).toBe(expectedScore);
+    expect(matcher.getMatchScore({ 1: a }, { 1: b }).absolute).toBe(
+      expectedScore,
+    );
+    expect(matcher.getMatchScore({ 1: b }, { 1: a }).absolute).toBe(
+      expectedScore,
+    );
   });
 });

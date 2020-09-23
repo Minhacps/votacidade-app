@@ -1,21 +1,51 @@
 const getTopMatches = require('./getTopMatches.js');
 
+const answers = {
+  0: 'DT',
+  1: 'CT',
+};
+
+const candidateData = {
+  candidateNumber: '',
+  city: '',
+  cnpj: '',
+  description: '',
+  email: '',
+  ethnicGroup: '',
+  gender: '',
+  name: '',
+  politicalParty: '',
+  role: '',
+  socialGroup: '',
+};
+
+const fakeDatabaseData = {
+  'candidate-1': {
+    ...candidateData,
+    answers: ['CT', 'CT'],
+  },
+  'candidate-2': {
+    ...candidateData,
+    answers: ['DT', 'CT'],
+  },
+};
+
+const firebaseMock = {
+  database: () => ({
+    ref: () => ({
+      once: () =>
+        Promise.resolve({
+          val: () => fakeDatabaseData,
+        }),
+    }),
+  }),
+};
+
 describe('getTopMatches', () => {
-  it('should throw error for unauthenticated requests', () => {
-    expect(() => getTopMatches({}, { auth: false })).toThrow(
-      'You must be logged in to call this function.',
-    );
-  });
+  it('returns matches sorted by match score', async () => {
+    const result = await getTopMatches(firebaseMock, answers);
 
-  // it('should throw error for invalid indexes', () => {
-  //   expect(() => getTopMatches({ 50: 'C' }, { auth: true })).toThrow(
-  //     'The answers must be indexed from 1 to 40.',
-  //   );
-  // });
-
-  it('should throw error for invalid answers', () => {
-    expect(() =>
-      getTopMatches({ 1: { answer: 'BLA' } }, { auth: true }),
-    ).toThrow('The answers must be one of: CT C D DT.');
+    expect(result[0].id).toEqual('candidate-2');
+    expect(result[1].id).toEqual('candidate-1');
   });
 });
