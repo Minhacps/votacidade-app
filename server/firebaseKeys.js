@@ -32,6 +32,7 @@ const firebaseInstances = Object.keys(keys).reduce(
     [key]: () =>
       admin.initializeApp(
         {
+          databaseURL: `https://${key}.firebaseio.com`,
           credential: admin.credential.cert(decrypt(keys[key])),
         },
         Date.now().toString(),
