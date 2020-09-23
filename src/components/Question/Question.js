@@ -15,7 +15,7 @@ import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
 const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
-  const { answers, updateAnswers } = useContext(AnswersContext);
+  const { answers, updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const answersLength = Object.values(answers).length;
 
   const [errorMessage, setErrorMessage] = useState(null);
