@@ -7,40 +7,22 @@ const ListCandidates = ({ firebase }) => {
   let [candidates, setCandidates] = useState([]);
 
   useEffect(() => {
-    console.log('List candidates');
-    firebaseAuth
-      .firestore()
-      .collection('users')
-      .where('role', '==', 'candidate')
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach(function (doc) {
-          let candidate = doc.data();
-          candidate.uid = doc.id;
-          firebase
-            .firestore()
-            .collection('candidateAnswers')
-            .doc(candidate.uid)
-            .get()
-            .then((doc) => {
-              console.log('Dentro do firestore da cidade');
-              if (doc.exists) {
-                const answers = doc.data();
-                const answersKeys = Object.keys(answers);
-                candidate.answersCompleted = answersKeys.length;
-                setCandidates((candidates) => [...candidates, candidate]);
-              } else {
-                console.log('Documento ', candidate.uid, 'não encontrado');
-              }
-            })
-            .catch(() => {
-              console.log('Problemas ao ler o firestore da cidade');
-            });
-        });
-      })
-      .catch(() => {
-        console.log('Ocorreu um erro ao ler os dados');
+    firebase
+      .database()
+      .ref()
+      .on('value', function (snapshot) {
+        console.log(snapshot.val());
       });
+
+    console.log(candidates);
+    // if (doc.exists) {
+    //   const answers = doc.data();
+    //   const answersKeys = Object.keys(answers);
+    //   candidate.answersCompleted = answersKeys.length;
+    //   setCandidates((candidates) => [...candidates, candidate]);
+    // } else {
+    //   console.log('Documento ', candidate.uid, 'não encontrado');
+    // }
   }, []);
 
   return (
