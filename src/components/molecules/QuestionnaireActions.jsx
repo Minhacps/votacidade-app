@@ -35,7 +35,7 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, min
       {userRole === ROLE_CANDIDATE && (
         <Col>
           <Button type="submit" color="primary" block>
-            {!alreadyAnswered && answersLength >= (minAnswers < 1) ? 'Finalizar' : 'Responder'}
+            {answersLength >= (minAnswers - 1) && !alreadyAnswered ? 'Finalizar' : 'Responder'}
           </Button>
         </Col>
       )}
