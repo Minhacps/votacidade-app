@@ -24,7 +24,8 @@ const App = () => {
             .firestore()
             .collection('users')
             .doc(user.uid)
-            .onSnapshot((snapshot) => {
+            .get()
+            .then((snapshot) => {
               const userData = snapshot.data();
               setUserIncompleted(userData);
               redirectUserByCity(userData);

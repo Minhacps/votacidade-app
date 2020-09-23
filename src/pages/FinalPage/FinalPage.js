@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { Container } from 'reactstrap';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import colors from 'styles/colors';
+import { AnswersContext } from '../../components/AnswersProvider/AnswersProvider';
+import { getMatches } from './FinalPageService';
 
 const StyledUserName = styled.span`
   color: ${colors.purple};
@@ -12,7 +14,15 @@ const StyledUserName = styled.span`
 `;
 
 const FinalPage = ({ user }) => {
-  const { cityName } = useContext(CityContext);
+  const { getAnswersMap } = useContext(AnswersContext);
+  const { cityName, firebase } = useContext(CityContext);
+
+  useEffect(() => {
+    getMatches({
+      answers: getAnswersMap(),
+      projectId: firebase.options.projectId,
+    }).then(console.log);
+  });
 
   return (
     <Container className="py-4" style={{ lineHeight: '20px' }}>

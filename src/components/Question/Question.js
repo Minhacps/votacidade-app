@@ -36,8 +36,8 @@ const CustomRadio = ({ option, label, value, onChange }) => (
   </QuestionOption>
 );
 
-const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
-  const { updateAnswers } = useContext(AnswersContext);
+const Question = ({ id, onSkip, onBack, value, user }) => {
+  const { updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -68,6 +68,17 @@ const Question = ({ id, onSave, onSkip, onBack, value, user }) => {
       setErrorMessage('Escolha uma opção');
       return;
     }
+
+    firebase
+      .database()
+      .ref(currentUser.uid)
+      .set({
+        ...user,
+        answers: {
+          ...getAnswersMap(),
+          [id]: event.target.answer.value,
+        },
+      });
 
     saveAnswer({
       answer: event.target.answer.value,
