@@ -17,6 +17,7 @@ import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   const { answers, updateAnswers } = useContext(AnswersContext);
   const answersLength = Object.values(answers).length;
+
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -64,6 +65,17 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       document.documentElement.scrollTop = 0;
       return;
     }
+
+    firebase
+      .database()
+      .ref(currentUser.uid)
+      .set({
+        ...user,
+        answers: {
+          ...getAnswersMap(),
+          [id]: event.target.answer.value,
+        },
+      });
 
     saveAnswer({
       answer: event.target.answer.value,

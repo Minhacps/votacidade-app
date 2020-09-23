@@ -6,7 +6,15 @@ import { ROLE_CANDIDATE } from 'constants/userRoles';
 import { CityContext } from 'components/CityProvider/CityProvider';
 
 const FinalPage = ({ user }) => {
-  const { cityName } = useContext(CityContext);
+  const { getAnswersMap } = useContext(AnswersContext);
+  const { cityName, firebase } = useContext(CityContext);
+
+  useEffect(() => {
+    getMatches({
+      answers: getAnswersMap(),
+      projectId: firebase.options.projectId,
+    }).then(console.log);
+  });
 
   return (
     <Container className="py-4">

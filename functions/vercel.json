@@ -1,5 +1,0 @@
-{
-  "env": {
-    "VOTACIDADE_ENCRYPTION_KEY": "@votacidade_config_key"
-  }
-}
