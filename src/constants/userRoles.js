@@ -1,7 +1,7 @@
-export const VOTER = 'voter';
-export const CANDIDATE = 'candidate';
+export const ROLE_VOTER = 'voter';
+export const ROLE_CANDIDATE = 'candidate';
 
 export default {
-  VOTER,
-  CANDIDATE,
+  ROLE_VOTER,
+  ROLE_CANDIDATE,
 };

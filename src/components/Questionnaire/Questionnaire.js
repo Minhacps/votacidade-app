@@ -1,18 +1,27 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
+import { Alert, Col, Container, Row } from 'reactstrap';
 
-import { CANDIDATE } from 'constants/userRoles';
+import { ROLE_CANDIDATE } from 'constants/userRoles';
+
 import Question from 'components/Question/Question';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
-const Questions = ({ user }) => {
+const Questionnaire = ({ user }) => {
   const location = useLocation();
   const history = useHistory();
   const { answers } = useContext(AnswersContext);
   const { questionnaire } = useContext(CityContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [showAlert, setShowAlert] = useState(true);
+  const [alertVisible, setAlertVisible] = useState(true);
+
+  const minAnswers =
+    user.role === ROLE_CANDIDATE
+      ? questionnaire.length
+      : questionnaire.length * 0.7;
+
+  const onDismiss = () => setAlertVisible(false);
 
   useEffect(() => {
     const getFirstUnansweredQuestion = (loadedAnswers) => {
@@ -39,7 +48,7 @@ const Questions = ({ user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 
-  const handleSkip = (answer) => {
+  const handleSkip = () => {
     setCurrentQuestion(currentQuestion + 1);
   };
 
@@ -48,35 +57,28 @@ const Questions = ({ user }) => {
   };
 
   return (
-    <>
-      {user.role === CANDIDATE && showAlert ? (
-        <div
-          style={{ maxWidth: '818px', margin: '20px auto 0' }}
-          className="alert alert-primary alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Candidato(a),</strong> você precisa responder 100% das
-          questões para aparecer no ranking.
-          <button
-            type="button"
-            className="close"
-            data-dismiss="alert"
-            aria-label="Close"
-            onClick={() => setShowAlert(false)}
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-      ) : null}
-      <Question
-        id={currentQuestion}
-        onSkip={handleSkip}
-        onBack={handleBack}
-        value={answers && answers[currentQuestion]}
-        user={user}
-      />
-    </>
+    <Container className="py-4">
+      <Row className="justify-content-center">
+        <Col xs="12" md="9">
+          {user.role === ROLE_CANDIDATE && (
+            <Alert color="primary" isOpen={alertVisible} toggle={onDismiss}>
+              <strong>Candidato(a)</strong>, você precisa responder 100% das
+              questões para aparecer no ranking.
+            </Alert>
+          )}
+
+          <Question
+            id={currentQuestion}
+            onSkip={handleSkip}
+            onBack={handleBack}
+            value={answers && answers[currentQuestion]}
+            user={user}
+            minAnswers={minAnswers}
+          />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
-export default Questions;
+export default Questionnaire;

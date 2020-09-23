@@ -1,43 +1,23 @@
 import React, { useState, useContext } from 'react';
-import { Form, Input, Button, Alert } from 'reactstrap';
-
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import { Form, Alert, Label, FormText, FormGroup } from 'reactstrap';
+
+import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
-
-import { QuestionOption, Checkmark, TextArea } from './Question.styled';
-import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
-const TitleQuestion = styled.span`
-  font-size: 18px;
-`;
+import { TextArea } from './Question.styled';
+import StatementExplanation from 'components/StatementExplanation/StatementExplanation';
+import Statement from 'components/Statement/Statement';
+import Decision from 'components/organisms/Decision';
+import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
-const StyledForm = styled(Form)`
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 1.5rem;
-`;
+const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
+  const { answers, updateAnswers } = useContext(AnswersContext);
+  const answersLength = Object.values(answers).length;
 
-const CustomRadio = ({ option, label, value, onChange }) => (
-  <QuestionOption>
-    <Input
-      onChange={onChange}
-      type="radio"
-      id={`answer-${option}`}
-      name="answer"
-      value={option}
-      defaultChecked={value === option}
-    />
-    <Checkmark />
-    <label htmlFor={`answer-${option}`}>{label}</label>
-  </QuestionOption>
-);
-
-const Question = ({ id, onSkip, onBack, value, user }) => {
-  const { updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -45,10 +25,24 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
   );
   const { question, explanation } = questionnaire[id];
 
-  const saveVoterAnswer = (event) => {
+  const saveAnswer = (data) => {
+    const answer = {
+      [id]: data,
+    };
+
+    updateAnswers(answer);
+
+    return firebase
+      .firestore()
+      .collection(answersCollection(user.role))
+      .doc(currentUser.uid)
+      .set(answer, { merge: true });
+  };
+
+  const handleDecisionChoice = (event) => {
     setErrorMessage(null);
 
-    if (user.role === 'candidate') {
+    if (user.role === ROLE_CANDIDATE) {
       return;
     }
 
@@ -56,16 +50,19 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
       answer: event.target.value,
     });
 
+    // Last question.
     if (id === questionnaire.length - 1) {
       push(`${cityPath}/ranking`);
     }
   };
 
-  const saveCandidateAnswer = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (!event.target.answer.value) {
-      setErrorMessage('Escolha uma opção');
+      setErrorMessage('Escolha uma opção.');
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
       return;
     }
 
@@ -85,31 +82,25 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
       justification: event.target.justification.value,
     });
 
-    if (id === questionnaire.length - 1) {
+    // Minimum of answers were answered.
+    if (answersLength >= minAnswers - 1) {
       push(`${cityPath}/ranking`);
     }
   };
 
-  const saveAnswer = (data) => {
-    const answer = {
-      [id]: data,
-    };
+  const handlePrevious = () => {
+    setErrorMessage(null);
+    onBack();
+  };
 
-    updateAnswers(answer);
-
-    return firebase
-      .firestore()
-      .collection(answersCollection(user.role))
-      .doc(currentUser.uid)
-      .set(answer, { merge: true });
+  const handleSkip = () => {
+    setErrorMessage(null);
+    onSkip();
   };
 
   return (
-    <StyledForm onSubmit={saveCandidateAnswer} key={id + 1}>
-      <p>
-        <TitleQuestion>{id + 1}. </TitleQuestion>
-        <TitleQuestion>{question}</TitleQuestion>
-      </p>
+    <>
+      <Statement number={id + 1} text={question} />
 
       {explanation && (
         <div className="mb-3">
@@ -117,86 +108,40 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
         </div>
       )}
 
-      <CustomRadio
-        onChange={saveVoterAnswer}
-        option="DT"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo Totalmente"
-      />
+      <Form onSubmit={handleSubmit} key={id + 1}>
+        {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
+        <Decision
+          questionNumber={id + 1}
+          answer={value && value.answer}
+          handleDecisionChoice={handleDecisionChoice}
+        />
 
-      <CustomRadio
-        onChange={saveVoterAnswer}
-        option="D"
-        name="answer"
-        value={value && value.answer}
-        label="Discordo"
-      />
-
-      <CustomRadio
-        onChange={saveVoterAnswer}
-        option="C"
-        name="answer"
-        value={value && value.answer}
-        label="Concordo"
-      />
-
-      <CustomRadio
-        onChange={saveVoterAnswer}
-        option="CT"
-        name="answer"
-        value={value && value.answer}
-        label="Concordo Totalmente"
-      />
-
-      {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
-
-      {user.role === 'candidate' ? (
-        <div style={{ margin: '20px 0 15px' }} className="d-block">
-          <label htmlFor="justification">
-            Justificativa <small>(opcional)</small>
-          </label>
-          <TextArea
-            name="justification"
-            id="justification"
-            maxLength={500}
-            defaultValue={value && value.justification}
-          />
-        </div>
-      ) : null}
-
-      <div className="d-flex">
-        {id > 0 && (
-          <Button
-            color="primary"
-            outline
-            type="button"
-            onClick={onBack}
-            className="w-100 mr-4"
-          >
-            Anterior
-          </Button>
+        {user.role === ROLE_CANDIDATE && (
+          <FormGroup className="my-4">
+            <Label for="justification">Justificativa</Label>
+            <TextArea
+              name="justification"
+              id="justification"
+              maxLength={500}
+              defaultValue={value && value.justification}
+              placeholder="Explique o motivo de sua escolha."
+            />
+            <FormText>A justificativa é opcional.</FormText>
+          </FormGroup>
         )}
 
-        {id < questionnaire.length - 1 && (
-          <Button
-            color="primary"
-            outline
-            type="button"
-            onClick={() => onSkip()}
-            className="w-100  mr-4"
-          >
-            {user.role === 'candidate' ? 'Pular' : 'Próxima'}
-          </Button>
-        )}
-
-        {user.role === 'candidate' && (
-          <Button color="primary" className="w-100" outline>
-            {id === questionnaire.length - 1 ? 'Finalizar' : 'Responder'}
-          </Button>
-        )}
-      </div>
-    </StyledForm>
+        <QuestionnaireAction
+          userRole={user.role}
+          questionnaireLength={questionnaire.length}
+          answersLength={answersLength}
+          minAnswers={minAnswers}
+          alreadyAnswered={value && value.answer ? true : false}
+          questionIndex={id}
+          onBack={handlePrevious}
+          onSkip={handleSkip}
+        />
+      </Form>
+    </>
   );
 };
 

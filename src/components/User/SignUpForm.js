@@ -18,7 +18,7 @@ import { useForm, Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
 
 import InputPassword from './InputPassword';
-import userRoles from 'constants/userRoles';
+import { ROLE_CANDIDATE, ROLE_VOTER } from 'constants/userRoles';
 import { alfabeticOrder } from '../../styles/helper';
 import {
   genders,
@@ -58,7 +58,7 @@ const SignUpForm = ({ onBackClick, user }) => {
     } = data;
     setLoading(true);
 
-    const role = isCandidate ? userRoles.CANDIDATE : userRoles.VOTER;
+    const role = isCandidate ? ROLE_CANDIDATE : ROLE_VOTER;
     const candidateData = isCandidate
       ? {
           gender,

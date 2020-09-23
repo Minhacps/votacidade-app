@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Questions from 'components/Questions/Questions';
+import Questionnaire from 'components/Questionnaire/Questionnaire';
 import HomePage from 'pages/Home';
 import FinalPage from 'pages/FinalPage/FinalPage';
 
@@ -10,7 +10,7 @@ const BaseAppRoutes = ({ cityPath, user }) => (
       <HomePage />
     </Route>
     <Route path={`${cityPath}/questionario`} exact>
-      <Questions user={user} />
+      <Questionnaire user={user} />
     </Route>
     <Route path={`${cityPath}/ranking`} exact>
       <FinalPage user={user} />
