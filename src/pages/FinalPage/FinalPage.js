@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Col, Container, Row } from 'reactstrap';
+import { getMatches } from './FinalPageService';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
+import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 
 const FinalPage = ({ user }) => {
   const { getAnswersMap } = useContext(AnswersContext);
