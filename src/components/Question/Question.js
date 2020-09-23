@@ -71,7 +71,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     });
 
     // Minimum of answers were answered.
-    if (answersLength >= minAnswers) {
+    if (answersLength >= minAnswers - 1) {
       push(`${cityPath}/ranking`);
     }
   };
