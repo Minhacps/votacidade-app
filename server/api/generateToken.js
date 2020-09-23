@@ -1,7 +1,6 @@
 const { firebaseInstances } = require('../firebaseKeys');
-const allowCors = require('../allowCors');
 
-const handler = (request, response) => {
+const generateToken = (request, response) => {
   const firebaseInstance = firebaseInstances[request.query.instance]();
 
   firebaseInstance
@@ -16,4 +15,4 @@ const handler = (request, response) => {
     });
 };
 
-export default allowCors(handler);
+export default generateToken;

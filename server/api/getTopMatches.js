@@ -1,14 +1,15 @@
+const atob = require('atob');
 const { firebaseInstances } = require('../firebaseKeys');
-const allowCors = require('../allowCors');
 const getTopMatches = require('../getTopMatches/getTopMatches');
 
 const getMatches = async (request, response) => {
-  const firebase = firebaseInstances[request.body.instance]();
+  const query = JSON.parse(atob(request.query.query));
+  const firebase = firebaseInstances[query.instance]();
 
-  const result = await getTopMatches(firebase, request.body.answers);
+  const result = await getTopMatches(firebase, query.answers);
 
   response.setHeader('Cache-Control', 's-maxage=60');
   response.json(result);
 };
 
-export default allowCors(getMatches);
+export default getMatches;

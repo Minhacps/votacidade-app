@@ -12,6 +12,7 @@
     "node": "12.x"
   },
   "dependencies": {
+    "atob": "^2.1.2",
     "crypto-js": "^4.0.0",
     "firebase-admin": "^8.10.0",
     "nanoid": "^3.1.12"

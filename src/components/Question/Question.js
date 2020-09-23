@@ -37,7 +37,7 @@ const CustomRadio = ({ option, label, value, onChange }) => (
 );
 
 const Question = ({ id, onSkip, onBack, value, user }) => {
-  const { updateAnswers, answers } = useContext(AnswersContext);
+  const { updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -69,23 +69,13 @@ const Question = ({ id, onSkip, onBack, value, user }) => {
       return;
     }
 
-    const answersWithoutJustification = Object.keys(answers).reduce(
-      (accumulator, item) => {
-        return {
-          ...accumulator,
-          [item]: answers[item].answer,
-        };
-      },
-      {},
-    );
-
     firebase
       .database()
       .ref(currentUser.uid)
       .set({
         ...user,
         answers: {
-          ...answersWithoutJustification,
+          ...getAnswersMap(),
           [id]: event.target.answer.value,
         },
       });
