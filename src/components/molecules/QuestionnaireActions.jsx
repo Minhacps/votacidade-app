@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Col, FormGroup } from 'reactstrap';
 
-import { ROLE_CANDIDATE, ROLE_VOTER } from 'constants/userRoles';
+import { ROLE_CANDIDATE } from 'constants/userRoles';
 
 const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, minAnswers, questionIndex, alreadyAnswered, onBack, onSkip }) => {
   return(
