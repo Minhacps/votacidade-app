@@ -1,15 +1,27 @@
 const atob = require('atob');
 const { firebaseInstances } = require('../firebaseKeys');
-const getTopMatches = require('../getTopMatches/getTopMatches');
+const calculateTopMatches = require('../getTopMatches/getTopMatches');
+const sentry = require('../sentry');
 
-const getMatches = async (request, response) => {
-  const query = JSON.parse(atob(request.query.query));
-  const firebase = firebaseInstances[query.instance]();
+const getTopMatches = async (request, response) => {
+  const { Sentry, transaction } = sentry('generateToken');
 
-  const result = await getTopMatches(firebase, query.answers);
+  try {
+    const query = JSON.parse(atob(request.query.query));
+    const firebase = firebaseInstances[query.instance]();
 
-  response.setHeader('Cache-Control', 's-maxage=60');
-  response.json(result);
+    const result = await calculateTopMatches(firebase, query.answers);
+
+    response.setHeader('Cache-Control', 's-maxage=60');
+    response.json(result);
+  } catch (error) {
+    Sentry.captureException(error);
+
+    response.status(500);
+    response.json({ error: 'Failed to getTopMatches' });
+  } finally {
+    transaction.finish();
+  }
 };
 
-export default getMatches;
+export default getTopMatches;
