@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import firebaseAuth from 'firebase/app';
+// import firebaseAuth from 'firebase/app';
 import CandidateCard from 'components/CandidateCard/CandidateCard';
+import { get } from 'react-hook-form';
 
 const ListCandidates = ({ firebase }) => {
-  // let [candidate, setCandidate] = useState({});
-  let [candidates, setCandidates] = useState([]);
+  const [candidates, setCandidates] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [candidates1, setCandidates1] = useState([]);
 
   useEffect(() => {
-    firebase
+    getCandidates();
+
+    Object.keys(candidates).forEach((candidate) => {
+      // console.log(candidates[candidate]);
+      setCandidates1([...candidates1, candidates[candidate]]);
+    });
+  }, [loading]);
+
+  const getCandidates = async () => {
+    await firebase
       .database()
       .ref()
-      .on('value', function (snapshot) {
-        console.log(snapshot.val());
+      .once('value')
+      .then((result) => {
+        setCandidates(result.val());
+        setLoading(false);
       });
+  };
 
-    console.log(candidates);
-    // if (doc.exists) {
-    //   const answers = doc.data();
-    //   const answersKeys = Object.keys(answers);
-    //   candidate.answersCompleted = answersKeys.length;
-    //   setCandidates((candidates) => [...candidates, candidate]);
-    // } else {
-    //   console.log('Documento ', candidate.uid, 'não encontrado');
-    // }
-  }, []);
+  console.log(candidates1);
 
   return (
     <>
       <h2>Listagem de Candidatos(as)</h2>
-      {candidates
-        ? candidates.map((candidate) => {
-            return <CandidateCard key={candidate.uid} candidate={candidate} />;
-          })
-        : null}
+      {loading ? <p>Loading</p> : null}l
     </>
   );
 };
