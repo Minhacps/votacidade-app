@@ -65,21 +65,6 @@ export default function Ranking() {
         porcentagem de afinidade! Ah, você pode filtrar os candidatos, ver o
         perfil e as respostas de cada um.
       </PageDescription>
-      <HelpDescription>Gostou e quer ajudar o projeto?</HelpDescription>
-      <BoxWrapper>
-        <HelpBox href="#">
-          <DonationSvg />
-          <BoxDescription>Nos ajude a existir, doe!</BoxDescription>
-        </HelpBox>
-        <HelpBox href="#">
-          <ShareSvg />
-          <BoxDescription>Compartilhe com amigos</BoxDescription>
-        </HelpBox>
-        <HelpBox href="#">
-          <CandidateSvg />
-          <BoxDescription>Pressione um candidato</BoxDescription>
-        </HelpBox>
-      </BoxWrapper>
       <Divider />
       <Description>
         <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
