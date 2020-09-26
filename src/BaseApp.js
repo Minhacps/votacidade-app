@@ -14,40 +14,31 @@ const BaseApp = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if (process.env.REACT_APP_FIREBASE_ENV === 'prod') {
-      getCustomToken({ uid: currentUser.uid, cityPath })
-        .then((token) => {
-          firebase
-            .auth()
-            .signInWithCustomToken(token)
-            .then(() => {
-              firebaseAuth
-                .firestore()
-                .collection('users')
-                .doc(currentUser.uid)
-                .onSnapshot((snapshot) => {
-                  const userData = snapshot.data();
-                  setUser(userData);
-                  setIsLoading(false);
-                });
-            })
-            .catch(function (error) {
-              console.log(error);
-            });
-        })
-        .catch(console.log);
-      return;
-    }
-
-    firebaseAuth
-      .firestore()
-      .collection('users')
-      .doc(currentUser.uid)
-      .onSnapshot((snapshot) => {
-        const userData = snapshot.data();
-        setUser(userData);
-        setIsLoading(false);
-      });
+    getCustomToken({
+      uid: currentUser.uid,
+      projectId: firebase.options.projectId,
+    })
+      .then((token) => {
+        firebase
+          .auth()
+          .signInWithCustomToken(token)
+          .then(() => {
+            firebaseAuth
+              .firestore()
+              .collection('users')
+              .doc(currentUser.uid)
+              .get()
+              .then((snapshot) => {
+                const userData = snapshot.data();
+                setUser(userData);
+                setIsLoading(false);
+              });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      })
+      .catch(console.log);
   }, [cityPath, currentUser.uid, firebase]);
 
   if (isLoading) {

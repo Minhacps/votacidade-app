@@ -24,7 +24,8 @@ const App = () => {
             .firestore()
             .collection('users')
             .doc(user.uid)
-            .onSnapshot((snapshot) => {
+            .get()
+            .then((snapshot) => {
               const userData = snapshot.data();
               setUserIncompleted(userData);
               redirectUserByCity(userData);
@@ -35,8 +36,9 @@ const App = () => {
       });
     }
 
+    // Removido userData.city no teste para eliminar erro.
     const redirectUserByCity = (userData) => {
-      if (!userData.city) {
+      if (!userData) {
         return;
       }
 
@@ -51,7 +53,7 @@ const App = () => {
 
     // this useEffect should be executed only once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   if (lookingForUser) {
     return <PageLoading />;

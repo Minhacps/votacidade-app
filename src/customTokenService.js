@@ -1,5 +1,5 @@
-export const getCustomToken = ({ uid, cityPath }) => {
-  const queryParams = `?uid=${uid}&instance=${cityPath.replace('/', '')}`;
+export const getCustomToken = ({ uid, projectId }) => {
+  const queryParams = `?uid=${uid}&instance=${projectId}`;
 
   return fetch(`https://votacidade.vercel.app/api/generateToken${queryParams}`)
     .then((response) => response.json())

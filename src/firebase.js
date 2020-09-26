@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/functions';
 import 'firebase/database';
 import cities from './cities';
 
@@ -25,13 +26,13 @@ const prodConfig = {
 };
 
 firebase.initializeApp(
-  process.env.REACT_APP_FIREBASE_ENV === 'prod' ? prodConfig : devConfig,
+  process.env.REACT_APP_FIREBASE_ENV === 'prod' ? prodConfig : prodConfig,
 );
 
 cities.forEach((city) => {
   const cityConfig =
     process.env.REACT_APP_FIREBASE_ENV === 'prod'
       ? city.firebaseConfigProd
-      : city.firebaseConfig;
+      : city.firebaseConfigProd;
   firebase.initializeApp(cityConfig, city.cityPath);
 });
