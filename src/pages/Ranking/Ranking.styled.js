@@ -150,7 +150,7 @@ export const AffinityTag = styled.span`
   color: #fff;
   background-color: ${colors.purple};
   border-radius: 11px;
-  width: 53px;
+  padding: 0 10px;
   display: inline-flex;
   justify-content: center;
 `;

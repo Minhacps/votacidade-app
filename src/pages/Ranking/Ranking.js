@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, Button, Spinner } from 'reactstrap';
 import StarRatings from 'react-star-ratings';
 import colors from 'styles/colors';
@@ -31,16 +31,17 @@ import {
   ImgPlaceholder,
   ButtonWrapper,
 } from './Ranking.styled';
-import candidates from './rankingMock';
+import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 
 export default function Ranking() {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(3);
   const [listLimiter, setListlimiter] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
-  const hasMoreCandidates = candidates.length > listLimiter;
+  const { matches } = useContext(MatchesContext);
+  const hasMoreCandidates = matches.length > listLimiter;
   const candidatesCount =
-    listLimiter < candidates.length ? listLimiter : candidates.length;
+    listLimiter < matches.length ? listLimiter : matches.length;
   const limitList = (_, index) => index < listLimiter;
 
   const toggle = () => setIsOpen(!isOpen);
@@ -99,10 +100,10 @@ export default function Ranking() {
       <Divider />
       <Description>
         <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
-        no Vota de um total de {candidates.length}
+        no Vota de um total de {matches.length}
       </Description>
-      {candidates.filter(limitList).map((candidate, index) => (
-        <div key={index} data-testid="candidate-item">
+      {matches.filter(limitList).map((candidate) => (
+        <div key={candidate.id} data-testid="candidate-item">
           <CandidateCard>
             {candidate.picture ? (
               <Img
@@ -118,7 +119,7 @@ export default function Ranking() {
                 {candidate.candidateNumber} | {candidate.politicalParty}
               </CardInfo>
               <CardInfo>
-                Afinidade: <AffinityTag>{candidate.match}%</AffinityTag>
+                Afinidade: <AffinityTag>{candidate.match / 100}%</AffinityTag>
               </CardInfo>
             </InfoWrapper>
             <ProfileLink>
