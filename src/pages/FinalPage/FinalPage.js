@@ -2,8 +2,6 @@ import React, { useEffect, useContext } from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import { getMatches } from './FinalPageService';
 
-import { ROLE_CANDIDATE } from 'constants/userRoles';
-
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 
@@ -26,21 +24,13 @@ const FinalPage = ({ user }) => {
             Agradecemos a sua participação!
           </p>
 
-          {user.role === ROLE_CANDIDATE ? (
-            <p>
-              <strong>Candidato(a)</strong>, lembre-se que você precisa
-              responder todas as questões para participar do Vota Cidade. Após
-              feito isso, suas respostas serão exibidas publicamente no site,
-              pois assim quem concorda com você vai saber do seu posicionamento
-              e, possivelmente, te escolher como representante.
-            </p>
-          ) : (
-            <p>
-              <strong>Eleitor(a)</strong>, para que o índice de afinidade seja
-              exibido, lembre-se que você precisa responder no mínimo 21
-              questões.
-            </p>
-          )}
+          <p>
+            <strong>Candidato(a)</strong>, lembre-se que você precisa responder
+            todas as questões para participar do Vota Cidade. Após feito isso,
+            suas respostas serão exibidas publicamente no site, pois assim quem
+            concorda com você vai saber do seu posicionamento e, possivelmente,
+            te escolher como representante.
+          </p>
 
           {cityName === 'Campinas' && (
             <p>

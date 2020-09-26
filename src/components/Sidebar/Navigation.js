@@ -36,6 +36,12 @@ const Divider = styled.hr`
   border-top: 1px solid ${colors.grey300};
 `;
 
+const Ul = styled.ul`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
 const Navigation = ({ user }) => {
   const { currentUser, cityPath } = useContext(CityContext);
   const { toggleSidebar } = useContext(SidebarContext);
@@ -53,9 +59,18 @@ const Navigation = ({ user }) => {
     <div>
       <StyledName>{currentUser.displayName}</StyledName>
       <Divider />
-      <StyledLink to={cityPath} onClick={toggleSidebar}>
-        Como funciona
-      </StyledLink>
+      <Ul>
+        <li>
+          <StyledLink to={cityPath} onClick={toggleSidebar}>
+            Como funciona
+          </StyledLink>
+        </li>
+        <li>
+          <StyledLink to={`${cityPath}/ranking`} onClick={toggleSidebar}>
+            Ranking
+          </StyledLink>
+        </li>
+      </Ul>
       <Divider />
       <QuestionsBoard user={user} />
       <StyledLogout onClick={handleLogout}>Sair</StyledLogout>

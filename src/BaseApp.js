@@ -48,7 +48,7 @@ const BaseApp = () => {
   return (
     <AnswersProvider user={user} currentUser={currentUser} firebase={firebase}>
       <Authenticated user={user}>
-        <BaseAppRoutes cityPath={cityPath} user={user} />
+        <BaseAppRoutes cityPath={cityPath} user={user} firebase={firebase} />
       </Authenticated>
     </AnswersProvider>
   );
