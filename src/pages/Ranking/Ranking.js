@@ -1,7 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { Container, Button, Spinner } from 'reactstrap';
-import StarRatings from 'react-star-ratings';
-import colors from 'styles/colors';
 import { ReactComponent as CandidateSvg } from 'assets/icons/candidate.svg';
 import { ReactComponent as DonationSvg } from 'assets/icons/donation.svg';
 import { ReactComponent as ShareSvg } from 'assets/icons/share.svg';
@@ -15,12 +13,7 @@ import {
   BoxWrapper,
   HelpBox,
   BoxDescription,
-  RatingBox,
-  RatingHeader,
-  RatingTitle,
-  Chevron,
   Description,
-  RatingWrapper,
   Divider,
   CandidateCard,
   CardName,
@@ -34,9 +27,7 @@ import {
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 
-export default function Ranking({ user }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [rating, setRating] = useState(3);
+export default function Ranking() {
   const [listLimiter, setListlimiter] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const { matches } = useContext(MatchesContext);
@@ -45,9 +36,6 @@ export default function Ranking({ user }) {
   const candidatesCount =
     listLimiter < matches.length ? listLimiter : matches.length;
   const limitList = (_, index) => index < listLimiter;
-  console.log(matches);
-
-  const toggle = () => setIsOpen(!isOpen);
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -92,26 +80,6 @@ export default function Ranking({ user }) {
           <BoxDescription>Pressione um candidato</BoxDescription>
         </HelpBox>
       </BoxWrapper>
-      {/* <RatingBox>
-        <RatingHeader onClick={toggle}>
-          <RatingTitle>Avalie como foi sua experiência</RatingTitle>
-          <Chevron isOpen={isOpen} />
-        </RatingHeader>
-        {isOpen && (
-          <RatingWrapper>
-            <Description>Como você avalia sua experiência?</Description>
-            <StarRatings
-              rating={rating}
-              starRatedColor={colors.orangeLight}
-              changeRating={setRating}
-              numberOfStars={5}
-              name="rating"
-              starHoverColor={colors.orangeLight}
-              starDimension="40px"
-            />
-          </RatingWrapper>
-        )}
-      </RatingBox> */}
       <Divider />
       <Description>
         <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
