@@ -26,6 +26,14 @@ const AnswersProvider = ({ firebase, currentUser, user, children }) => {
     });
   };
 
+  const getAnswersMap = () =>
+    Object.keys(answers).reduce((accumulator, item) => {
+      return {
+        ...accumulator,
+        [item]: answers[item].answer,
+      };
+    }, {});
+
   if (isLoading) {
     return null;
   }
@@ -35,6 +43,7 @@ const AnswersProvider = ({ firebase, currentUser, user, children }) => {
       value={{
         answers,
         updateAnswers,
+        getAnswersMap,
       }}
     >
       {children}
