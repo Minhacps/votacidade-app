@@ -12,7 +12,13 @@ const MatchesProvider = ({ firebase, children }) => {
     getMatches({
       answers: getAnswersMap(),
       projectId: firebase.options.projectId,
-    }).then((data) => setMatches(data));
+    }).then((data) => {
+      if (Array.isArray(data)) {
+        return setMatches(data);
+      }
+
+      return setMatches([]);
+    });
 
     // this useEffect should be executed only once.
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Questionnaire from 'components/Questionnaire/Questionnaire';
 import HomePage from 'pages/Home';
-// import FinalPage from 'pages/FinalPage/FinalPage';
+import FinalPage from 'pages/FinalPage/FinalPage';
+
+import { ROLE_CANDIDATE } from 'constants/userRoles';
 import Ranking from 'pages/Ranking/Ranking';
 import MatchesProvider from 'components/MatchesProvider/MatchesProvider';
 
@@ -16,8 +18,11 @@ const BaseAppRoutes = ({ cityPath, user, firebase }) => (
     </Route>
     <MatchesProvider firebase={firebase}>
       <Route path={`${cityPath}/ranking`} exact>
-        <Ranking user={user} />
-        {/* <FinalPage user={user} /> */}
+        {user.role === ROLE_CANDIDATE ? (
+          <FinalPage user={user} />
+        ) : (
+          <Ranking user={user} />
+        )}
       </Route>
     </MatchesProvider>
   </Switch>

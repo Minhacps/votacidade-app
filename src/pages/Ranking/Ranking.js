@@ -32,17 +32,20 @@ import {
   ButtonWrapper,
 } from './Ranking.styled';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
+import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 
-export default function Ranking() {
+export default function Ranking({ user }) {
   const [isOpen, setIsOpen] = useState(false);
   const [rating, setRating] = useState(3);
   const [listLimiter, setListlimiter] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const { matches } = useContext(MatchesContext);
+  const { answers } = useContext(AnswersContext);
   const hasMoreCandidates = matches.length > listLimiter;
   const candidatesCount =
     listLimiter < matches.length ? listLimiter : matches.length;
   const limitList = (_, index) => index < listLimiter;
+  console.log(matches);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -53,6 +56,18 @@ export default function Ranking() {
       setIsLoading(false);
     }, 300);
   };
+
+  if (Object.keys(answers).length < 21) {
+    return (
+      <Container className="py-4">
+        <PageTitle>Ranking</PageTitle>
+        <p>
+          <strong>Eleitor(a)</strong>, para que o índice de afinidade seja
+          exibido, lembre-se que você precisa responder no mínimo 21 questões.
+        </p>
+      </Container>
+    );
+  }
 
   return (
     <Container className="py-4">
@@ -77,7 +92,7 @@ export default function Ranking() {
           <BoxDescription>Pressione um candidato</BoxDescription>
         </HelpBox>
       </BoxWrapper>
-      <RatingBox>
+      {/* <RatingBox>
         <RatingHeader onClick={toggle}>
           <RatingTitle>Avalie como foi sua experiência</RatingTitle>
           <Chevron isOpen={isOpen} />
@@ -96,7 +111,7 @@ export default function Ranking() {
             />
           </RatingWrapper>
         )}
-      </RatingBox>
+      </RatingBox> */}
       <Divider />
       <Description>
         <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
