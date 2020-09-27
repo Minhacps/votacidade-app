@@ -9,7 +9,7 @@ import {
 import { CityContext } from '../CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
-const ProgressBar = () => {
+const ProgressBar = ({ user }) => {
   const { questionnaire } = useContext(CityContext);
   const { answers } = useContext(AnswersContext);
   const [progress, setProgress] = useState(null);
