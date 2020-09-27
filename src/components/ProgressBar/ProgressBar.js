@@ -31,7 +31,7 @@ const ProgressBar = ({ user }) => {
   }, [answers, questionnaire]);
 
   return (
-    <ProgressBarContainer progress={progress}>
+    <ProgressBarContainer userRole={user.role} progress={progress}>
       <ProgressBarContent>
         <ProgressBarTitle>Seu progresso</ProgressBarTitle>
         <ProgressBarLabel>{progress}% completo</ProgressBarLabel>
