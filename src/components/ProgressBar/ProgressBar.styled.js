@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+
+import { ROLE_VOTER } from '../../constants/userRoles';
 import colors from '../../styles/colors';
 
 export const ProgressBarContainer = styled.div`
@@ -10,18 +12,22 @@ export const ProgressBarContainer = styled.div`
     position: relative;
     border-radius: 8px;
 
-    &::after {
-      content: '';
-      width: 10px;
-      height: 10px;
-      background: ${(props) => (props.progress > 70 ? '#fff' : colors.grey300)};
-      position: absolute;
-      top: 0;
-      left: 70%;
-      border-radius: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-    }
+    ${({ userRole, progress }) =>
+      userRole === ROLE_VOTER &&
+      `
+      &::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        background: ${progress > 70 ? '#fff' : colors.grey300};
+        position: absolute;
+        top: 0;
+        left: 70%;
+        border-radius: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    `}
   }
 
   .progress-bar {
