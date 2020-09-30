@@ -42,7 +42,6 @@ const Profile = () => {
       .get()
       .then((snapshot) => {
         setCandidateAnswers(snapshot.data());
-        console.log('foo');
       });
   }, [candidateId, firebase]);
 
