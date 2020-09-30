@@ -1,5 +1,12 @@
 export const cidades = [
   {
+    title: 'Americana',
+    state: 'SP',
+    // image: require('../../src/assets/img/photos_city/campinas-fundo.jpg'),
+    // linkTo: 'https://www.eufaco.minhacampinas.org.br',
+    value: 'americana',
+  },
+  {
     title: 'Campinas',
     state: 'SP',
     image: require('../../src/assets/img/photos_city/campinas-fundo.jpg'),
