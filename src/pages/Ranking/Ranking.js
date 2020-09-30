@@ -1,29 +1,22 @@
 import React, { useContext, useState } from 'react';
-import { Container, Button, Spinner } from 'reactstrap';
-import { ReactComponent as CandidateSvg } from 'assets/icons/candidate.svg';
-import { ReactComponent as DonationSvg } from 'assets/icons/donation.svg';
-import { ReactComponent as ShareSvg } from 'assets/icons/share.svg';
+import { Button, Container, Spinner } from 'reactstrap';
 import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 import { CityContext } from '../../components/CityProvider/CityProvider';
 
 import {
-  Img,
-  PageTitle,
-  PageDescription,
-  HelpDescription,
-  BoxWrapper,
-  HelpBox,
-  BoxDescription,
+  AffinityTag,
+  ButtonWrapper,
+  CandidateCard,
+  CardInfo,
+  CardName,
   Description,
   Divider,
-  CandidateCard,
-  CardName,
-  CardInfo,
-  AffinityTag,
-  ProfileLink,
-  InfoWrapper,
+  Img,
   ImgPlaceholder,
-  ButtonWrapper,
+  InfoWrapper,
+  PageDescription,
+  PageTitle,
+  ProfileLink,
 } from './Ranking.styled';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
