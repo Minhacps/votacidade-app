@@ -4,6 +4,7 @@ import { ReactComponent as CandidateSvg } from 'assets/icons/candidate.svg';
 import { ReactComponent as DonationSvg } from 'assets/icons/donation.svg';
 import { ReactComponent as ShareSvg } from 'assets/icons/share.svg';
 import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
+import { CityContext } from '../../components/CityProvider/CityProvider';
 
 import {
   Img,
@@ -36,6 +37,7 @@ export default function Ranking() {
   const candidatesCount =
     listLimiter < matches.length ? listLimiter : matches.length;
   const limitList = (_, index) => index < listLimiter;
+  const { cityPath } = useContext(CityContext);
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -90,7 +92,7 @@ export default function Ranking() {
                 Afinidade: <AffinityTag>{candidate.match / 100}%</AffinityTag>
               </CardInfo>
             </InfoWrapper>
-            <ProfileLink>
+            <ProfileLink to={`${cityPath}/perfil/${candidate.id}`}>
               <FindSvg />
             </ProfileLink>
           </CandidateCard>

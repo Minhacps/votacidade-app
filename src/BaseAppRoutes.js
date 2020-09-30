@@ -6,6 +6,7 @@ import FinalPage from 'pages/FinalPage/FinalPage';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
 import Ranking from 'pages/Ranking/Ranking';
+import Profile from 'pages/Profile/Profile';
 import MatchesProvider from 'components/MatchesProvider/MatchesProvider';
 
 const BaseAppRoutes = ({ cityPath, user, firebase }) => (
@@ -23,6 +24,9 @@ const BaseAppRoutes = ({ cityPath, user, firebase }) => (
         ) : (
           <Ranking user={user} />
         )}
+      </Route>
+      <Route path={`${cityPath}/perfil/:candidateId`}>
+        <Profile />
       </Route>
     </MatchesProvider>
   </Switch>

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
+import { Link } from 'react-router-dom';
 
 export const PageTitle = styled.h2`
   color: ${colors.purple};
@@ -155,7 +156,7 @@ export const AffinityTag = styled.span`
   justify-content: center;
 `;
 
-export const ProfileLink = styled.a`
+export const ProfileLink = styled(Link)`
   height: 40px;
   width: 40px;
   padding: 5px 8px;
