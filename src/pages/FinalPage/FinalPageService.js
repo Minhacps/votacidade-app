@@ -1,3 +1,5 @@
+import { apiDomain } from '../../constants/api';
+
 export const getMatches = ({ answers, projectId }) => {
   const query = btoa(
     JSON.stringify({
@@ -6,7 +8,7 @@ export const getMatches = ({ answers, projectId }) => {
     }),
   );
 
-  return fetch(`https://votacidade.vercel.app/api/getTopMatches?query=${query}`)
+  return fetch(`${apiDomain}/api/getTopMatches?query=${query}`)
     .then((response) => response.json())
     .then((response) => response);
 };
