@@ -7,7 +7,7 @@ const Authenticated = ({ user, children }) =>
   (
     <>
       <Header user={user}/>
-      <ProgressBar/>
+      <ProgressBar user={user} />
 
       {children}
       <Footer/>

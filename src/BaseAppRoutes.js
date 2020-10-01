@@ -5,6 +5,11 @@ import HomePage from 'pages/Home';
 import FinalPage from 'pages/FinalPage/FinalPage';
 import ListCandidates from 'pages/ListCandidates/ListCandidates';
 
+import { ROLE_CANDIDATE } from 'constants/userRoles';
+import Ranking from 'pages/Ranking/Ranking';
+import Profile from 'pages/Profile/Profile';
+import MatchesProvider from 'components/MatchesProvider/MatchesProvider';
+
 const BaseAppRoutes = ({ cityPath, user, firebase }) => (
   <Switch>
     <Route path={cityPath} exact>
@@ -13,12 +18,21 @@ const BaseAppRoutes = ({ cityPath, user, firebase }) => (
     <Route path={`${cityPath}/questionario`} exact>
       <Questionnaire user={user} />
     </Route>
-    <Route path={`${cityPath}/ranking`} exact>
-      <FinalPage user={user} />
-    </Route>
-    <Route path={`${cityPath}/candidatos`} exact>
-      <ListCandidates firebase={firebase} />
-    </Route>
+    <MatchesProvider firebase={firebase}>
+      <Route path={`${cityPath}/ranking`} exact>
+        {user.role === ROLE_CANDIDATE ? (
+          <FinalPage user={user} />
+        ) : (
+          <Ranking user={user} />
+        )}
+      </Route>
+      <Route path={`${cityPath}/perfil/:candidateId`}>
+        <Profile />
+      </Route>
+      <Route path={`${cityPath}/candidatos`} exact>
+        <ListCandidates firebase={firebase} />
+      </Route>
+    </MatchesProvider>
   </Switch>
 );
 
