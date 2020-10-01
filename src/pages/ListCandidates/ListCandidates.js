@@ -16,7 +16,6 @@ import {
 const ListCandidates = ({ firebase }) => {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [parties, setParties] = useState([]);
 
   useEffect(() => {
     firebase
