@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
-// import firebaseAuth from 'firebase/app';
-import CandidateCard from 'components/CandidateCard/CandidateCard';
+import { Container } from 'reactstrap';
+import {
+  AffinityTag,
+  CandidateCard,
+  CardInfo,
+  CardName,
+  Description,
+  Divider,
+  Img,
+  ImgPlaceholder,
+  InfoWrapper,
+  PageTitle,
+} from './ListCandidates.styled';
 
 const ListCandidates = ({ firebase }) => {
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
-  // const [partiesCount, setPartiesCount] = useState(0);
-  // const [candidatesCount, setCandidatesCount] = useState(0);
-  // const [parties, setParties] = useState([])
+  const [parties, setParties] = useState([]);
 
   useEffect(() => {
     firebase
@@ -20,30 +29,55 @@ const ListCandidates = ({ firebase }) => {
           const answersKeys = Object.keys(answers);
           candidate.answersCompleted = answersKeys.length;
           setCandidates((candidates) => [...candidates, candidate]);
-          // console.log(parties.indexOf(candidate.politicalParty));
-          // if (parties.indexOf(candidate.politicalParty) === -1){
-          //   console.log("incluindo ", candidate.politicalParty);
-          //   setParties( (parties) => [...parties, candidate.politicalParty]);
-          // }
           setLoading(false);
         });
       });
   }, [firebase]);
 
-  // console.log('[ListCandidates]', candidates);
-  // console.log('Political Parties:', parties);
-
   return (
-    <>
-      <h2>Listagem de Candidatos(as)</h2>
+    <Container className="py-4">
+      <PageTitle> Lista de Candidatos(as)</PageTitle>
       {loading ? (
-        <p>Loading</p>
+        <p>carregando</p>
       ) : (
-        candidates.map((candidate) => {
-          return <CandidateCard key={candidate.name} candidate={candidate} />;
-        })
+        <>
+          <Divider />
+          <Description>
+            <strong>Candidatos(as):</strong> mostrando {candidates.length}{' '}
+            cadastrados no Vota de um total de 936
+          </Description>
+          {candidates
+            .sort((a, b) => {
+              return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+            })
+            .map((candidate) => (
+              <div key={candidate.id} data-testid="candidate-item">
+                <CandidateCard>
+                  {candidate.picture ? (
+                    <Img
+                      src={candidate.picture}
+                      alt={`Foto do candidato ${candidate.name}`}
+                    />
+                  ) : (
+                    <ImgPlaceholder />
+                  )}
+                  <InfoWrapper>
+                    <CardName>{candidate.name}</CardName>
+                    <CardInfo>
+                      {candidate.candidateNumber} | {candidate.politicalParty}
+                    </CardInfo>
+                    <CardInfo>
+                      Respostas:{' '}
+                      <AffinityTag>{candidate.answersCompleted}</AffinityTag>
+                    </CardInfo>
+                  </InfoWrapper>
+                </CandidateCard>
+                <Divider />
+              </div>
+            ))}
+        </>
       )}
-    </>
+    </Container>
   );
 };
 
