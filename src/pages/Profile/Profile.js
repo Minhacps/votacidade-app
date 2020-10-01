@@ -78,7 +78,7 @@ const Profile = () => {
             <p>Sua resposta: </p>
             <AsnwerOption>
               <AnswerCheckbox>✓</AnswerCheckbox>
-              {answerOptionsMap[userAnswers[index].answer]}
+              {answerOptionsMap[userAnswers[index]?.answer]}
             </AsnwerOption>
           </Answer>
 
