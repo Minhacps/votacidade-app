@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'reactstrap';
 import {
-  AffinityTag,
+  AnswerTag,
   CandidateCard,
   CardInfo,
   CardName,
@@ -67,7 +67,7 @@ const ListCandidates = ({ firebase }) => {
                     </CardInfo>
                     <CardInfo>
                       Respostas:{' '}
-                      <AffinityTag>{candidate.answersCompleted}</AffinityTag>
+                      <AnswerTag>{candidate.answersCompleted}</AnswerTag>
                     </CardInfo>
                   </InfoWrapper>
                 </CandidateCard>
