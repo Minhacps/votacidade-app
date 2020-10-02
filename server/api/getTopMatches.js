@@ -15,7 +15,9 @@ const getTopMatches = async (request, response) => {
     response.setHeader('Cache-Control', 's-maxage=60');
     response.json(result);
   } catch (error) {
-    Sentry.captureException(error);
+    Sentry.captureException(error, {
+      extra: request,
+    });
 
     response.status(500);
     response.json({ error: 'Failed to getTopMatches' });
