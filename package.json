@@ -43,7 +43,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:prod": "REACT_APP_FIREBASE_ENV=prod npm run build",
+    "build:prod": "REACT_APP_FIREBASE_ENV=prod REACT_APP_GA_ID='UA-170993659-2' npm run build",
     "build:dev": "REACT_APP_FIREBASE_ENV=dev npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

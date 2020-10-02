@@ -174,4 +174,5 @@ export default {
   questionnaire,
   firebaseConfig,
   firebaseConfigProd,
+  enableRanking: false,
 };
