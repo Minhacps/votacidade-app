@@ -2,35 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+import PageLoading from 'components/molecules/PageLoading';
 import Routes from './Routes';
 import Login from './pages/Login';
 
 import './fontawesome';
-
-import PageLoading from 'components/molecules/PageLoading';
 
 const App = () => {
   const history = useHistory();
   const location = useLocation();
   const [lookingForUser, setLookingForUser] = useState(true);
   const [user, setUser] = useState(null);
-  const [userIncompleted, setUserIncompleted] = useState(true);
+  const [userIncomplete, setUserIncomplete] = useState(true);
 
   useEffect(() => {
     async function checkUserCollection() {
       firebase.auth().onAuthStateChanged(async (user) => {
-        if (user && user.uid) {
-          await firebase
-            .firestore()
-            .collection('users')
-            .doc(user.uid)
-            .get()
-            .then((snapshot) => {
-              const userData = snapshot.data();
-              setUserIncompleted(userData);
-              redirectUserByCity(userData);
-            });
+        if (!(user && user.uid)) {
+          setUser(null);
+          return;
         }
+
+        await firebase
+          .firestore()
+          .collection('users')
+          .doc(user.uid)
+          .get()
+          .then((snapshot) => {
+            const userData = snapshot.data();
+            setUserIncomplete(userData);
+            redirectUserByCity(userData);
+          });
+
         setLookingForUser(false);
         setUser(user);
       });
@@ -63,7 +66,7 @@ const App = () => {
     return <Login />;
   }
 
-  if (user && userIncompleted === undefined) {
+  if (user && userIncomplete === undefined) {
     return <Login shouldComplete user={user} />;
   }
 

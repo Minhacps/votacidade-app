@@ -1,45 +1,26 @@
-import React, { useState, useEffect, useContext } from 'react';
-import firebaseAuth from 'firebase/app';
+import React, { useContext, useEffect, useState } from 'react';
+
+import AnswersProvider from 'components/AnswersProvider/AnswersProvider';
 import { CityContext } from 'components/CityProvider/CityProvider';
-import BaseAppRoutes from './BaseAppRoutes';
+import PageLoading from 'components/molecules/PageLoading';
 import Authenticated from 'templates/Authenticated';
+
+import BaseAppRoutes from './BaseAppRoutes';
 import { getCustomToken } from './customTokenService';
 
-import PageLoading from 'components/molecules/PageLoading';
-import AnswersProvider from './components/AnswersProvider/AnswersProvider';
-
-const BaseApp = () => {
-  const { firebase, currentUser, cityPath } = useContext(CityContext);
+const BaseApp = ({ user }) => {
+  const { firebase, currentUser } = useContext(CityContext);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
     getCustomToken({
       uid: currentUser.uid,
       projectId: firebase.options.projectId,
-    })
-      .then((token) => {
-        firebase
-          .auth()
-          .signInWithCustomToken(token)
-          .then(() => {
-            firebaseAuth
-              .firestore()
-              .collection('users')
-              .doc(currentUser.uid)
-              .get()
-              .then((snapshot) => {
-                const userData = snapshot.data();
-                setUser(userData);
-                setIsLoading(false);
-              });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      })
-      .catch(console.log);
-  }, [cityPath, currentUser.uid, firebase]);
+    }).then(() => setIsLoading(false));
+
+    // this useEffect should be executed only once.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (isLoading) {
     return <PageLoading />;
@@ -48,7 +29,7 @@ const BaseApp = () => {
   return (
     <AnswersProvider user={user} currentUser={currentUser} firebase={firebase}>
       <Authenticated user={user}>
-        <BaseAppRoutes cityPath={cityPath} user={user} firebase={firebase} />
+        <BaseAppRoutes user={user} />
       </Authenticated>
     </AnswersProvider>
   );
