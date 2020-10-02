@@ -15,14 +15,14 @@ import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 
 const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
+  const { firebase, currentUser, questionnaire, cityPath } = useContext(
+    CityContext,
+  );
   const { answers, updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const answersLength = Object.values(answers).length;
 
   const [errorMessage, setErrorMessage] = useState(null);
   const { push } = useHistory();
-  const { firebase, currentUser, questionnaire, cityPath } = useContext(
-    CityContext,
-  );
   const { question, explanation } = questionnaire[id];
 
   const saveAnswer = (data) => {
@@ -81,11 +81,6 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
-
-    // Minimum of answers were answered.
-    if (answersLength >= minAnswers - 1) {
-      push(`${cityPath}/ranking`);
-    }
   };
 
   const handlePrevious = () => {

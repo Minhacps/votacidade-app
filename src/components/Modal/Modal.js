@@ -13,13 +13,13 @@ const ModalExample = ({ name }) => {
         <ModalBody>
           <p>Olá {name}.</p>
           <p>
-            A atual versão do sistema está aberta para os(as) pré-candidatos(as)
-            a vereador(a). Se você é eleitor(a), pode responder agora e suas
+            A atual versão do sistema está aberta para os(as) candidatos(as) a
+            vereador(a). Se você é eleitor(a), pode responder agora e suas
             respostas ficarão salvas mas o match ainda não estará disponível.
           </p>
           <p>
-            <strong>Pré-candidatos(as): </strong> lembrem-se que, para efetivar
-            a sua participação no Vota Cidade, você precisa responder a todas as
+            <strong>Candidatos(as): </strong> lembrem-se que, para efetivar a
+            sua participação no Vota Cidade, você precisa responder a todas as
             questões. As justificativas são opcionais.
           </p>
           <p>
@@ -30,8 +30,7 @@ const ModalExample = ({ name }) => {
         <ModalFooter>
           <Button color="primary" onClick={toggle}>
             Fechar
-          </Button>{' '}
-          {/* <Button color="secondary" onClick={toggle}>Fechar</Button> */}
+          </Button>
         </ModalFooter>
       </Modal>
     </div>
