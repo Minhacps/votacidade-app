@@ -178,11 +178,14 @@ export const firebaseConfigProd = {
   appId: '1:481441850311:web:81d5ff7ae5bcf6a8986fe2',
 };
 
+const totalCandidates = 936;
+
 export default {
   cityName,
   cityPath,
   questionnaire,
   firebaseConfig,
   firebaseConfigProd,
+  totalCandidates,
   enableRanking: false,
 };

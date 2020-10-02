@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Container } from 'reactstrap';
 import {
   AnswerTag,
@@ -12,8 +12,10 @@ import {
   InfoWrapper,
   PageTitle,
 } from './ListCandidates.styled';
+import { CityContext } from '../../components/CityProvider/CityProvider';
 
 const ListCandidates = ({ firebase }) => {
+  const { totalCandidates } = useContext(CityContext);
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -43,14 +45,14 @@ const ListCandidates = ({ firebase }) => {
           <Divider />
           <Description>
             <strong>Candidatos(as):</strong> mostrando {candidates.length}{' '}
-            cadastrados no Vota de um total de 936
+            cadastrados no Vota de um total de {totalCandidates}
           </Description>
           {candidates
             .sort((a, b) => {
               return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
             })
             .map((candidate) => (
-              <div key={candidate.id} data-testid="candidate-item">
+              <div key={candidate.candidateNumber} data-testid="candidate-item">
                 <CandidateCard>
                   {candidate.picture ? (
                     <Img
