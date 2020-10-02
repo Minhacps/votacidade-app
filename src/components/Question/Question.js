@@ -30,7 +30,9 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       [id]: data,
     };
 
-    updateAnswers(answer);
+    setTimeout(() => {
+      updateAnswers(answer);
+    }, 500);
 
     return firebase
       .firestore()
@@ -66,6 +68,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       return;
     }
 
+    console.log('laksjlkdas');
     firebase
       .database()
       .ref(currentUser.uid)
