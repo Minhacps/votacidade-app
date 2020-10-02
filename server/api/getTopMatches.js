@@ -4,7 +4,7 @@ const calculateTopMatches = require('../getTopMatches/getTopMatches');
 const sentry = require('../sentry');
 
 const getTopMatches = async (request, response) => {
-  const { Sentry, transaction } = sentry('generateToken');
+  const { Sentry, transaction } = sentry('getTopMatches');
 
   try {
     const query = JSON.parse(atob(request.query.query));
