@@ -20,6 +20,10 @@ const BaseAppRoutes = ({ user }) => {
       <Route path={`${cityPath}/questionario`} exact>
         <Questionnaire user={user} />
       </Route>
+      <Route path={`${cityPath}/candidaturas`} exact>
+        <ListCandidates firebase={firebase} />
+      </Route>
+
       <MatchesProvider firebase={firebase}>
         <Route path={`${cityPath}/ranking`} exact>
           {enableRanking ? <Ranking user={user} /> : <FinalPage user={user} />}
@@ -28,9 +32,6 @@ const BaseAppRoutes = ({ user }) => {
           <Profile />
         </Route>
       </MatchesProvider>
-      <Route path={`${cityPath}/candidaturas`} exact>
-        <ListCandidates firebase={firebase} />
-      </Route>
     </Switch>
   );
 };
