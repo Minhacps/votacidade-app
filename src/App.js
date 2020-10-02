@@ -32,10 +32,10 @@ const App = () => {
             const userData = snapshot.data();
             setUserIncomplete(userData);
             redirectUserByCity(userData);
+            setUser(userData);
           });
 
         setLookingForUser(false);
-        setUser(user);
       });
     }
 
@@ -56,7 +56,7 @@ const App = () => {
 
     // this useEffect should be executed only once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, []);
 
   if (lookingForUser) {
     return <PageLoading />;
