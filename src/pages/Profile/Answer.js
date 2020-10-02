@@ -13,7 +13,7 @@ const Answer = ({ isCandidate = false, answer, justification }) => {
       <AnswerContainer>
         <p>{isCandidate ? `Resposta do(a) candidato(a):` : `Sua resposta:`}</p>
         <AnswerOption isCandidate={isCandidate} isNotAnswered={!answer}>
-          <AnswerCheckbox>✓</AnswerCheckbox>
+          <AnswerCheckbox>{answer ? `✓` : ``}</AnswerCheckbox>
           {answer || `Você ainda não respondeu esta questão`}
         </AnswerOption>
       </AnswerContainer>

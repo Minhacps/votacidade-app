@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 
-const getAnswerColor = ({ isCandidate, isNotAnswered }) => {
+const getAnswerColorVariant = ({ isCandidate, isNotAnswered }) => {
   if (isCandidate) {
     return colors.purple;
   }
@@ -11,6 +11,19 @@ const getAnswerColor = ({ isCandidate, isNotAnswered }) => {
 
   if (isNotAnswered && !isCandidate) {
     return colors.textMuted;
+  }
+};
+
+const getAnswerCheckboxVariant = ({ isCandidate, isNotAnswered }) => {
+  if (isCandidate) {
+    return colors.purple;
+  }
+  if (!isNotAnswered && !isCandidate) {
+    return colors.orangeLight;
+  }
+
+  if (isNotAnswered && !isCandidate) {
+    return `none`;
   }
 };
 
@@ -44,10 +57,13 @@ export const AnswerOption = styled.div`
 
   border: 1px solid;
   border-left: 4px solid;
-  border-color: ${getAnswerColor};
+  border-color: ${getAnswerColorVariant};
+  font-style: ${(props) => (props.isNotAnswered ? `italic` : 'initial')};
 
   & > ${AnswerCheckbox} {
-    background-color: ${getAnswerColor};
+    background-color: ${getAnswerCheckboxVariant};
+    border: 1px solid;
+    border-color: ${getAnswerColorVariant};
   }
 `;
 
