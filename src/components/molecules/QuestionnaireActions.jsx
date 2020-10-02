@@ -46,10 +46,10 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, min
           </Col>
         )}
       </FormGroup>
-      {(userRole === ROLE_VOTER && enableRanking) && (
+      {enableRanking && answersLength >= minAnswers && userRole === ROLE_VOTER && (
         <FormGroup>
-          <Button tag={Link} to={`${cityPath}/ranking`} color="primary" block>
-            Ranking
+          <Button tag={Link} to={`${cityPath}/ranking`} color="link" block>
+            Ir para o ranking
           </Button>
         </FormGroup>
       )}
