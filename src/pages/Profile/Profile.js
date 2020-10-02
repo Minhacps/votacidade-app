@@ -7,6 +7,7 @@ import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 
 import { answerOptionsMap } from 'constants/questionnaire';
+import Answer from './Answer';
 
 import {
   CandidatePhoto,
@@ -17,10 +18,6 @@ import {
   AffinityTitle,
   Statement,
   Question,
-  Answer,
-  AnswerCheckbox,
-  AsnwerOption,
-  Justification,
 } from './Profile.styled.js';
 
 import { AffinityTag } from '../Ranking/Ranking.styled.js';
@@ -74,33 +71,17 @@ const Profile = () => {
           <Statement>
             <span>{index + 1}.</span> {question}
           </Statement>
-          <Answer>
-            <p>Sua resposta: </p>
-            <AsnwerOption>
-              <AnswerCheckbox>✓</AnswerCheckbox>
-              {answerOptionsMap[userAnswers[index]?.answer]}
-            </AsnwerOption>
-          </Answer>
-
           {candidateAnswers && (
-            <>
-              <Answer>
-                <p>Resposta do candidato(a): </p>
-                <AsnwerOption isCandidate>
-                  <AnswerCheckbox>✓</AnswerCheckbox>
-                  {answerOptionsMap[candidateAnswers[index]?.answer]}
-                </AsnwerOption>
-              </Answer>
-              {answerOptionsMap[candidateAnswers[index]?.justification] && (
-                <Justification>
-                  <p>Justificativa:</p>
-                  <p>
-                    {answerOptionsMap[candidateAnswers[index]?.justification]}
-                  </p>
-                </Justification>
-              )}
-            </>
+            <Answer
+              isCandidate
+              answer={answerOptionsMap[candidateAnswers[index]?.answer]}
+              justification={
+                answerOptionsMap[candidateAnswers[index]?.justification]
+              }
+            />
           )}
+
+          <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
         </Question>
       ))}
     </Container>
