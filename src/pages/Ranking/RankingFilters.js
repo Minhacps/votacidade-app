@@ -27,8 +27,13 @@ const StyledButton = styled(Button)`
   margin-bottom: 20px;
 `;
 
+const InvisibleForm = styled.div`
+  display: ${({ isInvisible }) => (isInvisible ? 'none' : 'block')};
+`;
+
 export default function RankingFilters({ register, control }) {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isInvisible, setIsInvisible] = useState(true);
+
   return (
     <Form>
       <Row>
@@ -36,107 +41,103 @@ export default function RankingFilters({ register, control }) {
           <StyledButton
             color="primary"
             type="button"
-            onClick={() => setIsFormOpen(!isFormOpen)}
+            onClick={() => setIsInvisible(!isInvisible)}
           >
             <FilterIcon /> Filtrar
           </StyledButton>
         </Col>
       </Row>
-      {isFormOpen && (
-        <>
-          <FormGroup>
-            <Label for="age">Idade</Label>
-            <CustomInput
-              type="select"
-              name="age"
-              id="age"
-              aria-label="Idade"
-              innerRef={register}
-            >
-              <option value="">Selecione...</option>
-              {ages.sort(alfabeticOrder('category')).map((age) => {
-                return <option value={age.category}>{age.description}</option>;
-              })}
-            </CustomInput>
-          </FormGroup>
-          <FormGroup>
-            <Label for="gender">Gênero</Label>
-            <CustomInput
-              type="select"
-              name="gender"
-              id="gender"
-              aria-label="Selecione seu gênero"
-              innerRef={register}
-            >
-              <option value="">Selecione...</option>
-              {genders.sort(alfabeticOrder('category')).map((gender) => {
-                return (
-                  <option key={gender.category} value={gender.category}>
-                    {gender.category}
-                  </option>
-                );
-              })}
-            </CustomInput>
-          </FormGroup>
-          <FormGroup>
-            <Label for="socialGroup">LGBTQIAP+</Label>
-            <Controller
-              name="socialGroup"
-              as={Select}
-              isMulti
-              className="basic-multi-select"
-              classNamePrefix="select"
-              placeholder="Selecione..."
-              control={control}
-              options={socialGroups.map(({ letter, name }) => ({
-                value: letter,
-                label: name,
-              }))}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="ethnicGroup">Identificação étnico-racial</Label>
-            <CustomInput
-              type="select"
-              name="ethnicGroup"
-              id="ethnicGroup"
-              aria-label="Identificação étnico-racial"
-              innerRef={register}
-            >
-              <option value="">Selecione...</option>
-              {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
-                return (
-                  <option key={ethnic.category} value={ethnic.category}>
-                    {ethnic.category}
-                  </option>
-                );
-              })}
-            </CustomInput>
-          </FormGroup>
-          <FormGroup>
-            <Label for="politicalParty">Partido</Label>
-            <CustomInput
-              type="select"
-              name="politicalParty"
-              id="politicalParty"
-              innerRef={register}
-            >
-              <option value="">Selecione...</option>
-              {politicalParties
-                .sort(alfabeticOrder('numero'))
-                .map((partido) => {
-                  return (
-                    <option key={partido.sigla} value={partido.sigla}>
-                      {' '}
-                      {partido.numero} - {partido.sigla} - {partido.nome}
-                    </option>
-                  );
-                })}
-            </CustomInput>
-          </FormGroup>
-          <Divider />
-        </>
-      )}
+      <InvisibleForm isInvisible={isInvisible}>
+        <FormGroup>
+          <Label for="age">Idade</Label>
+          <CustomInput
+            type="select"
+            name="age"
+            id="age"
+            aria-label="Idade"
+            innerRef={register}
+          >
+            <option value="">Selecione...</option>
+            {ages.sort(alfabeticOrder('category')).map((age) => {
+              return <option value={age.category}>{age.description}</option>;
+            })}
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="gender">Gênero</Label>
+          <CustomInput
+            type="select"
+            name="gender"
+            id="gender"
+            aria-label="Selecione seu gênero"
+            innerRef={register}
+          >
+            <option value="">Selecione...</option>
+            {genders.sort(alfabeticOrder('category')).map((gender) => {
+              return (
+                <option key={gender.category} value={gender.category}>
+                  {gender.category}
+                </option>
+              );
+            })}
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="socialGroup">LGBTQIAP+</Label>
+          <Controller
+            name="socialGroup"
+            as={Select}
+            isMulti
+            className="basic-multi-select"
+            classNamePrefix="select"
+            placeholder="Selecione..."
+            control={control}
+            options={socialGroups.map(({ letter, name }) => ({
+              value: letter,
+              label: name,
+            }))}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="ethnicGroup">Identificação étnico-racial</Label>
+          <CustomInput
+            type="select"
+            name="ethnicGroup"
+            id="ethnicGroup"
+            aria-label="Identificação étnico-racial"
+            innerRef={register}
+          >
+            <option value="">Selecione...</option>
+            {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
+              return (
+                <option key={ethnic.category} value={ethnic.category}>
+                  {ethnic.category}
+                </option>
+              );
+            })}
+          </CustomInput>
+        </FormGroup>
+        <FormGroup>
+          <Label for="politicalParty">Partido</Label>
+          <CustomInput
+            type="select"
+            name="politicalParty"
+            id="politicalParty"
+            innerRef={register}
+          >
+            <option value="">Selecione...</option>
+            {politicalParties.sort(alfabeticOrder('numero')).map((partido) => {
+              return (
+                <option key={partido.sigla} value={partido.sigla}>
+                  {' '}
+                  {partido.numero} - {partido.sigla} - {partido.nome}
+                </option>
+              );
+            })}
+          </CustomInput>
+        </FormGroup>
+        <Divider />
+      </InvisibleForm>
     </Form>
   );
 }
