@@ -42,9 +42,12 @@ export default function Ranking() {
       'ethnicGroup',
       'politicalParty',
     ]);
-    console.log(formValues);
 
-    if (!formValues) {
+    const hasFormValue = Object.values(formValues).some(
+      (value) => value !== undefined && value !== '',
+    );
+
+    if (!hasFormValue) {
       return data;
     }
 

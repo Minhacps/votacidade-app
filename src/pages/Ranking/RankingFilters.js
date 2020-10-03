@@ -10,6 +10,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import styled from 'styled-components';
 
 import { alfabeticOrder } from 'styles/helper';
 import { ReactComponent as FilterIcon } from 'assets/icons/filter.svg';
@@ -20,7 +21,7 @@ import {
   ages,
   politicalParties,
 } from 'data/form-data';
-import styled from 'styled-components';
+import { Divider } from './Ranking.styled';
 
 const StyledButton = styled(Button)`
   margin-bottom: 20px;
@@ -133,6 +134,7 @@ export default function RankingFilters({ register, control }) {
                 })}
             </CustomInput>
           </FormGroup>
+          <Divider />
         </>
       )}
     </Form>
