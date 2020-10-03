@@ -18,23 +18,19 @@ const App = () => {
   useEffect(() => {
     async function checkUserCollection() {
       firebase.auth().onAuthStateChanged(async (user) => {
-        if (!(user && user.uid)) {
-          setUser(null);
-          return;
+        if (user && user.uid) {
+          await firebase
+            .firestore()
+            .collection('users')
+            .doc(user.uid)
+            .get()
+            .then((snapshot) => {
+              const userData = snapshot.data();
+              setUserIncomplete(userData);
+              redirectUserByCity(userData);
+              setUser(userData);
+            });
         }
-
-        await firebase
-          .firestore()
-          .collection('users')
-          .doc(user.uid)
-          .get()
-          .then((snapshot) => {
-            const userData = snapshot.data();
-            setUserIncomplete(userData);
-            redirectUserByCity(userData);
-            setUser(userData);
-          });
-
         setLookingForUser(false);
       });
     }
