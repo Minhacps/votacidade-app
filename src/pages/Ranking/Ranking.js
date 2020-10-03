@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Spinner } from 'reactstrap';
 import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
+import { ReactComponent as FilterIcon } from 'assets/icons/filter.svg';
 import { CityContext } from '../../components/CityProvider/CityProvider';
 
 import {
@@ -65,6 +66,9 @@ export default function Ranking() {
         <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
         no Vota de um total de {matches.length}
       </Description>
+      <Button color="primary" type="button">
+        <FilterIcon /> Filtrar
+      </Button>
       {matches.filter(limitList).map((candidate) => (
         <div key={candidate.id} data-testid="candidate-item">
           <CandidateCard>
