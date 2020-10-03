@@ -360,22 +360,23 @@ const SignUpForm = ({ onBackClick, user }) => {
             <Row>
               <Col xs="12" sm="6">
                 <FormGroup>
-                  <Label htmlFor="candidateNumber">Número</Label>
+                  <Label htmlFor="candidateNumber">Número de candidatura</Label>
                   <Input
                     type="number"
                     name="candidateNumber"
                     id="candidateNumber"
                     placeholder="Digite aqui seu número"
-                    innerRef={register({ required: true, maxLength: 5 })}
+                    innerRef={register({
+                      required: true,
+                      validate: (value) => value.length === 5,
+                    })}
                     invalid={errors.candidateNumber}
                   />
                   {errors.candidateNumber?.type === 'required' && (
                     <FormFeedback>Campo obrigatório</FormFeedback>
                   )}
-                  {errors.candidateNumber?.type === 'maxLength' && (
-                    <FormFeedback>
-                      O número de candidatura não deve ser maior que 5
-                    </FormFeedback>
+                  {errors.candidateNumber?.type === 'validate' && (
+                    <FormFeedback>O número deve ter 5 dígitos</FormFeedback>
                   )}
                 </FormGroup>
               </Col>
