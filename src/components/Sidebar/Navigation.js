@@ -7,6 +7,7 @@ import { Link, useHistory } from 'react-router-dom';
 import colors from '../../styles/colors';
 import { CityContext } from '../CityProvider/CityProvider';
 import { SidebarContext } from 'components/Sidebar/SidebarProvider';
+import { StyledBurger } from './Sidebar.styled';
 
 const StyledLogout = styled.button`
   color: ${colors.purple};
@@ -57,6 +58,16 @@ const Navigation = ({ user }) => {
 
   return (
     <div>
+      <StyledBurger
+        aria-label="Abrir ou fechar menu"
+        open={true}
+        onClick={toggleSidebar}
+        inSidebar={true}
+      >
+        <span />
+        <span />
+        <span />
+      </StyledBurger>
       <StyledName>{currentUser.displayName}</StyledName>
       <Divider />
       <Ul>

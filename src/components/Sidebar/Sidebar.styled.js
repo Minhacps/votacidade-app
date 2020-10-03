@@ -43,7 +43,8 @@ export const StyledBurger = styled.button`
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 10;
+  ${({ inSidebar }) =>
+    inSidebar ? 'position: absolute; top: 1.5rem; right: 1.5rem;' : ''}
 
   span {
     width: 2rem;
