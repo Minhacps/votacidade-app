@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import firebase from 'firebase/app';
 import {
   Alert,
@@ -28,6 +28,7 @@ import {
   politicalParties,
 } from 'data/form-data';
 import { cidades } from 'data/cidades';
+import { AuthenticationContext } from '../../AuthenticationProvider';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -37,6 +38,7 @@ const CNPJ_REGEX = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
 
 const SignUpForm = ({ onBackClick, user }) => {
   const { register, handleSubmit, control, errors } = useForm();
+  const { setSignUpFormUserData } = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(false);
   const [isCandidate, toggleIsCandidate] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -79,6 +81,8 @@ const SignUpForm = ({ onBackClick, user }) => {
       role,
       ...candidateData,
     };
+
+    setSignUpFormUserData(userData);
 
     if (password) {
       await firebase
@@ -158,7 +162,7 @@ const SignUpForm = ({ onBackClick, user }) => {
         </Col>
       </Row>
       <Row>
-        <Col xs="12" sm="6">
+        <Col>
           <FormGroup>
             <Label for="email">E-mail</Label>
             <Input
@@ -178,7 +182,9 @@ const SignUpForm = ({ onBackClick, user }) => {
             )}
           </FormGroup>
         </Col>
-        <Col xs="12" sm="6">
+      </Row>
+      <Row>
+        <Col>
           {!user && (
             <InputPassword
               innerRef={register({ required: true, minLength: 6 })}
