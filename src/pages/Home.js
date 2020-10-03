@@ -49,6 +49,10 @@ const HomePage = () => {
         a vereador(a) que pensam parecido com você nas eleições de 2020. Assim,
         você escolhe alguém que pensa parecido e pode cobrar melhor depois!
       </p>
+      <p>
+        No Vota Cidade, o eleitor(a) deve responder no mínimo 21 questões para
+        gerar o ranking de afinidade, já o candidato(a) precisa responder todas.
+      </p>
 
       <div className="d-flex justify-content-center">
         <Link to={`${cityPath}/questionario`}>
@@ -80,8 +84,7 @@ const HomePage = () => {
               <CardText>
                 Você responderá um questionário de 30 perguntas, com questões
                 variadas sobre políticas públicas como transporte, saneamento
-                básico, drogas, etc. O eleitor(a) pode responder no mínimo 21
-                questões já o candidato(a) precisa responder todas.
+                básico, drogas, etc.
               </CardText>
             </CardBody>
           </StyledCard>
