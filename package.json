@@ -57,7 +57,8 @@
     "docz:serve": "docz build && docz serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "jest": "jest"
+    "jest": "jest",
+    "cypress": "cypress"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -13,14 +13,23 @@ const BaseApp = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getCustomToken({
-      uid: currentUser.uid,
-      projectId: firebase.options.projectId,
-    }).then(() => setIsLoading(false));
+    signInWithCustomToken();
 
     // this useEffect should be executed only once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const signInWithCustomToken = async () => {
+    const token = await getCustomToken({
+      uid: currentUser.uid,
+      projectId: firebase.options.projectId,
+    });
+
+    firebase
+      .auth()
+      .signInWithCustomToken(token)
+      .then(() => setIsLoading(false));
+  };
 
   if (isLoading) {
     return <PageLoading />;
