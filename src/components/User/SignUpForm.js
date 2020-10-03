@@ -40,6 +40,7 @@ const SignUpForm = ({ onBackClick, user }) => {
   const [loading, setLoading] = useState(false);
   const [isCandidate, toggleIsCandidate] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  console.log(errors);
 
   const onSubmit = async (data) => {
     const {
@@ -366,10 +367,17 @@ const SignUpForm = ({ onBackClick, user }) => {
                     name="candidateNumber"
                     id="candidateNumber"
                     placeholder="Digite aqui seu número"
-                    innerRef={register({ required: true })}
+                    innerRef={register({ required: true, maxLength: 5 })}
                     invalid={errors.candidateNumber}
                   />
-                  <FormFeedback>Campo obrigatório</FormFeedback>
+                  {errors.candidateNumber?.type === 'required' && (
+                    <FormFeedback>Campo obrigatório</FormFeedback>
+                  )}
+                  {errors.candidateNumber?.type === 'maxLength' && (
+                    <FormFeedback>
+                      O número de candidatura não deve ser maior que 5
+                    </FormFeedback>
+                  )}
                 </FormGroup>
               </Col>
               <Col xs="12" sm="6">
