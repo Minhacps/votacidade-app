@@ -27,7 +27,7 @@ const StyledUserName = styled.span`
   color: ${colors.purple};
   font-weight: 800;
   font-size: 16pt;
-  margin-bottom: 25px;
+  display: block;
 `;
 
 const StyledButton = styled(Button)`
@@ -43,7 +43,7 @@ const HomePage = () => {
     <Container className="py-4" style={{ lineHeight: '20px' }}>
       {!enableRanking && <Modal name={name} />}
 
-      <StyledUserName>Olá {name}</StyledUserName>
+      <StyledUserName className="mt-3">Olá, {name},</StyledUserName>
       <p className="mt-3" style={{ fontSize: '12pt' }}>
         O Vota Cidade é uma ferramenta para a população encontrar candidatos(as)
         a vereador(a) que pensam parecido com você nas eleições de 2020. Assim,
@@ -52,7 +52,7 @@ const HomePage = () => {
 
       <div className="d-flex justify-content-center">
         <Link to={`${cityPath}/questionario`}>
-          <StyledButton color="primary" className="mb-4 " bold size="lg">
+          <StyledButton color="primary" className="mb-5 mt-2" bold size="lg">
             começar
           </StyledButton>
         </Link>
