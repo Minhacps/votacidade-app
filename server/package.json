@@ -1,0 +1,22 @@
+{
+  "name": "votacidade-apis",
+  "description": "APIs do votacidade",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Minhacps/votacidade-app"
+  },
+  "scripts": {
+    "serve": "vercel dev"
+  },
+  "engines": {
+    "node": "12.x"
+  },
+  "dependencies": {
+    "@sentry/node": "^5.24.2",
+    "@sentry/tracing": "^5.24.2",
+    "atob": "^2.1.2",
+    "crypto-js": "^4.0.0",
+    "firebase-admin": "^8.10.0",
+    "nanoid": "^3.1.12"
+  }
+}

@@ -1,41 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import firebase from 'firebase/app';
-
 import Routes from './Routes';
 import Login from './pages/Login';
+import { AuthenticationContext } from './AuthenticationProvider';
 
 import './fontawesome';
-
-import PageLoading from 'components/molecules/PageLoading';
 
 const App = () => {
   const history = useHistory();
   const location = useLocation();
-  const [lookingForUser, setLookingForUser] = useState(true);
-  const [user, setUser] = useState(null);
-  const [userIncompleted, setUserIncompleted] = useState(true);
+  const { authUser, userData } = useContext(AuthenticationContext);
 
   useEffect(() => {
-    async function checkUserCollection() {
-      firebase.auth().onAuthStateChanged(async (user) => {
-        if (user && user.uid) {
-          await firebase
-            .firestore()
-            .collection('users')
-            .doc(user.uid)
-            .onSnapshot((snapshot) => {
-              const userData = snapshot.data();
-              setUserIncompleted(userData);
-              redirectUserByCity(userData);
-            });
-        }
-        setLookingForUser(false);
-        setUser(user);
-      });
-    }
-
-    // Removido userData.city no teste para eliminar erro.
     const redirectUserByCity = (userData) => {
       if (!userData) {
         return;
@@ -48,25 +24,20 @@ const App = () => {
       }
     };
 
-    checkUserCollection();
+    redirectUserByCity(userData);
 
-    // this useEffect should be executed only once.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userData]);
 
-  if (lookingForUser) {
-    return <PageLoading />;
-  }
-
-  if (!user) {
+  if (!authUser) {
     return <Login />;
   }
 
-  if (user && userIncompleted === undefined) {
-    return <Login shouldComplete user={user} />;
+  if (authUser && !userData) {
+    return <Login shouldComplete user={authUser} />;
   }
 
-  return <Routes user={user} />;
+  return <Routes user={userData} />;
 };
 
 export default App;

@@ -5,12 +5,30 @@
   },
   "hosting": {
     "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "functions": {
+    "source": "server"
+  },
+  "emulators": {
+    "functions": {
+      "host": "localhost",
+      "port": "8989"
+    },
+    "firestore": {
+      "port": 8988
+    },
+    "database": {
+      "port": 8987
+    },
+    "hosting": {
+      "port": 8980
+    },
+    "ui": {
+      "enabled": true
+    }
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }

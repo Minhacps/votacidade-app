@@ -9,7 +9,7 @@ import {
 import { CityContext } from '../CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
-const ProgressBar = () => {
+const ProgressBar = ({ user }) => {
   const { questionnaire } = useContext(CityContext);
   const { answers } = useContext(AnswersContext);
   const [progress, setProgress] = useState(null);
@@ -31,7 +31,7 @@ const ProgressBar = () => {
   }, [answers, questionnaire]);
 
   return (
-    <ProgressBarContainer progress={progress}>
+    <ProgressBarContainer userRole={user.role} progress={progress}>
       <ProgressBarContent>
         <ProgressBarTitle>Seu progresso</ProgressBarTitle>
         <ProgressBarLabel>{progress}% completo</ProgressBarLabel>

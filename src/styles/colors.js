@@ -8,4 +8,5 @@ export default {
   grey300: '#C9C9C9',
   grey400: '#6E6E6E',
   grey500: '#333333',
+  textMuted: '#596269',
 };

@@ -15,7 +15,7 @@ const Routes = ({ user }) => (
     {cities.map((city) => (
       <Route path={city.cityPath} key={`${city.cityPath}-route`}>
         <CityProvider city={city}>
-          <BaseApp />
+          <BaseApp user={user} />
         </CityProvider>
       </Route>
     ))}

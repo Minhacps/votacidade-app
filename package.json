@@ -1,7 +1,10 @@
 {
   "name": "votacidade-app",
   "version": "0.1.0",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Minhacps/votacidade-app"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-regular-svg-icons": "^5.14.0",
@@ -21,6 +24,7 @@
     "react-scripts": "^3.4.3",
     "react-select": "^3.1.0",
     "react-social-login-buttons": "^3.1.0",
+    "react-star-ratings": "^2.3.0",
     "reactstrap": "^8.4.1",
     "styled-components": "^5.1.1"
   },
@@ -39,7 +43,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:prod": "REACT_APP_FIREBASE_ENV=prod npm run build",
+    "build:prod": "REACT_APP_FIREBASE_ENV=prod REACT_APP_GA_ID='UA-170993659-2' npm run build",
     "build:dev": "REACT_APP_FIREBASE_ENV=dev npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -52,7 +56,9 @@
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "jest": "jest",
+    "cypress": "cypress"
   },
   "eslintConfig": {
     "extends": "react-app"
