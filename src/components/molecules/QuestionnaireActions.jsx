@@ -11,7 +11,7 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, min
 
   return (
     <>
-      <FormGroup row>
+      <FormGroup row className="mt-4">
         <Col>
           <Button
             color="primary"

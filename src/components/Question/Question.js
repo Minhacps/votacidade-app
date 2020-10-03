@@ -100,13 +100,9 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     <>
       <Statement number={id + 1} text={question} />
 
-      {explanation && (
-        <div className="mb-3">
-          <StatementExplanation explanation={explanation} />
-        </div>
-      )}
+      {explanation && <StatementExplanation explanation={explanation} />}
 
-      <Form onSubmit={handleSubmit} key={id + 1}>
+      <Form onSubmit={handleSubmit} key={id + 1} className="mt-4">
         {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
         <Decision
           questionNumber={id + 1}
