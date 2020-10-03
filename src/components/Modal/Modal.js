@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalBody } from 'reactstrap';
+
+import { ModalHeader, ModalFooter } from './Modal.styled';
 
 const ModalExample = ({ name }) => {
   const [modal, setModal] = useState(true);
@@ -31,7 +33,7 @@ const ModalExample = ({ name }) => {
           </p>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={toggle}>
+          <Button color="primary" onClick={toggle} className="px-5">
             Fechar
           </Button>
         </ModalFooter>
