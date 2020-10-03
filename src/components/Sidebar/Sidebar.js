@@ -12,7 +12,7 @@ export default function Sidebar({ user }) {
   return (
     <SidebarProvider isOpen={isOpen} toggleSidebar={toggleSidebar}>
       <StyledBurger
-        aria-label="Toggle menu"
+        aria-label="Abrir ou fechar menu"
         open={isOpen}
         onClick={toggleSidebar}
       >
