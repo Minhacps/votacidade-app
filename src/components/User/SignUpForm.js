@@ -40,7 +40,6 @@ const SignUpForm = ({ onBackClick, user }) => {
   const [loading, setLoading] = useState(false);
   const [isCandidate, toggleIsCandidate] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  console.log(errors);
 
   const onSubmit = async (data) => {
     const {
