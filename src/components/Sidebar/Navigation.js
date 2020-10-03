@@ -43,7 +43,7 @@ const Ul = styled.ul`
 `;
 
 const Navigation = ({ user }) => {
-  const { currentUser, cityPath } = useContext(CityContext);
+  const { currentUser, cityPath, enableRanking } = useContext(CityContext);
   const { toggleSidebar } = useContext(SidebarContext);
 
   const history = useHistory();
@@ -65,11 +65,13 @@ const Navigation = ({ user }) => {
             Como funciona
           </StyledLink>
         </li>
-        <li>
-          <StyledLink to={`${cityPath}/ranking`} onClick={toggleSidebar}>
-            Ranking
-          </StyledLink>
-        </li>
+        {enableRanking && (
+          <li>
+            <StyledLink to={`${cityPath}/ranking`} onClick={toggleSidebar}>
+              Ranking
+            </StyledLink>
+          </li>
+        )}
       </Ul>
       <Divider />
       <QuestionsBoard user={user} />

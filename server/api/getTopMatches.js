@@ -4,7 +4,7 @@ const calculateTopMatches = require('../getTopMatches/getTopMatches');
 const sentry = require('../sentry');
 
 const getTopMatches = async (request, response) => {
-  const { Sentry, transaction } = sentry('generateToken');
+  const { Sentry, transaction } = sentry('getTopMatches');
 
   try {
     const query = JSON.parse(atob(request.query.query));
@@ -15,7 +15,9 @@ const getTopMatches = async (request, response) => {
     response.setHeader('Cache-Control', 's-maxage=60');
     response.json(result);
   } catch (error) {
-    Sentry.captureException(error);
+    Sentry.captureException(error, {
+      extra: request,
+    });
 
     response.status(500);
     response.json({ error: 'Failed to getTopMatches' });

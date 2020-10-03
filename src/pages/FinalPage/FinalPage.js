@@ -1,20 +1,11 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Col, Container, Row } from 'reactstrap';
-import { getMatches } from './FinalPageService';
 
 import { CityContext } from 'components/CityProvider/CityProvider';
-import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
+import { ROLE_CANDIDATE } from '../../constants/userRoles';
 
 const FinalPage = ({ user }) => {
-  const { getAnswersMap } = useContext(AnswersContext);
-  const { cityName, firebase } = useContext(CityContext);
-
-  useEffect(() => {
-    getMatches({
-      answers: getAnswersMap(),
-      projectId: firebase.options.projectId,
-    }).then(console.log);
-  });
+  const { cityName } = useContext(CityContext);
 
   return (
     <Container className="py-4">
@@ -24,13 +15,21 @@ const FinalPage = ({ user }) => {
             Agradecemos a sua participação!
           </p>
 
-          <p>
-            <strong>Candidato(a)</strong>, lembre-se que você precisa responder
-            todas as questões para participar do Vota Cidade. Após feito isso,
-            suas respostas serão exibidas publicamente no site, pois assim quem
-            concorda com você vai saber do seu posicionamento e, possivelmente,
-            te escolher como representante.
-          </p>
+          {user.role === ROLE_CANDIDATE ? (
+            <p>
+              <strong>Candidato(a)</strong>, lembre-se que você precisa
+              responder todas as questões para participar do Vota Cidade. Após
+              feito isso, suas respostas serão exibidas publicamente no site,
+              pois assim quem concorda com você vai saber do seu posicionamento
+              e, possivelmente, te escolher como representante.
+            </p>
+          ) : (
+            <p>
+              <strong>Eleitor(a)</strong>, para que o índice de afinidade seja
+              exibido, lembre-se que você precisa responder no mínimo 21
+              questões.
+            </p>
+          )}
 
           {cityName === 'Campinas' && (
             <p>
