@@ -29,9 +29,6 @@ export default function Ranking() {
   const [isLoading, setIsLoading] = useState(false);
   const { matches } = useContext(MatchesContext);
   const { answers } = useContext(AnswersContext);
-  const hasMoreCandidates = matches.length > listLimiter;
-  const candidatesCount =
-    listLimiter < matches.length ? listLimiter : matches.length;
   const limitList = (_, index) => index < listLimiter;
   const { cityPath } = useContext(CityContext);
   const { register, control, getValues, watch } = useForm();
@@ -53,6 +50,12 @@ export default function Ranking() {
 
     return data.age === formValues.age;
   };
+
+  const hasMoreCandidates = matches.filter(filterForm).length > listLimiter;
+  const candidatesCount =
+    listLimiter < matches.filter(filterForm).length
+      ? listLimiter
+      : matches.filter(filterForm).length;
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
