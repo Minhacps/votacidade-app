@@ -32,22 +32,24 @@ export default function Ranking() {
   const limitList = (_, index) => index < listLimiter;
   const { cityPath } = useContext(CityContext);
   const { register, control, getValues, watch } = useForm();
+
+  const formValues = getValues([
+    'age',
+    'gender',
+    'socialGroups',
+    'ethnicGroup',
+    'politicalParty',
+  ]);
+
+  const countFormValues = Object.values(formValues).filter(
+    (value) => value !== undefined && value !== '',
+  ).length;
+
   watch();
 
   const filterForm = (data) => {
-    const formValues = getValues([
-      'age',
-      'gender',
-      'socialGroups',
-      'ethnicGroup',
-      'politicalParty',
-    ]);
-
-    const hasFormValue = Object.values(formValues).some(
-      (value) => value !== undefined && value !== '',
-    );
-
-    if (!hasFormValue) {
+    console.log(countFormValues);
+    if (countFormValues === 0) {
       return data;
     }
 
@@ -94,7 +96,11 @@ export default function Ranking() {
         no Vota de um total de {matches.length}
       </Description>
 
-      <RankingFilters register={register} control={control} />
+      <RankingFilters
+        register={register}
+        control={control}
+        countFormValues={countFormValues}
+      />
 
       {matches
         .filter(filterForm)

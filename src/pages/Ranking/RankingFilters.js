@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
-import {
-  Button,
-  CustomInput,
-  Form,
-  FormGroup,
-  Label,
-  Row,
-  Col,
-} from 'reactstrap';
-import styled from 'styled-components';
+import { CustomInput, Form, FormGroup, Label, Row, Col } from 'reactstrap';
 
 import { alfabeticOrder } from 'styles/helper';
 import { ReactComponent as FilterIcon } from 'assets/icons/filter.svg';
@@ -21,30 +12,32 @@ import {
   ages,
   politicalParties,
 } from 'data/form-data';
-import { Divider } from './Ranking.styled';
+import {
+  Divider,
+  FilterButton,
+  InvisibleForm,
+  FilterCounter,
+  FilterLabel,
+} from './Ranking.styled';
 
-const StyledButton = styled(Button)`
-  margin-bottom: 20px;
-`;
-
-const InvisibleForm = styled.div`
-  display: ${({ isInvisible }) => (isInvisible ? 'none' : 'block')};
-`;
-
-export default function RankingFilters({ register, control }) {
+export default function RankingFilters({ register, control, countFormValues }) {
   const [isInvisible, setIsInvisible] = useState(true);
 
   return (
     <Form>
       <Row>
         <Col className="text-left">
-          <StyledButton
+          <FilterButton
             color="primary"
             type="button"
             onClick={() => setIsInvisible(!isInvisible)}
           >
-            <FilterIcon /> Filtrar
-          </StyledButton>
+            <FilterIcon />
+            <FilterLabel>Filtrar</FilterLabel>
+            {countFormValues > 0 && (
+              <FilterCounter>{countFormValues}</FilterCounter>
+            )}
+          </FilterButton>
         </Col>
       </Row>
       <InvisibleForm isInvisible={isInvisible}>

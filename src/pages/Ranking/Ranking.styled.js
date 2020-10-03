@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 export const PageTitle = styled.h2`
   color: ${colors.purple};
@@ -168,4 +169,26 @@ export const ProfileLink = styled(Link)`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const FilterButton = styled(Button)`
+  margin-bottom: 20px;
+`;
+
+export const InvisibleForm = styled.div`
+  display: ${({ isInvisible }) => (isInvisible ? 'none' : 'block')};
+`;
+
+export const FilterCounter = styled.span`
+  color: ${colors.purple};
+  background-color: white;
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  display: inline-block;
+`;
+
+export const FilterLabel = styled.span`
+  margin-left: 10px;
+  margin-right: 20px;
 `;
