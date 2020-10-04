@@ -37,7 +37,7 @@ export default function Ranking() {
   const formValues = getValues([
     'age',
     'gender',
-    'socialGroups',
+    'socialGroup',
     'ethnicGroup',
     'politicalParty',
   ]);
@@ -49,6 +49,7 @@ export default function Ranking() {
   watch();
 
   const filteredMatches = useFilterMatches({ matches, formValues });
+  console.log(filteredMatches);
 
   const hasMoreCandidates = filteredMatches.length > listLimiter;
   const candidatesCount =
