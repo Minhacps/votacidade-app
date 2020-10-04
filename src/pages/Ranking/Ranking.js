@@ -1,7 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Spinner } from 'reactstrap';
-import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
+
+import StringHelper from '../../helpers/string';
+
 import { CityContext } from '../../components/CityProvider/CityProvider';
+import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
+import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
+
+import ImageThumbnail from 'components/atoms/ImageThumbnail';
+
+import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 
 import {
   AffinityTag,
@@ -11,15 +19,11 @@ import {
   CardName,
   Description,
   Divider,
-  Img,
-  ImgPlaceholder,
   InfoWrapper,
   PageDescription,
   PageTitle,
   ProfileLink,
 } from './Ranking.styled';
-import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
-import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 
 export default function Ranking() {
   const [listLimiter, setListlimiter] = useState(10);
@@ -55,34 +59,40 @@ export default function Ranking() {
   return (
     <Container className="py-4">
       <PageTitle>Ranking</PageTitle>
+
       <PageDescription>
         Quanto mais perguntas você responder, mais assertiva vai ser a
         porcentagem de afinidade! Ah, você pode filtrar os candidatos, ver o
         perfil e as respostas de cada um.
       </PageDescription>
+
       <Divider />
+
       <Description>
         <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
         no Vota de um total de {matches.length}
       </Description>
+
       {matches.filter(limitList).map((candidate) => (
         <div key={candidate.id} data-testid="candidate-item">
           <CandidateCard>
-            {candidate.picture ? (
-              <Img
-                src={candidate.picture}
-                alt={`Foto do candidato ${candidate.name}`}
-              />
-            ) : (
-              <ImgPlaceholder />
-            )}
+            <ImageThumbnail
+              src={candidate?.picture}
+              alt={`Foto de ${candidate.name}`}
+              placeholderText="Foto"
+              width="73px"
+              className="border mr-3"
+            />
             <InfoWrapper>
               <CardName>{candidate.name}</CardName>
               <CardInfo>
                 {candidate.candidateNumber} | {candidate.politicalParty}
               </CardInfo>
               <CardInfo>
-                Afinidade: <AffinityTag>{candidate.match / 100}%</AffinityTag>
+                Afinidade:{' '}
+                <AffinityTag>
+                  {StringHelper.toPercentage(candidate.match)}
+                </AffinityTag>
               </CardInfo>
             </InfoWrapper>
             <ProfileLink to={`${cityPath}/perfil/${candidate.id}`}>
