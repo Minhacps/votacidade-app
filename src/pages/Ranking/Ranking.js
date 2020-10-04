@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Button, Container, Spinner } from 'reactstrap';
+import { useForm } from 'react-hook-form';
 
 import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 import { CityContext } from '../../components/CityProvider/CityProvider';
@@ -21,7 +22,7 @@ import {
 } from './Ranking.styled';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
-import { useForm } from 'react-hook-form';
+import useFilterMatches from './useFiltersMatches';
 import RankingFilters from './RankingFilters';
 
 export default function Ranking() {
@@ -47,20 +48,11 @@ export default function Ranking() {
 
   watch();
 
-  const filterForm = (data) => {
-    console.log(countFormValues);
-    if (countFormValues === 0) {
-      return data;
-    }
+  const filteredMatches = useFilterMatches({ matches, formValues });
 
-    return data.age === formValues.age;
-  };
-
-  const hasMoreCandidates = matches.filter(filterForm).length > listLimiter;
+  const hasMoreCandidates = filteredMatches.length > listLimiter;
   const candidatesCount =
-    listLimiter < matches.filter(filterForm).length
-      ? listLimiter
-      : matches.filter(filterForm).length;
+    listLimiter < filteredMatches.length ? listLimiter : filteredMatches.length;
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -102,36 +94,33 @@ export default function Ranking() {
         countFormValues={countFormValues}
       />
 
-      {matches
-        .filter(filterForm)
-        .filter(limitList)
-        .map((candidate) => (
-          <div key={candidate.id} data-testid="candidate-item">
-            <CandidateCard>
-              {candidate.picture ? (
-                <Img
-                  src={candidate.picture}
-                  alt={`Foto do candidato ${candidate.name}`}
-                />
-              ) : (
-                <ImgPlaceholder />
-              )}
-              <InfoWrapper>
-                <CardName>{candidate.name}</CardName>
-                <CardInfo>
-                  {candidate.candidateNumber} | {candidate.politicalParty}
-                </CardInfo>
-                <CardInfo>
-                  Afinidade: <AffinityTag>{candidate.match / 100}%</AffinityTag>
-                </CardInfo>
-              </InfoWrapper>
-              <ProfileLink to={`${cityPath}/perfil/${candidate.id}`}>
-                <FindSvg />
-              </ProfileLink>
-            </CandidateCard>
-            <Divider />
-          </div>
-        ))}
+      {filteredMatches.filter(limitList).map((candidate) => (
+        <div key={candidate.id} data-testid="candidate-item">
+          <CandidateCard>
+            {candidate.picture ? (
+              <Img
+                src={candidate.picture}
+                alt={`Foto do candidato ${candidate.name}`}
+              />
+            ) : (
+              <ImgPlaceholder />
+            )}
+            <InfoWrapper>
+              <CardName>{candidate.name}</CardName>
+              <CardInfo>
+                {candidate.candidateNumber} | {candidate.politicalParty}
+              </CardInfo>
+              <CardInfo>
+                Afinidade: <AffinityTag>{candidate.match / 100}%</AffinityTag>
+              </CardInfo>
+            </InfoWrapper>
+            <ProfileLink to={`${cityPath}/perfil/${candidate.id}`}>
+              <FindSvg />
+            </ProfileLink>
+          </CandidateCard>
+          <Divider />
+        </div>
+      ))}
       {hasMoreCandidates && (
         <ButtonWrapper>
           <Button
