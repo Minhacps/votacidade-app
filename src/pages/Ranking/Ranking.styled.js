@@ -100,32 +100,6 @@ export const CandidateCard = styled.div`
   align-items: center;
 `;
 
-export const Img = styled.img`
-  margin-right: 15px;
-  width: 73px;
-  height: 73px;
-  border-radius: 50%;
-  background-color: ${colors.grey300};
-`;
-
-export const ImgPlaceholder = styled.div`
-  margin-right: 15px;
-  width: 73px;
-  height: 73px;
-  background-color: ${colors.grey300};
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &::before {
-    content: 'FOTO';
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 300;
-    font-size: 10pt;
-  }
-`;
-
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
