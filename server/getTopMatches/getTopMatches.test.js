@@ -14,38 +14,50 @@ const candidateData = {
   socialGroup: '',
 };
 
-const fakeDatabaseData = {
-  'candidate-1': {
-    ...candidateData,
-    answers: Array(30).fill('CT'),
-  },
-  'candidate-2': {
-    ...candidateData,
-    answers: Array(30).fill('DT'),
-  },
-  'candidate-3': {
-    ...candidateData,
-    answers: Array(15).fill('DT'),
-  },
-};
-
-const firebaseMock = {
+const firebaseMockGenerator = (databaseResponse) => ({
   database: () => ({
     ref: () => ({
       once: () =>
         Promise.resolve({
-          val: () => fakeDatabaseData,
+          val: () => databaseResponse,
         }),
     }),
   }),
-};
+});
 
 describe('getTopMatches', () => {
+  const voterAnswers = {
+    0: 'DT',
+    1: 'DT',
+  };
+
+  it('returns empty list when candidates list is empty', async () => {
+    const fakeDatabaseData = null;
+
+    const firebaseMock = firebaseMockGenerator(fakeDatabaseData);
+
+    const result = await getTopMatches(firebaseMock, voterAnswers);
+
+    expect(result.length).toBe(0);
+  });
+
   it('returns matches sorted by match score', async () => {
-    const voterAnswers = {
-      0: 'DT',
-      1: 'DT',
+    const fakeDatabaseData = {
+      'candidate-1': {
+        ...candidateData,
+        answers: Array(30).fill('CT'),
+      },
+      'candidate-2': {
+        ...candidateData,
+        answers: Array(30).fill('DT'),
+      },
+      'candidate-3': {
+        ...candidateData,
+        answers: Array(15).fill('DT'),
+      },
     };
+
+    const firebaseMock = firebaseMockGenerator(fakeDatabaseData);
 
     const result = await getTopMatches(firebaseMock, voterAnswers);
 

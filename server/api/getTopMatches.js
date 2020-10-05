@@ -20,7 +20,7 @@ const getTopMatches = async (request, response) => {
     });
 
     response.status(500);
-    response.json({ error: 'Failed to getTopMatches' });
+    response.send(error);
   } finally {
     transaction.finish();
   }

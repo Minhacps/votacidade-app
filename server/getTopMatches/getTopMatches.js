@@ -11,8 +11,12 @@ const getCandidateAnswers = async (firebase) => {
   return result.val();
 };
 
-const getMatchScores = (voterAnswers, allCandidatesData) =>
-  Object.keys(allCandidatesData)
+const getMatchScores = (voterAnswers, allCandidatesData) => {
+  if (!allCandidatesData) {
+    return [];
+  }
+
+  return Object.keys(allCandidatesData)
     .reduce((matches, candidateId) => {
       const { answers, ...candidateProfile } = allCandidatesData[candidateId];
 
@@ -34,5 +38,6 @@ const getMatchScores = (voterAnswers, allCandidatesData) =>
       return [...matches, currentMatch];
     }, [])
     .sort((a, b) => b.match - a.match);
+};
 
 module.exports = getTopMatches;
