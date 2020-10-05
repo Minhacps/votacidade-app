@@ -68,7 +68,6 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       return;
     }
 
-    console.log('laksjlkdas');
     firebase
       .database()
       .ref(currentUser.uid)
