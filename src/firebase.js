@@ -1,7 +1,6 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import 'firebase/functions';
 import 'firebase/database';
 import cities from './cities';
 

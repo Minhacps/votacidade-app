@@ -51,11 +51,14 @@ export default function RankingFilters({ register, control, countFormValues }) {
                 id="age"
                 aria-label="Idade"
                 innerRef={register}
+                defaultValue={''}
               >
                 <option value="">Selecione...</option>
                 {ages.sort(alfabeticOrder('category')).map((age) => {
                   return (
-                    <option value={age.category}>{age.description}</option>
+                    <option key={age.category} value={age.category}>
+                      {age.description}
+                    </option>
                   );
                 })}
               </CustomInput>
@@ -71,6 +74,7 @@ export default function RankingFilters({ register, control, countFormValues }) {
                 id="gender"
                 aria-label="Selecione seu gênero"
                 innerRef={register}
+                defaultValue={''}
               >
                 <option value="">Selecione...</option>
                 {genders.sort(alfabeticOrder('category')).map((gender) => {
@@ -100,6 +104,7 @@ export default function RankingFilters({ register, control, countFormValues }) {
                   value: letter,
                   label: name,
                 }))}
+                defaultValue={''}
               />
             </FormGroup>
           </Col>
@@ -112,6 +117,7 @@ export default function RankingFilters({ register, control, countFormValues }) {
                 id="ethnicGroup"
                 aria-label="Identificação étnico-racial"
                 innerRef={register}
+                defaultValue={''}
               >
                 <option value="">Selecione...</option>
                 {ethnicGroup.sort(alfabeticOrder('category')).map((ethnic) => {
@@ -134,6 +140,7 @@ export default function RankingFilters({ register, control, countFormValues }) {
                 name="politicalParty"
                 id="politicalParty"
                 innerRef={register}
+                defaultValue={''}
               >
                 <option value="">Selecione...</option>
                 {politicalParties
