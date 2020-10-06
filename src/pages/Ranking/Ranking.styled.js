@@ -64,7 +64,7 @@ export const RatingHeader = styled.button`
 
 export const RatingTitle = styled.p`
   color: ${colors.purple};
-  font-size: 10pt;
+  font-size: 11pt;
   font-weight: 500;
   margin: 0;
 `;

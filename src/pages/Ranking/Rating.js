@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import firebase from 'firebase/app';
+import styled from 'styled-components';
+import { Alert, Button, Input, Label } from 'reactstrap';
+
 import {
   RatingHeader,
   RatingBox,
@@ -8,8 +12,6 @@ import {
   Description,
 } from './Ranking.styled';
 import { ReactComponent as RatingIcon } from 'assets/icons/rating.svg';
-import styled from 'styled-components';
-import { Button, Input, Label } from 'reactstrap';
 
 const StyledRatingIcon = styled(RatingIcon)`
   margin: 0 5px 15px;
@@ -29,7 +31,9 @@ export default function Rating() {
     { active: false },
     { active: false },
   ]);
-  const hasRating = stars.some(({ active }) => active === true);
+  const [ratingResponse, setRatingResponse] = useState('success');
+  const hasSelectRating = stars.some(({ active }) => active === true);
+  const hasRatingAlready = localStorage.getItem('hasRatingAlready');
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -41,9 +45,28 @@ export default function Rating() {
     setStars(starsArray);
   };
 
-  const submitRating = () => {
+  const submitRating = async (event) => {
+    event.preventDefault();
     const rating = stars.filter(({ active }) => active === true).length;
+    const ratingData = { rating, comment: event.target.elements.comment.value };
+
+    await firebase
+      .firestore()
+      .collection('rating')
+      .add({
+        ...ratingData,
+      })
+      .then(() => {
+        localStorage.setItem('hasRatingAlready', true);
+        setRatingResponse('success');
+      })
+      .catch(() => setRatingResponse('error'));
   };
+
+  if (hasRatingAlready) {
+    return null;
+  }
+
   return (
     <RatingBox>
       <RatingHeader onClick={toggle}>
@@ -52,34 +75,51 @@ export default function Rating() {
       </RatingHeader>
       {isOpen && (
         <RatingWrapper>
-          <Description>Como você avalia sua experiência?</Description>
-          <div style={{ display: 'inline-flex' }}>
-            {stars.map(({ active }, index) => (
-              <StyledRatingIcon
-                aria-label={`Avaliar com nota ${index + 1}`}
-                key={index}
-                active={active ? 1 : 0}
-                onClick={() => handleRatingChange(index)}
-              />
-            ))}
-          </div>
-          <Label size="sm">Deixar comentário</Label>
-          <Input
-            size="sm"
-            type="textarea"
-            name="comment"
-            placeholder="Como poderiamos melhorar?"
-          />
-          <Button
-            color="primary"
-            outline
-            size="sm"
-            style={{ marginTop: '15px' }}
-            disabled={!hasRating}
-            onClick={submitRating}
-          >
-            Avaliar
-          </Button>
+          {ratingResponse === 'success' && (
+            <Alert color="success">
+              Obrigado sua avaliação é muito importante.
+            </Alert>
+          )}
+          {ratingResponse === 'error' && (
+            <Alert color="danger">
+              Ocorreu um erro, por favor tente novamente mais tarde.
+            </Alert>
+          )}
+          {!ratingResponse && (
+            <>
+              <Description>Como você avalia sua experiência?</Description>
+              <div style={{ display: 'inline-flex' }}>
+                {stars.map(({ active }, index) => (
+                  <StyledRatingIcon
+                    aria-label={`Avaliar com nota ${index + 1}`}
+                    key={index}
+                    active={active ? 1 : 0}
+                    onClick={() => handleRatingChange(index)}
+                  />
+                ))}
+              </div>
+              <form onSubmit={submitRating} style={{ display: 'contents' }}>
+                <Label size="sm">Deixar comentário</Label>
+                <Input
+                  bsSize="sm"
+                  type="textarea"
+                  name="comment"
+                  placeholder="Como poderiamos melhorar?"
+                  style={{ maxWidth: '300px' }}
+                />
+                <Button
+                  type="submit"
+                  color="primary"
+                  outline
+                  size="sm"
+                  style={{ marginTop: '15px' }}
+                  disabled={!hasSelectRating}
+                >
+                  Avaliar
+                </Button>
+              </form>
+            </>
+          )}
         </RatingWrapper>
       )}
     </RatingBox>
