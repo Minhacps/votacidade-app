@@ -3,13 +3,14 @@ import { Button, Container, Spinner } from 'reactstrap';
 
 import StringHelper from '../../helpers/string';
 
+import { useForm } from 'react-hook-form';
+
+import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 import { CityContext } from '../../components/CityProvider/CityProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 
 import ImageThumbnail from 'components/atoms/ImageThumbnail';
-
-import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 
 import {
   AffinityTag,
@@ -24,17 +25,37 @@ import {
   PageTitle,
   ProfileLink,
 } from './Ranking.styled';
+import useFilterMatches from './useFiltersMatches';
+import RankingFilters from './RankingFilters';
 
 export default function Ranking() {
   const [listLimiter, setListlimiter] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
   const { matches } = useContext(MatchesContext);
   const { answers } = useContext(AnswersContext);
-  const hasMoreCandidates = matches.length > listLimiter;
-  const candidatesCount =
-    listLimiter < matches.length ? listLimiter : matches.length;
   const limitList = (_, index) => index < listLimiter;
   const { cityPath } = useContext(CityContext);
+  const { register, control, getValues, watch } = useForm();
+
+  const formValues = getValues([
+    'age',
+    'gender',
+    'socialGroup',
+    'ethnicGroup',
+    'politicalParty',
+  ]);
+
+  const countFormValues = Object.values(formValues).filter(
+    (value) => value !== undefined && value !== '',
+  ).length;
+
+  watch();
+
+  const filteredMatches = useFilterMatches({ matches, formValues });
+
+  const hasMoreCandidates = filteredMatches.length > listLimiter;
+  const candidatesCount =
+    listLimiter < filteredMatches.length ? listLimiter : filteredMatches.length;
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -73,7 +94,13 @@ export default function Ranking() {
         no Vota de um total de {matches.length}
       </Description>
 
-      {matches.filter(limitList).map((candidate) => (
+      <RankingFilters
+        register={register}
+        control={control}
+        countFormValues={countFormValues}
+      />
+
+      {filteredMatches.filter(limitList).map((candidate) => (
         <div key={candidate.id} data-testid="candidate-item">
           <CandidateCard>
             <ImageThumbnail
