@@ -1,4 +1,23 @@
 export default function useFilterMatches({ matches, formValues }) {
+  const appliedFilter = formValues;
+
+  const filterBySocialGroup = (data) => {
+    if (!formValues.socialGroup) {
+      return data;
+    }
+
+    if (!data.socialGroup) {
+      return false;
+    }
+
+    const filteredGroups = appliedFilter.socialGroup.map((i) => i.value);
+    const candidateIdentifiedGroups = data.socialGroup.map((i) => i.value);
+
+    return filteredGroups.some((item) =>
+      candidateIdentifiedGroups.includes(item),
+    );
+  };
+
   const filterByAge = (data) => {
     if (!formValues.age) {
       return data;
@@ -32,6 +51,7 @@ export default function useFilterMatches({ matches, formValues }) {
   };
 
   return matches
+    .filter(filterBySocialGroup)
     .filter(filterByAge)
     .filter(filterByGender)
     .filter(filterByEthnicGroup)
