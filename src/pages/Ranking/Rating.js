@@ -31,7 +31,7 @@ export default function Rating() {
     { active: false },
     { active: false },
   ]);
-  const [ratingResponse, setRatingResponse] = useState('success');
+  const [ratingResponse, setRatingResponse] = useState(false);
   const hasSelectRating = stars.some(({ active }) => active === true);
   const hasRatingAlready = localStorage.getItem('hasRatingAlready');
 
