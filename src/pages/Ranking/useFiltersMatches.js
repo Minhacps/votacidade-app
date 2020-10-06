@@ -47,7 +47,7 @@ export default function useFilterMatches({ matches, formValues }) {
       return data;
     }
 
-    return (data.politicalParty = formValues.politicalParty);
+    return data.politicalParty === formValues.politicalParty;
   };
 
   return matches
