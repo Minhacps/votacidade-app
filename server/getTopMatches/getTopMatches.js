@@ -11,26 +11,33 @@ const getCandidateAnswers = async (firebase) => {
   return result.val();
 };
 
-const getMatchScores = (voterAnswers, allCandidatesData) =>
-  Object.keys(allCandidatesData)
-    // .filter((candidateData) => {
-    //   amountOfAnswers = Object.keys(candidateData.data()).length;
-    //   return amountOfAnswers === 40;
-    // })
-    .map((candidateId) => {
+const getMatchScores = (voterAnswers, allCandidatesData) => {
+  if (!allCandidatesData) {
+    return [];
+  }
+
+  return Object.keys(allCandidatesData)
+    .reduce((matches, candidateId) => {
       const { answers, ...candidateProfile } = allCandidatesData[candidateId];
+
+      if (answers.length !== 30) {
+        return matches;
+      }
 
       const score = matcher.getMatchScore(
         voterAnswers,
         allCandidatesData[candidateId].answers,
       );
 
-      return {
+      const currentMatch = {
         id: candidateId,
         ...candidateProfile,
         match: score.normalized,
       };
-    })
+
+      return [...matches, currentMatch];
+    }, [])
     .sort((a, b) => b.match - a.match);
+};
 
 module.exports = getTopMatches;
