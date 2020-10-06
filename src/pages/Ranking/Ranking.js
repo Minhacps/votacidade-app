@@ -108,6 +108,7 @@ export default function Ranking() {
               alt={`Foto de ${candidate.name}`}
               placeholderText="Foto"
               width="73px"
+              height="73px"
               className="border mr-3"
             />
             <InfoWrapper>
