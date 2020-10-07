@@ -131,6 +131,11 @@ export default function Ranking() {
           <Divider />
         </div>
       ))}
+
+      {countFormValues > 0 && filteredMatches.length === 0 && (
+        <p>Nenhum candidato encontrado</p>
+      )}
+
       {hasMoreCandidates && (
         <ButtonWrapper>
           <Button
