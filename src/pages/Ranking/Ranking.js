@@ -47,7 +47,7 @@ export default function Ranking() {
   ]);
 
   const countFormValues = Object.values(formValues).filter(
-    (value) => value !== undefined && value !== '',
+    (value) => value && value.length,
   ).length;
 
   watch();
