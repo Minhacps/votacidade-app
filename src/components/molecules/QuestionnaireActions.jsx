@@ -6,12 +6,12 @@ import { ROLE_VOTER } from '../../constants/userRoles';
 import { Link } from 'react-router-dom';
 import { CityContext } from '../CityProvider/CityProvider';
 
-const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, minAnswers, questionIndex, alreadyAnswered, onBack, onSkip }) => {
+const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, minAnswers, questionIndex, onBack, onSkip }) => {
   const { cityPath, enableRanking } = useContext(CityContext);
 
   return (
     <>
-      <FormGroup row>
+      <FormGroup row className="mt-4">
         <Col>
           <Button
             color="primary"
@@ -41,7 +41,7 @@ const QuestionnaireAction = ({ userRole, questionnaireLength, answersLength, min
         {userRole === ROLE_CANDIDATE && (
           <Col>
             <Button type="submit" color="primary" block>
-              {answersLength >= (minAnswers - 1) && !alreadyAnswered ? 'Finalizar' : 'Responder'}
+              Responder
             </Button>
           </Col>
         )}

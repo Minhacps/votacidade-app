@@ -13,6 +13,7 @@ import StatementExplanation from 'components/StatementExplanation/StatementExpla
 import Statement from 'components/Statement/Statement';
 import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
+import { ROLE_VOTER } from '../../constants/userRoles';
 
 const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
@@ -30,13 +31,31 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       [id]: data,
     };
 
-    updateAnswers(answer);
+    const allAnswers = {
+      ...answers,
+      ...answer,
+    };
+    const currentAnswersSize = Object.keys(allAnswers).length;
 
-    return firebase
+    setTimeout(() => {
+      updateAnswers(answer);
+    }, 500);
+
+    firebase
       .firestore()
       .collection(answersCollection(user.role))
       .doc(currentUser.uid)
       .set(answer, { merge: true });
+
+    // Last question.
+    const candidateCondition =
+      user.role === ROLE_CANDIDATE && currentAnswersSize === minAnswers;
+    const voterCondition =
+      user.role === ROLE_VOTER && currentAnswersSize === questionnaire.length;
+
+    if (candidateCondition || voterCondition) {
+      push(`${cityPath}/ranking`);
+    }
   };
 
   const handleDecisionChoice = (event) => {
@@ -49,11 +68,6 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     saveAnswer({
       answer: event.target.value,
     });
-
-    // Last question.
-    if (id === questionnaire.length - 1) {
-      push(`${cityPath}/ranking`);
-    }
   };
 
   const handleSubmit = (event) => {
@@ -97,13 +111,9 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     <>
       <Statement number={id + 1} text={question} />
 
-      {explanation && (
-        <div className="mb-3">
-          <StatementExplanation explanation={explanation} />
-        </div>
-      )}
+      {explanation && <StatementExplanation explanation={explanation} />}
 
-      <Form onSubmit={handleSubmit} key={id + 1}>
+      <Form onSubmit={handleSubmit} key={id + 1} className="mt-4">
         {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
         <Decision
           questionNumber={id + 1}
@@ -130,7 +140,6 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
           questionnaireLength={questionnaire.length}
           answersLength={answersLength}
           minAnswers={minAnswers}
-          alreadyAnswered={value && value.answer ? true : false}
           questionIndex={id}
           onBack={handlePrevious}
           onSkip={handleSkip}

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import colors from 'styles/colors';
 import { Link } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
 export const PageTitle = styled.h2`
   color: ${colors.purple};
@@ -100,32 +101,6 @@ export const CandidateCard = styled.div`
   align-items: center;
 `;
 
-export const Img = styled.img`
-  margin-right: 15px;
-  width: 73px;
-  height: 73px;
-  border-radius: 50%;
-  background-color: ${colors.grey300};
-`;
-
-export const ImgPlaceholder = styled.div`
-  margin-right: 15px;
-  width: 73px;
-  height: 73px;
-  background-color: ${colors.grey300};
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &::before {
-    content: 'FOTO';
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 300;
-    font-size: 10pt;
-  }
-`;
-
 export const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -168,4 +143,26 @@ export const ProfileLink = styled(Link)`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const FilterButton = styled(Button)`
+  margin-bottom: 20px;
+`;
+
+export const InvisibleForm = styled.div`
+  display: ${({ isInvisible }) => (isInvisible ? 'none' : 'block')};
+`;
+
+export const FilterCounter = styled.span`
+  color: ${colors.purple};
+  background-color: white;
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  display: inline-block;
+`;
+
+export const FilterLabel = styled.span`
+  margin-left: 10px;
+  margin-right: 20px;
 `;

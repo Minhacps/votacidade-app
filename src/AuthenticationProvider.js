@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 import PageLoading from './components/molecules/PageLoading';
 
 export const AuthenticationContext = React.createContext();

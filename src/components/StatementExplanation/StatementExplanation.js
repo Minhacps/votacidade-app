@@ -27,7 +27,7 @@ const StatementExplanation = ({ explanation }) => {
         )}
       </Button>
 
-      <Collapse isOpen={isOpen}>
+      <Collapse isOpen={isOpen} className="mt-2">
         <Card>
           <CardBody style={{ fontSize: '12px' }}>{explanation}</CardBody>
         </Card>

@@ -48,11 +48,7 @@ const Profile = () => {
 
   return (
     <Container className="py-4">
-      {/* should render candidate image in the future */}
-      <CandidatePhoto
-        src={require('assets/img/avatar.png')}
-        alt="Foto da pessoa candidata"
-      />
+      <CandidatePhoto src={candidate.picture} alt="Foto da pessoa candidata" />
       <CandidateName>{candidate.name}</CandidateName>
       <CandidateNumber>
         {candidate.candidateNumber} | {candidate.politicalParty}
