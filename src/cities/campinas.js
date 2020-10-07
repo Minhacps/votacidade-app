@@ -96,7 +96,7 @@ const questionnaire = [
   },
   {
     question:
-      'Garantir, na prática, dos mesmos direitos dos brasileiros e brasileiras a imigrantes.	',
+      'Garantir, na prática, os mesmos direitos dos brasileiros e brasileiras a imigrantes.	',
     explanation:
       'Por exemplo, a Prefeitura de Campinas teve dificuldades de garantir direitos de venezuelanos durante a pandemia, por falta de estrutura e dificuldades de comunicação.	',
   },
@@ -149,7 +149,7 @@ const questionnaire = [
     question:
       'A queima do lixo é uma ótima alternativa para a gestão de resíduos da cidade.	',
     explanation:
-      'Uma proposta da Prefeitura prevê a criação de um composto a partir do lixo, que será usado por combustível, para queima (incineração) em grandes fornos industriais, gerando poluição e danos a saúde.	',
+      'Uma proposta da Prefeitura prevê a criação de um composto a partir do lixo, que será usado como combustível, para queima (incineração) em grandes fornos industriais, gerando poluição e danos a saúde.	',
   },
   {
     question:
