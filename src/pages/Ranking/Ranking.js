@@ -18,6 +18,7 @@ import {
   CandidateCard,
   CardInfo,
   CardName,
+  CenteredContent,
   Description,
   Divider,
   InfoWrapper,
@@ -56,6 +57,10 @@ export default function Ranking() {
   const hasMoreCandidates = filteredMatches.length > listLimiter;
   const candidatesCount =
     listLimiter < filteredMatches.length ? listLimiter : filteredMatches.length;
+
+  const hasNoMatches = countFormValues > 0 && filteredMatches.length === 0;
+  const isLoadingMatches =
+    countFormValues === 0 && filteredMatches.length === 0;
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -132,8 +137,14 @@ export default function Ranking() {
         </div>
       ))}
 
-      {countFormValues > 0 && filteredMatches.length === 0 && (
-        <p>Nenhum candidato encontrado</p>
+      {isLoadingMatches && (
+        <CenteredContent>
+          <Spinner color="primary" />
+        </CenteredContent>
+      )}
+
+      {hasNoMatches && (
+        <CenteredContent>Nenhum candidato encontrado</CenteredContent>
       )}
 
       {hasMoreCandidates && (
