@@ -35,7 +35,7 @@ export default function Ranking() {
   const { answers } = useContext(AnswersContext);
   const limitList = (_, index) => index < listLimiter;
   const { cityPath } = useContext(CityContext);
-  const { register, control, getValues, watch } = useForm();
+  const { register, control, getValues, watch, reset } = useForm();
 
   const formValues = getValues([
     'age',
@@ -98,6 +98,7 @@ export default function Ranking() {
         register={register}
         control={control}
         countFormValues={countFormValues}
+        reset={reset}
       />
 
       {filteredMatches.filter(limitList).map((candidate) => (
