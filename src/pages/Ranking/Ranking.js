@@ -18,6 +18,7 @@ import {
   CandidateCard,
   CardInfo,
   CardName,
+  CenteredContent,
   Description,
   Divider,
   InfoWrapper,
@@ -35,7 +36,7 @@ export default function Ranking() {
   const { answers } = useContext(AnswersContext);
   const limitList = (_, index) => index < listLimiter;
   const { cityPath } = useContext(CityContext);
-  const { register, control, getValues, watch } = useForm();
+  const { register, control, getValues, watch, reset } = useForm();
 
   const formValues = getValues([
     'age',
@@ -46,7 +47,7 @@ export default function Ranking() {
   ]);
 
   const countFormValues = Object.values(formValues).filter(
-    (value) => value !== undefined && value !== '',
+    (value) => value && value.length,
   ).length;
 
   watch();
@@ -56,6 +57,10 @@ export default function Ranking() {
   const hasMoreCandidates = filteredMatches.length > listLimiter;
   const candidatesCount =
     listLimiter < filteredMatches.length ? listLimiter : filteredMatches.length;
+
+  const hasNoMatches = countFormValues > 0 && filteredMatches.length === 0;
+  const isLoadingMatches =
+    countFormValues === 0 && filteredMatches.length === 0;
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -98,6 +103,7 @@ export default function Ranking() {
         register={register}
         control={control}
         countFormValues={countFormValues}
+        reset={reset}
       />
 
       {filteredMatches.filter(limitList).map((candidate) => (
@@ -130,6 +136,17 @@ export default function Ranking() {
           <Divider />
         </div>
       ))}
+
+      {isLoadingMatches && (
+        <CenteredContent>
+          <Spinner color="primary" />
+        </CenteredContent>
+      )}
+
+      {hasNoMatches && (
+        <CenteredContent>Nenhum candidato encontrado</CenteredContent>
+      )}
+
       {hasMoreCandidates && (
         <ButtonWrapper>
           <Button

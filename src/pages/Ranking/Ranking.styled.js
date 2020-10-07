@@ -166,3 +166,8 @@ export const FilterLabel = styled.span`
   margin-left: 10px;
   margin-right: 20px;
 `;
+
+export const CenteredContent = styled.div`
+  display: flex;
+  justify-content: center;
+`;

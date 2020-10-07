@@ -20,7 +20,12 @@ import {
   FilterLabel,
 } from './Ranking.styled';
 
-export default function RankingFilters({ register, control, countFormValues }) {
+export default function RankingFilters({
+  register,
+  control,
+  countFormValues,
+  reset,
+}) {
   const [isInvisible, setIsInvisible] = useState(true);
 
   return (
@@ -37,6 +42,17 @@ export default function RankingFilters({ register, control, countFormValues }) {
             {countFormValues > 0 && (
               <FilterCounter>{countFormValues}</FilterCounter>
             )}
+          </FilterButton>
+        </Col>
+        <Col className="text-right">
+          <FilterButton
+            color="primary"
+            outline
+            type="button"
+            disabled={countFormValues === 0}
+            onClick={() => reset()}
+          >
+            Limpar Filtros
           </FilterButton>
         </Col>
       </Row>
