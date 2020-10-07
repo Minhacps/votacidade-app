@@ -57,8 +57,8 @@ export default function Rating() {
         ...ratingData,
       })
       .then(() => {
-        localStorage.setItem('hasRatingAlready', true);
         setRatingResponse('success');
+        localStorage.setItem('hasRatingAlready', true);
       })
       .catch(() => setRatingResponse('error'));
   };
@@ -77,7 +77,7 @@ export default function Rating() {
         <RatingWrapper>
           {ratingResponse === 'success' && (
             <Alert color="success">
-              Obrigado sua avaliação é muito importante.
+              Obrigado, sua avaliação é muito importante.
             </Alert>
           )}
           {ratingResponse === 'error' && (
