@@ -16,6 +16,7 @@ export const CandidateName = styled.p`
   color: ${colors.purple};
   font-size: 18px;
   font-weight: 600;
+  text-transform: capitalize;
 `;
 
 export const CandidateNumber = styled.p`
