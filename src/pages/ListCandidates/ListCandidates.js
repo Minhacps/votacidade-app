@@ -1,5 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Container, Spinner } from 'reactstrap';
+import React, { useContext, useEffect, useState } from 'react';
+import {
+  Col,
+  Container,
+  CustomInput,
+  Form,
+  FormGroup,
+  Label,
+  Row,
+  Spinner,
+} from 'reactstrap';
 import {
   AnswerTag,
   CandidateCard,
@@ -7,23 +16,27 @@ import {
   CardName,
   Description,
   Divider,
-  Img,
-  ImgPlaceholder,
   InfoWrapper,
   PageTitle,
 } from './ListCandidates.styled';
 import { CenteredContent } from '../Ranking/Ranking.styled';
 import { CityContext } from '../../components/CityProvider/CityProvider';
+import ImageThumbnail from 'components/atoms/ImageThumbnail';
+import getPicture from 'constants/candidatePicture';
+import { politicalParties } from '../../data/form-data';
+import { alfabeticOrder } from '../../styles/helper';
 
 const ListCandidates = ({ firebase }) => {
-  const { totalCandidates } = useContext(CityContext);
+  const { cityPath, totalCandidates } = useContext(CityContext);
   const [candidates, setCandidates] = useState([]);
+  const [filter, setFilter] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     firebase
       .database()
       .ref()
+      .orderByChild('politicalParty')
       .once('value', (data) => {
         data.forEach(function (childSnapshot) {
           let candidate = childSnapshot.val();
@@ -36,6 +49,12 @@ const ListCandidates = ({ firebase }) => {
       });
   }, [firebase]);
 
+  const handleChange = (event) => {
+    if (event.target.value) {
+      setFilter(event.target.value);
+    }
+  };
+
   return (
     <Container className="py-4">
       <PageTitle> Lista de Candidatos(as)</PageTitle>
@@ -45,26 +64,52 @@ const ListCandidates = ({ firebase }) => {
         </CenteredContent>
       ) : (
         <>
+          <Form>
+            <Row>
+              <Col xs="12" sm="6">
+                <FormGroup>
+                  <Label for="politicalParty">Partido</Label>
+                  <CustomInput type="select" onChange={handleChange}>
+                    <option value="">Selecione...</option>
+                    {politicalParties
+                      .sort(alfabeticOrder('numero'))
+                      .map((partido) => {
+                        return (
+                          <option key={partido.sigla} value={partido.sigla}>
+                            {' '}
+                            {partido.numero} - {partido.sigla} - {partido.nome}
+                          </option>
+                        );
+                      })}
+                  </CustomInput>
+                </FormGroup>
+              </Col>
+            </Row>
+          </Form>
           <Divider />
           <Description>
             <strong>Candidatos(as):</strong> mostrando {candidates.length}{' '}
             cadastrados no Vota de um total de {totalCandidates}
           </Description>
           {candidates
-            .sort((a, b) => {
-              return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+            .filter((candidate) => {
+              if (!filter) {
+                return true;
+              }
+
+              return candidate.politicalParty === filter;
             })
             .map((candidate) => (
               <div key={candidate.candidateNumber} data-testid="candidate-item">
                 <CandidateCard>
-                  {candidate.picture ? (
-                    <Img
-                      src={candidate.picture}
-                      alt={`Foto do candidato ${candidate.name}`}
-                    />
-                  ) : (
-                    <ImgPlaceholder />
-                  )}
+                  <ImageThumbnail
+                    src={getPicture(cityPath, candidate.candidateNumber)}
+                    alt={`Foto de ${candidate.name}`}
+                    placeholderText="Foto"
+                    width="83px"
+                    height="83px"
+                    className="border mr-3"
+                  />
                   <InfoWrapper>
                     <CardName>{candidate.name}</CardName>
                     <CardInfo>
