@@ -52,6 +52,8 @@ const ListCandidates = ({ firebase }) => {
   const handleChange = (event) => {
     if (event.target.value) {
       setFilter(event.target.value);
+    } else {
+      setFilter(null);
     }
   };
 
@@ -69,7 +71,11 @@ const ListCandidates = ({ firebase }) => {
               <Col xs="12" sm="6">
                 <FormGroup>
                   <Label for="politicalParty">Partido</Label>
-                  <CustomInput type="select" onChange={handleChange}>
+                  <CustomInput
+                    type="select"
+                    id="politicalParty"
+                    onChange={handleChange}
+                  >
                     <option value="">Selecione...</option>
                     {politicalParties
                       .sort(alfabeticOrder('numero'))
