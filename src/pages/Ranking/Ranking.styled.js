@@ -46,7 +46,7 @@ export const BoxDescription = styled.p`
 `;
 
 export const RatingBox = styled.div`
-  margin-top: 12px;
+  margin: 12px 0;
   width: 100%;
   border: 1px solid ${colors.grey100};
   border-radius: 5px;
@@ -64,7 +64,7 @@ export const RatingHeader = styled.button`
 
 export const RatingTitle = styled.p`
   color: ${colors.purple};
-  font-size: 10pt;
+  font-size: 11pt;
   font-weight: 500;
   margin: 0;
 `;

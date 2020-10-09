@@ -28,6 +28,7 @@ import {
 } from './Ranking.styled';
 import useFilterMatches from './useFiltersMatches';
 import RankingFilters from './RankingFilters';
+import Rating from './Rating';
 
 export default function Ranking() {
   const [listLimiter, setListlimiter] = useState(10);
@@ -91,6 +92,8 @@ export default function Ranking() {
         porcentagem de afinidade! Ah, você pode filtrar os candidatos, ver o
         perfil e as respostas de cada um.
       </PageDescription>
+
+      <Rating />
 
       <Divider />
 
