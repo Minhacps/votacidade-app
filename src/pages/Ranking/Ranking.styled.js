@@ -111,6 +111,7 @@ export const CardName = styled.p`
   font-size: 13pt;
   font-weight: 500;
   margin-bottom: 0;
+  text-transform: capitalize;
 `;
 
 export const CardInfo = styled.span`
