@@ -15,7 +15,7 @@ const Thumbnail = styled.div`
   ${({ image, width }) =>
     image && `
       background-image: url(${image});
-      background-position: center center;
+      background-position: center top;
       background-size: ${width} auto;
     `
   }
@@ -38,8 +38,8 @@ const ImageThumbnail = ({ src, alt, width, height = width, backgroundColor = col
           className="sr-only"
         />
       ) : (
-      <small className="text-uppercase text-light">{placeholderText}</small>
-      )}
+          <small className="text-uppercase text-light">{placeholderText}</small>
+        )}
     </Thumbnail>
   )
 };

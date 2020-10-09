@@ -9,6 +9,7 @@ import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 import { CityContext } from '../../components/CityProvider/CityProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
+import getPicture from 'constants/candidatePicture';
 
 import ImageThumbnail from 'components/atoms/ImageThumbnail';
 
@@ -113,7 +114,7 @@ export default function Ranking() {
         <div key={candidate.id} data-testid="candidate-item">
           <CandidateCard>
             <ImageThumbnail
-              src={candidate?.picture}
+              src={getPicture(cityPath, candidate.candidateNumber)}
               alt={`Foto de ${candidate.name}`}
               placeholderText="Foto"
               width="73px"
