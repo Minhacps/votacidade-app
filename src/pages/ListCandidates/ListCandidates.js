@@ -36,7 +36,7 @@ const ListCandidates = ({ firebase }) => {
     firebase
       .database()
       .ref()
-      .orderByChild('politicalParty')
+      .orderByChild('name')
       .once('value', (data) => {
         data.forEach(function (childSnapshot) {
           let candidate = childSnapshot.val();
