@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container } from 'reactstrap';
+import { Container, Spinner } from 'reactstrap';
 import {
   AnswerTag,
   CandidateCard,
@@ -12,6 +12,7 @@ import {
   InfoWrapper,
   PageTitle,
 } from './ListCandidates.styled';
+import { CenteredContent } from '../Ranking/Ranking.styled';
 import { CityContext } from '../../components/CityProvider/CityProvider';
 
 const ListCandidates = ({ firebase }) => {
@@ -39,7 +40,9 @@ const ListCandidates = ({ firebase }) => {
     <Container className="py-4">
       <PageTitle> Lista de Candidatos(as)</PageTitle>
       {loading ? (
-        <p>carregando</p>
+        <CenteredContent>
+          <Spinner color="primary" />
+        </CenteredContent>
       ) : (
         <>
           <Divider />
