@@ -14,10 +14,21 @@ const AuthenticationProvider = ({ children }) => {
     firebase.auth().onAuthStateChanged((authUser) => {
       setLookingForUser(false);
       setAuthUser(authUser);
+
+      if (!authUser) {
+        window.localStorage.removeItem('userData');
+      }
     });
   }, []);
 
   useEffect(() => {
+    const localUserData = window.localStorage.getItem('userData');
+
+    if (localUserData) {
+      setUserData(JSON.parse(localUserData));
+      return;
+    }
+
     if (!authUser) {
       setUserData(null);
       return;
@@ -28,6 +39,10 @@ const AuthenticationProvider = ({ children }) => {
     if (signUpFormUserData) {
       setUserData(signUpFormUserData);
       setLookingForUser(false);
+      window.localStorage.setItem(
+        'userData',
+        JSON.stringify(signUpFormUserData),
+      );
       return;
     }
 
@@ -41,6 +56,8 @@ const AuthenticationProvider = ({ children }) => {
 
         setUserData(storedUserData);
         setLookingForUser(false);
+
+        window.localStorage.setItem('userData', JSON.stringify(storedUserData));
       });
   }, [authUser, signUpFormUserData]);
 

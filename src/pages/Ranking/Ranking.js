@@ -9,6 +9,7 @@ import { ReactComponent as FindSvg } from 'assets/icons/find.svg';
 import { CityContext } from '../../components/CityProvider/CityProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
+import getPicture from 'constants/candidatePicture';
 
 import ImageThumbnail from 'components/atoms/ImageThumbnail';
 
@@ -18,6 +19,7 @@ import {
   CandidateCard,
   CardInfo,
   CardName,
+  CenteredContent,
   Description,
   Divider,
   InfoWrapper,
@@ -27,6 +29,7 @@ import {
 } from './Ranking.styled';
 import useFilterMatches from './useFiltersMatches';
 import RankingFilters from './RankingFilters';
+import Rating from './Rating';
 
 export default function Ranking() {
   const [listLimiter, setListlimiter] = useState(10);
@@ -35,7 +38,7 @@ export default function Ranking() {
   const { answers } = useContext(AnswersContext);
   const limitList = (_, index) => index < listLimiter;
   const { cityPath } = useContext(CityContext);
-  const { register, control, getValues, watch } = useForm();
+  const { register, control, getValues, watch, reset } = useForm();
 
   const formValues = getValues([
     'age',
@@ -46,7 +49,7 @@ export default function Ranking() {
   ]);
 
   const countFormValues = Object.values(formValues).filter(
-    (value) => value !== undefined && value !== '',
+    (value) => value && value.length,
   ).length;
 
   watch();
@@ -56,6 +59,10 @@ export default function Ranking() {
   const hasMoreCandidates = filteredMatches.length > listLimiter;
   const candidatesCount =
     listLimiter < filteredMatches.length ? listLimiter : filteredMatches.length;
+
+  const hasNoMatches = countFormValues > 0 && filteredMatches.length === 0;
+  const isLoadingMatches =
+    countFormValues === 0 && filteredMatches.length === 0;
 
   const loadMoreCandidates = async () => {
     setIsLoading(true);
@@ -87,6 +94,8 @@ export default function Ranking() {
         perfil e as respostas de cada um.
       </PageDescription>
 
+      <Rating />
+
       <Divider />
 
       <Description>
@@ -98,13 +107,14 @@ export default function Ranking() {
         register={register}
         control={control}
         countFormValues={countFormValues}
+        reset={reset}
       />
 
       {filteredMatches.filter(limitList).map((candidate) => (
         <div key={candidate.id} data-testid="candidate-item">
           <CandidateCard>
             <ImageThumbnail
-              src={candidate?.picture}
+              src={getPicture(cityPath, candidate.candidateNumber)}
               alt={`Foto de ${candidate.name}`}
               placeholderText="Foto"
               width="73px"
@@ -130,6 +140,17 @@ export default function Ranking() {
           <Divider />
         </div>
       ))}
+
+      {isLoadingMatches && (
+        <CenteredContent>
+          <Spinner color="primary" />
+        </CenteredContent>
+      )}
+
+      {hasNoMatches && (
+        <CenteredContent>Nenhum candidato encontrado</CenteredContent>
+      )}
+
       {hasMoreCandidates && (
         <ButtonWrapper>
           <Button
