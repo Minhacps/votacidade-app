@@ -64,7 +64,11 @@ const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
           disabled={loading}
           data-testid="submit-button"
         >
-          {loading ? <Spinner color="light" size="sm" /> : 'Entrar'}
+          {loading ? (
+            <Spinner data-testid="submit-loader" color="light" size="sm" />
+          ) : (
+            'Entrar'
+          )}
         </Button>
       </Form>
       <StyledSpan>

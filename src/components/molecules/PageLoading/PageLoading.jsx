@@ -6,7 +6,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 const PageLoading = () => {
   return (
-    <Container fluid className="text-primary">
+    <Container fluid className="text-primary" data-testid="page-loading">
       <Row className="vh-100">
         <Col sm="12" className="text-center my-auto">
           <h1 className="display-4">

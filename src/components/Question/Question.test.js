@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 
 import Question from './Question';
 
@@ -8,7 +9,6 @@ import { ROLE_VOTER } from 'constants/userRoles';
 import CityProvider from 'components/CityProvider/CityProvider';
 import AnswersProvider from 'components/AnswersProvider/AnswersProvider';
 import questionsService from 'components/AnswersProvider/answersService';
-import { BrowserRouter } from 'react-router-dom';
 
 const storedAnswers = { 0: { answer: 'DT' }, 1: { answer: 'CT' } };
 beforeEach(() => {

@@ -1,5 +1,5 @@
-const { wait } = require('@testing-library/react');
 import Chance from 'chance';
+const { wait } = require('@testing-library/react');
 const chance = new Chance();
 
 describe('Login candidate user', () => {
