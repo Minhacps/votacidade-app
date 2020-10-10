@@ -11,8 +11,8 @@ jest.mock('firebase/app', () => {
             Promise.resolve({
               data: jest.fn(() => ({
                 city: 'campinas',
-                email: 'takahashihideki408@gmail.com',
-                name: 'Luis Takahashi',
+                email: 'some.user@domain.com',
+                name: 'Some user',
                 role: 'voter',
               })),
             }),
