@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.8b76d835.chunk.css",
-    "main.js": "/static/js/main.c8e22800.chunk.js",
-    "main.js.map": "/static/js/main.c8e22800.chunk.js.map",
+    "main.css": "/static/css/main.dc4116d4.chunk.css",
+    "main.js": "/static/js/main.21ffe52a.chunk.js",
+    "main.js.map": "/static/js/main.21ffe52a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f8a93575.js",
     "runtime-main.js.map": "/static/js/runtime-main.f8a93575.js.map",
-    "static/js/2.65774afa.chunk.js": "/static/js/2.65774afa.chunk.js",
-    "static/js/2.65774afa.chunk.js.map": "/static/js/2.65774afa.chunk.js.map",
+    "static/js/2.0c2746c3.chunk.js": "/static/js/2.0c2746c3.chunk.js",
+    "static/js/2.0c2746c3.chunk.js.map": "/static/js/2.0c2746c3.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.536099d51a2e3435b17164b1db212045.js": "/precache-manifest.536099d51a2e3435b17164b1db212045.js",
+    "precache-manifest.b31560d992f3a54b95d85645c92c80d6.js": "/precache-manifest.b31560d992f3a54b95d85645c92c80d6.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.8b76d835.chunk.css.map": "/static/css/main.8b76d835.chunk.css.map",
-    "static/js/2.65774afa.chunk.js.LICENSE.txt": "/static/js/2.65774afa.chunk.js.LICENSE.txt",
+    "static/css/main.dc4116d4.chunk.css.map": "/static/css/main.dc4116d4.chunk.css.map",
+    "static/js/2.0c2746c3.chunk.js.LICENSE.txt": "/static/js/2.0c2746c3.chunk.js.LICENSE.txt",
     "static/media/afinidade.png": "/static/media/afinidade.957a493e.png",
     "static/media/campinas-fundo.jpg": "/static/media/campinas-fundo.e45bfdc1.jpg",
     "static/media/filter.e106c845.svg": "/static/media/filter.e106c845.svg",
@@ -22,14 +22,15 @@
     "static/media/logo-vota-cidades.svg": "/static/media/logo-vota-cidades.b27c7f56.svg",
     "static/media/pattern-baixo.png": "/static/media/pattern-baixo.35c8ab70.png",
     "static/media/poa-fundo.jpg": "/static/media/poa-fundo.061f98da.jpg",
+    "static/media/rating.4e4587db.svg": "/static/media/rating.4e4587db.svg",
     "static/media/recife-fundo.jpg": "/static/media/recife-fundo.84310a14.jpg",
     "static/media/splashscreen.png": "/static/media/splashscreen.047a981f.png",
     "static/media/vota.svg": "/static/media/vota.99573ed2.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f8a93575.js",
-    "static/js/2.65774afa.chunk.js",
-    "static/css/main.8b76d835.chunk.css",
-    "static/js/main.c8e22800.chunk.js"
+    "static/js/2.0c2746c3.chunk.js",
+    "static/css/main.dc4116d4.chunk.css",
+    "static/js/main.21ffe52a.chunk.js"
   ]
 }
