@@ -1,5 +1,7 @@
 import firebase from 'firebase/app';
 
+export { default as firebase } from 'firebase/app';
+
 jest.mock('firebase/app', () => {
   return {
     firestore: jest.fn(() => ({

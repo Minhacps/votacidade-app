@@ -1,4 +1,3 @@
-/* eslint-disable import/first */
 import React from 'react';
 import {
   screen,
@@ -8,10 +7,9 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import firebase from 'firebase/app';
 import { BrowserRouter } from 'react-router-dom';
-
 import {
+  firebase,
   mockUnauthenticatedUser,
   mockAuthenticatedUser,
 } from 'tests/mockFirebaseAuth';
