@@ -19,6 +19,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
+
   const { answers, updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const answersLength = Object.values(answers).length;
 
@@ -73,7 +74,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!event.target.answer.value) {
+    if (!event?.target?.answer?.value) {
       setErrorMessage('Escolha uma opção.');
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
@@ -99,12 +100,16 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
 
   const handlePrevious = () => {
     setErrorMessage(null);
-    onBack();
+    if (onBack) {
+      onBack();
+    }
   };
 
   const handleSkip = () => {
     setErrorMessage(null);
-    onSkip();
+    if (onSkip) {
+      onSkip();
+    }
   };
 
   return (

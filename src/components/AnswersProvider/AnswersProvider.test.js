@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen, wait } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import AnswersProvider, { AnswersContext } from './AnswersProvider';
 import questionsService from './answersService';
 
@@ -17,22 +17,19 @@ const DataBroadcast = ({ onClick, newAnswer }) => (
     </AnswersContext.Consumer>
   </AnswersProvider>
 );
+const storedAnswers = { 0: { answer: 'DT' }, 1: { answer: 'CT' } };
+beforeEach(() => {
+  jest
+    .spyOn(questionsService, 'getAnsweredQuestions')
+    .mockImplementation(() => Promise.resolve(storedAnswers));
+});
 
 describe('QuestionsProvider', () => {
-  const storedAnswers = { 0: { answer: 'DT' }, 1: { answer: 'CT' } };
-  beforeEach(() => {
-    jest
-      .spyOn(questionsService, 'getAnsweredQuestions')
-      .mockImplementation(() => Promise.resolve(storedAnswers));
-  });
-
   it('should return all stored questions', async () => {
     const mockedOnClick = jest.fn();
     render(<DataBroadcast onClick={mockedOnClick} />);
 
-    await wait(() => {
-      fireEvent.click(screen.getByText('Get answers'));
-    });
+    fireEvent.click(await screen.findByRole('button', { name: 'Get answers' }));
 
     expect(mockedOnClick).toHaveBeenCalledWith(storedAnswers);
   });
@@ -42,10 +39,10 @@ describe('QuestionsProvider', () => {
     const mockedOnClick = jest.fn();
     render(<DataBroadcast onClick={mockedOnClick} newAnswer={newAnswer} />);
 
-    await wait(() => {
-      fireEvent.click(screen.getByText('Update answers'));
-      fireEvent.click(screen.getByText('Get answers'));
-    });
+    fireEvent.click(
+      await screen.findByRole('button', { name: 'Update answers' }),
+    );
+    fireEvent.click(await screen.findByRole('button', { name: 'Get answers' }));
 
     const expectedState = {
       ...storedAnswers,

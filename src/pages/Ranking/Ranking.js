@@ -142,7 +142,7 @@ export default function Ranking() {
       ))}
 
       {isLoadingMatches && (
-        <CenteredContent>
+        <CenteredContent data-testid="ranking-loader">
           <Spinner color="primary" />
         </CenteredContent>
       )}

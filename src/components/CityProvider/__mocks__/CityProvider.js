@@ -13,6 +13,11 @@ const CityProvider = ({ city = fakeCity, children }) => {
         })),
       })),
     })),
+    options: jest.fn({
+      projectId: jest.fn(12345),
+    }),
+    auth: jest.fn().mockReturnThis(),
+    signInWithCustomToken: jest.fn().mockResolvedValue(),
   };
 
   return (
