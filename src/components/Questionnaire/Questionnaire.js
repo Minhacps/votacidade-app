@@ -68,11 +68,11 @@ const Questionnaire = ({ user }) => {
   }, [location.search]);
 
   const handleSkip = () => {
-    setCurrentQuestion(currentQuestion + 1);
+    setNextQuestion();
   };
 
   const handleBack = () => {
-    setCurrentQuestion(currentQuestion - 1);
+    setPreviousQuestion();
   };
 
   return (
