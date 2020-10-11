@@ -88,6 +88,7 @@ const Questionnaire = ({ user }) => {
 
           <Question
             id={currentQuestion}
+            setNextQuestion={setNextQuestion}
             onSkip={handleSkip}
             onBack={handleBack}
             value={answers && answers[currentQuestion]}
