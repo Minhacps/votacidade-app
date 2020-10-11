@@ -7,6 +7,7 @@ import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 
 import { answerOptionsMap } from 'constants/questionnaire';
+import ImageThumbnail from 'components/atoms/ImageThumbnail';
 import getPicture from 'constants/candidatePicture';
 
 import Answer from './Answer';
@@ -50,9 +51,13 @@ const Profile = () => {
 
   return (
     <Container className="py-4">
-      <CandidatePhoto
+      <ImageThumbnail
         src={getPicture(cityPath, candidate.candidateNumber)}
         alt={`Foto de ${candidate.name}`}
+        placeholderText="Foto"
+        width="143px"
+        height="143px"
+        className="border mx-auto"
       />
       <CandidateName>{candidate.name}</CandidateName>
       <CandidateNumber>
@@ -72,17 +77,14 @@ const Profile = () => {
           <Statement>
             <span>{index + 1}.</span> {question}
           </Statement>
+          <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
           {candidateAnswers && (
             <Answer
               isCandidate
               answer={answerOptionsMap[candidateAnswers[index]?.answer]}
-              justification={
-                answerOptionsMap[candidateAnswers[index]?.justification]
-              }
+              justification={candidateAnswers[index]?.justification}
             />
           )}
-
-          <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
         </Question>
       ))}
     </Container>
