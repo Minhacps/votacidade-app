@@ -13,7 +13,6 @@ import getPicture from 'constants/candidatePicture';
 import Answer from './Answer';
 
 import {
-  CandidatePhoto,
   CandidateName,
   CandidateNumber,
   CandidateBio,
