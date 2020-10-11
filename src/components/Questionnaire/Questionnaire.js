@@ -23,18 +23,37 @@ const Questionnaire = ({ user }) => {
 
   const onDismiss = () => setAlertVisible(false);
 
-  useEffect(() => {
-    const getFirstUnansweredQuestion = (loadedAnswers) => {
-      const answersKeys = Object.keys(loadedAnswers);
-      const questionsKeys = Object.keys(questionnaire);
-      return Number(
-        questionsKeys.filter(
-          (questionIndex) => !answersKeys.includes(questionIndex),
-        )[0] || questionnaire.length - 1,
-      );
-    };
+  const getFirstUnansweredQuestion = () => {
+    const answersKeys = Object.keys(answers);
+    const questionsKeys = Object.keys(questionnaire);
 
-    setCurrentQuestion(getFirstUnansweredQuestion(answers));
+    return Number(
+      questionsKeys.filter(
+        (questionIndex) => !answersKeys.includes(questionIndex),
+      )[0] || questionnaire.length - 1,
+    );
+  };
+
+  const setNextQuestion = () => {
+    const nextQuestion = currentQuestion + 1;
+
+    if (nextQuestion >= questionnaire.length) {
+      const firstUnansweredQuestion = getFirstUnansweredQuestion();
+
+      if (firstUnansweredQuestion) {
+        setCurrentQuestion(firstUnansweredQuestion);
+      }
+    } else {
+      setCurrentQuestion(nextQuestion);
+    }
+  };
+
+  const setPreviousQuestion = () => {
+    setCurrentQuestion(currentQuestion - 1);
+  };
+
+  useEffect(() => {
+    setCurrentQuestion(currentQuestion);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [answers, questionnaire]);
 
