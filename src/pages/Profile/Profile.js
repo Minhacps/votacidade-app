@@ -7,6 +7,8 @@ import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 
 import { answerOptionsMap } from 'constants/questionnaire';
+import getPicture from 'constants/candidatePicture';
+
 import Answer from './Answer';
 
 import {
@@ -23,7 +25,7 @@ import {
 import { AffinityTag } from '../Ranking/Ranking.styled.js';
 
 const Profile = () => {
-  const { firebase, questionnaire } = useContext(CityContext);
+  const { firebase, questionnaire, cityPath } = useContext(CityContext);
   const { answers: userAnswers } = useContext(AnswersContext);
   const [candidateAnswers, setCandidateAnswers] = useState({});
   const { matches } = useContext(MatchesContext);
@@ -48,7 +50,10 @@ const Profile = () => {
 
   return (
     <Container className="py-4">
-      <CandidatePhoto src={candidate.picture} alt="Foto da pessoa candidata" />
+      <CandidatePhoto
+        src={getPicture(cityPath, candidate.candidateNumber)}
+        alt={`Foto de ${candidate.name}`}
+      />
       <CandidateName>{candidate.name}</CandidateName>
       <CandidateNumber>
         {candidate.candidateNumber} | {candidate.politicalParty}
