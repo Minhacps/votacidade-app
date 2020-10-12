@@ -1,4 +1,4 @@
-![Build and Deploy](https://github.com/Minhacps/votacidade-app/workflows/Build%20and%20Deploy/badge.svg)
+![Build and Deploy](https://github.com/Minhacps/votacidade-app/workflows/Build%20and%20Deploy/badge.svg) ![unit tests](https://github.com/Minhacps/votacidade-app/workflows/unit%20tests/badge.svg)
 
 <h1 align="center">
   Vota Cidade - App
