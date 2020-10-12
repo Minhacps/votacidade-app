@@ -47,6 +47,7 @@
     "build:prod": "REACT_APP_FIREBASE_ENV=prod REACT_APP_GA_ID='UA-170993659-2' npm run build",
     "build:dev": "REACT_APP_FIREBASE_ENV=dev npm run build",
     "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "test:all": "yarn test --watchAll=false",
     "eject": "react-scripts eject",
     "lint": "eslint --ignore-path .gitignore --ext .js .",
     "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|json)\"",
