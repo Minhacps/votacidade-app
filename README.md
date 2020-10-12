@@ -1,3 +1,5 @@
+![Build and Deploy](https://github.com/Minhacps/votacidade-app/workflows/Build%20and%20Deploy/badge.svg)
+
 <h1 align="center">
   Vota Cidade - App
 </h1>
