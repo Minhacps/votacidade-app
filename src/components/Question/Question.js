@@ -15,7 +15,15 @@ import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 import { ROLE_VOTER } from '../../constants/userRoles';
 
-const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
+const Question = ({
+  id,
+  setNextQuestion,
+  onSkip,
+  onBack,
+  value,
+  user,
+  minAnswers,
+}) => {
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
@@ -69,6 +77,8 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     saveAnswer({
       answer: event.target.value,
     });
+
+    setNextQuestion();
   };
 
   const handleSubmit = (event) => {
@@ -96,6 +106,8 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
+
+    setNextQuestion();
   };
 
   const handlePrevious = () => {
