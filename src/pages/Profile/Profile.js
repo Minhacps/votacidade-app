@@ -7,10 +7,12 @@ import { AnswersContext } from 'components/AnswersProvider/AnswersProvider';
 import { MatchesContext } from 'components/MatchesProvider/MatchesProvider';
 
 import { answerOptionsMap } from 'constants/questionnaire';
+import ImageThumbnail from 'components/atoms/ImageThumbnail';
+import getPicture from 'constants/candidatePicture';
+
 import Answer from './Answer';
 
 import {
-  CandidatePhoto,
   CandidateName,
   CandidateNumber,
   CandidateBio,
@@ -23,7 +25,7 @@ import {
 import { AffinityTag } from '../Ranking/Ranking.styled.js';
 
 const Profile = () => {
-  const { firebase, questionnaire } = useContext(CityContext);
+  const { firebase, questionnaire, cityPath } = useContext(CityContext);
   const { answers: userAnswers } = useContext(AnswersContext);
   const [candidateAnswers, setCandidateAnswers] = useState({});
   const { matches } = useContext(MatchesContext);
@@ -48,7 +50,14 @@ const Profile = () => {
 
   return (
     <Container className="py-4">
-      <CandidatePhoto src={candidate.picture} alt="Foto da pessoa candidata" />
+      <ImageThumbnail
+        src={getPicture(cityPath, candidate.candidateNumber)}
+        alt={`Foto de ${candidate.name}`}
+        placeholderText="Foto"
+        width="143px"
+        height="143px"
+        className="border mx-auto"
+      />
       <CandidateName>{candidate.name}</CandidateName>
       <CandidateNumber>
         {candidate.candidateNumber} | {candidate.politicalParty}
@@ -67,17 +76,14 @@ const Profile = () => {
           <Statement>
             <span>{index + 1}.</span> {question}
           </Statement>
+          <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
           {candidateAnswers && (
             <Answer
               isCandidate
               answer={answerOptionsMap[candidateAnswers[index]?.answer]}
-              justification={
-                answerOptionsMap[candidateAnswers[index]?.justification]
-              }
+              justification={candidateAnswers[index]?.justification}
             />
           )}
-
-          <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
         </Question>
       ))}
     </Container>
