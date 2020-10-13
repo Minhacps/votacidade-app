@@ -13,7 +13,7 @@ const Decision = ({ questionNumber, answer, handleDecisionChoice }) => {
           option={option.id}
           label={option.name}
           value={answer}
-          onChange={handleDecisionChoice}
+          onClick={handleDecisionChoice}
         />
       ))}
     </FormGroup>

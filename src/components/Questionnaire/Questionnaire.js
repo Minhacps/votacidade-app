@@ -53,9 +53,10 @@ const Questionnaire = ({ user }) => {
   };
 
   useEffect(() => {
-    setCurrentQuestion(currentQuestion);
+    const firstUnansweredQuestion = getFirstUnansweredQuestion();
+    setCurrentQuestion(firstUnansweredQuestion);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [answers, questionnaire]);
+  }, []);
 
   useEffect(() => {
     const questionQuery = location.search?.substring(1);

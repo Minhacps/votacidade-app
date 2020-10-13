@@ -46,9 +46,7 @@ const Question = ({
     };
     const currentAnswersSize = Object.keys(allAnswers).length;
 
-    setTimeout(() => {
-      updateAnswers(answer);
-    }, 500);
+    updateAnswers(answer);
 
     firebase
       .firestore()
@@ -68,17 +66,19 @@ const Question = ({
   };
 
   const handleDecisionChoice = (event) => {
-    setErrorMessage(null);
-
     if (user.role === ROLE_CANDIDATE) {
       return;
     }
+
+    setErrorMessage(null);
 
     saveAnswer({
       answer: event.target.value,
     });
 
-    setNextQuestion();
+    setTimeout(() => {
+      setNextQuestion();
+    }, 500);
   };
 
   const handleSubmit = (event) => {
