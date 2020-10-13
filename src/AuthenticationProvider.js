@@ -22,10 +22,20 @@ const AuthenticationProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const localUserData = window.localStorage.getItem('userData');
+    const getLocalUserData = () => {
+      try {
+        const localUserData = window.localStorage.getItem('userData');
+        return JSON.parse(localUserData);
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+    };
+
+    const localUserData = getLocalUserData();
 
     if (localUserData) {
-      setUserData(JSON.parse(localUserData));
+      setUserData(localUserData);
       return;
     }
 
