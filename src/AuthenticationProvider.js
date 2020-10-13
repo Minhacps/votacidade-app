@@ -34,8 +34,6 @@ const AuthenticationProvider = ({ children }) => {
 
     const localUserData = getLocalUserData();
 
-    console.log(localUserData);
-
     if (localUserData) {
       setUserData(localUserData);
       return;
