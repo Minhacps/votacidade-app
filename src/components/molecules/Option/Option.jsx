@@ -3,9 +3,10 @@ import { Input, Label } from 'reactstrap';
 
 import { QuestionOption, Checkmark } from './Option.styled';
 
-const Option = ({ option, label, value, onChange }) => (
+const Option = ({ option, label, value, onChange, onClick }) => (
   <QuestionOption>
     <Input
+      onClick={onClick}
       onChange={onChange}
       type="radio"
       id={`answer-${option}`}

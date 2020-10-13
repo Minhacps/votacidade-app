@@ -40,7 +40,11 @@ const HomePage = () => {
   const name = currentUser.displayName;
 
   return (
-    <Container className="py-4" style={{ lineHeight: '20px' }}>
+    <Container
+      data-testid="app"
+      className="py-4"
+      style={{ lineHeight: '20px' }}
+    >
       {!enableRanking && <Modal name={name} />}
 
       <StyledUserName className="mt-3">Olá, {name},</StyledUserName>

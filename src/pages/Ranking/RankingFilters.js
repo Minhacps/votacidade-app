@@ -43,17 +43,17 @@ export default function RankingFilters({
               <FilterCounter>{countFormValues}</FilterCounter>
             )}
           </FilterButton>
-        </Col>
-        <Col className="text-right">
-          <FilterButton
-            color="primary"
-            outline
-            type="button"
-            disabled={countFormValues === 0}
-            onClick={() => reset()}
-          >
-            Limpar Filtros
-          </FilterButton>
+          {countFormValues > 0 && (
+            <FilterButton
+              color="primary"
+              outline
+              type="button"
+              onClick={reset}
+              className="ml-4"
+            >
+              Limpar Filtros
+            </FilterButton>
+          )}
         </Col>
       </Row>
       <InvisibleForm isInvisible={isInvisible}>

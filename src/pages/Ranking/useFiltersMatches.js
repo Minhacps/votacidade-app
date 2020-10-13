@@ -2,7 +2,7 @@ export default function useFilterMatches({ matches, formValues }) {
   const appliedFilter = formValues;
 
   const filterBySocialGroup = (data) => {
-    if (!formValues.socialGroup) {
+    if (!formValues.socialGroup || formValues.socialGroup.length === 0) {
       return data;
     }
 

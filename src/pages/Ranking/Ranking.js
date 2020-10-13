@@ -99,8 +99,8 @@ export default function Ranking() {
       <Divider />
 
       <Description>
-        <strong>Candidatos(as):</strong> mostrando {candidatesCount} cadastrados
-        no Vota de um total de {matches.length}
+        <strong>Candidatos(as):</strong> mostrando {candidatesCount}{' '}
+        cadastrados(as) no Vota de um total de {matches.length}
       </Description>
 
       <RankingFilters
@@ -142,7 +142,7 @@ export default function Ranking() {
       ))}
 
       {isLoadingMatches && (
-        <CenteredContent>
+        <CenteredContent data-testid="ranking-loader">
           <Spinner color="primary" />
         </CenteredContent>
       )}

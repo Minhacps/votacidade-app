@@ -15,10 +15,19 @@ import Decision from 'components/organisms/Decision';
 import QuestionnaireAction from 'components/molecules/QuestionnaireActions';
 import { ROLE_VOTER } from '../../constants/userRoles';
 
-const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
+const Question = ({
+  id,
+  setNextQuestion,
+  onSkip,
+  onBack,
+  value,
+  user,
+  minAnswers,
+}) => {
   const { firebase, currentUser, questionnaire, cityPath } = useContext(
     CityContext,
   );
+
   const { answers, updateAnswers, getAnswersMap } = useContext(AnswersContext);
   const answersLength = Object.values(answers).length;
 
@@ -37,9 +46,7 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
     };
     const currentAnswersSize = Object.keys(allAnswers).length;
 
-    setTimeout(() => {
-      updateAnswers(answer);
-    }, 500);
+    updateAnswers(answer);
 
     firebase
       .firestore()
@@ -59,21 +66,25 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
   };
 
   const handleDecisionChoice = (event) => {
-    setErrorMessage(null);
-
     if (user.role === ROLE_CANDIDATE) {
       return;
     }
 
+    setErrorMessage(null);
+
     saveAnswer({
       answer: event.target.value,
     });
+
+    setTimeout(() => {
+      setNextQuestion();
+    }, 500);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!event.target.answer.value) {
+    if (!event?.target?.answer?.value) {
       setErrorMessage('Escolha uma opção.');
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
@@ -95,16 +106,22 @@ const Question = ({ id, onSkip, onBack, value, user, minAnswers }) => {
       answer: event.target.answer.value,
       justification: event.target.justification.value,
     });
+
+    setNextQuestion();
   };
 
   const handlePrevious = () => {
     setErrorMessage(null);
-    onBack();
+    if (onBack) {
+      onBack();
+    }
   };
 
   const handleSkip = () => {
     setErrorMessage(null);
-    onSkip();
+    if (onSkip) {
+      onSkip();
+    }
   };
 
   return (

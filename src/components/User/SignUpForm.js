@@ -144,7 +144,7 @@ const SignUpForm = ({ onBackClick, user }) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Row>
         <Col>
-          {loading && <Spinner color="primary" />}
+          {loading && <Spinner data-testid="signup-loader" color="primary" />}
           {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
           <FormGroup>

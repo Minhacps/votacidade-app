@@ -59,6 +59,7 @@ const Navigation = ({ user }) => {
   return (
     <div>
       <StyledBurger
+        data-testid="navigation-burger"
         aria-label="Abrir ou fechar menu"
         open={true}
         onClick={toggleSidebar}
@@ -86,7 +87,9 @@ const Navigation = ({ user }) => {
       </Ul>
       <Divider />
       <QuestionsBoard user={user} />
-      <StyledLogout onClick={handleLogout}>Sair</StyledLogout>
+      <StyledLogout data-testid="logout-button" onClick={handleLogout}>
+        Sair
+      </StyledLogout>
     </div>
   );
 };
