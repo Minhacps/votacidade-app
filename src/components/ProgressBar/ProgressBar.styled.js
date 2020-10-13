@@ -19,10 +19,10 @@ export const ProgressBarContainer = styled.div`
         content: '';
         width: 10px;
         height: 10px;
-        background: ${progress > 70 ? '#fff' : colors.grey300};
+        background: ${progress >= 70 ? '#fff' : colors.grey300};
         position: absolute;
         top: 0;
-        left: 70%;
+        left: calc(70% - 10px);
         border-radius: 100%;
         top: 50%;
         transform: translateY(-50%);
