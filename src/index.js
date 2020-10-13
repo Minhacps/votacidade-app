@@ -13,12 +13,12 @@ if (process.env.REACT_APP_FIREBASE_ENV === 'prod') {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <Router>
       <AuthenticationProvider>
         <App />
       </AuthenticationProvider>
     </Router>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root'),
 );
