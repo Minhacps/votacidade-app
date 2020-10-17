@@ -2,12 +2,12 @@ import React from 'react';
 import {
   screen,
   render,
-  fireEvent,
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import user from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+
 import {
   firebase,
   mockUnauthenticatedUser,
@@ -35,81 +35,115 @@ afterEach(() => {
 
 const customRender = () =>
   render(
-    <AuthenticationProvider>
-      <App />
-    </AuthenticationProvider>,
-    { wrapper: BrowserRouter },
+    <BrowserRouter>
+      <AuthenticationProvider>
+        <App />
+      </AuthenticationProvider>
+    </BrowserRouter>,
   );
 
-describe('App', () => {
-  it('renders sign in form when user is unauthenticated', async () => {
-    mockUnauthenticatedUser();
+describe('<App />', () => {
+  describe('unauthenticated user', () => {
+    it('should render sign in form and call firebase correctly', async () => {
+      mockUnauthenticatedUser();
 
-    customRender();
+      customRender();
 
-    const emailInput = screen.getByLabelText('E-mail');
-    userEvent.type(emailInput, 'any@email.com');
+      const emailInput = screen.getByLabelText('E-mail');
+      user.type(emailInput, 'any@email.com');
 
-    const passwordInput = screen.getByTestId('password-input');
-    userEvent.type(passwordInput, 'anyPassword');
+      const passwordInput = screen.getByTestId('password-input');
+      user.type(passwordInput, 'anyPassword');
 
-    const submitButton = screen.getByRole('button', { name: 'Entrar' });
-    fireEvent.click(submitButton);
+      const submitButton = screen.getByRole('button', { name: 'Entrar' });
+      user.click(submitButton);
 
-    await waitForElementToBeRemoved(() => screen.getByTestId('submit-loader'));
+      await waitForElementToBeRemoved(() =>
+        screen.getByTestId('submit-loader'),
+      );
 
-    expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(
-      'any@email.com',
-      'anyPassword',
-    );
-  });
-
-  it('renders sign up form when user is unauthenticated', async () => {
-    mockUnauthenticatedUser();
-    customRender();
-
-    userEvent.click(screen.getByTestId('signup-button'));
-
-    const emailInput = screen.getByLabelText('E-mail');
-    userEvent.type(emailInput, 'any@email.com');
-
-    const passwordInput = screen.getByLabelText('Senha');
-    userEvent.type(passwordInput, 'anyPassword');
-
-    const nameInput = screen.getByLabelText('Nome completo');
-    userEvent.type(nameInput, 'Kleber da silva');
-
-    const cityInput = screen.getByLabelText('Cidade');
-    userEvent.selectOptions(cityInput, 'campinas');
-
-    userEvent.click(screen.getByTestId('submit-button'));
-
-    await waitFor(() =>
-      expect(firebase.auth().createUserWithEmailAndPassword).toBeCalledWith(
+      expect(firebase.auth().signInWithEmailAndPassword).toBeCalledWith(
         'any@email.com',
         'anyPassword',
-      ),
-    );
+      );
+    });
+
+    it('should render sign up form and call firebase correctly', async () => {
+      mockUnauthenticatedUser();
+      customRender();
+
+      user.click(screen.getByTestId('signup-button'));
+
+      const emailInput = screen.getByLabelText('E-mail');
+      user.type(emailInput, 'any@email.com');
+
+      const passwordInput = screen.getByLabelText('Senha');
+      user.type(passwordInput, 'anyPassword');
+
+      const nameInput = screen.getByLabelText('Nome completo');
+      user.type(nameInput, 'Kleber da silva');
+
+      const cityInput = screen.getByLabelText('Cidade');
+      user.selectOptions(cityInput, 'campinas');
+
+      const signUpButton = screen.getByRole('button', { name: /cadastrar/i });
+      expect(signUpButton).toBeInTheDocument();
+
+      user.click(signUpButton);
+
+      await waitFor(() =>
+        expect(firebase.auth().createUserWithEmailAndPassword).toBeCalledWith(
+          'any@email.com',
+          'anyPassword',
+        ),
+      );
+    });
   });
 
-  it('renders app when user is authenticated', async () => {
-    mockAuthenticatedUser();
-    customRender();
+  describe('authenticated user', () => {
+    it('should render app when user is authenticated', async () => {
+      const mockedUser = {
+        city: 'americana',
+        email: 'some.user@domain.com',
+        displayName: 'Complete user name 1',
+        role: 'voter',
+      };
 
-    await waitForElementToBeRemoved(() => screen.getByTestId('page-loading'));
+      mockAuthenticatedUser(mockedUser);
+      customRender();
 
-    expect(screen.getByTestId('app')).toBeInTheDocument();
-  });
+      await waitForElementToBeRemoved(() => screen.getByTestId('page-loading'));
 
-  it('renders sign in form when users signs out', async () => {
-    mockAuthenticatedUser();
-    customRender();
+      const cityLink = screen.getByRole('link', {
+        name: new RegExp(mockedUser.city, 'i'),
+      });
+      expect(cityLink).toBeInTheDocument();
+    });
 
-    await waitForElementToBeRemoved(() => screen.getByTestId('page-loading'));
-    fireEvent.click(screen.getByTestId('sidebar-burger'));
+    it('should renders sign in form after user signs out', async () => {
+      const mockedUser = {
+        city: 'recife',
+        email: 'some.user@domain.com',
+        displayName: 'Complete user name 2',
+        role: 'voter',
+      };
+      mockAuthenticatedUser(mockedUser);
+      customRender();
 
-    fireEvent.click(screen.getByTestId('logout-button'));
+      await waitForElementToBeRemoved(() => screen.getByTestId('page-loading'));
 
-    expect(firebase.auth().signOut).toBeCalledWith();
+      const sidebarButton = screen.getByRole('button', { name: /abrir menu/i });
+      user.click(sidebarButton);
+
+      const usernameText = screen.getByText(
+        new RegExp(mockedUser.displayName, 'i'),
+      );
+      expect(usernameText).toBeInTheDocument();
+
+      const logoutButton = screen.getByRole('button', { name: /sair/i });
+      user.click(logoutButton);
+
+      expect(firebase.auth().signOut).toBeCalledWith();
+    });
   });
 });
