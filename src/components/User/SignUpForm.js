@@ -60,6 +60,8 @@ const SignUpForm = ({ onBackClick, user }) => {
     } = data;
     setLoading(true);
 
+    const emailSanitized = email.trim();
+
     const role = isCandidate ? ROLE_CANDIDATE : ROLE_VOTER;
     const candidateData = isCandidate
       ? {
@@ -76,7 +78,7 @@ const SignUpForm = ({ onBackClick, user }) => {
 
     const userData = {
       city,
-      email,
+      emailSanitized,
       name,
       role,
       ...candidateData,
@@ -87,7 +89,7 @@ const SignUpForm = ({ onBackClick, user }) => {
     if (password) {
       await firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(emailSanitized, password)
         .then(async ({ user }) => {
           await user.updateProfile({
             displayName: name,
