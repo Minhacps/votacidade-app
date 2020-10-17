@@ -60,7 +60,7 @@ const Navigation = ({ user }) => {
     <div>
       <StyledBurger
         data-testid="navigation-burger"
-        aria-label="Abrir ou fechar menu"
+        aria-label="Fechar menu"
         open={true}
         onClick={toggleSidebar}
         inSidebar={true}
@@ -69,7 +69,9 @@ const Navigation = ({ user }) => {
         <span />
         <span />
       </StyledBurger>
-      <StyledName>{currentUser.displayName}</StyledName>
+      <StyledName>
+        {user?.name || user?.displayName || currentUser?.displayName}
+      </StyledName>
       <Divider />
       <Ul>
         <li>
