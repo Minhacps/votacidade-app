@@ -59,7 +59,7 @@ const questionnaire = [
   },
   {
     question:
-      'Cotas sociais geram ainda mais discriminação, pois tratam os cotistas como menos capazes.',
+      'Cotas sociais geram ainda mais descriminação, pois tratam os cotistas como menos capazes.',
     explanation: '',
   },
   {
