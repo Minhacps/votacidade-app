@@ -59,7 +59,7 @@ const questionnaire = [
   },
   {
     question:
-      'Cotas sociais geram ainda mais descriminação, pois tratam os cotistas como menos capazes.',
+      'Cotas sociais geram ainda mais discriminação, pois tratam os cotistas como menos capazes.',
     explanation: '',
   },
   {
@@ -113,7 +113,7 @@ const questionnaire = [
       'A Mina Guaíba é um projeto da Copelmi Mineração para construir uma mina de cavão a céu aberto, em uma área de quatro mil hectares nos municípios de Eldorado do Sul e Charqueadas.',
   },
   {
-    question: 'O uso da maconha deve ser discriminalizado.',
+    question: 'O uso da maconha deve ser descriminalizado.',
     explanation: '',
   },
   {
