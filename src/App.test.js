@@ -8,6 +8,8 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+import { axe } from 'jest-axe';
+
 import {
   firebase,
   mockUnauthenticatedUser,
@@ -111,5 +113,13 @@ describe('App', () => {
     fireEvent.click(screen.getByTestId('logout-button'));
 
     expect(firebase.auth().signOut).toBeCalledWith();
+  });
+  describe('A11y', () => {
+    it('should not have violations', async () => {
+      const { container } = customRender();
+      const results = await axe(container);
+
+      expect(results).toHaveNoViolations();
+    });
   });
 });
