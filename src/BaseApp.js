@@ -10,14 +10,7 @@ import { getCustomToken } from './customTokenService';
 
 const BaseApp = ({ user }) => {
   const { firebase, currentUser } = useContext(CityContext);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    signInWithCustomToken();
-
-    // this useEffect should be executed only once.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const signInWithCustomToken = async () => {
     const token = await getCustomToken({
@@ -25,13 +18,17 @@ const BaseApp = ({ user }) => {
       projectId: firebase.options.projectId,
     });
 
-    firebase
-      .auth()
-      .signInWithCustomToken(token)
-      .then(() => setIsLoading(false));
+    await firebase.auth().signInWithCustomToken(token);
+
+    setIsAuthenticated(true);
   };
 
-  if (isLoading) {
+  useEffect(() => {
+    signInWithCustomToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!isAuthenticated) {
     return <PageLoading />;
   }
 
