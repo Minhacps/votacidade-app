@@ -6,18 +6,29 @@
       "jsx": true
     }
   },
+  "plugins": [
+    "cypress",
+    "jsx-a11y",
+    "jest-dom",
+    "react-hooks",
+    "testing-library"
+  ],
   "extends": [
+    "react-app",
     "eslint:recommended",
     "eslint-config-prettier",
-    "react-app"
+    "plugin:cypress/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:testing-library/recommended"
   ],
   "rules": {
-    "strict": [
-      "error",
-      "never"
-    ]
+    "strict": ["error", "never"],
+    "cypress/no-unnecessary-waiting": "warn"
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "cypress/globals": true
   }
 }
