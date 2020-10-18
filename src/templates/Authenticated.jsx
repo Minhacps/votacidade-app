@@ -3,15 +3,14 @@ import { Header } from 'components/Header/Header';
 import Footer from 'components/Footer/Footer';
 import ProgressBar from 'components/ProgressBar/ProgressBar';
 
-const Authenticated = ({ user, children }) =>
-  (
-    <>
-      <Header user={user}/>
-      <ProgressBar user={user} />
+const Authenticated = ({ user, children }) => (
+  <main>
+    <Header user={user} />
+    <ProgressBar user={user} />
 
-      {children}
-      <Footer/>
-    </>
-  );
+    {children}
+    <Footer />
+  </main>
+);
 
 export default Authenticated;
