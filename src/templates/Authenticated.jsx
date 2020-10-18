@@ -4,13 +4,12 @@ import Footer from 'components/Footer/Footer';
 import ProgressBar from 'components/ProgressBar/ProgressBar';
 
 const Authenticated = ({ user, children }) => (
-  <main>
+  <>
     <Header user={user} />
     <ProgressBar user={user} />
-
-    {children}
+    <main>{children}</main>
     <Footer />
-  </main>
+  </>
 );
 
 export default Authenticated;
