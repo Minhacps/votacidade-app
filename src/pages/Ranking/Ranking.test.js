@@ -13,6 +13,7 @@ import CityProvider, {
 } from 'components/CityProvider/CityProvider';
 import MatchesProvider from 'components/MatchesProvider/MatchesProvider';
 import * as matchesService from 'components/MatchesProvider/matchesService';
+import { cityPath } from 'tests/fakeCity';
 
 const candidateNamePrefix = 'Nome de exemplo #';
 const mockedCandidates = new Array(30).fill(undefined).map((_, index) => ({
@@ -131,7 +132,7 @@ describe('Ranking', () => {
     user.click(profileLink);
 
     expect(history.location.pathname).toContain(
-      `/fake-city/perfil/${firstCandidate.id}`,
+      `${cityPath}/perfil/${firstCandidate.id}`,
     );
   });
 });
