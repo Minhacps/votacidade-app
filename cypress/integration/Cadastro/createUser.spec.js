@@ -6,7 +6,6 @@ const chance = new Chance();
 describe('Create User', () => {
   const password = 'ifsp@1234';
   const name = chance.name();
-  const gender = chance.gender();
   const description = chance.sentence();
 
   beforeEach(() => {

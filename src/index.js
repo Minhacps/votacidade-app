@@ -12,6 +12,11 @@ if (process.env.REACT_APP_FIREBASE_ENV === 'prod') {
   LogRocket.init('eenski/votacidades');
 }
 
+if (process.env.NODE_ENV !== 'production') {
+  var axe = require('@axe-core/react');
+  axe(React, ReactDOM, 1000);
+}
+
 ReactDOM.render(
   <>
     <Router>

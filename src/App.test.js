@@ -7,6 +7,7 @@ import {
 } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+import { axe } from 'jest-axe';
 
 import {
   firebase,
@@ -144,6 +145,14 @@ describe('<App />', () => {
       user.click(logoutButton);
 
       expect(firebase.auth().signOut).toBeCalledWith();
+    });
+  });
+  describe('A11y', () => {
+    it('should not have violations', async () => {
+      const { container } = customRender();
+      const results = await axe(container);
+
+      expect(results).toHaveNoViolations();
     });
   });
 });
