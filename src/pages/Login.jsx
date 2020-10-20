@@ -48,21 +48,21 @@ const Login = ({ shouldComplete, user }) => {
                       hideForgotPassword={() => setShowPasswordRecovery(false)}
                     />
                   ) : (
-                    <>
-                      {/* TODO: ESTILIZAR ESTA MENSAGEM DE ERRO */}
-                      {errorMessage}
-                      <SignInForm
-                        setShowForgotPasswordForm={setShowPasswordRecovery}
-                        updateErrorMessage={updateErrorMessage}
-                      />
-                    </>
-                  )}
+                      <>
+                        {/* TODO: ESTILIZAR ESTA MENSAGEM DE ERRO */}
+                        {errorMessage}
+                        <SignInForm
+                          setShowForgotPasswordForm={setShowPasswordRecovery}
+                          updateErrorMessage={updateErrorMessage}
+                        />
+                      </>
+                    )}
                 </Col>
               ) : (
-                <Col>
-                  <SignUpForm onBackClick={() => setIsLogin(true)} user={user} />
-                </Col>
-              )}
+                  <Col>
+                    <SignUpForm onBackClick={() => setIsLogin(true)} socialSignUpUser={user} />
+                  </Col>
+                )}
             </Row>
           </Box>
         </Col>
