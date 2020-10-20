@@ -133,7 +133,10 @@ export default function Ranking() {
                 </AffinityTag>
               </CardInfo>
             </InfoWrapper>
-            <ProfileLink to={`${cityPath}/perfil/${candidate.id}`}>
+            <ProfileLink
+              to={`${cityPath}/perfil/${candidate.id}`}
+              aria-label={`Ver o perfil do(a) ${candidate.name}`}
+            >
               <FindSvg />
             </ProfileLink>
           </CandidateCard>

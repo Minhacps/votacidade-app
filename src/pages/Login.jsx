@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'reactstrap';
 
-import Unauthenticated from '../templates/Unathenticated'
+import Unauthenticated from '../templates/Unathenticated';
 import SignInForm from 'components/User/SignInForm';
 import SignUpForm from 'components/User/SignUpForm';
 import ForgotPassword from 'components/User/ForgotPassword';
@@ -59,10 +59,13 @@ const Login = ({ shouldComplete, user }) => {
                     )}
                 </Col>
               ) : (
-                  <Col>
-                    <SignUpForm onBackClick={() => setIsLogin(true)} socialSignUpUser={user} />
-                  </Col>
-                )}
+                <Col>
+                  <SignUpForm
+                    onBackClick={() => setIsLogin(true)}
+                    socialSignUpUser={user}
+                  />
+                </Col>
+              )}
             </Row>
           </Box>
         </Col>

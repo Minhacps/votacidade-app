@@ -9,6 +9,13 @@ import {
   Row,
   Spinner,
 } from 'reactstrap';
+
+import { CityContext } from '../../components/CityProvider/CityProvider';
+import { alfabeticOrder } from '../../styles/helper';
+import { politicalParties } from '../../data/form-data';
+import getPicture from 'constants/candidatePicture';
+
+import ImageThumbnail from 'components/atoms/ImageThumbnail';
 import {
   AnswerTag,
   CandidateCard,
@@ -20,16 +27,11 @@ import {
   PageTitle,
 } from './ListCandidates.styled';
 import { CenteredContent } from '../Ranking/Ranking.styled';
-import { CityContext } from '../../components/CityProvider/CityProvider';
-import ImageThumbnail from 'components/atoms/ImageThumbnail';
-import getPicture from 'constants/candidatePicture';
-import { politicalParties } from '../../data/form-data';
-import { alfabeticOrder } from '../../styles/helper';
 
 const ListCandidates = ({ firebase }) => {
   const { cityPath, totalCandidates } = useContext(CityContext);
   const [candidates, setCandidates] = useState([]);
-  const [filter, setFilter] = useState(null);
+  const [filteredCandidates, setFilteredCandidates] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,26 +42,39 @@ const ListCandidates = ({ firebase }) => {
       .once('value', (data) => {
         data.forEach(function (childSnapshot) {
           let candidate = childSnapshot.val();
-          const answers = candidate.answers;
-          const answersKeys = Object.keys(answers);
-          candidate.answersCompleted = answersKeys.length;
+          const answers = candidate?.answers;
+
+          candidate.answersCompleted = 0;
+
+          if (answers) {
+            const answersKeys = Object.keys(answers);
+            candidate.answersCompleted = answersKeys.length;
+          }
+
           setCandidates((candidates) => [...candidates, candidate]);
+          setFilteredCandidates((candidates) => [...candidates, candidate]);
           setLoading(false);
         });
       });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [firebase]);
 
-  const handleChange = (event) => {
-    if (event.target.value) {
-      setFilter(event.target.value);
-    } else {
-      setFilter(null);
-    }
+  const handlePoliticalPartyFilter = (event) => {
+    setFilteredCandidates(
+      candidates.filter((candidate) => {
+        if (!event.target.value) {
+          return true;
+        }
+
+        return candidate.politicalParty === event.target.value;
+      }),
+    );
   };
 
   return (
     <Container className="py-4">
-      <PageTitle> Lista de Candidatos(as)</PageTitle>
+      <PageTitle>Candidaturas</PageTitle>
       {loading ? (
         <CenteredContent>
           <Spinner color="primary" />
@@ -74,9 +89,9 @@ const ListCandidates = ({ firebase }) => {
                   <CustomInput
                     type="select"
                     id="politicalParty"
-                    onChange={handleChange}
+                    onChange={handlePoliticalPartyFilter}
                   >
-                    <option value="">Selecione...</option>
+                    <option value="">Todos</option>
                     {politicalParties
                       .sort(alfabeticOrder('numero'))
                       .map((partido) => {
@@ -94,19 +109,18 @@ const ListCandidates = ({ firebase }) => {
           </Form>
           <Divider />
           <Description>
-            <strong>Candidatos(as):</strong> mostrando {candidates.length}{' '}
-            cadastrados no Vota de um total de {totalCandidates}
+            Mostrando <strong>{filteredCandidates.length}</strong>{' '}
+            candidatura(s) de <strong>{candidates.length}</strong> cadastrada(s)
+            de um total de <strong>{totalCandidates}</strong> registrada(s).
           </Description>
-          {candidates
-            .filter((candidate) => {
-              if (!filter) {
-                return true;
-              }
-
-              return candidate.politicalParty === filter;
-            })
-            .map((candidate) => (
-              <div key={candidate.candidateNumber} data-testid="candidate-item">
+          {filteredCandidates.length === 0 ? (
+            <p className="text-muted">Nenhuma candidatura encontrada.</p>
+          ) : (
+            filteredCandidates.map((candidate, index) => (
+              <div
+                key={`${index}${candidate.candidateNumber}`}
+                data-testid="candidate-item"
+              >
                 <CandidateCard>
                   <ImageThumbnail
                     src={getPicture(cityPath, candidate.candidateNumber)}
@@ -129,7 +143,8 @@ const ListCandidates = ({ firebase }) => {
                 </CandidateCard>
                 <Divider />
               </div>
-            ))}
+            ))
+          )}
         </>
       )}
     </Container>

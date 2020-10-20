@@ -31,7 +31,7 @@ import { cidades } from 'data/cidades';
 import { AuthenticationContext } from '../../AuthenticationProvider';
 
 // eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX = /^ *(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})) *$/;
 
 // eslint-disable-next-line no-useless-escape
 const CNPJ_REGEX = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
@@ -60,6 +60,8 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
     } = data;
     setLoading(true);
 
+    const emailSanitized = email.trim();
+
     const role = isCandidate ? ROLE_CANDIDATE : ROLE_VOTER;
     const candidateData = isCandidate
       ? {
@@ -76,7 +78,7 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
 
     const userData = {
       city,
-      email,
+      emailSanitized,
       name,
       role,
       ...candidateData,
@@ -102,7 +104,7 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
     if (password) {
       await firebase
         .auth()
-        .createUserWithEmailAndPassword(email, password)
+        .createUserWithEmailAndPassword(emailSanitized, password)
         .then(async ({ user }) => {
           await user.updateProfile({
             displayName: name,

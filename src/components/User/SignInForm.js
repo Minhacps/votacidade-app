@@ -27,7 +27,10 @@ const SignInForm = ({ updateErrorMessage, setShowForgotPasswordForm }) => {
     try {
       await firebase
         .auth()
-        .signInWithEmailAndPassword(fields.email.value, fields.password.value);
+        .signInWithEmailAndPassword(
+          fields.email.value.trim(),
+          fields.password.value,
+        );
     } catch (error) {
       setError(errorMessages[error.code]);
     } finally {

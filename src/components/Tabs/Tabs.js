@@ -6,7 +6,9 @@ const Tabs = styled.div`
   margin-bottom: 30px;
 `;
 
-const TabButton = styled.button`
+const TabButton = styled.button.attrs({
+  role: 'tab',
+})`
   background-color: ${(props) => (props.active ? '#662D91' : '#E6E6E6')};
   color: ${(props) => (props.active ? '#fff' : '#000')};
   border: ${(props) => (props.active ? 'none' : '1px solid #C9C9C9')};
