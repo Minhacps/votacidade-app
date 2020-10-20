@@ -6,7 +6,8 @@
     "url": "https://github.com/Minhacps/votacidade-app"
   },
   "scripts": {
-    "serve": "vercel dev"
+    "serve": "vercel dev",
+    "test": "jest"
   },
   "engines": {
     "node": "12.x"
@@ -17,6 +18,7 @@
     "atob": "^2.1.2",
     "crypto-js": "^4.0.0",
     "firebase-admin": "^9.2.0",
+    "jest": "^26.6.0",
     "nanoid": "^3.1.12"
   }
 }
