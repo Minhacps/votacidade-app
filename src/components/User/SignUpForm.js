@@ -180,7 +180,9 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
                 (socialSignUpUser && socialSignUpUser.displayName) || ''
               }
             />
-            <FormFeedback>Campo obrigatório</FormFeedback>
+            {errors.name?.type === 'required' && (
+              <FormFeedback>Campo obrigatório</FormFeedback>
+            )}
           </FormGroup>
         </Col>
       </Row>
@@ -238,7 +240,9 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
                 );
               })}
             </CustomInput>
-            <FormFeedback>Campo obrigatório</FormFeedback>
+            {errors.city?.type === 'required' && (
+              <FormFeedback>Campo obrigatório</FormFeedback>
+            )}
           </FormGroup>
 
           <FormGroup>
@@ -270,7 +274,9 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
                     <option value="">Selecione...</option>
                     {ages.sort(alfabeticOrder('category')).map((age) => {
                       return (
-                        <option value={age.category}>{age.description}</option>
+                        <option key={age.category} value={age.category}>
+                          {age.description}
+                        </option>
                       );
                     })}
                   </CustomInput>
@@ -348,6 +354,7 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
                       value: letter,
                       label: name,
                     }))}
+                    defaultValue=""
                   />
                   <FormText color="muted">
                     Opcional, caso se identifique.
@@ -431,7 +438,9 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
                         );
                       })}
                   </CustomInput>
-                  <FormFeedback>Campo obrigatório</FormFeedback>
+                  {errors.politicalParty?.type === 'required' && (
+                    <FormFeedback>Campo obrigatório</FormFeedback>
+                  )}
                 </FormGroup>
               </Col>
             </Row>
