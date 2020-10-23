@@ -45,6 +45,22 @@ const customRender = () =>
 
 describe('<App />', () => {
   describe('unauthenticated user', () => {
+    const fillUserData = () => {
+      user.click(screen.getByTestId('signup-button'));
+
+      const nameInput = screen.getByLabelText('Nome completo');
+      user.type(nameInput, 'Kleber da silva');
+
+      const emailInput = screen.getByLabelText('E-mail');
+      user.type(emailInput, 'any@email.com');
+
+      const passwordInput = screen.getByLabelText('Senha');
+      user.type(passwordInput, 'anyPassword');
+
+      const cityInput = screen.getByLabelText('Cidade');
+      user.selectOptions(cityInput, 'campinas');
+    };
+
     it('should render sign in form and call firebase correctly', async () => {
       mockUnauthenticatedUser();
 
@@ -69,27 +85,13 @@ describe('<App />', () => {
       );
     });
 
-    it('should render sign up form and call firebase correctly', async () => {
+    it('should render sign up form and call firebase correctly for voter', async () => {
       mockUnauthenticatedUser();
       customRender();
 
-      user.click(screen.getByTestId('signup-button'));
+      fillUserData();
 
-      const emailInput = screen.getByLabelText('E-mail');
-      user.type(emailInput, 'any@email.com');
-
-      const passwordInput = screen.getByLabelText('Senha');
-      user.type(passwordInput, 'anyPassword');
-
-      const nameInput = screen.getByLabelText('Nome completo');
-      user.type(nameInput, 'Kleber da silva');
-
-      const cityInput = screen.getByLabelText('Cidade');
-      user.selectOptions(cityInput, 'campinas');
-
-      const signUpButton = screen.getByRole('button', { name: /cadastrar/i });
-      expect(signUpButton).toBeInTheDocument();
-
+      const signUpButton = screen.getByTestId('submit-button');
       user.click(signUpButton);
 
       await waitFor(() =>
@@ -98,6 +100,49 @@ describe('<App />', () => {
           'anyPassword',
         ),
       );
+
+      expect(firebase.database().ref().set).not.toBeCalled();
+    });
+
+    it('should render sign up form and call firebase correctly for candidate', async () => {
+      mockUnauthenticatedUser();
+      customRender();
+
+      fillUserData();
+
+      const isCandidateCheckbox = screen.getByLabelText('Sou candidata(o)');
+      user.click(isCandidateCheckbox);
+
+      const ageSelect = screen.getByLabelText('Idade');
+      user.selectOptions(ageSelect, '18-24');
+
+      const ethnicGroupSelect = screen.getByLabelText(
+        'Identificação étnico-racial',
+      );
+      user.selectOptions(ethnicGroupSelect, 'Indígena');
+
+      const genderSelect = screen.getByLabelText('Gênero');
+      user.selectOptions(genderSelect, 'Não binário');
+
+      const candidateNumberInput = screen.getByLabelText(
+        'Número de candidatura',
+      );
+      user.type(candidateNumberInput, '00000');
+
+      const politicalPartySelect = screen.getByLabelText('Partido');
+      user.selectOptions(politicalPartySelect, 'AVANTE');
+
+      const signUpButton = screen.getByTestId('submit-button');
+      user.click(signUpButton);
+
+      await waitFor(() =>
+        expect(firebase.auth().createUserWithEmailAndPassword).toBeCalledWith(
+          'any@email.com',
+          'anyPassword',
+        ),
+      );
+
+      await waitFor(() => expect(firebase.database().ref().set).toBeCalled());
     });
   });
 
