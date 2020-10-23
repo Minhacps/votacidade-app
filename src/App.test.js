@@ -91,7 +91,8 @@ describe('<App />', () => {
 
       fillUserData();
 
-      const signUpButton = screen.getByTestId('submit-button');
+      const signUpButton = screen.getByRole('button', { name: /cadastrar/i });
+      expect(signUpButton).toBeInTheDocument();
       user.click(signUpButton);
 
       await waitFor(() =>
