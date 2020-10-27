@@ -36,7 +36,7 @@ const EMAIL_REGEX = /^ *(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\"
 // eslint-disable-next-line no-useless-escape
 const CNPJ_REGEX = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
 
-const SignUpForm = ({ onBackClick, user }) => {
+const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
   const { register, handleSubmit, control, errors } = useForm();
   const { setSignUpFormUserData } = useContext(AuthenticationContext);
   const [loading, setLoading] = useState(false);
@@ -86,6 +86,21 @@ const SignUpForm = ({ onBackClick, user }) => {
 
     setSignUpFormUserData(userData);
 
+    const replicateCandidateData = (user) => {
+      if (!isCandidate) {
+        return;
+      }
+
+      const cityFirebase = firebase.app(`/${city}`);
+
+      return cityFirebase
+        .database()
+        .ref(user.uid)
+        .set({
+          ...userData,
+        });
+    };
+
     if (password) {
       await firebase
         .auth()
@@ -102,21 +117,25 @@ const SignUpForm = ({ onBackClick, user }) => {
             .set({
               ...userData,
             });
+
+          await replicateCandidateData(user);
         })
         .catch(handleSignupFailure);
     } else {
-      await user.updateProfile({
+      await socialSignUpUser.updateProfile({
         displayName: name,
       });
 
       await firebase
         .firestore()
         .collection('users')
-        .doc(user.uid)
+        .doc(socialSignUpUser.uid)
         .set({
           ...userData,
         })
         .catch(handleSignupFailure);
+
+      await replicateCandidateData(socialSignUpUser);
     }
 
     setLoading(false);
@@ -157,9 +176,13 @@ const SignUpForm = ({ onBackClick, user }) => {
               placeholder="Digite seu nome completo"
               innerRef={register({ required: true })}
               invalid={errors.name}
-              defaultValue={(user && user.displayName) || ''}
+              defaultValue={
+                (socialSignUpUser && socialSignUpUser.displayName) || ''
+              }
             />
-            <FormFeedback>Campo obrigatório</FormFeedback>
+            {errors.name?.type === 'required' && (
+              <FormFeedback>Campo obrigatório</FormFeedback>
+            )}
           </FormGroup>
         </Col>
       </Row>
@@ -173,7 +196,7 @@ const SignUpForm = ({ onBackClick, user }) => {
               id="email"
               innerRef={register({ required: true, pattern: EMAIL_REGEX })}
               invalid={errors.email}
-              defaultValue={(user && user.email) || ''}
+              defaultValue={(socialSignUpUser && socialSignUpUser.email) || ''}
               placeholder="Digite seu e-mail"
             />
             {errors.email?.type === 'required' && (
@@ -187,7 +210,7 @@ const SignUpForm = ({ onBackClick, user }) => {
       </Row>
       <Row>
         <Col>
-          {!user && (
+          {!socialSignUpUser && (
             <InputPassword
               innerRef={register({ required: true, minLength: 6 })}
               invalid={errors.password}
@@ -217,7 +240,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                 );
               })}
             </CustomInput>
-            <FormFeedback>Campo obrigatório</FormFeedback>
+            {errors.city?.type === 'required' && (
+              <FormFeedback>Campo obrigatório</FormFeedback>
+            )}
           </FormGroup>
 
           <FormGroup>
@@ -249,7 +274,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                     <option value="">Selecione...</option>
                     {ages.sort(alfabeticOrder('category')).map((age) => {
                       return (
-                        <option value={age.category}>{age.description}</option>
+                        <option key={age.category} value={age.category}>
+                          {age.description}
+                        </option>
                       );
                     })}
                   </CustomInput>
@@ -327,6 +354,7 @@ const SignUpForm = ({ onBackClick, user }) => {
                       value: letter,
                       label: name,
                     }))}
+                    defaultValue=""
                   />
                   <FormText color="muted">
                     Opcional, caso se identifique.
@@ -410,7 +438,9 @@ const SignUpForm = ({ onBackClick, user }) => {
                         );
                       })}
                   </CustomInput>
-                  <FormFeedback>Campo obrigatório</FormFeedback>
+                  {errors.politicalParty?.type === 'required' && (
+                    <FormFeedback>Campo obrigatório</FormFeedback>
+                  )}
                 </FormGroup>
               </Col>
             </Row>

@@ -3,10 +3,11 @@ import firebase from 'firebase/app';
 export { default as firebase } from 'firebase/app';
 
 jest.mock('firebase/app', () => {
-  return {
+  const firebaseMock = {
     firestore: jest.fn(() => ({
       collection: jest.fn(() => ({
         doc: jest.fn(() => ({
+          set: jest.fn(() => Promise.resolve()),
           get: jest.fn(() =>
             Promise.resolve({
               data: jest.fn(() => ({
@@ -21,6 +22,10 @@ jest.mock('firebase/app', () => {
         })),
       })),
     })),
+    database: jest.fn().mockReturnThis(),
+    ref: jest.fn().mockReturnThis(),
+    set: jest.fn(() => Promise.resolve()),
+
     auth: jest.fn().mockReturnThis(),
     onAuthStateChanged: jest.fn(),
     signOut: jest.fn().mockResolvedValue(),
@@ -28,12 +33,20 @@ jest.mock('firebase/app', () => {
     signInWithEmailAndPassword: jest.fn(),
     createUserWithEmailAndPassword: jest.fn().mockResolvedValue({
       user: {
+        updateProfile: jest.fn(() => Promise.resolve()),
         sendEmailVerification: jest.fn(),
       },
     }),
     options: jest.fn({
       projectId: jest.fn(12345),
     }),
+  };
+
+  return {
+    app: jest.fn(() => ({
+      ...firebaseMock,
+    })),
+    ...firebaseMock,
   };
 });
 
