@@ -12,6 +12,7 @@ export const Checkmark = styled.span`
   top: 50%;
   transform: translateY(-50%);
   left: 12px;
+  z-index: -1;
 `;
 
 export const QuestionOption = styled.div`
