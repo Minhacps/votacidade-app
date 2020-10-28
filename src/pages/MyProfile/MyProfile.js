@@ -18,15 +18,26 @@ import ImageThumbnail from 'components/atoms/ImageThumbnail';
 import getPicture from 'constants/candidatePicture';
 
 import { CandidateName, CandidateNumber } from '../Profile/Profile.styled.js';
+import styled from 'styled-components';
+import { CenteredContent } from '../Ranking/Ranking.styled';
+
+const SuccessText = styled.p`
+  margin: 10px 0 0 2px;
+  font-weight: bold;
+  color: #662d91;
+  font-size: 18px;
+`;
 
 const MyProfile = ({ user }) => {
   const { cityPath, currentUser, firebase } = useContext(CityContext);
   const { getAnswersMap } = useContext(AnswersContext);
   const { register, handleSubmit, errors, control } = useForm();
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(undefined);
 
   const onSubmit = async (userData) => {
     setLoading(true);
+    setSuccessMessage(false);
 
     const updatedUserData = {
       ...user,
@@ -51,6 +62,7 @@ const MyProfile = ({ user }) => {
       });
 
     setLoading(false);
+    setSuccessMessage(true);
   };
 
   return (
@@ -89,6 +101,14 @@ const MyProfile = ({ user }) => {
           control={control}
         />
         <Button>Salvar</Button>
+        {loading && (
+          <CenteredContent>
+            <Spinner color="primary" />
+          </CenteredContent>
+        )}
+        {successMessage && (
+          <SuccessText>Informações salvas com sucesso!</SuccessText>
+        )}
       </Container>
     </form>
   );
