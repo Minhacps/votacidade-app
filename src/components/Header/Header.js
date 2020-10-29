@@ -37,7 +37,7 @@ export const Header = ({ user }) => {
           >
             {cityName}
           </NavbarBrand>
-          <Sidebar user={user} />
+          {user && <Sidebar user={user} />}
         </Container>
       </Navbar>
     </header>
