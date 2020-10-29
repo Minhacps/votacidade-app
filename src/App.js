@@ -1,8 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Route, Switch } from 'react-router-dom';
+import { AuthenticationContext } from './AuthenticationProvider';
+
 import Routes from './Routes';
 import Login from './pages/Login';
-import { AuthenticationContext } from './AuthenticationProvider';
+import PublicProfile from 'pages/Profile/PublicProfile';
 
 import './fontawesome';
 
@@ -30,7 +32,16 @@ const App = () => {
   }, [userData]);
 
   if (!authUser) {
-    return <Login />;
+    return (
+      <Switch>
+        <Route path="/:cityPath/perfil/:candidateId">
+          <PublicProfile />
+        </Route>
+        <Route path="/">
+          <Login />
+        </Route>
+      </Switch>
+    );
   }
 
   if (authUser && !userData) {
