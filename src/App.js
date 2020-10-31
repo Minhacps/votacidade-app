@@ -17,6 +17,10 @@ const App = () => {
         return;
       }
 
+      if (!userData.city) {
+        history.push(`/selecionar-cidade`);
+      }
+
       const userFromDifferentCity = !location.pathname.includes(userData.city);
 
       if (userFromDifferentCity) {

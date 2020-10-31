@@ -49,7 +49,6 @@ const AuthenticationProvider = ({ children }) => {
         'userData',
         JSON.stringify({ voterAnswers: [] }),
       );
-
       return;
     }
 
