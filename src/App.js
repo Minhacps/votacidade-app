@@ -10,7 +10,6 @@ const App = () => {
   const history = useHistory();
   const location = useLocation();
   const { authUser, userData } = useContext(AuthenticationContext);
-  console.log(userData);
 
   useEffect(() => {
     const redirectUserByCity = (userData) => {

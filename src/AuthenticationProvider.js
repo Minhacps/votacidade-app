@@ -44,6 +44,15 @@ const AuthenticationProvider = ({ children }) => {
       return;
     }
 
+    if (authUser.isAnonymous) {
+      window.localStorage.setItem(
+        'userData',
+        JSON.stringify({ voterAnswers: [] }),
+      );
+
+      return;
+    }
+
     setLookingForUser(true);
 
     if (signUpFormUserData) {
