@@ -74,6 +74,13 @@ const Navigation = ({ user }) => {
       </StyledName>
       <Divider />
       <Ul>
+        {user?.role === 'candidate' && (
+          <li>
+            <StyledLink to={`${cityPath}/meu-perfil`} onClick={toggleSidebar}>
+              Meu Perfil
+            </StyledLink>
+          </li>
+        )}
         <li>
           <StyledLink to={cityPath} onClick={toggleSidebar}>
             Como funciona
