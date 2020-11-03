@@ -79,8 +79,8 @@ const Profile = ({ unauthenticated }) => {
     Bio: candidate?.description,
     Idade: candidate?.age,
     Gênero: candidate?.gender,
-    Etnia: candidate?.ethnicGroup,
-    'Grupo Social': candidate?.socialGroup
+    'Identificação étnico-racial': candidate?.ethnicGroup,
+    'Grupo Social': [...candidate?.socialGroup]
       .map((group) => group.label)
       .join(', '),
   };
