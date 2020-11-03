@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container } from 'reactstrap';
+import { Container, Alert } from 'reactstrap';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -27,6 +27,7 @@ import {
 import { AffinityTag } from '../Ranking/Ranking.styled.js';
 
 const Profile = ({ unauthenticated }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [candidateAnswers, setCandidateAnswers] = useState({});
   const [candidate, setCandidate] = useState();
   const { firebase, questionnaire, cityPath } = useContext(CityContext);
@@ -53,15 +54,25 @@ const Profile = ({ unauthenticated }) => {
         .once('value')
         .then((snapshot) => {
           setCandidate(snapshot.val());
+          setIsLoading(false);
         });
     } else {
       const candidate = matches?.find((match) => match.id === candidateId);
       setCandidate(candidate);
+      setIsLoading(false);
     }
   }, [candidateId, firebase, matches, unauthenticated]);
 
-  if (!candidate) {
-    return null;
+  if (!isLoading && !candidate) {
+    return (
+      <Alert color="warning">
+        <p>Infelizmente não encontramos este(a) candidato(a)</p>
+      </Alert>
+    );
+  }
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
   }
 
   const candidateAttributes = {
@@ -97,7 +108,7 @@ const Profile = ({ unauthenticated }) => {
             const attributeValue = candidateAttributes[attribute];
             if (!attributeValue) return null;
             return (
-              <p>
+              <p key={attribute}>
                 <strong>{attribute}:</strong> {attributeValue}
               </p>
             );
@@ -109,27 +120,31 @@ const Profile = ({ unauthenticated }) => {
         <Affinity>
           <AffinityTitle>Comparação das respostas</AffinityTitle>
           {!unauthenticated && (
-            <AffinityTag>{candidate.match / 100}%</AffinityTag>
+            <AffinityTag data-testid="profile-afinity-tag">
+              {candidate.match / 100}%
+            </AffinityTag>
           )}
         </Affinity>
 
-        {questionnaire.map(({ question }, index) => (
-          <Question key={index}>
-            <Statement>
-              <span>{index + 1}.</span> {question}
-            </Statement>
-            {userAnswers && (
-              <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
-            )}
-            {candidateAnswers && (
-              <Answer
-                isCandidate
-                answer={answerOptionsMap[candidateAnswers[index]?.answer]}
-                justification={candidateAnswers[index]?.justification}
-              />
-            )}
-          </Question>
-        ))}
+        <section role="list">
+          {questionnaire.map(({ question }, index) => (
+            <Question key={index} role="listitem">
+              <Statement>
+                <span>{index + 1}.</span> {question}
+              </Statement>
+              {userAnswers && (
+                <Answer answer={answerOptionsMap[userAnswers[index]?.answer]} />
+              )}
+              {candidateAnswers && (
+                <Answer
+                  isCandidate
+                  answer={answerOptionsMap[candidateAnswers[index]?.answer]}
+                  justification={candidateAnswers[index]?.justification}
+                />
+              )}
+            </Question>
+          ))}
+        </section>
       </Container>
     </>
   );
