@@ -11,7 +11,7 @@ import { getShareMessage } from 'constants/share';
 const ShareButtons = () => {
   const currentUrl = window.location.href;
   const { cityName: city } = useContext(CityContext);
-  const { userData } = useContext(AuthenticationContext);
+  const { userData } = useContext(AuthenticationContext) ?? {};
   const isCandidate = userData?.role === ROLE_CANDIDATE;
 
   const whatsAppText = getShareMessage({ isCandidate, city, currentUrl });
