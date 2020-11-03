@@ -26,12 +26,10 @@ export const CandidateNumber = styled.p`
   text-align: center;
 `;
 
-export const CandidateBio = styled.p`
+export const CandidateBio = styled.div`
   font-size: 14px;
   color: ${colors.grey500};
-  margin: 20px 0;
-  border-bottom: 1px solid ${colors.grey300};
-  padding-bottom: 20px;
+  margin: 20px 0 0 0;
 `;
 
 export const Affinity = styled.div`
