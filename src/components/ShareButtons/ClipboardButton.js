@@ -48,7 +48,7 @@ const ClipboardButton = ({ children, text }) => {
         ref={hiddenTextRef}
         aria-hidden
         type="hidden"
-        defaultValue={`${text}`}
+        defaultValue={text}
       />
       <StyledButton onClick={copyToClipboard}>{children}</StyledButton>
       {hasCopiedLink && (
