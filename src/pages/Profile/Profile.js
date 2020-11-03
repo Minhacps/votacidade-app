@@ -76,11 +76,13 @@ const Profile = ({ unauthenticated }) => {
   }
 
   const candidateAttributes = {
-    Bio: candidate.description,
-    Idade: candidate.age,
-    Gênero: candidate.gender,
-    Etnia: candidate.ethnicGroup,
-    'Grupo Social': candidate.socialGroup,
+    Bio: candidate?.description,
+    Idade: candidate?.age,
+    Gênero: candidate?.gender,
+    Etnia: candidate?.ethnicGroup,
+    'Grupo Social': candidate?.socialGroup
+      .map((group) => group.label)
+      .join(', '),
   };
 
   return (
@@ -103,17 +105,19 @@ const Profile = ({ unauthenticated }) => {
           {candidate.candidateNumber} | {candidate.politicalParty}
         </CandidateNumber>
 
-        <CandidateBio>
-          {Object.keys(candidateAttributes).map((attribute) => {
-            const attributeValue = candidateAttributes[attribute];
-            if (!attributeValue) return null;
-            return (
-              <p key={attribute}>
-                <strong>{attribute}:</strong> {attributeValue}
-              </p>
-            );
-          })}
-        </CandidateBio>
+        {candidate && (
+          <CandidateBio>
+            {Object.keys(candidateAttributes).map((attribute) => {
+              const attributeValue = candidateAttributes[attribute];
+              if (!attributeValue) return null;
+              return (
+                <p key={attribute}>
+                  <strong>{attribute}:</strong> {attributeValue}
+                </p>
+              );
+            })}
+          </CandidateBio>
+        )}
 
         <ShareButtons />
 
