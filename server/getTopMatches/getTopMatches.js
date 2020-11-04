@@ -1,14 +1,17 @@
+const fetch = require('node-fetch');
 const matcher = require('./matcher.js');
+const { API_URL } = require('../constants');
 
-const getTopMatches = (firebase, voterAnswers) =>
-  getCandidateAnswers(firebase).then((allCandidatesData) =>
+const getTopMatches = (instance, voterAnswers) =>
+  getCandidateAnswers(instance).then((allCandidatesData) =>
     getMatchScores(voterAnswers, allCandidatesData),
   );
 
-const getCandidateAnswers = async (firebase) => {
-  const result = await firebase.database().ref().once('value');
-
-  return result.val();
+const getCandidateAnswers = async (instance) => {
+  const result = await fetch(
+    `${API_URL}/getCandidateAnswers?instance=${instance}`,
+  );
+  return result.json();
 };
 
 const getMatchScores = (voterAnswers, allCandidatesData) => {
