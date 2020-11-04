@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.dc4116d4.chunk.css",
-    "main.js": "/static/js/main.175443f2.chunk.js",
-    "main.js.map": "/static/js/main.175443f2.chunk.js.map",
+    "main.js": "/static/js/main.66894773.chunk.js",
+    "main.js.map": "/static/js/main.66894773.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f8a93575.js",
     "runtime-main.js.map": "/static/js/runtime-main.f8a93575.js.map",
-    "static/js/2.0c62e0b4.chunk.js": "/static/js/2.0c62e0b4.chunk.js",
-    "static/js/2.0c62e0b4.chunk.js.map": "/static/js/2.0c62e0b4.chunk.js.map",
+    "static/js/2.3b1c97cb.chunk.js": "/static/js/2.3b1c97cb.chunk.js",
+    "static/js/2.3b1c97cb.chunk.js.map": "/static/js/2.3b1c97cb.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.6d37f1d29d04f402821fe9236f4f7097.js": "/precache-manifest.6d37f1d29d04f402821fe9236f4f7097.js",
+    "precache-manifest.b56ab874c99b4773b74dbe137dcf162f.js": "/precache-manifest.b56ab874c99b4773b74dbe137dcf162f.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.dc4116d4.chunk.css.map": "/static/css/main.dc4116d4.chunk.css.map",
-    "static/js/2.0c62e0b4.chunk.js.LICENSE.txt": "/static/js/2.0c62e0b4.chunk.js.LICENSE.txt",
+    "static/js/2.3b1c97cb.chunk.js.LICENSE.txt": "/static/js/2.3b1c97cb.chunk.js.LICENSE.txt",
     "static/media/afinidade.png": "/static/media/afinidade.957a493e.png",
     "static/media/campinas-fundo.jpg": "/static/media/campinas-fundo.e45bfdc1.jpg",
     "static/media/filter.e106c845.svg": "/static/media/filter.e106c845.svg",
@@ -25,12 +25,14 @@
     "static/media/rating.4e4587db.svg": "/static/media/rating.4e4587db.svg",
     "static/media/recife-fundo.jpg": "/static/media/recife-fundo.84310a14.jpg",
     "static/media/splashscreen.png": "/static/media/splashscreen.047a981f.png",
-    "static/media/vota.svg": "/static/media/vota.99573ed2.svg"
+    "static/media/vota.svg": "/static/media/vota.99573ed2.svg",
+    "static/media/vota.whatsapp.png": "/static/media/vota.whatsapp.22d44b22.png",
+    "static/media/whatsapp.svg": "/static/media/whatsapp.a04c5199.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f8a93575.js",
-    "static/js/2.0c62e0b4.chunk.js",
+    "static/js/2.3b1c97cb.chunk.js",
     "static/css/main.dc4116d4.chunk.css",
-    "static/js/main.175443f2.chunk.js"
+    "static/js/main.66894773.chunk.js"
   ]
 }
