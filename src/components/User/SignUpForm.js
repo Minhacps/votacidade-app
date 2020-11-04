@@ -60,6 +60,14 @@ const SignUpForm = ({ onBackClick, user }) => {
     } = data;
     setLoading(true);
 
+    if (user.isAnonymous) {
+      window.localStorage.setItem(
+        'userData',
+        JSON.stringify({ voterAnswers: [], city }),
+      );
+      return;
+    }
+
     const emailSanitized = email.trim();
 
     const role = isCandidate ? ROLE_CANDIDATE : ROLE_VOTER;
@@ -144,59 +152,66 @@ const SignUpForm = ({ onBackClick, user }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Row>
-        <Col>
-          {loading && <Spinner data-testid="signup-loader" color="primary" />}
-          {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
+      {!user?.isAnonymous && (
+        <>
+          <Row>
+            <Col>
+              {loading && (
+                <Spinner data-testid="signup-loader" color="primary" />
+              )}
+              {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
-          <FormGroup>
-            <Label htmlFor="name">Nome completo</Label>
-            <Input
-              name="name"
-              id="name"
-              placeholder="Digite seu nome completo"
-              innerRef={register({ required: true })}
-              invalid={errors.name}
-              defaultValue={(user && user.displayName) || ''}
-            />
-            <FormFeedback>Campo obrigatório</FormFeedback>
-          </FormGroup>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <FormGroup>
-            <Label for="email">E-mail</Label>
-            <Input
-              type="text"
-              name="email"
-              id="email"
-              innerRef={register({ required: true, pattern: EMAIL_REGEX })}
-              invalid={errors.email}
-              defaultValue={(user && user.email) || ''}
-              placeholder="Digite seu e-mail"
-            />
-            {errors.email?.type === 'required' && (
-              <FormFeedback>Campo obrigatório</FormFeedback>
-            )}
-            {errors.email?.type === 'pattern' && (
-              <FormFeedback>E-mail inválido</FormFeedback>
-            )}
-          </FormGroup>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {!user && (
-            <InputPassword
-              innerRef={register({ required: true, minLength: 6 })}
-              invalid={errors.password}
-              errors={errors}
-              placeholder="Digite uma senha"
-            />
-          )}
-        </Col>
-      </Row>
+              <FormGroup>
+                <Label htmlFor="name">Nome completo</Label>
+                <Input
+                  name="name"
+                  id="name"
+                  placeholder="Digite seu nome completo"
+                  innerRef={register({ required: true })}
+                  invalid={errors.name}
+                  defaultValue={(user && user.displayName) || ''}
+                />
+                <FormFeedback>Campo obrigatório</FormFeedback>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="email">E-mail</Label>
+                <Input
+                  type="text"
+                  name="email"
+                  id="email"
+                  innerRef={register({ required: true, pattern: EMAIL_REGEX })}
+                  invalid={errors.email}
+                  defaultValue={(user && user.email) || ''}
+                  placeholder="Digite seu e-mail"
+                />
+                {errors.email?.type === 'required' && (
+                  <FormFeedback>Campo obrigatório</FormFeedback>
+                )}
+                {errors.email?.type === 'pattern' && (
+                  <FormFeedback>E-mail inválido</FormFeedback>
+                )}
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              {!user && (
+                <InputPassword
+                  innerRef={register({ required: true, minLength: 6 })}
+                  invalid={errors.password}
+                  errors={errors}
+                  placeholder="Digite uma senha"
+                />
+              )}
+            </Col>
+          </Row>
+        </>
+      )}
+
       <Row>
         <Col>
           <FormGroup>
@@ -219,15 +234,16 @@ const SignUpForm = ({ onBackClick, user }) => {
             </CustomInput>
             <FormFeedback>Campo obrigatório</FormFeedback>
           </FormGroup>
-
-          <FormGroup>
-            <CustomInput
-              type="checkbox"
-              id="isCandidate"
-              label="Sou candidata(o)"
-              onClick={() => toggleIsCandidate(!isCandidate)}
-            />
-          </FormGroup>
+          {!user?.isAnonymous && (
+            <FormGroup>
+              <CustomInput
+                type="checkbox"
+                id="isCandidate"
+                label="Sou candidata(o)"
+                onClick={() => toggleIsCandidate(!isCandidate)}
+              />
+            </FormGroup>
+          )}
         </Col>
       </Row>
       {isCandidate && (
@@ -435,7 +451,7 @@ const SignUpForm = ({ onBackClick, user }) => {
       <Row>
         <Col className="text-center">
           <Button color="primary" block data-testid="submit-button">
-            Cadastrar
+            {user?.isAnonymous ? 'Entrar' : 'Cadastrar'}
           </Button>
         </Col>
       </Row>

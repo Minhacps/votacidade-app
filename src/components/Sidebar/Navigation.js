@@ -70,7 +70,10 @@ const Navigation = ({ user }) => {
         <span />
       </StyledBurger>
       <StyledName>
-        {user?.name || user?.displayName || currentUser?.displayName}
+        {user?.name ||
+          user?.displayName ||
+          currentUser?.displayName ||
+          'Anônimo'}
       </StyledName>
       <Divider />
       <Ul>

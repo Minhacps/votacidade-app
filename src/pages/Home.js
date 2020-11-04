@@ -47,7 +47,9 @@ const HomePage = () => {
     >
       {!enableRanking && <Modal name={name} />}
 
-      <StyledUserName className="mt-3">Olá, {name},</StyledUserName>
+      <StyledUserName className="mt-3">
+        Olá, {name || 'Anônimo'},
+      </StyledUserName>
       <p className="mt-3" style={{ fontSize: '12pt' }}>
         O Vota Cidade é uma ferramenta para a população encontrar candidatos(as)
         a vereador(a) que pensam parecido com você nas eleições de 2020. Assim,
