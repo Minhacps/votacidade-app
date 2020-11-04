@@ -3,9 +3,18 @@ import questionsService from './answersService';
 
 export const AnswersContext = React.createContext();
 
-const AnswersProvider = ({ firebase, currentUser, user, children }) => {
+const answersToCollectBeforeSync = 5;
+
+const AnswersProvider = ({
+  firebase,
+  currentUser,
+  user,
+  children,
+  questionnaire,
+}) => {
   const [answers, setAnswers] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [answersOutOfSync, setAnswersOutOfSync] = useState(0);
 
   useEffect(() => {
     questionsService
@@ -20,10 +29,26 @@ const AnswersProvider = ({ firebase, currentUser, user, children }) => {
   }, []);
 
   const updateAnswers = (newAnswer) => {
-    setAnswers({
+    const answersCounter = answersOutOfSync + 1;
+    const updatedAnswers = {
       ...answers,
       ...newAnswer,
-    });
+    };
+    const isLastQuestion =
+      Object.keys(updatedAnswers).length === questionnaire.length;
+
+    setAnswers(updatedAnswers);
+    setAnswersOutOfSync(answersCounter);
+
+    if (isLastQuestion || answersCounter === answersToCollectBeforeSync) {
+      questionsService.syncAnswers({
+        firebase,
+        currentUser,
+        user,
+        answers: updatedAnswers,
+      });
+      setAnswersOutOfSync(0);
+    }
   };
 
   const getAnswersMap = () =>

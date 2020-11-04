@@ -13,6 +13,14 @@ export const getAnsweredQuestions = ({ firebase, user, currentUser }) =>
       }
     });
 
+export const syncAnswers = ({ firebase, user, currentUser, answers }) =>
+  firebase
+    .firestore()
+    .collection(answersCollection(user.role))
+    .doc(currentUser.uid)
+    .set(answers, { merge: true });
+
 export default {
   getAnsweredQuestions,
+  syncAnswers,
 };
