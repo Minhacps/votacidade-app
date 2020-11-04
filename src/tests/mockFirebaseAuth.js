@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-
 export { default as firebase } from 'firebase/app';
 
 jest.mock('firebase/app', () => {
@@ -73,3 +72,27 @@ const mockAuth = (user) => {
 export const mockUnauthenticatedUser = () => mockAuth(null);
 
 export const mockAuthenticatedUser = (user) => mockAuth(user);
+
+export const mockProfileDatabase = (candidate, candidateAnswers) => {
+  firebase.database.mockImplementationOnce(() => ({
+    ref: jest.fn(() => ({
+      once: jest.fn(() =>
+        Promise.resolve({
+          val: jest.fn(() => candidate),
+        }),
+      ),
+    })),
+  }));
+
+  firebase.firestore.mockImplementationOnce(() => ({
+    collection: jest.fn(() => ({
+      doc: jest.fn(() => ({
+        get: jest.fn(() =>
+          Promise.resolve({
+            data: jest.fn(() => candidateAnswers),
+          }),
+        ),
+      })),
+    })),
+  }));
+};

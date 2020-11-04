@@ -10,7 +10,7 @@ import {
 const Answer = ({ isCandidate = false, answer, justification }) => {
   return (
     <>
-      <AnswerContainer>
+      <AnswerContainer data-testid="candidate-answers">
         <p>{isCandidate ? `Resposta do(a) candidato(a):` : `Sua resposta:`}</p>
         <AnswerOption isCandidate={isCandidate} isNotAnswered={!answer}>
           <AnswerCheckbox>{answer ? `✓` : ``}</AnswerCheckbox>
