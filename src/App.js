@@ -17,10 +17,6 @@ const App = () => {
         return;
       }
 
-      if (!userData.city) {
-        history.push(`/selecionar-cidade`);
-      }
-
       const userFromDifferentCity = !location.pathname.includes(userData.city);
 
       if (userFromDifferentCity) {
@@ -35,10 +31,6 @@ const App = () => {
 
   if (!authUser) {
     return <Login />;
-  }
-
-  if (authUser && authUser.isAnonymous) {
-    return <Routes user={authUser} />;
   }
 
   if (authUser && !userData) {

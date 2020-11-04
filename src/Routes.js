@@ -5,16 +5,11 @@ import CityProvider from 'components/CityProvider/CityProvider';
 import Privacidade from 'pages/privacidade';
 import cities from './cities';
 import BaseApp from './BaseApp';
-import SelectCity from 'components/User/SelectCity';
 
 const Routes = ({ user }) => (
   <Switch>
     <Route path="/privacidade" exact>
       <Privacidade />
-    </Route>
-
-    <Route path="/selecionar-cidade" exact>
-      <SelectCity />
     </Route>
 
     {cities.map((city) => (
