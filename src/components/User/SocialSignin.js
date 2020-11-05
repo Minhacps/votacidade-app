@@ -17,7 +17,8 @@ const buttonStyle = {
 };
 
 const AnonymousButton = styled.button`
-  display: block;
+  display: flex;
+  align-items: center;
   font-size: 12pt;
   height: 50px;
   width: 100%;
@@ -26,6 +27,13 @@ const AnonymousButton = styled.button`
   color: white;
   margin: 5px;
   border-radius: 3px;
+  padding: 0 10px;
+`;
+
+const AnonymousLabel = styled.span`
+  display: flex;
+  justify-content: center;
+  width: 84%;
 `;
 
 function SocialSignIn({ updateErrorMessage }) {
@@ -102,7 +110,7 @@ function SocialSignIn({ updateErrorMessage }) {
       />
       <AnonymousButton onClick={() => firebase.auth().signInAnonymously()}>
         <AnonymousIcon />
-        Entrar anônimo
+        <AnonymousLabel>Entrar anônimo</AnonymousLabel>
       </AnonymousButton>
     </div>
   );
