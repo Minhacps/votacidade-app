@@ -8,7 +8,7 @@ const AnswersProvider = ({ firebase, currentUser, user, children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!user.isAnonymous) {
+    if (!user?.isAnonymous) {
       questionsService
         .getAnsweredQuestions({ firebase, currentUser, user })
         .then((answers) => {
