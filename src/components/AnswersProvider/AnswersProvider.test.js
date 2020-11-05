@@ -3,7 +3,7 @@ import { render, fireEvent, screen } from '@testing-library/react';
 import AnswersProvider, { AnswersContext } from './AnswersProvider';
 import questionsService from './answersService';
 
-const props = {
+const defaultProps = {
   firebase: {},
   currentUser: { uid: '1' },
   user: { role: 'voter' },
@@ -25,7 +25,7 @@ const props = {
 };
 
 const DataBroadcast = ({ onClick, newAnswer }) => (
-  <AnswersProvider {...props}>
+  <AnswersProvider {...defaultProps}>
     <AnswersContext.Consumer>
       {({ answers, updateAnswers }) => (
         <>
@@ -47,9 +47,7 @@ describe('QuestionsProvider', () => {
       .spyOn(questionsService, 'getAnsweredQuestions')
       .mockResolvedValue(storedAnswers);
 
-    jest
-      .spyOn(questionsService, 'syncAnswers')
-      .mockResolvedValue();
+    jest.spyOn(questionsService, 'syncAnswers').mockResolvedValue();
 
     jest.clearAllMocks();
   });
@@ -81,134 +79,93 @@ describe('QuestionsProvider', () => {
     expect(mockedOnClick).toHaveBeenCalledWith(expectedState);
   });
 
-  it('synchronize the list of answers in batch', async () => {
-    render(
-      <AnswersProvider {...props}>
-        <AnswersContext.Consumer>
-          {({ answers, updateAnswers }) => (
-            <>
-              <button
-                onClick={() =>
-                  updateAnswers({
-                    [Object.keys(answers).length]: { answer: 'DT' },
-                  })
-                }
-              >
-                Add answer
-              </button>
-            </>
-          )}
-        </AnswersContext.Consumer>
-      </AnswersProvider>,
-    );
+  describe('Batch updates', () => {
+    const customRender = (customProps) =>
+      render(
+        <AnswersProvider {...defaultProps} {...customProps}>
+          <AnswersContext.Consumer>
+            {({ answers, updateAnswers }) => (
+              <>
+                <button
+                  onClick={() =>
+                    updateAnswers({
+                      [Object.keys(answers).length]: { answer: 'DT' },
+                    })
+                  }
+                >
+                  Add answer
+                </button>
+              </>
+            )}
+          </AnswersContext.Consumer>
+        </AnswersProvider>,
+      );
 
-    const addAnswerButton = await screen.findByRole('button', {
-      name: 'Add answer',
+    it('should synchronize answers once the user reaches the limit of 5 new answers', async () => {
+      customRender();
+
+      const addAnswerButton = await screen.findByRole('button', {
+        name: 'Add answer',
+      });
+
+      for (let i = 0; i < 10; i++) {
+        fireEvent.click(addAnswerButton);
+      }
+
+      const expectedParams = {
+        firebase: defaultProps.firebase,
+        user: defaultProps.user,
+        currentUser: defaultProps.currentUser,
+        answers: {
+          ...storedAnswers,
+          2: { answer: 'DT' },
+          3: { answer: 'DT' },
+          4: { answer: 'DT' },
+          5: { answer: 'DT' },
+          6: { answer: 'DT' },
+        },
+      };
+
+      expect(questionsService.syncAnswers).toBeCalledTimes(2);
+      expect(questionsService.syncAnswers).toHaveBeenNthCalledWith(
+        1,
+        expectedParams,
+      );
+      expect(questionsService.syncAnswers).toHaveBeenNthCalledWith(2, {
+        ...expectedParams,
+        answers: {
+          ...expectedParams.answers,
+          7: { answer: 'DT' },
+          8: { answer: 'DT' },
+          9: { answer: 'DT' },
+          10: { answer: 'DT' },
+          11: { answer: 'DT' },
+        },
+      });
     });
 
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
+    it('should synchronize answers once the user finishes the questionnaire', async () => {
+      customRender({ questionnaire: defaultProps.questionnaire.slice(0, 4) });
 
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
+      const addAnswerButton = await screen.findByRole('button', {
+        name: 'Add answer',
+      });
 
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
+      fireEvent.click(addAnswerButton);
+      expect(questionsService.syncAnswers).not.toBeCalled();
 
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).toBeCalledWith({
-      firebase: props.firebase,
-      user: props.user,
-      currentUser: props.currentUser,
-      answers: {
-        ...storedAnswers,
-        2: { answer: 'DT' },
-        3: { answer: 'DT' },
-        4: { answer: 'DT' },
-        5: { answer: 'DT' },
-        6: { answer: 'DT' },
-      },
-    });
-
-    questionsService.syncAnswers.mockClear();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).toBeCalledWith({
-      firebase: props.firebase,
-      user: props.user,
-      currentUser: props.currentUser,
-      answers: {
-        ...storedAnswers,
-        2: { answer: 'DT' },
-        3: { answer: 'DT' },
-        4: { answer: 'DT' },
-        5: { answer: 'DT' },
-        6: { answer: 'DT' },
-        7: { answer: 'DT' },
-        8: { answer: 'DT' },
-        9: { answer: 'DT' },
-        10: { answer: 'DT' },
-        11: { answer: 'DT' },
-      },
-    });
-  });
-
-  it('synchronize answers when it is the last one', async () => {
-    render(
-      <AnswersProvider
-        {...props}
-        questionnaire={props.questionnaire.slice(0, 4)}
-      >
-        <AnswersContext.Consumer>
-          {({ answers, updateAnswers }) => (
-            <>
-              <button
-                onClick={() =>
-                  updateAnswers({
-                    [Object.keys(answers).length]: { answer: 'DT' },
-                  })
-                }
-              >
-                Add answer
-              </button>
-            </>
-          )}
-        </AnswersContext.Consumer>
-      </AnswersProvider>,
-    );
-
-    const addAnswerButton = await screen.findByRole('button', {
-      name: 'Add answer',
-    });
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).not.toBeCalled();
-
-    fireEvent.click(addAnswerButton);
-    expect(questionsService.syncAnswers).toBeCalledWith({
-      firebase: props.firebase,
-      user: props.user,
-      currentUser: props.currentUser,
-      answers: {
-        ...storedAnswers,
-        2: { answer: 'DT' },
-        3: { answer: 'DT' },
-      },
+      fireEvent.click(addAnswerButton);
+      expect(questionsService.syncAnswers).toBeCalledTimes(1);
+      expect(questionsService.syncAnswers).toBeCalledWith({
+        firebase: defaultProps.firebase,
+        user: defaultProps.user,
+        currentUser: defaultProps.currentUser,
+        answers: {
+          ...storedAnswers,
+          2: { answer: 'DT' },
+          3: { answer: 'DT' },
+        },
+      });
     });
   });
 });
