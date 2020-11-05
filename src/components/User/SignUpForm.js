@@ -60,11 +60,12 @@ const SignUpForm = ({ onBackClick, user }) => {
     } = data;
     setLoading(true);
 
-    if (user.isAnonymous) {
+    if (user?.isAnonymous) {
       window.localStorage.setItem(
         'userData',
         JSON.stringify({ voterAnswers: [], city }),
       );
+      setSignUpFormUserData({ city });
       return;
     }
 
