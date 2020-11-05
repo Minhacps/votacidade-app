@@ -2,8 +2,6 @@ import React from 'react';
 import { Container, Row, Col } from 'reactstrap';
 import styled from 'styled-components';
 
-// import { Layout } from "../../src/components/PrivacyPolicy/Layout/Layout";
-// import SEO from "../components/seo";
 import HeaderTitle from '../components/HeaderTitle';
 import LongParagraph from '../components/Text/LongParagraph';
 
@@ -19,7 +17,6 @@ const StyledAnchor = styled.a`
 const PrivacyPolicy = () => {
   return (
     <>
-      {/* <SEO title="Política de Privacidade" /> */}
       <HeaderTitle title="Política de Privacidade" />
 
       <Container className="my-5">
