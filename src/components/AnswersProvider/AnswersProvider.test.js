@@ -45,11 +45,11 @@ describe('QuestionsProvider', () => {
   beforeEach(() => {
     jest
       .spyOn(questionsService, 'getAnsweredQuestions')
-      .mockImplementation(() => Promise.resolve(storedAnswers));
+      .mockResolvedValue(storedAnswers);
 
     jest
       .spyOn(questionsService, 'syncAnswers')
-      .mockImplementation(() => Promise.resolve());
+      .mockResolvedValue();
 
     jest.clearAllMocks();
   });
