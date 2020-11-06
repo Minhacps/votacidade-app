@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import AnswersProvider, { AnswersContext } from './AnswersProvider';
 import questionsService from './answersService';
 
@@ -56,7 +57,7 @@ describe('QuestionsProvider', () => {
     const mockedOnClick = jest.fn();
     render(<DataBroadcast onClick={mockedOnClick} />);
 
-    fireEvent.click(await screen.findByRole('button', { name: 'Get answers' }));
+    userEvent.click(await screen.findByRole('button', { name: 'Get answers' }));
 
     expect(mockedOnClick).toHaveBeenCalledWith(storedAnswers);
   });
@@ -66,10 +67,10 @@ describe('QuestionsProvider', () => {
     const mockedOnClick = jest.fn();
     render(<DataBroadcast onClick={mockedOnClick} newAnswer={newAnswer} />);
 
-    fireEvent.click(
+    userEvent.click(
       await screen.findByRole('button', { name: 'Update answers' }),
     );
-    fireEvent.click(await screen.findByRole('button', { name: 'Get answers' }));
+    userEvent.click(await screen.findByRole('button', { name: 'Get answers' }));
 
     const expectedState = {
       ...storedAnswers,
@@ -109,7 +110,7 @@ describe('QuestionsProvider', () => {
       });
 
       for (let i = 0; i < 10; i++) {
-        fireEvent.click(addAnswerButton);
+        userEvent.click(addAnswerButton);
       }
 
       const expectedParams = {
@@ -151,10 +152,10 @@ describe('QuestionsProvider', () => {
         name: 'Add answer',
       });
 
-      fireEvent.click(addAnswerButton);
+      userEvent.click(addAnswerButton);
       expect(questionsService.syncAnswers).not.toBeCalled();
 
-      fireEvent.click(addAnswerButton);
+      userEvent.click(addAnswerButton);
       expect(questionsService.syncAnswers).toBeCalledTimes(1);
       expect(questionsService.syncAnswers).toBeCalledWith({
         firebase: defaultProps.firebase,
