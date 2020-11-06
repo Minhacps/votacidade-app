@@ -9,6 +9,7 @@ import Profile from 'pages/Profile/Profile';
 import MyProfile from 'pages/MyProfile/MyProfile';
 import MatchesProvider from 'components/MatchesProvider/MatchesProvider';
 import { CityContext } from './components/CityProvider/CityProvider';
+import ShareImage from 'pages/ShareImage/ShareImage';
 
 const BaseAppRoutes = ({ user }) => {
   const { firebase, cityPath, enableRanking } = useContext(CityContext);
@@ -26,6 +27,9 @@ const BaseAppRoutes = ({ user }) => {
       </Route>
       <Route path={`${cityPath}/meu-perfil`} exact>
         <MyProfile user={user} />
+      </Route>
+      <Route path={`${cityPath}/compartilhe`} exact>
+        <ShareImage />
       </Route>
 
       <MatchesProvider firebase={firebase}>
