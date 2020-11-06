@@ -1,4 +1,9 @@
+const { when } = require('jest-when');
+const fetch = require('node-fetch');
 const getTopMatches = require('./getTopMatches.js');
+const { API_URL } = require('../constants');
+
+jest.mock('node-fetch');
 
 const candidateData = {
   candidateNumber: '',
@@ -14,16 +19,14 @@ const candidateData = {
   socialGroup: '',
 };
 
-const firebaseMockGenerator = (databaseResponse) => ({
-  database: () => ({
-    ref: () => ({
-      once: () =>
-        Promise.resolve({
-          val: () => databaseResponse,
-        }),
-    }),
-  }),
-});
+const instanceName = 'any-instance';
+
+const mockCandidateAnswers = (response) =>
+  when(fetch)
+    .calledWith(`${API_URL}/getCandidateAnswers?instance=${instanceName}`)
+    .mockReturnValue({
+      json: () => response,
+    });
 
 describe('getTopMatches', () => {
   const voterAnswers = {
@@ -32,11 +35,8 @@ describe('getTopMatches', () => {
   };
 
   it('returns empty list when candidates list is empty', async () => {
-    const fakeDatabaseData = null;
-
-    const firebaseMock = firebaseMockGenerator(fakeDatabaseData);
-
-    const result = await getTopMatches(firebaseMock, voterAnswers);
+    mockCandidateAnswers(null);
+    const result = await getTopMatches(instanceName, voterAnswers);
 
     expect(result.length).toBe(0);
   });
@@ -57,9 +57,9 @@ describe('getTopMatches', () => {
       },
     };
 
-    const firebaseMock = firebaseMockGenerator(fakeDatabaseData);
+    mockCandidateAnswers(fakeDatabaseData);
 
-    const result = await getTopMatches(firebaseMock, voterAnswers);
+    const result = await getTopMatches(instanceName, voterAnswers);
 
     expect(result.length).toBe(2);
     expect(result[0].id).toEqual('candidate-2');
@@ -81,9 +81,9 @@ describe('getTopMatches', () => {
       },
     };
 
-    const firebaseMock = firebaseMockGenerator(fakeDatabaseData);
+    mockCandidateAnswers(fakeDatabaseData);
 
-    const result = await getTopMatches(firebaseMock, voterAnswers);
+    const result = await getTopMatches(instanceName, voterAnswers);
 
     expect(result.length).toBe(2);
     expect(result[0].id).toEqual('candidate-2');
