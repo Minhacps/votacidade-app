@@ -177,5 +177,5 @@ export default {
   firebaseConfig,
   firebaseConfigProd,
   totalCandidates,
-  enableRanking: false,
+  enableRanking: true,
 };
