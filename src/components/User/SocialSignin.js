@@ -108,7 +108,7 @@ function SocialSignIn({ updateErrorMessage }) {
         style={{ ...buttonStyle }}
         align="center"
       />
-      <AnonymousButton onClick={() => firebase.auth().signInAnonymously()}>
+      <AnonymousButton onClick={firebase.auth().signInAnonymously}>
         <AnonymousIcon />
         <AnonymousLabel>Entrar anônimo</AnonymousLabel>
       </AnonymousButton>
