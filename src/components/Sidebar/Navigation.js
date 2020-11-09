@@ -73,7 +73,7 @@ const Navigation = ({ user }) => {
         {user?.name ||
           user?.displayName ||
           currentUser?.displayName ||
-          'Anônimo'}
+          'Pessoa anônima'}
       </StyledName>
       <Divider />
       <Ul>

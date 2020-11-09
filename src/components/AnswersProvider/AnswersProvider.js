@@ -8,14 +8,16 @@ const AnswersProvider = ({ firebase, currentUser, user, children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!user?.isAnonymous) {
-      questionsService
-        .getAnsweredQuestions({ firebase, currentUser, user })
-        .then((answers) => {
-          setAnswers(answers || {});
-          setIsLoading(false);
-        });
+    if (user?.isAnonymous) {
+      return;
     }
+
+    questionsService
+      .getAnsweredQuestions({ firebase, currentUser, user })
+      .then((answers) => {
+        setAnswers(answers || {});
+        setIsLoading(false);
+      });
 
     // this useEffect should be executed only once.
     // eslint-disable-next-line react-hooks/exhaustive-deps

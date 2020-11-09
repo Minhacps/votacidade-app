@@ -61,11 +61,7 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
     setLoading(true);
 
     if (socialSignUpUser?.isAnonymous) {
-      window.localStorage.setItem(
-        'userData',
-        JSON.stringify({ city, role: ROLE_VOTER }),
-      );
-      setSignUpFormUserData({ city });
+      setSignUpFormUserData({ city, role: ROLE_VOTER });
       return;
     }
 

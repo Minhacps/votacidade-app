@@ -35,7 +35,7 @@ const StyledButton = styled(Button)`
   text-transform: uppercase;
 `;
 
-const HomePage = () => {
+const HomePage = ({ user }) => {
   const { currentUser, cityPath, enableRanking } = useContext(CityContext);
   const name = currentUser.displayName;
 
@@ -48,7 +48,7 @@ const HomePage = () => {
       {!enableRanking && <Modal name={name} />}
 
       <StyledUserName className="mt-3">
-        Olá, {name || 'Anônimo'},
+        Olá, {user?.name || user?.displayName || name || 'Pessoa anônima'},
       </StyledUserName>
       <p className="mt-3" style={{ fontSize: '12pt' }}>
         O Vota Cidade é uma ferramenta para a população encontrar candidatos(as)
