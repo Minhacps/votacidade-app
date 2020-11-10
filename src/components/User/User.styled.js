@@ -26,3 +26,11 @@ export const StyledSpan = styled.span`
     padding: 0;
   }
 `;
+
+export const AnonymousWarning = styled.div`
+  max-width: 500px;
+
+  p {
+    margin: 0;
+  }
+`;

@@ -16,7 +16,7 @@ const BaseAppRoutes = ({ user }) => {
   return (
     <Switch>
       <Route path={cityPath} exact>
-        <HomePage />
+        <HomePage user={user} />
       </Route>
       <Route path={`${cityPath}/questionario`} exact>
         <Questionnaire user={user} />

@@ -5,6 +5,9 @@ import {
   FacebookLoginButton,
   TwitterLoginButton,
 } from 'react-social-login-buttons';
+import styled from 'styled-components';
+import colors from 'styles/colors';
+import { ReactComponent as AnonymousIcon } from 'assets/icons/anonymous.svg';
 
 const buttonStyle = {
   fontSize: '12pt',
@@ -12,6 +15,26 @@ const buttonStyle = {
   paddingRight: 36,
   width: '100%',
 };
+
+const AnonymousButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 12pt;
+  height: 50px;
+  width: 100%;
+  border: none;
+  background-color: ${colors.grey500};
+  color: white;
+  margin: 5px;
+  border-radius: 3px;
+  padding: 0 10px;
+`;
+
+const AnonymousLabel = styled.span`
+  display: flex;
+  justify-content: center;
+  width: 84%;
+`;
 
 function SocialSignIn({ updateErrorMessage }) {
   const signInWithFacebook = () => {
@@ -85,6 +108,10 @@ function SocialSignIn({ updateErrorMessage }) {
         style={{ ...buttonStyle }}
         align="center"
       />
+      <AnonymousButton onClick={() => firebase.auth().signInAnonymously()}>
+        <AnonymousIcon />
+        <AnonymousLabel>Entrar anônimo</AnonymousLabel>
+      </AnonymousButton>
     </div>
   );
 }

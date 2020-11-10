@@ -17,6 +17,10 @@ const AnswersProvider = ({
   const [answersOutOfSync, setAnswersOutOfSync] = useState(0);
 
   useEffect(() => {
+    if (user?.isAnonymous) {
+      return;
+    }
+
     questionsService
       .getAnsweredQuestions({ firebase, currentUser, user })
       .then((answers) => {
