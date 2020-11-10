@@ -182,10 +182,10 @@ describe('<App />', () => {
       const sidebarButton = screen.getByRole('button', { name: /abrir menu/i });
       user.click(sidebarButton);
 
-      const usernameText = screen.getByText(
+      const usernameText = screen.getAllByText(
         new RegExp(mockedUser.displayName, 'i'),
       );
-      expect(usernameText).toBeInTheDocument();
+      expect(usernameText.length).toBe(2);
 
       const logoutButton = screen.getByRole('button', { name: /sair/i });
       user.click(logoutButton);
