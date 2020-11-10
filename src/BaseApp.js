@@ -9,7 +9,7 @@ import BaseAppRoutes from './BaseAppRoutes';
 import { getCustomToken } from './customTokenService';
 
 const BaseApp = ({ user }) => {
-  const { firebase, currentUser } = useContext(CityContext);
+  const { firebase, currentUser, questionnaire } = useContext(CityContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const signInWithCustomToken = async () => {
@@ -33,7 +33,12 @@ const BaseApp = ({ user }) => {
   }
 
   return (
-    <AnswersProvider user={user} currentUser={currentUser} firebase={firebase}>
+    <AnswersProvider
+      user={user}
+      currentUser={currentUser}
+      firebase={firebase}
+      questionnaire={questionnaire}
+    >
       <Authenticated user={user}>
         <BaseAppRoutes user={user} />
       </Authenticated>
