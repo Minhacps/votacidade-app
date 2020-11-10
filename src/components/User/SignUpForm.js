@@ -29,6 +29,7 @@ import {
 } from 'data/form-data';
 import { cidades } from 'data/cidades';
 import { AuthenticationContext } from '../../AuthenticationProvider';
+import { AnonymousWarning } from './User.styled';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /^ *(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})) *$/;
@@ -232,6 +233,27 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
             </Col>
           </Row>
         </>
+      )}
+
+      {socialSignUpUser?.isAnonymous && (
+        <AnonymousWarning>
+          <Alert color="primary">
+            <h5 className="alert-heading">Olá, eleitor(a),</h5>
+            <p>
+              Entendemos que privacidade é muito importante nos dias de hoje.
+              Por isso disponibilizamos a opção de participar do Vota
+              anonimamente.
+            </p>
+            <p>
+              Não se preocupe, seus dados serão armazenados apenas no seu
+              dispositivo.
+            </p>
+            <p>
+              A partir do momento que você clicar em "Sair", não terá mais
+              acesso às suas respostas.
+            </p>
+          </Alert>
+        </AnonymousWarning>
       )}
 
       <Row>
