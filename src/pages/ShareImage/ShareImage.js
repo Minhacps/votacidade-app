@@ -26,87 +26,51 @@ export const StyledButton = styled.button`
   align-items: center;
 `;
 
+const citySharing = {
+  Americana: {
+    img: divulgaAmericana,
+    download: 'Vota-Americana.png',
+  },
+  Campinas: {
+    img: divulgaCmp,
+    download: 'Vota-Campinas.png',
+  },
+  'João Pessoa': {
+    img: divulgaJampa,
+    download: 'Vota-Jampa.png',
+  },
+  Recife: {
+    img: divulgaRecife,
+    download: 'Vota-Recife.png',
+  },
+  'Porto Alegre': {
+    img: divulgaPoa,
+    download: 'Vota-Poa.png',
+  },
+};
+
 const ShareImage = () => {
   const { cityName } = useContext(CityContext);
+
+  const sharingData = citySharing[cityName];
+  if (!sharingData) {
+    return null;
+  }
 
   return (
     <Container className="py-4">
       <Row className="justify-content-center">
         <Col md="6">
-          {cityName === 'Americna' && (
-            <>
-              <img
-                src={divulgaAmericana}
-                alt={'Imagem de compartilhamento do Vota'}
-                className="rounded w-100"
-              />
-              <CenteredContent>
-                <a href={divulgaAmericana} download={'Vota-Americana.png'}>
-                  <StyledButton>Compartilhe o Vota!!</StyledButton>
-                </a>
-              </CenteredContent>
-            </>
-          )}
-
-          {cityName === 'Campinas' && (
-            <>
-              <img
-                src={divulgaCmp}
-                alt={'Imagem de compartilhamento do Vota'}
-                className="rounded w-100"
-              />
-              <CenteredContent>
-                <a href={divulgaCmp} download={'Vota-Campinas.png'}>
-                  <StyledButton>Compartilhe o Vota!!</StyledButton>
-                </a>
-              </CenteredContent>
-            </>
-          )}
-
-          {cityName === 'Porto Alegre' && (
-            <>
-              <img
-                src={divulgaPoa}
-                alt={'Imagem de compartilhamento do Vota'}
-                className="rounded w-100"
-              />
-              <CenteredContent>
-                <a href={divulgaPoa} download={'Vota-PortoAlegre.png'}>
-                  <StyledButton>Compartilhe o Vota!!</StyledButton>
-                </a>
-              </CenteredContent>
-            </>
-          )}
-
-          {cityName === 'Recife' && (
-            <>
-              <img
-                src={divulgaRecife}
-                alt={'Imagem de compartilhamento do Vota'}
-                className="rounded w-100"
-              />
-              <CenteredContent>
-                <a href={divulgaRecife} download={'Vota-Recife.png'}>
-                  <StyledButton>Compartilhe o Vota!!</StyledButton>
-                </a>
-              </CenteredContent>
-            </>
-          )}
-
-          {cityName === 'João Pessoa' && (
-            <>
-              <img
-                src={divulgaJampa}
-                alt={'Imagem de compartilhamento do Vota'}
-                className="rounded w-100"
-              />
-              <CenteredContent>
-                <a href={divulgaJampa} download={'Vota-Jampa.png'}>
-                  <StyledButton>Compartilhe o Vota!!</StyledButton>
-                </a>
-              </CenteredContent>
-            </>
-          )}
+          <img
+            src={sharingData.img}
+            alt={'Imagem de compartilhamento do Vota'}
+            className="rounded w-100"
+          />
+          <CenteredContent>
+            <a href={sharingData.img} download={sharingData.download}>
+              <StyledButton>Compartilhe o Vota!!</StyledButton>
+            </a>
+          </CenteredContent>
         </Col>
       </Row>
     </Container>
