@@ -1,18 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.dc4116d4.chunk.css",
-    "main.js": "/static/js/main.938cbf39.chunk.js",
-    "main.js.map": "/static/js/main.938cbf39.chunk.js.map",
+    "main.js": "/static/js/main.32b8d65e.chunk.js",
+    "main.js.map": "/static/js/main.32b8d65e.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f8a93575.js",
     "runtime-main.js.map": "/static/js/runtime-main.f8a93575.js.map",
     "static/js/2.3b1c97cb.chunk.js": "/static/js/2.3b1c97cb.chunk.js",
     "static/js/2.3b1c97cb.chunk.js.map": "/static/js/2.3b1c97cb.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.e60135d4af11c2b8284e60f941681c25.js": "/precache-manifest.e60135d4af11c2b8284e60f941681c25.js",
+    "precache-manifest.85c23b3b47c94bbb1d8677bc999d911a.js": "/precache-manifest.85c23b3b47c94bbb1d8677bc999d911a.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.dc4116d4.chunk.css.map": "/static/css/main.dc4116d4.chunk.css.map",
     "static/js/2.3b1c97cb.chunk.js.LICENSE.txt": "/static/js/2.3b1c97cb.chunk.js.LICENSE.txt",
     "static/media/afinidade.png": "/static/media/afinidade.957a493e.png",
+    "static/media/anonymous.14bd2ff6.svg": "/static/media/anonymous.14bd2ff6.svg",
     "static/media/campinas-fundo.jpg": "/static/media/campinas-fundo.e45bfdc1.jpg",
     "static/media/filter.e106c845.svg": "/static/media/filter.e106c845.svg",
     "static/media/find.d4d14fc0.svg": "/static/media/find.d4d14fc0.svg",
@@ -33,6 +34,6 @@
     "static/js/runtime-main.f8a93575.js",
     "static/js/2.3b1c97cb.chunk.js",
     "static/css/main.dc4116d4.chunk.css",
-    "static/js/main.938cbf39.chunk.js"
+    "static/js/main.32b8d65e.chunk.js"
   ]
 }
