@@ -17,6 +17,7 @@ const AuthenticationProvider = ({ children }) => {
 
       if (!authUser) {
         window.localStorage.removeItem('userData');
+        window.localStorage.removeItem('answers');
         setSignUpFormUserData(null);
       }
     });

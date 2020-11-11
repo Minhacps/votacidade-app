@@ -17,10 +17,6 @@ const AnswersProvider = ({
   const [answersOutOfSync, setAnswersOutOfSync] = useState(0);
 
   useEffect(() => {
-    if (user?.isAnonymous) {
-      return;
-    }
-
     questionsService
       .getAnsweredQuestions({ firebase, currentUser, user })
       .then((answers) => {
@@ -43,6 +39,8 @@ const AnswersProvider = ({
 
     setAnswers(updatedAnswers);
     setAnswersOutOfSync(answersCounter);
+
+    window.localStorage.setItem('answers', JSON.stringify(updatedAnswers));
 
     if (isLastQuestion || answersCounter === answersToCollectBeforeSync) {
       questionsService.syncAnswers({
