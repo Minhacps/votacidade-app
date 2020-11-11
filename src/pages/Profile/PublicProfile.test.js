@@ -59,7 +59,10 @@ describe('<PublicProfile />', () => {
   });
 
   it("should display the candidate's profile and its answers", async () => {
-    mockProfileDatabase(candidateMock, mockCandidateAnswers);
+    mockProfileDatabase(
+      { ...candidateMock, socialGroup: undefined },
+      mockCandidateAnswers,
+    );
     const {
       name,
       description,

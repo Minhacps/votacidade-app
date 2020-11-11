@@ -1,5 +1,4 @@
 const atob = require('atob');
-const { firebaseInstances } = require('../firebaseKeys');
 const calculateTopMatches = require('../getTopMatches/getTopMatches');
 const sentry = require('../sentry');
 
@@ -8,9 +7,8 @@ const getTopMatches = async (request, response) => {
 
   try {
     const query = JSON.parse(atob(request.query.query));
-    const firebase = firebaseInstances[query.instance]();
 
-    const result = await calculateTopMatches(firebase, query.answers);
+    const result = await calculateTopMatches(query.instance, query.answers);
 
     response.setHeader('Cache-Control', 's-maxage=60');
     response.json(result);
@@ -21,6 +19,7 @@ const getTopMatches = async (request, response) => {
 
     response.status(500);
     response.send(error);
+    console.error(error);
   } finally {
     transaction.finish();
   }

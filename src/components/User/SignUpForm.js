@@ -29,6 +29,7 @@ import {
 } from 'data/form-data';
 import { cidades } from 'data/cidades';
 import { AuthenticationContext } from '../../AuthenticationProvider';
+import { AnonymousWarning } from './User.styled';
 
 // eslint-disable-next-line no-useless-escape
 const EMAIL_REGEX = /^ *(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})) *$/;
@@ -59,6 +60,11 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
       description,
     } = data;
     setLoading(true);
+
+    if (socialSignUpUser?.isAnonymous) {
+      setSignUpFormUserData({ city, role: ROLE_VOTER });
+      return;
+    }
 
     const emailSanitized = email.trim();
 
@@ -163,63 +169,93 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Row>
-        <Col>
-          {loading && <Spinner data-testid="signup-loader" color="primary" />}
-          {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
+      {!socialSignUpUser?.isAnonymous && (
+        <>
+          <Row>
+            <Col>
+              {loading && (
+                <Spinner data-testid="signup-loader" color="primary" />
+              )}
+              {errorMessage && <Alert color="danger">{errorMessage}</Alert>}
 
-          <FormGroup>
-            <Label htmlFor="name">Nome completo</Label>
-            <Input
-              name="name"
-              id="name"
-              placeholder="Digite seu nome completo"
-              innerRef={register({ required: true })}
-              invalid={errors.name}
-              defaultValue={
-                (socialSignUpUser && socialSignUpUser.displayName) || ''
-              }
-            />
-            {errors.name?.type === 'required' && (
-              <FormFeedback>Campo obrigatório</FormFeedback>
-            )}
-          </FormGroup>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <FormGroup>
-            <Label for="email">E-mail</Label>
-            <Input
-              type="text"
-              name="email"
-              id="email"
-              innerRef={register({ required: true, pattern: EMAIL_REGEX })}
-              invalid={errors.email}
-              defaultValue={(socialSignUpUser && socialSignUpUser.email) || ''}
-              placeholder="Digite seu e-mail"
-            />
-            {errors.email?.type === 'required' && (
-              <FormFeedback>Campo obrigatório</FormFeedback>
-            )}
-            {errors.email?.type === 'pattern' && (
-              <FormFeedback>E-mail inválido</FormFeedback>
-            )}
-          </FormGroup>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {!socialSignUpUser && (
-            <InputPassword
-              innerRef={register({ required: true, minLength: 6 })}
-              invalid={errors.password}
-              errors={errors}
-              placeholder="Digite uma senha"
-            />
-          )}
-        </Col>
-      </Row>
+              <FormGroup>
+                <Label htmlFor="name">Nome completo</Label>
+                <Input
+                  name="name"
+                  id="name"
+                  placeholder="Digite seu nome completo"
+                  innerRef={register({ required: true })}
+                  invalid={errors.name}
+                  defaultValue={
+                    (socialSignUpUser && socialSignUpUser.displayName) || ''
+                  }
+                />
+                {errors.name?.type === 'required' && (
+                  <FormFeedback>Campo obrigatório</FormFeedback>
+                )}
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="email">E-mail</Label>
+                <Input
+                  type="text"
+                  name="email"
+                  id="email"
+                  innerRef={register({ required: true, pattern: EMAIL_REGEX })}
+                  invalid={errors.email}
+                  defaultValue={
+                    (socialSignUpUser && socialSignUpUser.email) || ''
+                  }
+                  placeholder="Digite seu e-mail"
+                />
+                {errors.email?.type === 'required' && (
+                  <FormFeedback>Campo obrigatório</FormFeedback>
+                )}
+                {errors.email?.type === 'pattern' && (
+                  <FormFeedback>E-mail inválido</FormFeedback>
+                )}
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              {!socialSignUpUser && (
+                <InputPassword
+                  innerRef={register({ required: true, minLength: 6 })}
+                  invalid={errors.password}
+                  errors={errors}
+                  placeholder="Digite uma senha"
+                />
+              )}
+            </Col>
+          </Row>
+        </>
+      )}
+
+      {socialSignUpUser?.isAnonymous && (
+        <AnonymousWarning>
+          <Alert color="primary">
+            <h5 className="alert-heading">Olá, eleitor(a),</h5>
+            <p>
+              Entendemos que privacidade é muito importante nos dias de hoje.
+              Por isso disponibilizamos a opção de participar do Vota
+              anonimamente.
+            </p>
+            <p>
+              Não se preocupe, seus dados serão armazenados apenas no seu
+              dispositivo.
+            </p>
+            <p>
+              A partir do momento que você clicar em "Sair", não terá mais
+              acesso às suas respostas.
+            </p>
+          </Alert>
+        </AnonymousWarning>
+      )}
+
       <Row>
         <Col>
           <FormGroup>
@@ -244,15 +280,16 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
               <FormFeedback>Campo obrigatório</FormFeedback>
             )}
           </FormGroup>
-
-          <FormGroup>
-            <CustomInput
-              type="checkbox"
-              id="isCandidate"
-              label="Sou candidata(o)"
-              onClick={() => toggleIsCandidate(!isCandidate)}
-            />
-          </FormGroup>
+          {!socialSignUpUser?.isAnonymous && (
+            <FormGroup>
+              <CustomInput
+                type="checkbox"
+                id="isCandidate"
+                label="Sou candidata(o)"
+                onClick={() => toggleIsCandidate(!isCandidate)}
+              />
+            </FormGroup>
+          )}
         </Col>
       </Row>
       {isCandidate && (
@@ -465,7 +502,7 @@ const SignUpForm = ({ onBackClick, socialSignUpUser }) => {
       <Row>
         <Col className="text-center">
           <Button color="primary" block data-testid="submit-button">
-            Cadastrar
+            {socialSignUpUser?.isAnonymous ? 'Entrar' : 'Cadastrar'}
           </Button>
         </Col>
       </Row>

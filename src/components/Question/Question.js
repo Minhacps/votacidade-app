@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Alert, Label, FormText, FormGroup } from 'reactstrap';
+import { Alert, Form, FormGroup, FormText, Label } from 'reactstrap';
 
 import { ROLE_CANDIDATE } from 'constants/userRoles';
-
-import { answersCollection } from 'constants/firestoreCollections';
 import { CityContext } from 'components/CityProvider/CityProvider';
 import { AnswersContext } from '../AnswersProvider/AnswersProvider';
 
@@ -47,12 +45,6 @@ const Question = ({
     const currentAnswersSize = Object.keys(allAnswers).length;
 
     updateAnswers(answer);
-
-    firebase
-      .firestore()
-      .collection(answersCollection(user.role))
-      .doc(currentUser.uid)
-      .set(answer, { merge: true });
 
     // Last question.
     const candidateCondition =
