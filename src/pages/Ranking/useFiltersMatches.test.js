@@ -38,6 +38,25 @@ const data = [
 ];
 
 describe('useFilterMatches', () => {
+  it('returns a filtered list based on name', () => {
+    const appliedFilters = {
+      name: 'fred',
+      age: '',
+      gender: '',
+      socialGroup: '',
+      ethnicGroup: '',
+      politicalParty: '',
+    };
+
+    const result = useFilterMatches({
+      matches: data,
+      formValues: appliedFilters,
+    });
+
+    expect(result.length).toBe(1);
+    expect(result[0].id).toBe('candidate');
+  });
+
   it('returns a filtered list based on social group', () => {
     const appliedFilters = {
       age: '',

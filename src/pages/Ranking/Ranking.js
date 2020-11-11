@@ -41,6 +41,7 @@ export default function Ranking() {
   const { register, control, getValues, watch, reset } = useForm();
 
   const formValues = getValues([
+    'name',
     'age',
     'gender',
     'socialGroup',
