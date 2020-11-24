@@ -23,7 +23,7 @@ const getMatchScores = (voterAnswers, allCandidatesData) => {
     .reduce((matches, candidateId) => {
       const { answers, ...candidateProfile } = allCandidatesData[candidateId];
 
-      if (!answers || answers.length !== 30) {
+      if (!answers || answers.length !== 30 || answers.includes(null)) {
         return matches;
       }
 

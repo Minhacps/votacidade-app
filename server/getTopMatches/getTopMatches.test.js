@@ -89,4 +89,23 @@ describe('getTopMatches', () => {
     expect(result[0].id).toEqual('candidate-2');
     expect(result[1].id).toEqual('candidate-1');
   });
+
+  it('removes null values from the answers list', async () => {
+    const fakeDatabaseData = {
+      'candidate-1': {
+        ...candidateData,
+        answers: [null, ...Array(29).fill('CT')],
+      },
+      'candidate-2': {
+        ...candidateData,
+        answers: Array(30).fill('DT'),
+      },
+    };
+
+    mockCandidateAnswers(fakeDatabaseData);
+
+    const result = await getTopMatches(instanceName, voterAnswers);
+
+    expect(result.length).toBe(1);
+  });
 });
