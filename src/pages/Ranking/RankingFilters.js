@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import Select from 'react-select';
-import { CustomInput, Form, FormGroup, Label, Row, Col } from 'reactstrap';
+import {
+  CustomInput,
+  Form,
+  FormGroup,
+  Label,
+  Row,
+  Col,
+  Input,
+} from 'reactstrap';
 
 import { alfabeticOrder } from 'styles/helper';
 import { ReactComponent as FilterIcon } from 'assets/icons/filter.svg';
@@ -57,6 +65,17 @@ export default function RankingFilters({
         </Col>
       </Row>
       <InvisibleForm isInvisible={isInvisible}>
+        <FormGroup>
+          <Label for="name">Nome</Label>
+          <Input
+            name="name"
+            id="name"
+            placeholder="Digite o nome do(a) candidato(a)"
+            aria-label="Nome"
+            innerRef={register}
+            defaultValue=""
+          />
+        </FormGroup>
         <Row>
           <Col xs="12" sm="6">
             <FormGroup>

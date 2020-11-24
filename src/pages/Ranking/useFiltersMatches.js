@@ -18,6 +18,17 @@ export default function useFilterMatches({ matches, formValues }) {
     );
   };
 
+  const filterByName = (data) => {
+    if (!formValues.name) {
+      return data;
+    }
+
+    const candidateName = String(data.name).toLowerCase();
+    const filterName = String(formValues.name).toLowerCase();
+
+    return candidateName.includes(filterName);
+  };
+
   const filterByAge = (data) => {
     if (!formValues.age) {
       return data;
@@ -51,6 +62,7 @@ export default function useFilterMatches({ matches, formValues }) {
   };
 
   return matches
+    .filter(filterByName)
     .filter(filterBySocialGroup)
     .filter(filterByAge)
     .filter(filterByGender)
