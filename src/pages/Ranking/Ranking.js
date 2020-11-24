@@ -30,6 +30,7 @@ import {
 import useFilterMatches from './useFiltersMatches';
 import RankingFilters from './RankingFilters';
 import Rating from './Rating';
+import { NavLink } from 'react-router-dom';
 
 export default function Ranking() {
   const [listLimiter, setListlimiter] = useState(10);
@@ -96,6 +97,14 @@ export default function Ranking() {
       </PageDescription>
 
       <Rating />
+
+      <Divider />
+
+      <PageDescription>
+        <NavLink to={`${cityPath}/compartilhe`}>
+          <strong>Compartilhe o Vota Cidade nas suas redes sociais! </strong>{' '}
+        </NavLink>
+      </PageDescription>
 
       <Divider />
 
