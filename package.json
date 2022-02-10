@@ -15,7 +15,7 @@
     "classnames": "^2.2.6",
     "firebase": "^7.23.0",
     "logrocket": "^1.0.13",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
