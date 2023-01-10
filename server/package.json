@@ -16,7 +16,7 @@
     "@sentry/node": "^5.25.0",
     "@sentry/tracing": "^5.25.0",
     "atob": "^2.1.2",
-    "firebase-admin": "^9.2.0",
+    "firebase-admin": "^11.4.1",
     "nanoid": "^3.1.12",
     "node-fetch": "^2.6.1"
   },
